@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Builder</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/mdi/css/materialdesignicons.css" />
+    <link rel="stylesheet" href="bower_components/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="bower_components/lumx/dist/lumx.css" />
+    <link rel="stylesheet" href="bower_components/perfect-scrollbar/src/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css" />
+    <link rel="stylesheet" href="bower_components/swiper/dist/css/swiper.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="style/main.css">
+    <!-- endbuild -->
+</head>
+<body ng-app="myBuilderApp">
+<!--[if lte IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div ui-view="" class="main-box"></div>
+
+
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/velocity/velocity.js"></script>
+<script src="bower_components/velocity/velocity.ui.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/lumx/dist/lumx.js"></script>
+<script src="bower_components/angular-slimscroll/angular-slimscroll.js"></script>
+<script src="bower_components/oclazyload/dist/ocLazyLoad.js"></script>
+<script src="bower_components/perfect-scrollbar/src/perfect-scrollbar.js"></script>
+<script src="bower_components/angular-perfect-scrollbar/src/angular-perfect-scrollbar.js"></script>
+<script src="bower_components/quill/dist/quill.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
+<script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+<script src="bower_components/swiper/dist/js/swiper.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/plugins/onresize.js"></script>
+<script src="scripts/colorpick/colorpick.js"></script>
+<script src="scripts/textEditor/editor.js"></script>
+<script src="scripts/plugins/rightClickMenu.js"></script>
+<script src="scripts/plugins/multipleChoice.js"></script>
+<script src="scripts/eleSetting/eleSetting.js"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/workSpace.js"></script>
+<script src="scripts/directives/directives.js"></script>
+<script src="scripts/directives/eleDirectives.js"></script>
+<script src="scripts/eleResource/eleResource.js"></script>
+<script src="scripts/services/services.js"></script>
+<!-- endbuild -->
+
+</body>
+</html>

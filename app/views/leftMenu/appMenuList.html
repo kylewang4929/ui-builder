@@ -1,0 +1,36 @@
+<div class="menu-list" ng-class="{true:'active',false:'unActive'}[activeMenu!='']">
+    <div class="menu-item-box" ng-click="openMenu('hideEle')">
+        <div class="menu-item z-depth-2 hideEle"
+             ng-class="{true:'active',false:'unActive'}[activeMenu=='hideEle']">
+            <div class="icon">
+                <i class="mdi mdi-layers"></i>
+            </div>
+            <div class="text">
+                元素列表
+            </div>
+        </div>
+        <div class="svg" ng-class="{true:'active',false:'unActive'}[activeMenu=='hideEle']">
+            <svg class="symbol-leftBarButtonEarMiddle ear ear-middle" width="71px" height="89px"
+                 viewBox="0 0 75 89"
+                 version="1.1"
+                 data-reactid=".0.0.5.1.$=1$=01$leftBar=20:0.0.$addPanelInfra=1addPanel.$selectedSvg">
+                <defs>
+                    <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox"
+                            id="leftBarButtonEarMdShadow">
+                        <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                        <feGaussianBlur stdDeviation="3.581" in="shadowOffsetOuter1"
+                                        result="shadowBlurOuter1"></feGaussianBlur>
+                        <feColorMatrix
+                                values="0 0 0 0 0.0862745098   0 0 0 0 0.176470588   0 0 0 0 0.239215686  0 0 0 0.266 0"
+                                in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1"></feColorMatrix>
+                        <feMerge>
+                            <feMergeNode in="SourceGraphic"></feMergeNode>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <path d="M66.998,3 C65.464,15.164 58.341,19.407 48.79,19.698 C48.462,19.687 30.836,19.685 30.836,19.685 L30.836,19.694 C17.657,19.789 6.999,30.783 6.999,43.955 C6.999,57.187 17.751,67.664 31.011,67.664 C26.69,67.664 45.65,67.707 45.65,67.707 C54.7,68.18 65.249,71.451 66.998,87.003 L66.998,3 L66.998,3 Z"
+                      fill="#4FC1E9" filter="url(#leftBarButtonEarMdShadow)"></path>
+            </svg>
+        </div>
+    </div>
+</div>

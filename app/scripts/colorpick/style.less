@@ -1,0 +1,450 @@
+.color-pick-box {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: absolute;
+  z-index: 2000;
+
+  &.lager{
+    & .my-color{
+      width:280px;
+    }
+    & .title{
+      height: 56px;
+      position: relative;
+      z-index: 10;
+      line-height: 56px;
+      padding: 0px 20px;
+      border: none;
+      & button {
+        cursor: pointer;
+        float: right;
+        margin-top: 15px;
+      }
+    }
+  }
+
+  & .ele-setting-content{
+    height: 320px;
+    position: relative;
+    & .left-menu{
+      height: 100%;
+      border-right:2px solid fadeout(@baseColor, 86%);
+      width: 50px;
+      position: absolute;
+      text-align: center;
+      z-index: 1;
+      color: @baseColor;
+      background-color: fadeout(@baseColor, 90%);
+      & .menu-item{
+        &:hover{
+          background-color: fadeout(@baseColor, 80%);
+        }
+        &.active{
+          background-color: #fff;
+          color: @baseTextColor;
+          & .border{
+            display: block;
+          }
+        }
+        & .border{
+          width: 2px;
+          height: 100%;
+          top: 0px;
+          background-color: #fff;
+          display: none;
+          position: absolute;
+          right: -2px;
+        }
+        position: relative;
+        padding: 10px 0px;
+        cursor: pointer;
+        font-size: 18px;
+      }
+    }
+    & .right-content{
+      position: absolute;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      padding: 0px 0px 0px 50px;
+      & .scroller-page{
+        padding: 0px 20px;
+      }
+      top: 0px;
+      & .title-text{
+        padding: 10px 0px 24px 0px;
+        font-size: 15px;
+        font-weight: bold;
+      }
+      & .sub-content{
+        padding: 0px 0px 20px 0px;
+        margin: 0px 0px 20px 0px;
+        border-bottom: 1px solid @baseBorderColor;
+        &:nth-last-child(1){
+          border:none
+        }
+        & .sub-title{
+          font-size: 14px;
+          color: @baseTextColor;
+          padding: 0px 0px 10px 0px;
+        }
+        & .radius-box{
+          width: 80px;
+          height: 80px;
+          margin: 40px auto;
+          border: 1px solid @baseColor;
+          position: relative;
+          color: #fff;
+          text-align: center;
+          font-size: 13px;
+          line-height: 24px;
+          & .input-box{
+            position: absolute;
+            background-color: @baseColor;
+            border-radius: 6px;
+            width: 40px;
+            height: 24px;
+            left: 50%;
+            top: 50%;
+          }
+          & .center{
+            margin: -12px 0px 0px -20px;
+          }
+          & .top-left{
+            top: 0%;
+            left: 0%;
+            margin: -30px 0px 0px -46px;
+          }
+          & .top-right{
+            top: 0%;
+            left: 100%;
+            margin: -30px 0px 0px 6px;
+          }
+          & .bottom-left{
+            top: 100%;
+            left: 0%;
+            margin: 6px 0px 0px -46px;
+          }
+          & .bottom-right{
+            top: 100%;
+            left: 100%;
+            margin: 6px 0px 0px 6px;
+          }
+        }
+        & .border-box{
+          width: 80px;
+          margin: 30px auto 20px auto;
+          position: relative;
+          color: #fff;
+          text-align: center;
+          height: 80px;
+          border: 1px solid @baseColor;
+          & .input-box{
+            position: absolute;
+            background-color: @baseColor;
+            border-radius: 6px;
+            width: 40px;
+            height: 24px;
+            left: 50%;
+            top: 50%;
+          }
+          & .center{
+            margin: -12px 0px 0px -20px;
+          }
+          & .top{
+            top: 0%;
+            left: 50%;
+            margin: -36px 0px 0px -20px;
+          }
+          & .right{
+            top: 50%;
+            left: 100%;
+            margin: -12px 0px 0px 12px;
+          }
+          & .left{
+            top: 50%;
+            left: 0%;
+            margin: -12px 0px 0px -52px;
+          }
+          & .bottom{
+            top: 100%;
+            left: 50%;
+            margin: 12px 0px 0px -20px;
+          }
+        }
+        & .color-box{
+          .transition(0.1s);
+          width: 100px;
+          height: 30px;
+          border-radius: 6px;
+          background-color: #fff;
+          cursor: pointer;
+          &:hover{
+            .z-depth-2;
+          }
+        }
+      }
+    }
+  }
+  & .my-color {
+    width: 200px;
+    border-radius: 10px;
+    .z-depth-2;
+    background-color: #fff;
+    & .ele-setting-option{
+      position: relative;
+      z-index: 2;
+    }
+    & .tab-box{
+      & .btn {
+        height: 45px;
+        color: @baseTextColor;
+        border-radius: 0px;
+        border-bottom: 2px solid rgb(214, 214, 214);
+        &.active {
+          border-bottom: 2px solid @baseColor;
+          color: @baseColor;
+        }
+        &:hover {
+          background-color: #fff;
+          color: @baseColor;
+        }
+      }
+    }
+  }
+
+  & .title {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 0px 10px 0px 15px;
+    height: 50px;
+    width: 100%;
+    background-color: @baseColor;
+    line-height: 50px;
+    font-size: 16px;
+    color: #fff;
+    cursor: move;
+    border-bottom: 1px solid @baseBorderColor;
+    & button {
+      cursor: pointer;
+      float: right;
+      margin-top: 12px;
+      background-color: @baseColorDark;
+      &:hover{
+        background-color: @baseColorDarkHover;
+      }
+    }
+  }
+
+  & .content-box {
+    & .sub-title {
+      overflow: hidden;
+      padding: 10px 12px;
+      font-size: 14px;
+      & .left {
+        float: left;
+        color: @baseTextColor;
+      }
+      & .right {
+        float: right;
+        color: @baseColor;
+      }
+    }
+  }
+
+  & .color-list {
+    &.box-padding {
+      padding: 4px 8px;
+    }
+    margin-bottom: 10px;
+    & .item {
+      width: 25%;
+      float: left;
+      height: 30px;
+      cursor: pointer;
+      .transition(0.2s);
+
+      &:hover {
+        .scale-10;
+        .z-depth-2;
+      }
+
+    }
+    & .item-round {
+      width: 20%;
+      float: left;
+      padding: 5px 0px;
+      & .round {
+        cursor: pointer;
+        .transition(0.2s);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        margin: auto;
+        .z-depth-1;
+        text-align: center;
+        color: @baseColor;
+        &:hover {
+          .scale-10;
+          .z-depth-2;
+        }
+      }
+    }
+  }
+
+  & .add-color {
+    margin-top: 30px;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: @baseColor;
+    & i {
+      cursor: pointer;
+    }
+    & .right {
+      float: right;
+      color: @baseTextColor;
+    }
+  }
+}
+
+& .color-pick {
+  width: 228px;
+  background-color: #fff;
+  position: absolute;
+  border-radius: 10px;
+  .z-depth-2;
+  z-index: 2001;
+
+  & .color-code {
+
+    & .btn {
+      height: 45px;
+      color: @baseTextColor;
+      border-radius: 0px;
+      border-bottom: 2px solid rgb(214, 214, 214);
+      &.active {
+        border-bottom: 2px solid @baseColor;
+        color: @baseColor;
+      }
+      &:hover {
+        background-color: #fff;
+        color: @baseColor;
+      }
+    }
+
+    & .color-code-box {
+      overflow: hidden;
+      & .item {
+        padding: 0px 5px;
+        width: 33.33%;
+        float: left;
+      }
+      padding: 0px 40px 20px 40px;
+    }
+  }
+
+  & .color-line {
+    width: 228px;
+    position: relative;
+    cursor: pointer;
+    & .color-line-handle {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      position: absolute;
+      top: -2px;
+      left: -7px;
+      background-color: #fff;
+    }
+    & img {
+      width: 100%;
+      height: 10px;
+    }
+  }
+
+  & .bottom-button {
+    padding: 10px 0px 10px 0px;
+    overflow: hidden;
+    & .item {
+      width: 50%;
+      float: left;
+      text-align: center;
+      & button {
+        width: 80%;
+      }
+    }
+  }
+  & .color-select-box {
+    height: 125px;
+    width: 228px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    & .color-select-box-handle {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      background-color: #fff;
+      z-index: 999;
+    }
+
+    & .color-layer {
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+
+      &.main {
+        background-color: @baseColor;
+      }
+      &.black {
+        background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #000);
+      }
+      &.white {
+        background-image: linear-gradient(to right, #FFF, rgba(255, 255, 255, 0));
+      }
+
+    }
+
+  }
+  & .current-color-box {
+    padding: 30px 25px 15px 25px;
+
+    & .current-color {
+      width: 178px;
+      border-radius: 10px;
+      cursor: pointer;
+      background-size: 10px 10px;
+      height: 10px;
+      position: relative;
+      & .handle-box {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #fff;
+        position: absolute;
+        left: -6px;
+        top: -1px;
+        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25), 0px 2px 10px 0px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+      }
+      & .main {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0px;
+        top: 0px;
+        border-radius: 10px;
+      }
+    }
+  }
+}

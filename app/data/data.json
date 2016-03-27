@@ -1,0 +1,307 @@
+{
+    "head": {
+    "ID": "head",
+    "isPointer": "true",
+    "target": ["head"],
+    "type": "head",
+    "name": "导航",
+    "background": {
+        "url": ""
+    },
+    "class": ["z-depth-1"],
+    "style": {
+        "min-height": "65px",
+        "background-size": "cover",
+        "background-position": "center center",
+        "background-repeat": "no-repeat",
+        "background-color": "#fff",
+        "position": "relative"
+    },
+    "phoneStyle": {
+        "min-height": "65px"
+    },
+    "eleList": [
+        {
+            "ID": "ele1234",
+            "type": "image",
+            "url": "images/website/logo.png",
+            "phoneStyle": {
+                "position": {
+                    "left": "15px",
+                    "top": "15px"
+                },
+                "border": {
+                    "width": "170px",
+                    "min-height": "50px"
+                },
+                "style": {},
+                "scale": 0.7
+            },
+            "style": {},
+            "position": {
+                "left": "91px",
+                "top": "6px"
+            },
+            "border": {
+                "width": "170px",
+                "min-height": "50px"
+            },
+            "eleTemplateType": "ele-image-default",
+            "$$hashKey": "object:214"
+        },
+        {
+            "ID": "menu12",
+            "type": "menu",
+            "item": [
+                {
+                    "ID": "123",
+                    "name": "首页"
+                },
+                {
+                    "ID": "456",
+                    "name": "产品列表"
+                },
+                {
+                    "ID": "4564",
+                    "name": "服务"
+                },
+                {
+                    "ID": "4561",
+                    "name": "关于我们"
+                }
+            ],
+            "phoneStyle": {
+                "position": {
+                    "left": "223px",
+                    "top": "10px"
+                },
+                "border": {
+                    "width": "40px",
+                    "min-height": "40px",
+                    "border-color": "#4FC1E9",
+                    "border-width": "2px",
+                    "border-style": "solid"
+                },
+                "style": {
+                    "color": "#4FC1E9",
+                    "font-size": "20px"
+                },
+                "scale": 0.7
+            },
+            "style": {
+                "text-align": "center",
+                "color": "#7e7e7e"
+            },
+            "position": {
+                "left": "470px",
+                "top": "8px"
+            },
+            "border": {
+                "width": "477px",
+                "min-height": "50px"
+            },
+            "eleTemplateType": "ele-menu-default",
+            "$$hashKey": "object:215"
+        }
+    ],
+    "eleTemplateType": "head-default",
+    "$$hashKey": "object:137"
+}, "pageList": [
+    {
+        "ID": "123",
+        "name": "首页",
+        "sessionList": [
+            {
+                "isPointer": "true",
+                "target": ["head"]
+            },
+            {
+                "ID": "session1",
+                "type": "session",
+                "name": "Banner",
+                "background": {
+                    "url": "images/website/bg1.jpg"
+                },
+                "style": {
+                    "min-height": "500px",
+                    "background-size": "cover",
+                    "background-position": "center center",
+                    "background-repeat": "no-repeat",
+                    "position": "relative"
+                },
+                "phoneStyle": {
+                    "min-height": "430px"
+                },
+                "eleList": [
+                    {
+                        "ID": "ele13",
+                        "type": "text",
+                        "textValue": "<div><span class=\"author-galadriel\"><span style=\"font-size: 38px;\"><i><span style=\"color: rgb(255, 255, 255);\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 扣细节提质量</span></i></span></span></div><div><span class=\"author-galadriel\"><span style=\"font-size: 48px;\"><i><b><span style=\"color: rgb(255, 255, 255);\">精益求精求完美</span></b></i></span></span></div>",
+                        "style": {
+                            "line-height": "54px"
+                        },
+                        "position": {
+                            "left": "45px",
+                            "top": "130px"
+                        },
+                        "border": {
+                            "width": "378px",
+                            "min-height": "129px"
+                        },
+                        "phoneStyle": {
+                            "position": {
+                                "left": "17px",
+                                "top": "28px"
+                            },
+                            "border": {
+                                "width": "378px",
+                                "min-height": "129px"
+                            },
+                            "style": {},
+                            "scale": 0.7
+                        },
+                        "eleTemplateType": "ele-text-default"
+                    },
+                    {
+                        "ID": "eleeee23",
+                        "type": "image",
+                        "url": "images/website/pc.png",
+                        "phoneStyle": {
+                            "position": {
+                                "left": "16px",
+                                "top": "131px"
+                            },
+                            "border": {
+                                "width": "352px",
+                                "min-height": "285px"
+                            },
+                            "style": {},
+                            "scale": 0.7
+                        },
+                        "style": {},
+                        "position": {
+                            "left": "580px",
+                            "top": "81px"
+                        },
+                        "border": {
+                            "width": "399px",
+                            "min-height": "324px"
+                        },
+                        "eleTemplateType": "ele-image-default"
+                    },
+                    {
+                        "ID": "ele33",
+                        "type": "image",
+                        "url": "images/website/shuangyinhao.png",
+                        "phoneStyle": {
+                            "position": {
+                                "left": "17px",
+                                "top": "23px"
+                            },
+                            "border": {
+                                "width": "70px",
+                                "min-height": "70px"
+                            },
+                            "style": {},
+                            "scale": 0.7
+                        },
+                        "style": {},
+                        "position": {
+                            "left": "44px",
+                            "top": "126px"
+                        },
+                        "border": {
+                            "width": "70px",
+                            "min-height": "70px"
+                        },
+                        "eleTemplateType": "ele-image-default"
+                    },
+                    {
+                        "ID": "ele43",
+                        "type": "text",
+                        "textValue": "<div><span class=\"author-galadriel\"><span style=\"color: rgb(255, 255, 255);\">注重树立品牌形象,提升品牌档次，探索大众需求，让企业形象以完美的姿态展现于市场，选择我们重塑品牌刻不容缓。</span></span></div>",
+                        "position": {
+                            "left": "45px",
+                            "top": "265px"
+                        },
+                        "border": {
+                            "width": "456px",
+                            "min-height": "50px"
+                        },
+                        "style": {
+                            "letter-spacing": "1px",
+                            "line-height": "20px",
+                            "margin-top": "-20px"
+                        },
+                        "phoneStyle": {
+                            "position": {
+                                "left": "23px",
+                                "top": "339px"
+                            },
+                            "border": {
+                                "width": "289px",
+                                "min-height": "80px"
+                            },
+                            "style": {},
+                            "scale": 0.8
+                        },
+                        "eleTemplateType": "ele-text-default"
+                    }
+                ],
+                "eleTemplateType": "session-default",
+                "$$hashKey": "object:138"
+            },
+            {
+                "ID": "session2",
+                "type": "session",
+                "name": "Banner",
+                "background": {
+                    "url": "images/website/bg.jpg"
+                },
+                "style": {
+                    "min-height": "400px",
+                    "background-size": "cover",
+                    "background-position": "center center",
+                    "background-repeat": "no-repeat",
+                    "position": "relative"
+                },
+                "phoneStyle": {
+                    "min-height": "159px"
+                },
+                "eleList": [
+                    {
+                        "ID": "elasd1",
+                        "type": "text",
+                        "showState": false,
+                        "textValue": "<div><span class=\"author-galadriel\"><span style=\"font-size: 38px;\"><i><span style=\"color: rgb(255, 255, 255);\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 扣细节提质量</span></i></span></span></div><div><span class=\"author-galadriel\"><span style=\"font-size: 48px;\"><i><b><span style=\"color: rgb(255, 255, 255);\">精益求精求完美</span></b></i></span></span></div>",
+                        "style": {},
+                        "position": {
+                            "left": "528px",
+                            "top": "30px"
+                        },
+                        "border": {
+                            "width": "378px",
+                            "min-height": "129px"
+                        },
+                        "phoneStyle": {
+                            "position": {
+                                "left": "20px",
+                                "top": "30px"
+                            },
+                            "border": {
+                                "width": "378px",
+                                "min-height": "129px"
+                            },
+                            "style": {},
+                            "scale": 0.7
+                        },
+                        "eleTemplateType": "ele-text-default"
+                    }
+                ],
+                "eleTemplateType": "session-default",
+                "$$hashKey": "object:139"
+            }
+        ],
+        "$$hashKey": "object:123"
+    }
+]}

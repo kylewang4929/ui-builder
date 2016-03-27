@@ -1,0 +1,15 @@
+<div class="resource-box" ng-controller="textResourceCtrl">
+
+    <div class="line-sub-title-box">
+        <div class="line-sub-title">
+            标题
+        </div>
+    </div>
+
+    <div class="preview-ele-item normal" lx-ripple="white" ng-repeat="ele in activeEleList.eleList">
+        <div class="preview-ele-item-box empty-bg">
+            <div class="over-shadow"><i class="mdi mdi-checkbox-marked-circle"></i></div>
+            <div class="preview-ele" create-thumbnail="ele" type="web" ele-type="ele" layout="normal"></div>
+        </div>
+    </div>
+</div>

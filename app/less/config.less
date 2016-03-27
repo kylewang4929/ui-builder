@@ -1,0 +1,71 @@
+/*color*/
+@baseColor: #4FC1E9;
+@baseColorLight: #54cdf8;
+@baseColorDark: #47a3c6;
+@baseColorDarkHover: #32738c;
+@baseColorDarkBorder: rgba(67, 153, 186, 0.51);
+
+@baseTextColor: #7e7e7e;
+@baseBorderColor: #e0e0e0;
+
+@backgroundMenu: #FF9800;
+@addMenu: #3899EC;
+@addMenuDark: #3690e0;
+@appMenu: #D0427C;
+@uploadMenu: #FA7C33;
+@hideEle: #4FC1E9;
+@hideEleDark: #439bbd;
+
+/*bar*/
+@barHeight: 50px;
+/*bar*/
+
+.transition (@time) {
+  transition: all @time ease-in-out;
+  -moz-transition: all @time ease-in-out; /* Firefox 4 */
+  -webkit-transition: all @time ease-in-out; /* Safari 和 Chrome */
+  -o-transition: all @time ease-in-out; /* Opera */
+}
+
+.transition-delay(@time) {
+  transition-delay: @time !important;
+  -moz-transition-delay: @time !important;
+  -webkit-transition-delay: @time !important;
+  -o-transition-delay: @time !important;
+}
+
+.open-user-select {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.close-user-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/*color*/
+
+.z-depth-1 {
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.z-depth-2 {
+  box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+}
+
+.z-depth-3 {
+  box-shadow: 0px 12px 15px 0px rgba(0, 0, 0, 0.24), 0px 17px 50px 0px rgba(0, 0, 0, 0.19);
+}
+
+.z-depth-4 {
+  box-shadow: 0px 16px 28px 0px rgba(0, 0, 0, 0.22), 0px 25px 55px 0px rgba(0, 0, 0, 0.21);
+}
+
+.z-depth-5 {
+  box-shadow: 0px 27px 24px 0px rgba(0, 0, 0, 0.2), 0px 40px 77px 0px rgba(0, 0, 0, 0.22);
+}

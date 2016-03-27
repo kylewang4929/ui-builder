@@ -1,0 +1,1191 @@
+/*基础配置文件*/
+@import "config.less";
+
+/*引入其他类库的less*/
+@import "../scripts/colorpick/style.less";
+@import "../scripts/eleSetting/style.less";
+@import "../scripts/textEditor/style.less";
+
+/*元素的基本属性*/
+@import "eleConfig.less";
+
+/*scroll*/
+.scroller-page {
+  height: 100%;
+  overflow-y: hidden;
+  position: relative;
+  & .edit-space {
+    padding-bottom: 100px;
+  }
+}
+
+.ps-container > .ps-scrollbar-y-rail {
+  width: 4px !important;
+}
+
+@media all and (max-width: 1200px) {
+  body {
+    width: 1200px;
+  }
+
+  .edit-space-box {
+    width: 1200px !important;
+  }
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  outline: none;
+}
+
+.main-box {
+  height: 100%;
+}
+
+.bar-button-hover-active {
+  cursor: pointer;
+  &:hover {
+    color: #fff;
+    background-color: @baseColorDark;
+  }
+  &:active {
+    color: #fff;
+    background-color: @baseColorDark;
+  }
+}
+
+.bar-text-hover-active (@color) {
+  cursor: pointer;
+  &:hover {
+    color: @color;
+  }
+  &:active {
+    color: @color;
+  }
+}
+
+.top-nav-bar-box {
+  width: 100%;
+  & .top-nav-bar {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+    background: @baseColor;
+    height: @barHeight;
+    width: 100%;
+    z-index: 999999;
+    position: absolute;
+
+    & .left-bar {
+      overflow: hidden;
+      width: 50%;
+      float: left;
+      padding: 0px 10px 0px 10px;
+
+      & .logo {
+        width: 80px;
+        height: @barHeight;
+        line-height: @barHeight;
+        float: left;
+        background: url("../images/logo.png") no-repeat center center;
+        background-size: 100%;
+      }
+
+      & .preview-option {
+        text-align: center;
+        font-size: 25px;
+        float: left;
+        padding-left: 16px;
+        & ul {
+          list-style: none;
+          /*hack*/
+          font-size: 0;
+          letter-spacing: 0px;
+          word-spacing: 0px;
+          & li {
+            &.active {
+              color: white;
+            }
+            &:hover{
+              color: #fff;
+            }
+            line-height: @barHeight;
+            font-size: 27px;
+            cursor: pointer;
+            color: @baseColorDark;
+            display: inline-block;
+            padding: 0px 10px 0px 10px;
+          }
+        }
+      }
+      & .page-option-box{
+        overflow: hidden;
+        padding-left: 16px;
+        width: 200px;
+        float: left;
+        & .page-option {
+          width: 100%;
+          background-color: @baseColorDark;
+          height: @barHeight;
+          & >.btn{
+            width: 100%;
+          }
+          & .page-list{
+            padding: 20px 20px 0px 20px;
+            & .page-item{
+              &:hover{
+                background-color: fadeout(@baseColor,5%);
+                color: #fff;
+              }
+              &.active{
+                background-color: fadeout(@baseColor,10%);
+                color: #fff;
+                & .btn{
+                  display: block;
+                }
+              }
+              & .btn{
+                display: none;
+                top: 8px;
+                position: absolute!important;
+                right: 10px;
+                & i{
+                  color: @baseColor;
+                  font-size: 13px;
+                }
+              }
+              position: relative;
+              background-color: #fff;
+              padding: 8px 10px;
+              cursor: pointer;
+              margin-bottom: 8px;
+              border-radius: 6px;
+              font-size: 15px;
+              & i{
+                font-size: 17px;
+              }
+              & span{
+                padding-left: 6px;
+              }
+            }
+          }
+          & .tool-modal{
+            width: 290px;
+            margin-top: 10px;
+            & .content{
+              height: 100%;
+              padding-bottom: 50px;
+              background-color: #fff;
+              position: relative;
+            }
+            & .bottom{
+              position: absolute;
+              width: 100%;
+              bottom: 0px;
+              padding: 10px 30px;
+              background-color: #fff;
+              & .btn{
+                width: 100%;
+                border-radius: 40px;
+                background-color: @baseColor;
+              }
+            }
+          }
+          & div {
+            width: 100%;
+          }
+          & .text-box {
+            line-height: @barHeight;
+            color: #fff;
+            overflow: hidden;
+            & .text {
+              width: 100px;
+              text-align: left;
+              position: static;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              float: left;
+            }
+            & .icon {
+              & ul {
+                list-style: none;
+                & li {
+                  line-height: @barHeight;
+                  font-size: 16px;
+                  height: 10px;
+                }
+              }
+              position: absolute;
+              left: 100%;
+              margin-left: -30px;
+            }
+          }
+        }
+      }
+    }
+
+    & .right-bar {
+      width: 50%;
+      text-align: right;
+      float: right;
+
+      & ul {
+        /*hack*/
+        list-style: none;
+        font-size: 0;
+        letter-spacing: 0px;
+        word-spacing: 0px;
+
+        & li {
+          &.border-none {
+            border: none;
+          }
+
+          & i {
+            &.rotateY180 {
+              -webkit-transform: rotateY(180deg);
+              -moz-transform: rotateY(180deg);
+              -ms-transform: rotateY(180deg);
+              -o-transform: rotateY(180deg);
+              transform: rotateY(180deg);
+            }
+            font-size: 23px;
+            line-height: @barHeight;
+          }
+
+          & .text {
+            line-height: @barHeight;
+            font-size: 15px;
+            float: right;
+            margin-top: -2px;
+            padding: 0px 5px 0px 5px;
+          }
+
+          border-left: 1px solid @baseColorDarkBorder;
+          height: 100%;
+          padding: 0px 15px 0px 15px;
+          color: #fff;
+          .bar-button-hover-active;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+.top-nav-bar {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  background: @baseColor;
+  height: @barHeight;
+  width: 100%;
+  z-index: 999;
+  position: absolute;
+
+  & .left-bar {
+    overflow: hidden;
+    width: 30%;
+    float: left;
+    padding: 0px 10px 0px 10px;
+
+    & .logo {
+      width: 20%;
+      height: @barHeight;
+      line-height: @barHeight;
+      float: left;
+      background: no-repeat center center;
+      background-size: 100%;
+    }
+
+    & .preview-option {
+      text-align: center;
+      font-size: 25px;
+      float: left;
+      & ul {
+        list-style: none;
+        /*hack*/
+        font-size: 0;
+        letter-spacing: 0px;
+        word-spacing: 0px;
+        & li {
+          &.active {
+            color: white;
+          }
+          font-size: 27px;
+          cursor: pointer;
+          color: @baseColorDark;
+          display: inline-block;
+          padding: 0px 10px 0px 10px;
+        }
+      }
+    }
+
+    & .page-option {
+      float: left;
+      background-color: @baseColorDark;
+      width: 40%;
+      & div {
+        width: 100%;
+      }
+      & .text-box {
+        line-height: @barHeight - 20px;
+        color: #fff;
+        overflow: hidden;
+        & .text {
+          width: 100px;
+          text-align: left;
+          position: static;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          float: left;
+        }
+        & .icon {
+          & ul {
+            list-style: none;
+            & li {
+              line-height: @barHeight - 33px;
+              font-size: 25px;
+              height: 10px;
+            }
+          }
+          position: absolute;
+          left: 100%;
+          margin-left: -25px;
+        }
+      }
+    }
+  }
+
+  & .right-bar {
+    width: 70%;
+    text-align: right;
+    float: right;
+
+    & ul {
+      /*hack*/
+      list-style: none;
+      font-size: 0;
+      letter-spacing: 0px;
+      word-spacing: 0px;
+
+      & li {
+        &.border-none {
+          border: none;
+        }
+
+        & i {
+          font-size: 23px;
+          line-height: @barHeight;
+        }
+
+        & .text {
+          line-height: @barHeight;
+          font-size: 15px;
+          float: right;
+          margin-top: -2px;
+          padding: 0px 5px 0px 5px;
+        }
+
+        border-left: 1px solid @baseColorDarkBorder;
+        height: 100%;
+        padding: 0px 15px 0px 15px;
+        color: #fff;
+        .bar-button-hover-active;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.work-space-box {
+  & .work-space {
+
+    & .phone-box {
+      border-radius: 40px;
+      width: 280px;
+      margin: 60px auto;
+      & .phone-edit-space-box {
+        min-height: 480px;
+        height: 480px;
+        background-color: #fff;
+        background-size: 20px 20px;
+
+        & .ps-container > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+          width: 0px;
+        }
+        & .ps-container > .ps-scrollbar-y-rail {
+          width: 0px !important;
+        }
+
+      }
+      & .phone-top {
+        & img {
+          width: 100%;
+        }
+      }
+      & .phone-bottom {
+        & img {
+          width: 100%;
+        }
+      }
+    }
+
+    & .session-limit {
+      width: 1024px;
+      left: 50%;
+      margin-left: -512px;
+      height: 100%;
+      position: absolute;
+      z-index: 2;
+      pointer-events: none;
+      border-left: 1px dashed @baseColor;
+      border-right: 1px dashed @baseColor;
+    }
+
+    & .menu-content {
+      position: absolute;
+      z-index: 1200;
+      margin: 60px 0px 0px 74px;
+      height: 80%;
+
+      & .menu-content-item {
+        position: absolute;
+        .transition(0.1s);
+        width: 0px;
+        height: 100%;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        z-index: 99;
+        //配置颜色
+        &.background .title-button {
+          color: @backgroundMenu;
+        }
+        &.add .title-button {
+          color: @addMenu;
+        }
+        &.app .title-button {
+          color: @appMenu;
+        }
+        &.upload .title-button {
+          color: @uploadMenu;
+        }
+        &.hideEle .title-button {
+          color: @hideEle;
+        }
+
+        & .main-box {
+          width: 100%;
+          height: 100%;
+          padding-left: 5px;
+
+          & .left-menu {
+            width: 110px;
+            float: left;
+
+            & .preview-item {
+              .transition(0.2s);
+              &:hover{
+                box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+              }
+              &.active {
+                transform: scale(1.06, 1.06);
+                -ms-transform:  scale(1.06, 1.06);
+                -moz-transform: scale(1.06, 1.06);
+                -webkit-transform:scale(1.06, 1.06);
+                -o-transform: scale(1.06, 1.06);
+                box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+                & .over-shadow {
+                  opacity: 1;
+                }
+              }
+              & .over-shadow {
+                background-color: rgba(0, 0, 0, 0.41);
+                opacity: 0;
+                text-align: center;
+                color: #fff;
+                font-size: 40px;
+                padding-top: 0px;
+              }
+              margin: 20px auto;
+              border-radius: 4px;
+              width: 80%;
+              overflow: hidden;
+              background-color: @hideEle;
+              & .preview-menu {
+                text-align: right;
+                padding: 4px 5px 4px 0px;
+                cursor: pointer;
+                & i {
+                  color: #fff;
+                  border-radius: 50%;
+                  display: inline-block;
+                  padding: 4px;
+                  font-size: 14px;
+                  cursor: pointer;
+                  &.active{
+                    background-color: @hideEleDark;
+                  }
+                  &:hover {
+                    background-color: @hideEleDark;
+                  }
+                }
+              }
+              & .preview-session-box {
+                position: relative;
+                padding-right: 10px;
+                overflow: hidden;
+                height: 50px;
+                background-color: #efefef;
+                & .over-shadow {
+                  width: 100%;
+                  height: 100%;
+                  position: absolute;
+                  z-index: 9;
+                  cursor: pointer;
+                  & i {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    margin-left: -20px;
+                    margin-top: -20px;
+                  }
+                }
+                & .preview-session {
+                  &.phone{
+                    transform: scale(0.35, 0.35);
+                    -ms-transform: scale(0.35, 0.35); /* IE 9 */
+                    -moz-transform: scale(0.35, 0.35); /* Firefox */
+                    -webkit-transform: scale(0.35, 0.35); /* Safari 和 Chrome */
+                    -o-transform: scale(0.35, 0.35); /* Opera */
+                    width: 280px;
+                  }
+                  &.web{
+                    width: 1024px;
+                    transform: scale(0.095, 0.095);
+                    -ms-transform: scale(0.095, 0.095); /* IE 9 */
+                    -moz-transform: scale(0.095, 0.095); /* Firefox */
+                    -webkit-transform: scale(0.095, 0.095); /* Safari 和 Chrome */
+                    -o-transform: scale(0.095, 0.095); /* Opera */
+                  }
+                  position: relative;
+                  transform-origin: 0 0;
+                  -ms-transform-origin: 0 0; /* IE 9 */
+                  -moz-transform-origin: 0 0; /* Firefox */
+                  -webkit-transform-origin: 0 0; /* Safari 和 Chrome */
+                  -o-transform-origin: 0 0; /* Opera */
+                }
+              }
+            }
+
+          }
+
+          & .right-content {
+            float: right;
+            width: 485px;
+            height: 100%;
+            .z-depth-1;
+            & .preview-ele-item{
+              width: 90%;
+              margin:20px auto 10px auto;
+              border-radius: 6px;
+              &.normal{
+                & .preview-ele{
+                  height: auto!important;
+                }
+              }
+              & .preview-menu {
+                text-align: right;
+                padding: 4px 5px 4px 0px;
+                background-color: @hideEle;
+                border-bottom-left-radius: 6px;
+                border-bottom-right-radius: 6px;
+                & i {
+                  color: #fff;
+                  border-radius: 50%;
+                  display: inline-block;
+                  padding: 4px;
+                  font-size: 14px;
+                  cursor: pointer;
+                  &.active{
+                    background-color: @hideEleDark;
+                  }
+                  &:hover {
+                    background-color: @hideEleDark;
+                  }
+                }
+              }
+              & .preview-ele-item-box{
+                overflow: hidden;
+                position: relative;
+                background-color: #efefef;
+                &.empty-bg{
+                  background-color: rgba(0, 0, 0, 0);
+                }
+                & .over-shadow {
+                  width: 100%;
+                  height: 100%;
+                  position: absolute;
+                  z-index: 99;
+                  cursor: pointer;
+                  background-color: rgba(0, 0, 0, 0.41);
+                  opacity: 0;
+                  text-align: center;
+                  color: #fff;
+                  font-size: 40px;
+                  padding-top: 0px;
+                  & i {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    margin-left: -20px;
+                    margin-top: -20px;
+                  }
+                }
+                & .preview-ele{
+                  height: 80px;
+                }
+              }
+            }
+          }
+
+          & .title {
+            & .text {
+              float: left;
+            }
+            & .title-button {
+              float: right;
+              height: 21px;
+              width: 21px;
+              font-size: 25px;
+              margin-left: 10px;
+              cursor: pointer;
+              border-radius: 50%;
+              overflow: hidden;
+              & i {
+                display: block;
+                margin-left: -2px;
+                margin-top: -1px;
+              }
+            }
+            .z-depth-1;
+            color: @baseTextColor;
+            padding: 16px 24px 16px 24px;
+            overflow: hidden;
+          }
+          & .content {
+            padding: 10px 15px 0px 15px;
+            height: 100%;
+            &.scroll{
+              padding: 0px 0px 58px 0px;
+              & .scroller-page >div{
+                padding: 0px 10px;
+              }
+            }
+          }
+        }
+
+        & .line {
+          width: 5px;
+          height: 100%;
+          position: absolute;
+        }
+        &.background {
+          & .line {
+            background: @backgroundMenu;
+          }
+          &.unActive {
+            width: 0px;
+          }
+          &.active {
+            width: 320px;
+          }
+        }
+        &.add {
+          & .left-menu {
+            background-color: @addMenu;
+            height: 100%;
+          }
+          & .line {
+            background: @addMenu;
+          }
+          &.unActive {
+            width: 0px;
+          }
+          &.active {
+            width: 480px;
+          }
+          & .right-content {
+            width: 365px;
+          }
+        }
+        &.hideEle {
+          & .left-menu {
+            background-color: @hideEle;
+            height: 100%;
+            width: 120px;
+          }
+          & .right-content {
+            width: 295px;
+          }
+          & .line {
+            background: @hideEle;
+          }
+          &.unActive {
+            width: 0px;
+          }
+          &.active {
+            width: 420px;
+          }
+        }
+        &.app {
+          & .line {
+            background: @appMenu;
+          }
+          &.unActive {
+            width: 0px;
+          }
+          &.active {
+            width: 700px;
+          }
+        }
+        &.upload {
+          & .line {
+            background: @uploadMenu;
+          }
+          &.unActive {
+            width: 0px;
+          }
+          &.active {
+            width: 350px;
+          }
+        }
+      }
+    }
+
+    & .menu-list {
+      position: absolute;
+      z-index: 1001;
+      top: 50%;
+      margin: -160px 0px 0px 20px;
+
+      &.active .menu-item:hover {
+        width: 48px !important;
+      }
+
+      & .menu-item-box {
+        & .svg {
+          position: absolute;
+          width: 0px;
+          overflow: hidden;
+          margin-top: -82px;
+          margin-left: -5px;
+          .transition(0.1s);
+
+          &.mid {
+            margin-top: -83px;
+          }
+
+          &.unActive {
+            width: 0px;
+          }
+          &.active {
+            width: 67px;
+          }
+        }
+        cursor: pointer;
+        position: relative;
+      }
+
+      & .menu-item {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 15px;
+        border-radius: 50px;
+        background-color: #fff;
+        text-align: center;
+        cursor: pointer;
+        color: @baseTextColor;
+        position: relative;
+        overflow: hidden;
+        .transition(0.1s);
+        z-index: 1;
+
+        & .icon {
+          & i {
+            display: inline-block;
+            height: 48px;
+            line-height: 48px;
+          }
+          width: 48px;
+          height: 48px;
+          position: absolute;
+          z-index: 999;
+        }
+        & .text {
+          line-height: 48px;
+          position: absolute;
+          width: 100px;
+          height: 48px;
+          text-align: center;
+          margin-left: 45px;
+          padding-right: 20px;
+        }
+
+        &:hover.unActive {
+          width: 150px;
+        }
+
+        &:hover .icon {
+          -webkit-transform: rotate(360deg);
+          -moz-transform: rotate(360deg);
+          -ms-transform: rotate(360deg);
+          -o-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+
+        &.add.active {
+          background-color: @addMenu;
+          color: #fff;
+        }
+        &.app.active {
+          background-color: @appMenu;
+          color: #fff;
+        }
+        &.upload.active {
+          background-color: @uploadMenu;
+          color: #fff;
+        }
+        &.hideEle.active {
+          background-color: @hideEle;
+          color: #fff;
+        }
+        &.background.active {
+          background-color: @backgroundMenu;
+          color: #fff;
+        }
+
+        &:hover.add.unActive .icon {
+          color: @addMenu;
+        }
+        &:hover.app.unActive .icon {
+          color: @appMenu;
+        }
+        &:hover.upload.unActive .icon {
+          color: @uploadMenu;
+        }
+        &:hover.background.unActive .icon {
+          color: @backgroundMenu;
+        }
+        &:hover.hideEle.unActive .icon {
+          color: @hideEle;
+        }
+        & .icon {
+          font-size: 25px;
+        }
+        &.unActive .icon {
+          .transition(0.3s);
+        }
+      }
+    }
+
+    & .edit-space-box {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: 20px 20px;
+
+      & .edit-space {
+        &.phone {
+          padding-bottom: 50px;
+          padding-top: 0px;
+          overflow: hidden;
+        }
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2) inset;
+        width: 100%;
+        height: 100%;
+        padding-top: @barHeight;
+        overflow: hidden;
+
+        //sesstion的class
+        & .ele-session-box {
+          height: auto;
+          width: 100%;
+          background-color: #fff;
+
+          & .session-resize {
+            &.phone {
+              margin-left: 40px !important;
+            }
+            .transition(0.2s);
+            transform: scale(0, 0);
+            -ms-transform: scale(0, 0); /* IE 9 */
+            -moz-transform: scale(0, 0); /* Firefox */
+            -webkit-transform: scale(0, 0); /* Safari 和 Chrome */
+            -o-transform: scale(0, 0); /* Opera */
+            cursor: pointer;
+            color: #fff;
+            width: 24px;
+            height: 24px;
+            background-color: @baseColor;
+            border-radius: 4px;
+            position: absolute;
+            z-index: 999;
+            text-align: center;
+            line-height: 24px;
+            &.only-bottom {
+              bottom: -12px;
+              left: 50%;
+              margin-left: 140px;
+
+            }
+          }
+
+          & .over-shadow {
+            position: absolute;
+            z-index: 999;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.56);
+            pointer-events: none;
+            display: none;
+          }
+          & .ele-session {
+            position: relative;
+            width: 1024px;
+            margin: auto;
+          }
+
+          &:hover {
+            & .session-resize {
+              transform: scale(1, 1);
+              -ms-transform: scale(1, 1); /* IE 9 */
+              -moz-transform: scale(1, 1); /* Firefox */
+              -webkit-transform: scale(1, 1); /* Safari 和 Chrome */
+              -o-transform: scale(1, 1); /* Opera */
+            }
+            & .menu-tool-box {
+              transform: scale(1, 1);
+              -ms-transform: scale(1, 1); /* IE 9 */
+              -moz-transform: scale(1, 1); /* Firefox */
+              -webkit-transform: scale(1, 1); /* Safari 和 Chrome */
+              -o-transform: scale(1, 1); /* Opera */
+            }
+          }
+          & .menu-tool-box {
+            &.phone {
+              right: 4px;
+              top: 4px;
+            }
+            .transition(0.2s);
+            color: #fff;
+            position: absolute;
+            right: 30px;
+            top: 15px;
+            z-index: 9999;
+            transform: scale(0, 0);
+            -ms-transform: scale(0, 0); /* IE 9 */
+            -moz-transform: scale(0, 0); /* Firefox */
+            -webkit-transform: scale(0, 0); /* Safari 和 Chrome */
+            -o-transform: scale(1, 1); /* Opera */
+
+            & .fab__actions {
+              right: 30px;
+              bottom: -26px;
+              padding: 30px 0px;
+            }
+          }
+
+        }
+
+      }
+    }
+
+  }
+}
+
+.hover-animation-wane {
+  &:hover {
+    .transition(0.2s);
+    box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+  }
+}
+
+.text-list {
+  list-style: none;
+  color: #fff;
+  padding: 10px 10px 0px 10px;
+  font-size: 14px;
+  & .text-item {
+    cursor: pointer;
+    margin: 5px 0px;
+    display: block;
+    overflow: hidden;
+    & .text {
+      float: left;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      &.active {
+        box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.19);
+      }
+      &:hover {
+        box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.19);
+      }
+      border-radius: 20px;
+      padding: 5px 15px;
+    }
+  }
+}
+
+.my-card {
+  .z-depth-1;
+  cursor: pointer;
+  .transition(0.2s);
+  &:hover {
+    .z-depth-2;
+  }
+  & .card__actions {
+    position: relative;
+  }
+  & .bg {
+    height: 120px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  & .button-box {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding-top: 6px;
+    padding-right: 5px;
+  }
+  & .title-name {
+    color: @baseTextColor;
+    font-size: 14px;
+  }
+}
+
+/*自定义按钮*/
+.btn--fab.btn--blue {
+  background-color: @baseColor !important;;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+/*放大*/
+.scale-10 {
+  -moz-transform: scale(1.05, 1.05);
+  -webkit-transform: scale(1.05, 1.05);
+  -o-transform: scale(1.05, 1.05);
+  transform: scale(1.05, 1.05);
+  -ms-transform: scale(1.05, 1.05);
+}
+
+/*重写 editor*/
+.ql-editor u {
+  text-decoration: underline;
+}
+
+/*重写 editor*/
+
+.option-dropdown.dropdown-menu {
+  margin-top: -30px;
+  width: 100px !important;
+}
+
+.option-dropdown.dropdown-menu .dropdown-menu__content {
+  padding: 0px;
+}
+
+.right-click-menu-box {
+  padding: 2px 0px;
+  position: absolute;
+  z-index: 999;
+  width: 150px;
+  background-color: #fff;
+  border-radius: 6px;
+  color: @baseTextColor;
+  top: 0px;
+  display: none;
+  & .right-click-menu-item {
+    cursor: pointer;
+    padding: 12px 18px;
+    font-size: 14px;
+    &.disable {
+      color: #c6c6c6 !important;
+      cursor: not-allowed;
+    }
+    &:hover {
+      color: @baseColor;
+    }
+    & i {
+      padding-right: 12px;
+    }
+    &.border {
+      border-bottom: 1px solid @baseBorderColor;
+    }
+  }
+}
+
+.drag-select-box {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  border: 1px solid @baseColor;
+}
+
+.dropdown-menu {
+  z-index: 1000000;
+  min-width: 150px;
+}
+
+.multiple-choice-menu {
+  position: absolute !important;
+  background-color: @baseColor;
+  color: #fff;
+  border-radius: 50%;
+  z-index: 99999;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.multiple-choice-menu:hover {
+  background-color: @baseColorDark;
+}
+
+.resource-box{
+  & .preview-ele-item{
+    margin-top: 10px!important;
+  }
+  & .line-sub-title-box{
+    padding: 0px 16px;
+    & .line-sub-title{
+      color: @baseTextColor;
+      padding: 20px 6px 10px 6px;
+      font-size: 13px;
+      border-bottom: 1px solid @baseBorderColor;
+    }
+  }
+}
+
+/*兼容quill的粘贴控件*/
+.ql-paste-manager{
+    position: absolute;
+    left: -100000;
+    top: 50%;
+}

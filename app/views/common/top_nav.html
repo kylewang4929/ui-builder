@@ -1,0 +1,69 @@
+<div class="top-nav-bar-box">
+    <div class="top-nav-bar z-depth-1">
+        <div class="left-bar">
+            <div class="logo" style="background-image: url('images/logo.png')">
+            </div>
+            <div class="page-option-box">
+                <div class="page-option" page-setting-tool-modal="0.8">
+                    <button class="btn btn--m btn--black btn--flat" lx-ripple ng-click="toggleMenu();$event.stopPropagation()">
+                        <div class="text-box">
+                            <span class="text">
+                                <i class="mdi mdi-file-multiple"></i> {{websiteData.name}}
+                            </span>
+                            <span class="icon">
+                                <ul>
+                                    <li><i class="mdi mdi-chevron-down"></i></li>
+                                </ul>
+                            </span>
+                        </div>
+                    </button>
+
+                    <div class="tool-modal" drag-ele handle="handle" ng-show="pageMenuShow" onmousedown="event.stopPropagation()">
+                        <div class="title handle">
+                            页面列表
+                            <button class="btn btn--xs btn--white btn--icon right-button" lx-ripple="" ng-click="toggleMenu()" onmousedown="event.stopPropagation()"><i class="mdi mdi-close"></i></button>
+                        </div>
+                        <div class="content">
+                            <div class="page-list">
+                                <div class="page-item z-depth-1" ng-repeat="page in allData" ng-class="{true:'active'}[page.ID==websiteData.ID]">
+                                    <i class="mdi mdi-drag"></i><span>{{page.name}}</span>
+                                    <lx-button lx-color="white" lx-type="fab" lx-size="xs"><i class="mdi mdi-dots-horizontal"></i></lx-button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom z-depth-1">
+                            <lx-button lx-color="blue"><i class="mdi mdi-plus"></i> 新增页面</lx-button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="preview-option">
+                <ul>
+                    <li lx-ripple="white" ng-click="selectModel('web')" ng-class="{true:'active'}[modelState=='web']"><i class="mdi mdi-monitor"></i></li>
+                    <li lx-ripple="white" ng-click="selectModel('phone')" ng-class="{true:'active'}[modelState=='phone']"><i class="mdi mdi-cellphone-iphone"></i></li>
+                </ul>
+            </div>
+        </div>
+        <div class="right-bar">
+            <ul>
+                <li lx-ripple="white"  ng-click="retreat()"><i class="mdi mdi-reply"></i>
+                </li>
+                <li lx-ripple="white"  ng-click="forward()"><i class="mdi mdi-reply rotateY180"></i>
+                </li>
+                <li lx-ripple="white"><i class="mdi mdi-eye"></i>
+
+                    <div class="text">预览</div>
+                </li>
+                <li lx-ripple="white" ng-click="save()"><i class="mdi mdi-content-save"></i>
+                    <div class="text">保存</div>
+                </li>
+                <li lx-ripple="white"><i class="mdi mdi-earth"></i>
+
+                    <div class="text">发布</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="work-space-box" ui-view=""></div>

@@ -1,0 +1,193 @@
+/*文本编辑*/
+
+.text-editor {
+  display: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  left: 50px;
+  top: 400px;
+  position: absolute;
+  height: 90px;
+  border-radius: 6px;
+  background-color: #fff;
+  z-index: 1000;
+  & .handle {
+    float: left;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    width: 18px;
+    background-color: @baseColor;
+    height: 100%;
+    cursor: move;
+    color: #fff;
+    font-size: 20px;
+    & i {
+      line-height: 82px;
+    }
+  }
+  & .content-box {
+    float: left;
+    width: auto;
+    height: 100%;
+    padding: 5px 5px;
+    & .row {
+      height: 40px;
+      padding: 5px 0px;
+      & .item {
+        height: 100%;
+        float: left;
+        margin: 0px 5px;
+        line-height: 30px;
+        & .color-button {
+          width: 90px;
+          padding: 0px 22px 0px 0px;
+          & i {
+            position: absolute;
+            right: -1px;
+            font-size: 23px;
+            top: 50%;
+            margin-top: -10px;
+          }
+          & .color-box {
+            border-right: 1px solid @baseBorderColor;
+            background-color: @baseColor;
+            height: 100%;
+            float: left;
+            width: 100%;
+          }
+          & .color-box-bg {
+            border-radius: 3px;
+            height: 100%;
+            width: 100%;
+            background-size: 10px 10px;
+          }
+        }
+        & .icon-label {
+          padding-right: 5px;
+        }
+        & .line {
+          width: 1px;
+          height: 100%;
+          background-color: rgba(213, 213, 213, 0.60);
+        }
+        & .icon-button {
+          width: 26px;
+          text-align: center;
+          padding: 0px;
+          &.active {
+            color: @baseColor;
+          }
+          & i {
+            font-size: 18px;
+          }
+        }
+      }
+      & .btn {
+        height: 30px;
+        text-align: left;
+        width: 100px;
+        line-height: 30px;
+        border-radius: 4px;
+        & i.right {
+          position: absolute;
+          right: 0px;
+          font-size: 23px;
+          top: 50%;
+          margin-top: -10px;
+        }
+      }
+    }
+  }
+}
+
+/*tool-modal*/
+.tool-modal {
+  position: absolute;
+  width: 200px;
+  height: 374px;
+  z-index: 1001;
+  border-radius: 6px;
+  box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.2), 0px 6px 20px 0px rgba(0, 0, 0, 0.19);
+  background-color: #FFF;
+  overflow: hidden;
+  & .title {
+    height: 50px;
+    width: 100%;
+    background-color: @baseColor;
+    color: #fff;
+    line-height: 50px;
+    padding: 0px 10px 0px 15px;
+    font-size: 15px;
+    cursor: move;
+    & .right-button {
+      float: right;
+      margin-top: 12px;
+    }
+  }
+
+  & .option {
+    overflow: hidden;
+    height: 44px;
+    & .btn {
+      width: 50%;
+      height: 100%;
+      float: left;
+      box-shadow: none;
+      border-radius: 0px;
+      border-bottom: 1px solid @baseBorderColor;
+      &.active {
+        color: @baseColor;
+        border-color: @baseColor;
+      }
+    }
+  }
+
+  & .content {
+    height: 280px;
+    width: 100%;
+    &.content-max {
+      height: 324px;
+    }
+    background-color: #fff;
+    & .slide-value {
+      position: absolute;
+      right: 20px;
+      top: 12px;
+      color: @baseColor;
+    }
+    & .slide-box {
+      position: relative;
+      padding: 20px 60px 20px 20px;
+      border-bottom: 1px solid @baseBorderColor;
+      & .slide-line {
+        padding: 4px 0px;
+        border-radius: 20px;
+        background-color: @baseColor;
+        position: relative;
+        cursor: pointer;
+        & .slide-point {
+          position: absolute;
+          width: 12px;
+          height: 12px;
+          left: -6px;
+          top: -2px;
+          background-color: #fff;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+      }
+    }
+
+    & .item {
+      padding: 14px 20px;
+      border-bottom: 1px solid @baseBorderColor;
+      cursor: pointer;
+      &:hover {
+        color: @baseColor;
+      }
+    }
+
+  }
+}
