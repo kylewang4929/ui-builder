@@ -100,7 +100,7 @@ angular.module('kyle.eleSetting', [])
             replace: true,
             templateUrl :function(elem,attrs){
                 switch (attrs.eleSettingSlide){
-                    case "image":return "scripts/eleSetting/imageSlide.html";
+                    case "image":return "views/eleSetting/imageSlide.html";
                 }
             },
             link: function (scope, element) {
