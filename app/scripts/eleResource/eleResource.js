@@ -93,7 +93,7 @@ angular.module('myBuilderApp')
             ]
         };
     })
-    .factory('eleResource', function () {
+    .factory('eleResourceTemplate', function () {
         var data=[
             {
                 ID:"text",name:"文本",template:"views/eleResource/text.html"

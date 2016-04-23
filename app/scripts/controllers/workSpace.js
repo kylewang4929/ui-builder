@@ -11,8 +11,8 @@ angular.module('myBuilderApp')
     .controller('workSpaceCtrl', function ($scope,websiteData) {
 
     })
-    .controller('insertEleCtrl', function ($scope,eleResource) {
-        $scope.eleList=eleResource.getEleList();
+    .controller('insertEleCtrl', function ($scope,eleResourceTemplate) {
+        $scope.eleList=eleResourceTemplate.getEleList();
 
         $scope.activeEle=$scope.eleList[0];
 

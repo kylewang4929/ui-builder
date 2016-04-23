@@ -1,5 +1,144 @@
 "use strict";
 angular.module('myBuilderApp')
+
+    /**
+     * pc 上的session
+     */
+    .directive('headDefault', function (creatorServices) {
+        return {
+            restrict: 'AE',
+            template:function(element,attrs){
+                var data=JSON.parse(attrs.eleConfig);
+                var template="";
+                if(attrs.thumbnail){
+                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session'>" +
+                        '<div class="over-shadow"></div>'+
+                        '<div class="ele-session"></div>'+
+                        "</div>";
+                }else{
+                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session' session-resize ng-mouseover=hoverSession($event,'"+data.ID+"')>" +
+                        '<div class="session-resize only-bottom z-depth-2" ele-type="resize"><i ele-type="resize" class="mdi mdi-arrow-down-bold"></i></div>'+
+                        '<div class="over-shadow"></div>'+
+                        '<div class="ele-session"></div>'+
+                        "<div class='menu-tool-box'>" +
+                        '<div class="fab">'+
+                        '<button class="fab__primary btn btn--m btn--blue btn--fab" lx-ripple tooltip-position="top">'+
+                        '<i class="mdi mdi-dots-horizontal"></i>'+
+                        '<i class="mdi mdi-close"></i>'+
+                        '</button>'+
+
+                        '<div class="fab__actions fab__actions--left">'+
+                        '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="更换背景" tooltip-position="bottom"><i class="mdi mdi-image-area"></i></button>'+
+                        '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="设置" tooltip-position="bottom"><i class="mdi mdi-settings"></i></button>'+
+                        '</div>'+
+                        '</div>'+
+                        "</div>";
+                }
+
+                return template;
+            },
+            replace: true,
+            compile:function(element, attrs){
+                var data=JSON.parse(attrs.eleConfig);
+                //插入背景
+                var dom=$(element);
+                dom.css("background-image", "url(" + data.background.url + ")");
+                //渲染背景样式
+                $.each(data.style, function (index, value) {
+                    dom.css(index, value);
+                });
+
+                if(data.class!==undefined){
+                    for(var i=0;i<data.class.length;i++){
+                        dom.addClass(data.class[i]);
+                    }
+                }
+
+                //插入元素
+                var sessionDom=dom.find(".ele-session");
+
+                for (var i = 0; i < data.eleList.length; i++) {
+                    sessionDom.append(creatorServices.createEle(data.eleList[i]));
+                }
+
+                return function (scope, element, attrs) {
+
+                }
+            }
+        }
+    })
+    .directive('sessionDefault', function (creatorServices) {
+        return {
+            restrict: 'AE',
+            template:function(element,attrs){
+                var data=JSON.parse(attrs.eleConfig);
+                var template="";
+                if(attrs.thumbnail){
+                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session'>" +
+                        '<div class="over-shadow"></div>'+
+                        '<div class="ele-session"></div>'+
+                        "</div>";
+                }else{
+                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session' session-resize ng-mouseover=hoverSession($event,'"+data.ID+"')>" +
+                        '<div class="session-resize only-bottom z-depth-2" ele-type="resize"><i ele-type="resize" class="mdi mdi-arrow-down-bold"></i></div>'+
+                        '<div class="over-shadow"></div>'+
+                        '<div class="ele-session"></div>'+
+                        "<div class='menu-tool-box'>" +
+                        '<div class="fab">'+
+                        '<button class="fab__primary btn btn--m btn--blue btn--fab" lx-ripple tooltip-position="top">'+
+                        '<i class="mdi mdi-dots-horizontal"></i>'+
+                        '<i class="mdi mdi-close"></i>'+
+                        '</button>'+
+
+                        '<div class="fab__actions fab__actions--left">'+
+                        '<button id="deleteSessionButton" class="btn btn--s btn--red btn--fab" lx-ripple lx-tooltip="删除" tooltip-position="bottom" ng-click=deleteSession("'+data.ID+'")><i class="mdi mdi-delete"></i></button>'+
+                        '<button id="moveUpButton" class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="向上移动" tooltip-position="bottom"><i class="mdi mdi-chevron-double-up"></i></button>'+
+                        '<button id="moveDownButton" class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="向下移动" tooltip-position="bottom"><i class="mdi mdi-chevron-double-down"></i></button>'+
+                        '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="更换背景" tooltip-position="bottom"><i class="mdi mdi-image-area"></i></button>'+
+                        '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="设置" tooltip-position="bottom"><i class="mdi mdi-settings"></i></button>'+
+                        '</div>'+
+                        '</div>'+
+                        "</div>";
+                }
+
+                return template;
+            },
+            replace: true,
+            compile:function(element, attrs){
+                var data=JSON.parse(attrs.eleConfig);
+                //插入背景
+                var dom=$(element);
+                dom.css("background-image", "url(" + data.background.url + ")");
+                //渲染背景样式
+                $.each(data.style, function (index, value) {
+                    dom.css(index, value);
+                });
+
+                if(data.class!==undefined){
+                    for(var i=0;i<data.class.length;i++){
+                        dom.addClass(data.class[i]);
+                    }
+                }
+
+                //插入元素
+                var sessionDom=dom.find(".ele-session");
+
+                for (var i = 0; i < data.eleList.length; i++) {
+                    sessionDom.append(creatorServices.createEle(data.eleList[i]));
+                }
+
+                return function (scope, element, attrs) {
+
+                }
+            }
+        }
+    })
+
+
+    /**
+     * pc 上的元素
+     */
+
     .directive('eleTextDefault', function (eleApplyService) {
         return {
             restrict: 'AE',
@@ -198,35 +337,32 @@ angular.module('myBuilderApp')
             }
         }
     })
-    .directive('headDefault', function (creatorServices) {
+    
+    
+    /**
+     * mobile 上的session
+     */
+    
+    .directive('headDefaultPhone', function (phoneCreatorServices) {
         return {
             restrict: 'AE',
             template:function(element,attrs){
                 var data=JSON.parse(attrs.eleConfig);
                 var template="";
                 if(attrs.thumbnail){
-                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session'>" +
+                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session')>" +
                         '<div class="over-shadow"></div>'+
                         '<div class="ele-session"></div>'+
-                        "</div>";
+                        '</div>';
                 }else{
-                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session' session-resize ng-mouseover=hoverSession($event,'"+data.ID+"')>" +
-                        '<div class="session-resize only-bottom z-depth-2" ele-type="resize"><i ele-type="resize" class="mdi mdi-arrow-down-bold"></i></div>'+
+                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session' session-resize='phone' phone-right-click-menu-init ng-mouseover=hoverSession($event,'"+data.ID+"')>" +
+                        '<div class="session-resize phone only-bottom z-depth-2" ele-type="resize"><i ele-type="resize" class="mdi mdi-arrow-down-bold"></i></div>'+
                         '<div class="over-shadow"></div>'+
                         '<div class="ele-session"></div>'+
-                        "<div class='menu-tool-box'>" +
-                        '<div class="fab">'+
-                        '<button class="fab__primary btn btn--m btn--blue btn--fab" lx-ripple tooltip-position="top">'+
-                        '<i class="mdi mdi-dots-horizontal"></i>'+
-                        '<i class="mdi mdi-close"></i>'+
-                        '</button>'+
-
-                        '<div class="fab__actions fab__actions--left">'+
-                        '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="更换背景" tooltip-position="bottom"><i class="mdi mdi-image-area"></i></button>'+
-                        '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="设置" tooltip-position="bottom"><i class="mdi mdi-settings"></i></button>'+
+                        '<div class="menu-tool-box phone">' +
+                        '<button class="btn btn--s btn--red btn--fab" lx-ripple lx-tooltip="隐藏" tooltip-position="bottom" ng-click=deleteSession("'+data.ID+'")><i class="mdi mdi-delete"></i></button>'+
                         '</div>'+
-                        '</div>'+
-                        "</div>";
+                        '</div>';
                 }
 
                 return template;
@@ -242,6 +378,11 @@ angular.module('myBuilderApp')
                     dom.css(index, value);
                 });
 
+                //渲染手机专属的样式覆盖旧的
+                $.each(data.phoneStyle, function (index, value) {
+                    dom.css(index, value);
+                });
+
                 if(data.class!==undefined){
                     for(var i=0;i<data.class.length;i++){
                         dom.addClass(data.class[i]);
@@ -252,7 +393,11 @@ angular.module('myBuilderApp')
                 var sessionDom=dom.find(".ele-session");
 
                 for (var i = 0; i < data.eleList.length; i++) {
-                    sessionDom.append(creatorServices.createEle(data.eleList[i]));
+                    var eleDom=phoneCreatorServices.createEle(data.eleList[i]);
+                    sessionDom.append(eleDom);
+                    if(data.eleList[i].showState==false){
+                        eleDom.css('display','none');
+                    }
                 }
 
                 return function (scope, element, attrs) {
@@ -261,38 +406,26 @@ angular.module('myBuilderApp')
             }
         }
     })
-    .directive('sessionDefault', function (creatorServices) {
+    .directive('sessionDefaultPhone', function (phoneCreatorServices) {
         return {
             restrict: 'AE',
             template:function(element,attrs){
                 var data=JSON.parse(attrs.eleConfig);
                 var template="";
                 if(attrs.thumbnail){
-                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session'>" +
+                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session')>" +
                         '<div class="over-shadow"></div>'+
                         '<div class="ele-session"></div>'+
-                        "</div>";
+                        '</div>';
                 }else{
-                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session' session-resize ng-mouseover=hoverSession($event,'"+data.ID+"')>" +
-                        '<div class="session-resize only-bottom z-depth-2" ele-type="resize"><i ele-type="resize" class="mdi mdi-arrow-down-bold"></i></div>'+
+                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session' session-resize='phone' phone-right-click-menu-init ng-mouseover=hoverSession($event,'"+data.ID+"')>" +
+                        '<div class="session-resize phone only-bottom z-depth-2" ele-type="resize"><i ele-type="resize" class="mdi mdi-arrow-down-bold"></i></div>'+
                         '<div class="over-shadow"></div>'+
                         '<div class="ele-session"></div>'+
-                        "<div class='menu-tool-box'>" +
-                        '<div class="fab">'+
-                        '<button class="fab__primary btn btn--m btn--blue btn--fab" lx-ripple tooltip-position="top">'+
-                        '<i class="mdi mdi-dots-horizontal"></i>'+
-                        '<i class="mdi mdi-close"></i>'+
-                        '</button>'+
-
-                        '<div class="fab__actions fab__actions--left">'+
-                        '<button id="deleteSessionButton" class="btn btn--s btn--red btn--fab" lx-ripple lx-tooltip="删除" tooltip-position="bottom" ng-click=deleteSession("'+data.ID+'")><i class="mdi mdi-delete"></i></button>'+
-                        '<button id="moveUpButton" class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="向上移动" tooltip-position="bottom"><i class="mdi mdi-chevron-double-up"></i></button>'+
-                        '<button id="moveDownButton" class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="向下移动" tooltip-position="bottom"><i class="mdi mdi-chevron-double-down"></i></button>'+
-                        '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="更换背景" tooltip-position="bottom"><i class="mdi mdi-image-area"></i></button>'+
-                        '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="设置" tooltip-position="bottom"><i class="mdi mdi-settings"></i></button>'+
-                        '</div>'+
-                        '</div>'+
-                        "</div>";
+                        "<div class='menu-tool-box phone'>" +
+                        '<button class="btn btn--s btn--red btn--fab" lx-ripple lx-tooltip="隐藏" tooltip-position="bottom" ng-click=deleteSession("'+data.ID+'")><i class="mdi mdi-delete"></i></button>'+
+                        "</div>"+
+                        '</div>';
                 }
 
                 return template;
@@ -308,6 +441,11 @@ angular.module('myBuilderApp')
                     dom.css(index, value);
                 });
 
+                //渲染手机专属的样式覆盖旧的
+                $.each(data.phoneStyle, function (index, value) {
+                    dom.css(index, value);
+                });
+
                 if(data.class!==undefined){
                     for(var i=0;i<data.class.length;i++){
                         dom.addClass(data.class[i]);
@@ -318,7 +456,11 @@ angular.module('myBuilderApp')
                 var sessionDom=dom.find(".ele-session");
 
                 for (var i = 0; i < data.eleList.length; i++) {
-                    sessionDom.append(creatorServices.createEle(data.eleList[i]));
+                    var eleDom=phoneCreatorServices.createEle(data.eleList[i]);
+                    sessionDom.append(eleDom);
+                    if(data.eleList[i].showState==false){
+                        eleDom.css('display','none');
+                    }
                 }
 
                 return function (scope, element, attrs) {
@@ -327,7 +469,11 @@ angular.module('myBuilderApp')
             }
         }
     })
-
+    
+    
+    /**
+     * mobile 上的元素
+     */
     .directive('eleTextDefaultPhone', function (eleApplyService) {
         return {
             restrict: 'AE',
@@ -542,133 +688,11 @@ angular.module('myBuilderApp')
             }
         }
     })
-    .directive('headDefaultPhone', function (phoneCreatorServices) {
-        return {
-            restrict: 'AE',
-            template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
-                var template="";
-                if(attrs.thumbnail){
-                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session')>" +
-                        '<div class="over-shadow"></div>'+
-                        '<div class="ele-session"></div>'+
-                        '</div>';
-                }else{
-                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session' session-resize='phone' phone-right-click-menu-init ng-mouseover=hoverSession($event,'"+data.ID+"')>" +
-                        '<div class="session-resize phone only-bottom z-depth-2" ele-type="resize"><i ele-type="resize" class="mdi mdi-arrow-down-bold"></i></div>'+
-                        '<div class="over-shadow"></div>'+
-                        '<div class="ele-session"></div>'+
-                        '<div class="menu-tool-box phone">' +
-                        '<button class="btn btn--s btn--red btn--fab" lx-ripple lx-tooltip="隐藏" tooltip-position="bottom" ng-click=deleteSession("'+data.ID+'")><i class="mdi mdi-delete"></i></button>'+
-                        '</div>'+
-                        '</div>';
-                }
-
-                return template;
-            },
-            replace: true,
-            compile:function(element, attrs){
-                var data=JSON.parse(attrs.eleConfig);
-                //插入背景
-                var dom=$(element);
-                dom.css("background-image", "url(" + data.background.url + ")");
-                //渲染背景样式
-                $.each(data.style, function (index, value) {
-                    dom.css(index, value);
-                });
-
-                //渲染手机专属的样式覆盖旧的
-                $.each(data.phoneStyle, function (index, value) {
-                    dom.css(index, value);
-                });
-
-                if(data.class!==undefined){
-                    for(var i=0;i<data.class.length;i++){
-                        dom.addClass(data.class[i]);
-                    }
-                }
-
-                //插入元素
-                var sessionDom=dom.find(".ele-session");
-
-                for (var i = 0; i < data.eleList.length; i++) {
-                    var eleDom=phoneCreatorServices.createEle(data.eleList[i]);
-                    sessionDom.append(eleDom);
-                    if(data.eleList[i].showState==false){
-                        eleDom.css('display','none');
-                    }
-                }
-
-                return function (scope, element, attrs) {
-
-                }
-            }
-        }
-    })
-    .directive('sessionDefaultPhone', function (phoneCreatorServices) {
-        return {
-            restrict: 'AE',
-            template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
-                var template="";
-                if(attrs.thumbnail){
-                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session')>" +
-                        '<div class="over-shadow"></div>'+
-                        '<div class="ele-session"></div>'+
-                        '</div>';
-                }else{
-                    template="<div class='ele-session-box' id="+data.ID+" ele-type='session' session-resize='phone' phone-right-click-menu-init ng-mouseover=hoverSession($event,'"+data.ID+"')>" +
-                        '<div class="session-resize phone only-bottom z-depth-2" ele-type="resize"><i ele-type="resize" class="mdi mdi-arrow-down-bold"></i></div>'+
-                        '<div class="over-shadow"></div>'+
-                        '<div class="ele-session"></div>'+
-                        "<div class='menu-tool-box phone'>" +
-                        '<button class="btn btn--s btn--red btn--fab" lx-ripple lx-tooltip="隐藏" tooltip-position="bottom" ng-click=deleteSession("'+data.ID+'")><i class="mdi mdi-delete"></i></button>'+
-                        "</div>"+
-                        '</div>';
-                }
-
-                return template;
-            },
-            replace: true,
-            compile:function(element, attrs){
-                var data=JSON.parse(attrs.eleConfig);
-                //插入背景
-                var dom=$(element);
-                dom.css("background-image", "url(" + data.background.url + ")");
-                //渲染背景样式
-                $.each(data.style, function (index, value) {
-                    dom.css(index, value);
-                });
-
-                //渲染手机专属的样式覆盖旧的
-                $.each(data.phoneStyle, function (index, value) {
-                    dom.css(index, value);
-                });
-
-                if(data.class!==undefined){
-                    for(var i=0;i<data.class.length;i++){
-                        dom.addClass(data.class[i]);
-                    }
-                }
-
-                //插入元素
-                var sessionDom=dom.find(".ele-session");
-
-                for (var i = 0; i < data.eleList.length; i++) {
-                    var eleDom=phoneCreatorServices.createEle(data.eleList[i]);
-                    sessionDom.append(eleDom);
-                    if(data.eleList[i].showState==false){
-                        eleDom.css('display','none');
-                    }
-                }
-
-                return function (scope, element, attrs) {
-
-                }
-            }
-        }
-    })
-
+    
+    
+    /**
+     * 渲染方法
+     */
     .factory('eleApplyService', function () {
         var handle={
             defaultApply:function(dom,data){
