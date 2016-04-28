@@ -28,7 +28,9 @@ angular
         "sessionEditor",
         "historyLog",
         "dataService",
-        "creator"
+        "creator",
+        "browserInfo",
+        "shortcuts"
     ])
     .config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
 

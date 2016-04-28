@@ -40,6 +40,7 @@ module.exports = function(config) {
       'bower_components/underscore/underscore.js',
       'bower_components/sweetalert/dist/sweetalert.min.js',
       'bower_components/swiper/dist/js/swiper.js',
+      'bower_components/useragent.js/dist/useragent.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

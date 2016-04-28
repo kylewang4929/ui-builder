@@ -1,12 +1,15 @@
 "use strict";
 angular.module('creator', [])
-    .directive('creator', function (creatorServices, builderTool, websiteData, historyLog, textEditorService, colorPickService, shearPlate, multipleChoiceService, activeEleService, activeSessionService, rightClickMenuService, eleSettingService) {
+    .directive('creator', function (creatorServices, builderTool, websiteData, historyLog, textEditorService, colorPickService, shearPlate, multipleChoiceService, activeEleService, activeSessionService, rightClickMenuService, eleSettingService,shortcuts) {
         return {
             restrict: 'A',
             scope: {
                 websiteCode: "="
             },
             link: function (scope, element) {
+
+                var shortcutsCode=shortcuts.get();
+                
 
                 builderTool.init(scope);
 
@@ -249,8 +252,7 @@ angular.module('creator', [])
                             scope.activeEle = obj.value;
                         }
                     }
-
-                    if (e.ctrlKey && e.keyCode == 90) {
+                    if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode == shortcutsCode.UNDO.keyCode) {
                         //后退
                         var obj = historyLog.retreatPop();
                         if (obj != undefined) {
@@ -291,7 +293,7 @@ angular.module('creator', [])
 
                         }
                     }
-                    if (e.ctrlKey && e.keyCode == 89) {
+                    if (e[shortcutsCode.REDO.ctrlKey] && e.keyCode == shortcutsCode.REDO.keyCode) {
                         //前进
                         var obj = historyLog.forwardPop();
                         if (obj != undefined) {
@@ -329,15 +331,15 @@ angular.module('creator', [])
                             }
                         }
                     }
-                    if (e.ctrlKey && e.keyCode == 88) {
+                    if (e[shortcutsCode.CUT.ctrlKey] && e.keyCode == shortcutsCode.CUT.keyCode) {
                         //剪切
                         copy("cut");
                     }
-                    if (e.ctrlKey && e.keyCode == 67) {
+                    if (e[shortcutsCode.COPY.ctrlKey] && e.keyCode == shortcutsCode.COPY.keyCode) {
                         //复制
                         copy("copy");
                     }
-                    if (e.ctrlKey && e.keyCode == 86) {
+                    if (e[shortcutsCode.PASTE.ctrlKey] && e.keyCode == shortcutsCode.PASTE.keyCode) {
                         //粘贴
                         var obj = jQuery.extend(true, {}, shearPlate.getData());
                         if (obj.value == null) {
@@ -346,28 +348,28 @@ angular.module('creator', [])
                         paste(obj.type, obj);
                     }
                     //依次上下左右
-                    if (e.keyCode == 38) {
+                    if (e.keyCode == shortcutsCode.MOVE_TOP.keyCode) {
                         if (scope.activeEle.state == 'edit') {
 
                         } else {
                             moveEle("top", e);
                         }
                     }
-                    if (e.keyCode == 40) {
+                    if (e.keyCode == shortcutsCode.MOVE_DOWN.keyCode) {
                         if (scope.activeEle.state == 'edit') {
 
                         } else {
                             moveEle("bottom", e);
                         }
                     }
-                    if (e.keyCode == 37) {
+                    if (e.keyCode == shortcutsCode.MOVE_LEFT.keyCode) {
                         if (scope.activeEle.state == 'edit') {
 
                         } else {
                             moveEle("left", e);
                         }
                     }
-                    if (e.keyCode == 39) {
+                    if (e.keyCode == shortcutsCode.MOVE_RIGHT.keyCode) {
                         if (scope.activeEle.state == 'edit') {
 
                         } else {
@@ -376,7 +378,7 @@ angular.module('creator', [])
                     }
 
                     //删除
-                    if (e.keyCode === 46) {
+                    if (e.keyCode == shortcutsCode.DELETE.keyCode) {
                         var eleList = multipleChoiceService.getEleList();
                         if (eleList.value.length > 0) {
                             for (var i = 0; i < eleList.value.length; i++) {
@@ -399,13 +401,16 @@ angular.module('creator', [])
             }
         };
     })
-    .directive('creatorPhone', function (phoneCreatorServices, phoneBuilderTool, websiteData, phoneHistoryLog, activeEleService, activeSessionService, rightClickMenuService) {
+    .directive('creatorPhone', function (phoneCreatorServices, phoneBuilderTool, websiteData, phoneHistoryLog, activeEleService, activeSessionService, rightClickMenuService,shortcuts) {
         return {
             restrict: 'A',
             scope: {
                 websiteCode: "="
             },
             link: function (scope, element) {
+                
+                
+                var shortcutsCode=shortcuts.get();
 
                 phoneBuilderTool.init(scope);
 
@@ -529,7 +534,7 @@ angular.module('creator', [])
                         }
                     }
 
-                    if (e.ctrlKey && e.keyCode == 90) {
+                    if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode == shortcutsCode.UNDO.keyCode) {
                         //后退
                         var obj = phoneHistoryLog.retreatPop();
                         if (obj != undefined) {
@@ -564,7 +569,7 @@ angular.module('creator', [])
 
                         }
                     }
-                    if (e.ctrlKey && e.keyCode == 89) {
+                    if (e[shortcutsCode.REDO.ctrlKey] && e.keyCode == shortcutsCode.REDO.keyCode) {
                         //前进
                         var obj = phoneHistoryLog.forwardPop();
                         if (obj != undefined) {
@@ -598,28 +603,28 @@ angular.module('creator', [])
                         }
                     }
                     //依次上下左右
-                    if (e.keyCode == 38) {
+                    if (shortcutsCode.MOVE_TOP.keyCode) {
                         if (scope.activeEle.state == 'edit') {
 
                         } else {
                             moveEle("top", e);
                         }
                     }
-                    if (e.keyCode == 40) {
+                    if (shortcutsCode.MOVE_DOWN.keyCode) {
                         if (scope.activeEle.state == 'edit') {
 
                         } else {
                             moveEle("bottom", e);
                         }
                     }
-                    if (e.keyCode == 37) {
+                    if (shortcutsCode.MOVE_LEFT.keyCode) {
                         if (scope.activeEle.state == 'edit') {
 
                         } else {
                             moveEle("left", e);
                         }
                     }
-                    if (e.keyCode == 39) {
+                    if (shortcutsCode.MOVE_RIGHT.keyCode) {
                         if (scope.activeEle.state == 'edit') {
 
                         } else {
@@ -628,7 +633,7 @@ angular.module('creator', [])
                     }
 
                     //删除
-                    if (e.keyCode === 46) {
+                    if (shortcutsCode.DELETE.keyCode) {
                         if (scope.activeEle !== null) {
                             websiteData.hideEle(scope.activeEle.ID);
                         }
