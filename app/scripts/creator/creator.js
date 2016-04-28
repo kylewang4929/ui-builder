@@ -293,7 +293,7 @@ angular.module('creator', [])
 
                         }
                     }
-                    if (e[shortcutsCode.REDO.ctrlKey] && e.keyCode == shortcutsCode.REDO.keyCode) {
+                    if (e[shortcutsCode.REDO.ctrlKey] && e.keyCode == shortcutsCode.REDO.keyCode && e[shortcutsCode.REDO.shiftKey]) {
                         //前进
                         var obj = historyLog.forwardPop();
                         if (obj != undefined) {
@@ -301,8 +301,9 @@ angular.module('creator', [])
                             if (obj.type == "delete") {
                                 websiteData.addEle(scope.websiteCode.ID, obj.value.sessionId, obj.value, scope, 'forward');
                             }
-                            if (obj.type == "default") {
+                            if (obj.type == "updateEle") {
                                 websiteData.updateEle(scope.websiteCode.ID, obj.value, 'forward');
+                                console.log(obj.value);
                                 builderTool.updateEle(obj.value);
                             }
                             if (obj.type == "add") {
@@ -569,11 +570,11 @@ angular.module('creator', [])
 
                         }
                     }
-                    if (e[shortcutsCode.REDO.ctrlKey] && e.keyCode == shortcutsCode.REDO.keyCode) {
+                    if (e[shortcutsCode.REDO.ctrlKey] && e.keyCode == shortcutsCode.REDO.keyCode && e[shortcutsCode.REDO.shiftKey]) {
                         //前进
                         var obj = phoneHistoryLog.forwardPop();
                         if (obj != undefined) {
-                            if (obj.type == "default") {
+                            if (obj.type == "updatePhoneEle") {
                                 websiteData.updateEle(scope.websiteCode.ID, obj.value, 'forward');
                                 phoneBuilderTool.updateEle(obj.value);
                             }

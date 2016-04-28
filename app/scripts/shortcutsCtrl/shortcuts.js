@@ -9,7 +9,8 @@ angular.module('shortcuts', ["browserInfo"])
             },
             REDO: {
                 ctrlKey: "ctrlKey",
-                keyCode: 89
+                keyCode: 90,
+                shiftKey: "shiftKey",
             },
             CUT: {
                 ctrlKey: "ctrlKey",
@@ -46,7 +47,8 @@ angular.module('shortcuts', ["browserInfo"])
             },
             REDO: {
                 ctrlKey: "metaKey",
-                keyCode: 89
+                keyCode: 90,
+                shiftKey: "shiftKey",
             },
             CUT: {
                 ctrlKey: "metaKey",

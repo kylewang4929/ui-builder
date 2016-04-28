@@ -647,7 +647,6 @@ angular.module('dataService', [])
                 }
             },
             updateEle: function (pageID, eleData, type) {
-                console.log(eleData);
                 if (type === undefined) {
                     type = 'default';
                 }
@@ -660,6 +659,7 @@ angular.module('dataService', [])
                                     //找到元素 判断元素是否相同
                                     if (_.isEqual(eleData, data[i].sessionList[j].eleList[k]) != true) {
                                         //加入历史记录 判断是否是从历史记录控制器发过来的更新命令
+                                        console.log(data[i].sessionList[j].eleList[k]);
                                         historyLog.pushHistoryLog(jQuery.extend(true, {}, data[i].sessionList[j].eleList[k]), type, 'updateEle');
                                         eleData = this.retainPhoneStyle(data[i].sessionList[j].eleList[k], eleData);
                                         eleData.eleTemplateType = data[i].sessionList[j].eleList[k].eleTemplateType;
