@@ -22,7 +22,13 @@ angular
         "kyle.rightClickMenu",
         "perfect_scrollbar",
         "multipleChoice",
-        "kyle.eleSetting"
+        "kyle.eleSetting",
+        "webSiteEditor",
+        "phoneSiteEditor",
+        "sessionEditor",
+        "historyLog",
+        "dataService",
+        "creator"
     ])
     .config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
 
