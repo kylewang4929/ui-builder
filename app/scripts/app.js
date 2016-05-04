@@ -30,7 +30,8 @@ angular
         "dataService",
         "creator",
         "browserInfo",
-        "shortcuts"
+        "shortcuts",
+        "insert.directive"
     ])
     .config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
 
