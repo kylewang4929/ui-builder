@@ -58,7 +58,6 @@ angular.module('myBuilderApp')
             }
         };
     })
-    
     .directive('eleMenu', function ($compile,eleSettingService) {
         return {
             restrict: 'A',

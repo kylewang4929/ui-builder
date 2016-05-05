@@ -5,7 +5,7 @@
             </div>
             <div class="page-option-box">
                 <div class="page-option" page-setting-tool-modal="0.8">
-                    <button class="btn btn--m btn--black btn--flat" lx-ripple ng-click="toggleMenu();$event.stopPropagation()">
+                    <button class="btn btn--m btn--black btn--flat" lx-ripple ng-click="toggleMenu()" onmousedown="event.stopPropagation()">
                         <div class="text-box">
                             <span class="text">
                                 <i class="mdi mdi-file-multiple"></i> {{websiteData.name}}
