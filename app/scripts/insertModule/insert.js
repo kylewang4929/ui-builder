@@ -17,6 +17,10 @@ angular.module('insert.directive', [])
                     cy:0
                 };
                 
+                //scope.insertEle.border.width -- min-height
+                var virtualDom=$("<div class='virtual-box'></div>");
+                virtualDom.css({width:scope.insertEle.border.width,height:scope.insertEle.border['min-height']});
+                
                 function mousedown(e) {
                     par.flag=true;
                     par.cx=e.clientX;
@@ -32,7 +36,17 @@ angular.module('insert.directive', [])
                             scope.$apply(function(){
                                $rootScope.$broadcast("closeLeftMenu"); 
                             });
+                            //创建虚拟的元素，跟随鼠标移动
+                            $("body").append(virtualDom);
                         }
+                        
+                        if(par.moveFlag){
+                            //调整虚拟元素的位置
+                            var width=parseInt(scope.insertEle.border.width);
+                            var height=parseInt(scope.insertEle.border['min-height']);
+                            virtualDom.css({left:e.clientX-width/2,top:e.clientY-height/2});
+                        }
+                        
                     }
                 }
                 function mouseup(e) {
@@ -42,6 +56,7 @@ angular.module('insert.directive', [])
                         if(par.moveFlag){
                             //正常处理
                             par.moveFlag=false;
+                            virtualDom.remove();
                         }else{
                             //提示拖动到页面
                             LxNotificationService.info('拖动元素到页面上即可插入元素');
