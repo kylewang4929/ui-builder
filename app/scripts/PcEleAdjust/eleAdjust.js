@@ -254,7 +254,7 @@ angular.module('myBuilderApp')
                             } else {
                                 //更新组
                                 var eleData = builderTool.getEle(firstParentGroupID, "group");
-                                websiteData.updateEle(activePageService.getActivePage(), eleData);
+                                websiteData.updateEle(activePageService.getActivePage().value, eleData);
                             }
                         }
                     }
@@ -791,7 +791,7 @@ angular.module('myBuilderApp')
                         } else {
                             //更新组
                             var eleData = builderTool.getEle(firstParentGroupID, "group");
-                            websiteData.updateEle(activePageService.getActivePage(), eleData);
+                            websiteData.updateEle(activePageService.getActivePage().value, eleData);
                         }
 
 

@@ -385,11 +385,12 @@ angular.module('creator', [])
                         if (eleList.value.length > 0) {
                             for (var i = 0; i < eleList.value.length; i++) {
                                 if (eleList.value[i].state) {
-                                    websiteData.deleteEle(activePageService.getActivePage(), eleList.value[i].ID);
+                                    console.log();
+                                    websiteData.deleteEle(activePageService.getActivePage().value, eleList.value[i].ID);
                                 }
                             }
                         } else if (scope.activeEle !== null) {
-                            websiteData.deleteEle(activePageService.getActivePage(), scope.activeEle.ID);
+                            websiteData.deleteEle(activePageService.getActivePage().value, scope.activeEle.ID);
                         }
                     }
                 }

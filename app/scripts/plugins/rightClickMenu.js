@@ -105,7 +105,7 @@ angular.module('kyle.rightClickMenu', [])
                 }
 
                 scope.deleteEle=function(){
-                    websiteData.deleteEle(activePageService.getActivePage(),scope.activeID);
+                    websiteData.deleteEle(activePageService.getActivePage().value,scope.activeID);
                 }
 
                 scope.group=function(){
@@ -124,7 +124,7 @@ angular.module('kyle.rightClickMenu', [])
 
                 //type 可能为cut copy
                 scope.copy=function(type){
-                    var pageId=activePageService.getActivePage();
+                    var pageId=activePageService.getActivePage().value;
                     shearPlate.setData(type,pageId,websiteData.getEle(pageId,scope.activeID));
                 }
 
@@ -140,7 +140,7 @@ angular.module('kyle.rightClickMenu', [])
                         $rootScope.$broadcast("builderAddEle",scope.activeID,obj.value);
                     }else{
                         //先删除旧元素再通知插入新元素
-                        websiteData.deleteEle(activePageService.getActivePage(),obj.value.ID);
+                        websiteData.deleteEle(activePageService.getActivePage().value,obj.value.ID);
                         obj.value.ID="a"+parseInt(Math.random()*100000);
                         $rootScope.$broadcast("builderAddEle",scope.activeID,obj.value);
                     }

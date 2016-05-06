@@ -566,6 +566,9 @@ angular.module('dataService', [])
             },
             addEle: function (pageID, sessionID, obj, scope, type) {
                 
+                console.log(pageID);
+                console.log(sessionID);
+                
                 if(scope==""){
                     scope=scopeObj;
                 }
@@ -580,6 +583,7 @@ angular.module('dataService', [])
 
                                 data[i].sessionList[j].eleList.push(obj);
                                 //插入在dom上面
+                                
                                 builderTool.addEle(sessionID, obj, scope);
                                 historyLog.pushHistoryLog(obj, type, 'add');
 

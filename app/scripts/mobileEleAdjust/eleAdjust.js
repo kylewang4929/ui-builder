@@ -518,11 +518,11 @@ angular.module('myBuilderApp')
 
                         if (parameter.isGroupEle != true) {
                             var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
-                            websiteData.updatePhoneEle(activePageService.getActivePage(), eleData);
+                            websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
                         } else {
                             //更新组
                             var eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
-                            websiteData.updatePhoneEle(activePageService.getActivePage(), eleData);
+                            websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
                         }
 
                     }
@@ -665,10 +665,10 @@ angular.module('myBuilderApp')
 
                             if (parameter.isGroupEle != true) {
                                 var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
-                                websiteData.updatePhoneEle(activePageService.getActivePage(), eleData);
+                                websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
                             } else {
                                 var eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
-                                websiteData.updatePhoneEle(activePageService.getActivePage(), eleData);
+                                websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
                             }
 
                         }
@@ -780,7 +780,7 @@ angular.module('myBuilderApp')
                         parameter.flag = false;
                         //更新 ID data
                         var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
-                        websiteData.updatePhoneEle(activePageService.getActivePage(), eleData);
+                        websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
 
                         //调整光标
                         builderTool.reviseRotateCss(rotateEleCalculate.getRotate(element), attrs.id);

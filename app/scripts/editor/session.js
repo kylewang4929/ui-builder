@@ -77,7 +77,7 @@ angular.module('sessionEditor',[])
                 } else {
                     for (var i = 0; i < ele.length; i++) {
                         var eleData = builderTool.getEle(ele[i].ID, ele[i].type);
-                        websiteData.updateEle(activePageService.getActivePage(), eleData);
+                        websiteData.updateEle(activePageService.getActivePage().value, eleData);
                     }
                     return false;
                 }
@@ -161,7 +161,7 @@ angular.module('sessionEditor',[])
                 } else {
                     for (var i = 0; i < ele.length; i++) {
                         var eleData = builderTool.getEle(ele[i].ID, ele[i].type);
-                        websiteData.updateEle(activePageService.getActivePage(), eleData);
+                        websiteData.updateEle(activePageService.getActivePage().value, eleData);
                     }
                     return false;
                 }

@@ -1,6 +1,6 @@
 "use strict";
 angular.module('insert.directive', [])
-    .directive('insertEle', function ($rootScope,LxNotificationService,websiteData,activeSessionService) {
+    .directive('insertEle', function ($rootScope,LxNotificationService,websiteData,activeSessionService,activePageService) {
         return {
             restrict: 'A',
             scope:{
@@ -16,6 +16,9 @@ angular.module('insert.directive', [])
                     cx:0,
                     cy:0
                 };
+                
+                var width=parseInt(scope.insertEle.border.width);
+                var height=parseInt(scope.insertEle.border['min-height']);
                 
                 //scope.insertEle.border.width -- min-height
                 var virtualDom=$("<div class='virtual-box'></div>");
@@ -42,8 +45,7 @@ angular.module('insert.directive', [])
                         
                         if(par.moveFlag){
                             //调整虚拟元素的位置
-                            var width=parseInt(scope.insertEle.border.width);
-                            var height=parseInt(scope.insertEle.border['min-height']);
+                            
                             virtualDom.css({left:e.clientX-width/2,top:e.clientY-height/2});
                         }
                         
@@ -59,9 +61,16 @@ angular.module('insert.directive', [])
                             virtualDom.remove();
                             
                             //获取当前激活session 和 page
-                            var activeSession=activeSessionService.getSession();
+                            var activeSession=activeSessionService.getSession().value;
+                            var activePage=activePageService.getActivePage().value;
                             
+                            //计算和session的相对位置
+                            var offset=$("#"+activeSession+".ele-session-box .ele-session").offset();
+                            console.log(offset);
+                            scope.insertEle.position.left=e.clientX-offset.left-width/2;
+                            scope.insertEle.position.top=e.clientY-offset.top-height/2;
                             
+                            websiteData.addEle(activePage, activeSession, scope.insertEle, "");
                             
                         }else{
                             //提示拖动到页面
