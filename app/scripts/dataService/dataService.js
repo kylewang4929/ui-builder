@@ -1,19 +1,23 @@
 "use strict";
 angular.module('dataService', [])
-    .factory('websiteData', function (historyLog, phoneHistoryLog, phoneBuilderTool, builderTool, $http, $q, $timeout) {
+    .factory('websiteData', function (historyLog, phoneHistoryLog, phoneBuilderTool, builderTool, $http, $q, $timeout,activePageService) {
 
         var activePage = "";
 
         //页面列表的数据
         var data = [];
         var fullData = {};
+        var scopeObj={};
 
         var handle = {
+            initScope:function(scope){
+                scopeObj=scope;
+            },
             hideSession: function (ID, historyType) {
                 if (historyType == undefined) {
                     historyType = 'default';
                 }
-                var handle = this.searchSessionHandle(activePage);
+                var handle = this.searchSessionHandle(activePageService.getActivePage().value);
                 for (var i = 0; i < handle.length; i++) {
                     if (handle[i].ID == ID) {
                         handle[i].showState = false;
@@ -43,7 +47,7 @@ angular.module('dataService', [])
 
                 var sessionID = $("#" + ID + ".position-box").parents('.ele-session-box').attr("id");
 
-                var handle = this.searchEleHandle(activePage, sessionID);
+                var handle = this.searchEleHandle(activePageService.getActivePage().value, sessionID);
                 for (var i = 0; i < handle.length; i++) {
                     if (ID == handle[i].ID) {
                         //找到元素
@@ -82,7 +86,7 @@ angular.module('dataService', [])
                 if (historyType == undefined) {
                     historyType = 'default';
                 }
-                var handle = this.searchSessionHandle(activePage);
+                var handle = this.searchSessionHandle(activePageService.getActivePage().value);
                 for (var i = 0; i < handle.length; i++) {
                     if (handle[i].ID == ID) {
                         handle[i].showState = true;
@@ -101,7 +105,7 @@ angular.module('dataService', [])
                 }
 
                 var sessionID = $("#" + ID + ".position-box").parents('.ele-session-box').attr("id");
-                var handle = this.searchEleHandle(activePage, sessionID);
+                var handle = this.searchEleHandle(activePageService.getActivePage().value, sessionID);
                 for (var i = 0; i < handle.length; i++) {
                     if (ID == handle[i].ID) {
                         //找到元素
@@ -118,7 +122,7 @@ angular.module('dataService', [])
                 if (historyType == undefined) {
                     historyType = 'default';
                 }
-                var handle = this.searchSessionHandle(activePage);
+                var handle = this.searchSessionHandle(activePageService.getActivePage().value);
                 for (var i = 0; i < handle.length; i++) {
                     if (sessionID == handle[i].ID) {
                         //加入历史纪录
@@ -138,7 +142,7 @@ angular.module('dataService', [])
                 if (historyType == undefined) {
                     historyType = 'default';
                 }
-                var handle = this.searchSessionHandle(activePage);
+                var handle = this.searchSessionHandle(activePageService.getActivePage().value);
                 for (var i = 0; i < handle.length; i++) {
                     if (sessionID == handle[i].ID) {
                         //加入历史纪录
@@ -154,7 +158,7 @@ angular.module('dataService', [])
                 }
             },
             getSessionMinHeight: function (sessionID) {
-                var handle = this.searchSessionHandle(activePage);
+                var handle = this.searchSessionHandle(activePageService.getActivePage().value);
                 var minHeight = 0;
                 for (var i = 0; i < handle.length; i++) {
                     if (sessionID == handle[i].ID) {
@@ -173,7 +177,7 @@ angular.module('dataService', [])
                 }
             },
             addSession: function (obj, historyType) {
-                var handle = this.searchSessionHandle(activePage, obj.ID);
+                var handle = this.searchSessionHandle(activePageService.getActivePage().value, obj.ID);
                 obj.ID = builderTool.createID();
 
                 if (handle.length > obj.deleteIndex) {
@@ -192,7 +196,7 @@ angular.module('dataService', [])
                 if (historyType == undefined) {
                     historyType = 'default';
                 }
-                var handle = this.searchSessionHandle(activePage, ID);
+                var handle = this.searchSessionHandle(activePageService.getActivePage().value, ID);
                 for (var i = 0; i < handle.length; i++) {
                     if (handle[i].ID == ID) {
                         var session = handle.splice(i, 1)[0];
@@ -227,7 +231,7 @@ angular.module('dataService', [])
                 //获取元素
                 var oldEle = {};
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].ID == activePage) {
+                    if (data[i].ID == activePageService.getActivePage().value) {
                         for (var j = 0; j < data[i].sessionList.length; j++) {
                             if (data[i].sessionList[j].ID == startSession) {
                                 for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
@@ -257,7 +261,7 @@ angular.module('dataService', [])
 
                 //迁移数据
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].ID == activePage) {
+                    if (data[i].ID == activePageService.getActivePage().value) {
                         for (var j = 0; j < data[i].sessionList.length; j++) {
                             if (data[i].sessionList[j].ID == endSession) {
                                 var eleData = builderTool.getEle(newObj.ID, newObj.type);
@@ -388,7 +392,7 @@ angular.module('dataService', [])
                 var sessionID = $("#" + eleList[0].ID + ".position-box").parents('.ele-session-box').attr('id');
 
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].ID == activePage) {
+                    if (data[i].ID == activePageService.getActivePage().value) {
                         for (var j = 0; j < data[i].sessionList.length; j++) {
                             if (data[i].sessionList[j].ID == sessionID) {
                                 for (var q = 0; q < eleList.length; q++) {
@@ -484,7 +488,7 @@ angular.module('dataService', [])
                 }
                 var sessionID = $("#" + group.ID + ".position-box").parents('.ele-session-box').attr('id');
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].ID == activePage) {
+                    if (data[i].ID == activePageService.getActivePage().value) {
                         for (var j = 0; j < data[i].sessionList.length; j++) {
                             if (data[i].sessionList[j].ID == sessionID) {
                                 for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
@@ -528,12 +532,6 @@ angular.module('dataService', [])
                     }
                 }
             },
-            setActivePage: function (id) {
-                activePage = id;
-            },
-            getActivePage: function () {
-                return activePage;
-            },
             getFullDataForCache: function () {
                 return fullData;
             },
@@ -567,6 +565,11 @@ angular.module('dataService', [])
                 return deferred.promise;
             },
             addEle: function (pageID, sessionID, obj, scope, type) {
+                
+                if(scope==""){
+                    scope=scopeObj;
+                }
+                
                 if (type == undefined) {
                     type = "default";
                 }

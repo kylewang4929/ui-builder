@@ -1,6 +1,6 @@
 "use strict";
 angular.module('sessionEditor',[])
-    .factory('changeSessionTool', function (builderTool, websiteData) {
+    .factory('changeSessionTool', function (builderTool, websiteData,activePageService) {
         var parameter = {};
         parameter.currentSession = {};
         parameter.sessionHeight = [];
@@ -77,7 +77,7 @@ angular.module('sessionEditor',[])
                 } else {
                     for (var i = 0; i < ele.length; i++) {
                         var eleData = builderTool.getEle(ele[i].ID, ele[i].type);
-                        websiteData.updateEle(websiteData.getActivePage(), eleData);
+                        websiteData.updateEle(activePageService.getActivePage(), eleData);
                     }
                     return false;
                 }
@@ -85,7 +85,7 @@ angular.module('sessionEditor',[])
         };
         return handle;
     })
-    .factory('changeSessionToolForMultiple', function (builderTool, websiteData) {
+    .factory('changeSessionToolForMultiple', function (builderTool, websiteData,activePageService) {
         var parameter = {};
         parameter.currentSession = {};
         parameter.sessionHeight = [];
@@ -161,7 +161,7 @@ angular.module('sessionEditor',[])
                 } else {
                     for (var i = 0; i < ele.length; i++) {
                         var eleData = builderTool.getEle(ele[i].ID, ele[i].type);
-                        websiteData.updateEle(websiteData.getActivePage(), eleData);
+                        websiteData.updateEle(activePageService.getActivePage(), eleData);
                     }
                     return false;
                 }

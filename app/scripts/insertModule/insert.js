@@ -1,6 +1,6 @@
 "use strict";
 angular.module('insert.directive', [])
-    .directive('insertEle', function ($rootScope,LxNotificationService) {
+    .directive('insertEle', function ($rootScope,LxNotificationService,websiteData,activeSessionService) {
         return {
             restrict: 'A',
             scope:{
@@ -57,6 +57,12 @@ angular.module('insert.directive', [])
                             //正常处理
                             par.moveFlag=false;
                             virtualDom.remove();
+                            
+                            //获取当前激活session 和 page
+                            var activeSession=activeSessionService.getSession();
+                            
+                            
+                            
                         }else{
                             //提示拖动到页面
                             LxNotificationService.info('拖动元素到页面上即可插入元素');

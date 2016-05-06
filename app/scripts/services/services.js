@@ -121,6 +121,18 @@ angular.module('myBuilderApp')
         };
         return handle;
     })
+    .factory('activePageService', function () {
+        var data = { ID: "page", value: {} };
+        var handle = {
+            getActivePage: function () {
+                return data;
+            },
+            setActivePage: function (activePage) {
+                data.value = activePage;
+            }
+        };
+        return handle;
+    })
     .factory('rotateEleCalculate', function () {
         var handle = {
             getSizeAndPosition: function (left, top, width, height, rotate) {

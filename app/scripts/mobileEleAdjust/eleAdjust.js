@@ -1,6 +1,6 @@
 "use strict";
 angular.module('myBuilderApp')
-    .directive('phoneResize', function ($timeout, websiteData, phoneBuilderTool, rotateEleCalculate) {
+    .directive('phoneResize', function ($timeout, websiteData, phoneBuilderTool, rotateEleCalculate,activePageService) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -518,11 +518,11 @@ angular.module('myBuilderApp')
 
                         if (parameter.isGroupEle != true) {
                             var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
-                            websiteData.updatePhoneEle(websiteData.getActivePage(), eleData);
+                            websiteData.updatePhoneEle(activePageService.getActivePage(), eleData);
                         } else {
                             //更新组
                             var eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
-                            websiteData.updatePhoneEle(websiteData.getActivePage(), eleData);
+                            websiteData.updatePhoneEle(activePageService.getActivePage(), eleData);
                         }
 
                     }
@@ -538,7 +538,7 @@ angular.module('myBuilderApp')
             }
         };
     })
-    .directive('phoneDragEle', function (activeSessionService, phoneBuilderTool, websiteData, rotateEleCalculate) {
+    .directive('phoneDragEle', function (activeSessionService, phoneBuilderTool, websiteData, rotateEleCalculate,activePageService) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -665,10 +665,10 @@ angular.module('myBuilderApp')
 
                             if (parameter.isGroupEle != true) {
                                 var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
-                                websiteData.updatePhoneEle(websiteData.getActivePage(), eleData);
+                                websiteData.updatePhoneEle(activePageService.getActivePage(), eleData);
                             } else {
                                 var eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
-                                websiteData.updatePhoneEle(websiteData.getActivePage(), eleData);
+                                websiteData.updatePhoneEle(activePageService.getActivePage(), eleData);
                             }
 
                         }
@@ -686,7 +686,7 @@ angular.module('myBuilderApp')
             }
         };
     })
-    .directive('phoneRotate', function(phoneBuilderTool, websiteData, builderTool, rotateEleCalculate) {
+    .directive('phoneRotate', function(phoneBuilderTool, websiteData, builderTool, rotateEleCalculate,activePageService) {
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
@@ -780,7 +780,7 @@ angular.module('myBuilderApp')
                         parameter.flag = false;
                         //更新 ID data
                         var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
-                        websiteData.updatePhoneEle(websiteData.getActivePage(), eleData);
+                        websiteData.updatePhoneEle(activePageService.getActivePage(), eleData);
 
                         //调整光标
                         builderTool.reviseRotateCss(rotateEleCalculate.getRotate(element), attrs.id);

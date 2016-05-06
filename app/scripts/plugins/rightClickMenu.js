@@ -33,7 +33,7 @@ angular.module('kyle.rightClickMenu', [])
             }
         };
     })
-    .directive('rightClickMenu', function (rightClickMenuService,websiteData,shearPlate,$rootScope,multipleChoiceService,builderTool) {
+    .directive('rightClickMenu', function (rightClickMenuService,websiteData,shearPlate,$rootScope,multipleChoiceService,builderTool,activePageService) {
         return {
             restrict: 'A',
             template: ['<div class="right-click-menu-box z-depth-2" onmousedown="event.stopPropagation()" ng-click="hideDom()">',
@@ -105,7 +105,7 @@ angular.module('kyle.rightClickMenu', [])
                 }
 
                 scope.deleteEle=function(){
-                    websiteData.deleteEle(websiteData.getActivePage(),scope.activeID);
+                    websiteData.deleteEle(activePageService.getActivePage(),scope.activeID);
                 }
 
                 scope.group=function(){
@@ -124,7 +124,7 @@ angular.module('kyle.rightClickMenu', [])
 
                 //type 可能为cut copy
                 scope.copy=function(type){
-                    var pageId=websiteData.getActivePage();
+                    var pageId=activePageService.getActivePage();
                     shearPlate.setData(type,pageId,websiteData.getEle(pageId,scope.activeID));
                 }
 
@@ -140,7 +140,7 @@ angular.module('kyle.rightClickMenu', [])
                         $rootScope.$broadcast("builderAddEle",scope.activeID,obj.value);
                     }else{
                         //先删除旧元素再通知插入新元素
-                        websiteData.deleteEle(websiteData.getActivePage(),obj.value.ID);
+                        websiteData.deleteEle(activePageService.getActivePage(),obj.value.ID);
                         obj.value.ID="a"+parseInt(Math.random()*100000);
                         $rootScope.$broadcast("builderAddEle",scope.activeID,obj.value);
                     }

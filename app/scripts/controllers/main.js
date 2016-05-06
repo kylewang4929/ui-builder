@@ -8,10 +8,10 @@
  * Controller of the myBuilderApp
  */
 angular.module('myBuilderApp')
-  .controller('MainCtrl', function ($scope,websiteData,historyLog,webData) {
+  .controller('MainCtrl', function ($scope,websiteData,historyLog,webData,activePageService) {
         $scope.allData=webData;
         $scope.websiteData=$scope.allData[0];
-        websiteData.setActivePage($scope.websiteData.ID);
+        activePageService.setActivePage($scope.websiteData.ID);
 
         $scope.modelState='web';
         $scope.selectModel=function(type){
@@ -25,7 +25,7 @@ angular.module('myBuilderApp')
                 if(ID===$scope.allData[i].ID){
                     $scope.allData=websiteData.getWebsiteDataForCache();
                     $scope.websiteData=$scope.allData[i];
-                    websiteData.setActivePage($scope.websiteData.ID);
+                    activePageService.setActivePage($scope.websiteData.ID);
                     break;
                 }
             }

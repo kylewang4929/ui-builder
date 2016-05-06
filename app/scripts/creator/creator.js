@@ -1,6 +1,6 @@
 "use strict";
 angular.module('creator', [])
-    .directive('creator', function (creatorServices, builderTool, websiteData, historyLog, textEditorService, colorPickService, shearPlate, multipleChoiceService, activeEleService, activeSessionService, rightClickMenuService, eleSettingService,shortcuts) {
+    .directive('creator', function (creatorServices, builderTool, websiteData, historyLog, textEditorService, colorPickService, shearPlate, multipleChoiceService, activeEleService, activeSessionService, rightClickMenuService, eleSettingService,shortcuts,activePageService) {
         return {
             restrict: 'A',
             scope: {
@@ -12,6 +12,7 @@ angular.module('creator', [])
                 
 
                 builderTool.init(scope);
+                websiteData.initScope(scope);
 
                 //监听刷新命令
                 scope.$on("refreshPage", function (e, data) {
@@ -384,11 +385,11 @@ angular.module('creator', [])
                         if (eleList.value.length > 0) {
                             for (var i = 0; i < eleList.value.length; i++) {
                                 if (eleList.value[i].state) {
-                                    websiteData.deleteEle(websiteData.getActivePage(), eleList.value[i].ID);
+                                    websiteData.deleteEle(activePageService.getActivePage(), eleList.value[i].ID);
                                 }
                             }
                         } else if (scope.activeEle !== null) {
-                            websiteData.deleteEle(websiteData.getActivePage(), scope.activeEle.ID);
+                            websiteData.deleteEle(activePageService.getActivePage(), scope.activeEle.ID);
                         }
                     }
                 }
@@ -414,6 +415,8 @@ angular.module('creator', [])
                 var shortcutsCode=shortcuts.get();
 
                 phoneBuilderTool.init(scope);
+                websiteData.initScope(scope);
+                
 
                 //监听刷新命令
                 scope.$on("refreshPage", function (e, data) {

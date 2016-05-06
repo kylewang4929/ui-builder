@@ -2611,4 +2611,6 @@ body {
 .virtual-box {
   border: 1px dashed #4FC1E9;
   position: absolute;
+  cursor: pointer;
+  pointer-events: none;
 }

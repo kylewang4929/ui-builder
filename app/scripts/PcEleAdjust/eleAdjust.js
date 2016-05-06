@@ -113,7 +113,7 @@ angular.module('myBuilderApp')
         };
     })
     
-    .directive('dragEle', function(activeSessionService, builderTool, websiteData, changeSessionTool, rotateEleCalculate) {
+    .directive('dragEle', function(activeSessionService, builderTool, websiteData, changeSessionTool, rotateEleCalculate,activePageService) {
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
@@ -254,7 +254,7 @@ angular.module('myBuilderApp')
                             } else {
                                 //更新组
                                 var eleData = builderTool.getEle(firstParentGroupID, "group");
-                                websiteData.updateEle(websiteData.getActivePage(), eleData);
+                                websiteData.updateEle(activePageService.getActivePage(), eleData);
                             }
                         }
                     }
@@ -272,7 +272,7 @@ angular.module('myBuilderApp')
         };
     })
 
-    .directive('resize', function($timeout, builderTool, websiteData, rotateEleCalculate) {
+    .directive('resize', function($timeout, builderTool, websiteData, rotateEleCalculate,activePageService) {
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
@@ -791,7 +791,7 @@ angular.module('myBuilderApp')
                         } else {
                             //更新组
                             var eleData = builderTool.getEle(firstParentGroupID, "group");
-                            websiteData.updateEle(websiteData.getActivePage(), eleData);
+                            websiteData.updateEle(activePageService.getActivePage(), eleData);
                         }
 
 
