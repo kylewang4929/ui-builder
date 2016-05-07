@@ -8,7 +8,6 @@ angular.module('myBuilderApp')
                     "type": "text",
                     "textValue": "<div><span class=\"author-galadriel\"><span style=\"font-size: 24px;\"><span style=\"color: rgb(0, 0, 0);\">Site Title</span></span></span></div>",
                     "style": {
-                        "line-height": "54px"
                     },
                     "position": {
                         "left": "45px",
@@ -37,7 +36,6 @@ angular.module('myBuilderApp')
                     "type": "text",
                     "textValue": "<div><span class=\"author-galadriel\"><span style=\"font-size: 34px;\"><span style=\"color: rgb(0, 0, 0);\">Site Title</span></span></span></div>",
                     "style": {
-                        "line-height": "54px"
                     },
                     "position": {
                         "left": "45px",
@@ -66,7 +64,6 @@ angular.module('myBuilderApp')
                     "type": "text",
                     "textValue": "<div><span class=\"author-galadriel\"><span style=\"font-size: 44px;\"><span style=\"color: rgb(0, 0, 0);\">Site Title</span></span></span></div>",
                     "style": {
-                        "line-height": "54px"
                     },
                     "position": {
                         "left": "45px",

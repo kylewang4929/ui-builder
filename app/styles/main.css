@@ -1835,8 +1835,20 @@ body {
 .work-space-box .work-space .phone-box .phone-edit-space-box .ps-container > .ps-scrollbar-y-rail {
   width: 0px !important;
 }
+.work-space-box .work-space .phone-box .phone-top {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .work-space-box .work-space .phone-box .phone-top img {
   width: 100%;
+}
+.work-space-box .work-space .phone-box .phone-bottom {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .work-space-box .work-space .phone-box .phone-bottom img {
   width: 100%;

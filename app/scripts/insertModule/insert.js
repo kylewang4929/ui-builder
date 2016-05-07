@@ -1,6 +1,6 @@
 "use strict";
 angular.module('insert.directive', [])
-    .directive('insertEle', function ($rootScope,LxNotificationService,websiteData,activeSessionService,activePageService) {
+    .directive('insertEle', function ($rootScope,LxNotificationService,websiteData,activeSessionService,activePageService,builderTool,$timeout) {
         return {
             restrict: 'A',
             scope:{
@@ -66,9 +66,12 @@ angular.module('insert.directive', [])
                             
                             //计算和session的相对位置
                             var offset=$("#"+activeSession+".ele-session-box .ele-session").offset();
-                            console.log(offset);
+                            
                             scope.insertEle.position.left=e.clientX-offset.left-width/2;
                             scope.insertEle.position.top=e.clientY-offset.top-height/2;
+                            
+                            //拷贝对象 重新赋值ID
+                            scope.insertEle.ID=builderTool.createID();
                             
                             websiteData.addEle(activePage, activeSession, scope.insertEle, "");
                             

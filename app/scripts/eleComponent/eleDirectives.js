@@ -157,7 +157,7 @@ angular.module('myBuilderApp')
                         '                </div>',
                         '            </div>'].join("");
                 }else{
-                    var template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" full-text ele-menu="text" drag-ele="ele" rotate resize ng-dblclick=editEle(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                    var template=['<div id="' + data.ID + '" ele-type="'+data.type+'" ondragstart="event.preventDefault()" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" full-text ele-menu="text" drag-ele="ele" rotate resize ng-dblclick=editEle(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
                         '                <div class="rotate" ondragstart="event.preventDefault()" onmousedown=event.stopPropagation();><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line" ondragstart="event.preventDefault()"></div>',
                         '                <div class="center" ondragstart="event.preventDefault()"></div>',
