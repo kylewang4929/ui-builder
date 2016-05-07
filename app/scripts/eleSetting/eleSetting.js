@@ -4,13 +4,41 @@ angular.module('kyle.eleSetting', [])
         return {
             restrict: 'A',
             replace: true,
-            template:['<div class="color-pick-box lager" id="color-pick-box" drag-ele handle="handle" onmousedown="event.stopPropagation()" onclick="event.stopPropagation()">',
+            template: ['<div class="color-pick-box lager" id="color-pick-box" drag-ele handle="handle" onmousedown="event.stopPropagation()" onclick="event.stopPropagation()">',
                 '    <div class="my-color">',
                 '        <div class="title handle">',
                 '            {{boxInitData.title}}',
                 '            <button class="btn btn--xs btn--white btn--icon" lx-ripple ng-click="closeEleSetting()"><i class="mdi mdi-close"></i></button>',
                 '        </div>',
-                '        <div class="content-box" ng-show=boxInitData.type=="imagedesign" ng-init="tabState=0">',
+                '        <div ele-setting-box-design ng-show=boxInitData.type=="imagedesign"></div>',
+                '        <div ele-setting-box-layers ng-show=boxInitData.type=="layers"></div>',
+                '        <div ele-setting-box-animate ng-show=boxInitData.type=="animate"></div>',
+                '    </div>',
+                '</div>'].join(""),
+            link: function (scope, element) {
+                scope.boxInitData = eleSettingService.getInitData();
+
+                scope.$watch("boxInitData", function () {
+                    switch (scope.boxInitData.type) {
+                        case "imagedesign": scope.boxInitData.title = "图片设计"; break;
+                        case "layers": scope.boxInitData.title = "布局"; break;
+                        case "animate": scope.boxInitData.title = "动画"; break;
+                    }
+                }, true);
+
+                scope.closeEleSetting = function () {
+                    eleSettingService.hideDom();
+                }
+            }
+        };
+    })
+
+
+    .directive('eleSettingBoxDesign', function (eleSettingService) {
+        return {
+            restrict: 'A',
+            template: [
+                '        <div class="content-box" ng-init="tabState=0">',
                 '           <div class="ele-setting-option z-depth-1">',
                 '               <div ele-setting-slide="image" style="height: 85px"></div>',
                 '                   <div class="tab-box tc-white-1" flex-container="row">',
@@ -64,43 +92,50 @@ angular.module('kyle.eleSetting', [])
                 '                           </div>',
                 '                       </div>',
                 '                   </div>',
-                '                   </div>',
                 '               </div>',
                 '           </div>',
                 '           <div class="ele-setting-content" ng-init="activeLeftMenu=\'background\'" ng-if="tabState==1"></div>',
                 '        </div>',
-                '        <div class="content-box" style="height: 400px" ng-show=boxInitData.type=="layers">',
-
-                '        </div>',
-                '        <div class="content-box" style="height: 400px" ng-show=boxInitData.type=="animate">',
-
-                '        </div>',
-                '    </div>',
-                '</div>'].join(""),
+            ].join(""),
             link: function (scope, element) {
-                scope.boxInitData=eleSettingService.getInitData();
 
-                scope.$watch("boxInitData",function(){
-                    switch (scope.boxInitData.type){
-                        case "imagedesign":scope.boxInitData.title="图片设计";break;
-                        case "layers":scope.boxInitData.title="布局";break;
-                        case "animate":scope.boxInitData.title="动画";break;
-                    }
-                },true);
-
-                scope.closeEleSetting=function(){
-                    eleSettingService.hideDom();
-                }
             }
         };
     })
+
+    .directive('eleSettingBoxLayers', function (eleSettingService) {
+        return {
+            restrict: 'A',
+            template: [
+                '        <div class="content-box" style="height:400px">',
+                '        </div>',
+            ].join(""),
+            link: function (scope, element) {
+
+            }
+        };
+    })
+
+    .directive('eleSettingBoxAnimate', function (eleSettingService) {
+        return {
+            restrict: 'A',
+            template: [
+                '        <div class="content-box" style="height:400px">',
+                '        </div>',
+            ].join(""),
+            link: function (scope, element) {
+
+            }
+        };
+    })
+
     .directive('eleSettingSlide', function () {
         return {
             restrict: 'A',
             replace: true,
-            templateUrl :function(elem,attrs){
-                switch (attrs.eleSettingSlide){
-                    case "image":return "views/eleSetting/imageSlide.html";
+            templateUrl: function (elem, attrs) {
+                switch (attrs.eleSettingSlide) {
+                    case "image": return "views/eleSetting/imageSlide.html";
                 }
             },
             link: function (scope, element) {
@@ -109,9 +144,9 @@ angular.module('kyle.eleSetting', [])
                     direction: 'horizontal',
                     nextButton: '.swiper-button-next',
                     prevButton: '.swiper-button-prev',
-                    slidesPerView : 4,
-                    slidesOffsetBefore : 20,
-                    slidesOffsetAfter : 20
+                    slidesPerView: 4,
+                    slidesOffsetBefore: 20,
+                    slidesOffsetAfter: 20
                 });
             }
         };
@@ -122,19 +157,19 @@ angular.module('kyle.eleSetting', [])
             ID: "colorPick", value: ""
         };
 
-        var boxInitData={type:'',ID:''};
+        var boxInitData = { type: '', ID: '' };
 
         var handle = {
-            getInitData:function(){
+            getInitData: function () {
                 return boxInitData;
             },
-            removePlugin:function(){
-                if(domData.value!==''){
+            removePlugin: function () {
+                if (domData.value !== '') {
                     domData.value.remove();
-                    domData.value='';
+                    domData.value = '';
                 }
             },
-            createDom:function(left,top){
+            createDom: function (left, top) {
                 //初始化
                 var dom = $compile("<div ele-setting-box></div>")($rootScope);
                 dom = $(dom);
@@ -143,23 +178,35 @@ angular.module('kyle.eleSetting', [])
                 domData.value.show();
                 //边界检查
 
-                setTimeout(function(){
+                setTimeout(function () {
                     var eleHeight = parseInt(domData.value.height());
+                    var eleWidth = parseInt(domData.value.width());
                     var bodyHeight = parseInt($("body").height());
+                    var bodyWidth = parseInt($("body").width());
+                    
+                    //将位置调整成居中
+                    top=top-eleHeight/2;
+                    left=left-eleWidth/2;                    
 
                     if (top + eleHeight > bodyHeight) {
                         top -= top + eleHeight - bodyHeight;
-                    } else if(top<50){
-                        top=50;
+                    } else if (top < 50) {
+                        top = 50;
                     }
-                    domData.value.css({left: left, top: top});
-                },100);
+                    
+                    if (left + eleWidth > bodyWidth) {
+                        left -= left + eleWidth - bodyWidth;
+                    } else if (top < 50) {
+                        left = 50;
+                    }
+                    
+                    domData.value.css({ left: left, top: top });
+                }, 100);
 
             },
-            showDom: function (left, top ,type , ID) {
-                top=top-100;
-                boxInitData.type=type;
-                boxInitData.ID=ID;
+            showDom: function (left, top, type, ID) {
+                boxInitData.type = type;
+                boxInitData.ID = ID;
                 //获取原始数据
 
                 if (domData.value === "") {
@@ -169,14 +216,27 @@ angular.module('kyle.eleSetting', [])
                     domData.value.show();
                     //边界检查
                     var eleHeight = parseInt(domData.value.height());
-                    var bodyHeight = $("body").height()
+                    var eleWidth = parseInt(domData.value.width());
+                    var bodyHeight = parseInt($("body").height());
+                    var bodyWidth = parseInt($("body").width());
+                    console.log(left);
+                    //将位置调整成居中
+                    top=top-eleHeight/2;
+                    left=left-eleWidth/2;
 
                     if (top + eleHeight > bodyHeight) {
                         top -= top + eleHeight - bodyHeight;
-                    } else if(top<50){
-                        top=50;
+                    } else if (top < 50) {
+                        top = 50;
                     }
-                    domData.value.css({left: left, top: top});
+                    
+                    if (left + eleWidth > bodyWidth) {
+                        left -= left + eleWidth - bodyWidth;
+                    } else if (top < 50) {
+                        left = 50;
+                    }
+                    
+                    domData.value.css({ left: left, top: top });
                 }
             },
             hideDom: function () {
@@ -189,4 +249,4 @@ angular.module('kyle.eleSetting', [])
         };
         return handle;
     })
-;
+    ;

@@ -71,6 +71,7 @@ angular.module('myBuilderApp')
                     var ID=attrs.id;
                     var left= e.clientX;
                     var top=e.clientY;
+                    
                     eleSettingService.showDom(left,top,type,ID);
                 }
 
