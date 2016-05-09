@@ -613,6 +613,29 @@ html, body {
 
             }
           }
+          & .add-session{
+            .transition(0.2s);
+            transform: scale(0, 0);
+            -ms-transform: scale(0, 0); /* IE 9 */
+            -moz-transform: scale(0, 0); /* Firefox */
+            -webkit-transform: scale(0, 0); /* Safari 和 Chrome */
+            -o-transform: scale(0, 0); /* Opera */
+            cursor: pointer;
+            color: #fff;
+            width: 26px;
+            text-align: center;
+            border-radius: 50%;
+            height: 26px;
+            line-height: 26px;
+            background-color: @baseColor;
+            position: absolute;
+            z-index: 999;
+            &.bottom{
+              bottom: -13px;
+              left: 50%;
+              margin-left: -13px;
+            }
+          }
 
           & .over-shadow {
             position: absolute;
@@ -633,6 +656,13 @@ html, body {
 
           &:hover {
             & .session-resize {
+              transform: scale(1, 1);
+              -ms-transform: scale(1, 1); /* IE 9 */
+              -moz-transform: scale(1, 1); /* Firefox */
+              -webkit-transform: scale(1, 1); /* Safari 和 Chrome */
+              -o-transform: scale(1, 1); /* Opera */
+            }
+            & .add-session {
               transform: scale(1, 1);
               -ms-transform: scale(1, 1); /* IE 9 */
               -moz-transform: scale(1, 1); /* Firefox */

@@ -608,28 +608,28 @@ angular.module('creator', [])
                         }
                     }
                     //依次上下左右
-                    if (shortcutsCode.MOVE_TOP.keyCode) {
+                    if (shortcutsCode.MOVE_TOP.keyCode == e.keyCode) {
                         if (scope.activeEle.state == 'edit') {
 
                         } else {
                             moveEle("top", e);
                         }
                     }
-                    if (shortcutsCode.MOVE_DOWN.keyCode) {
+                    if (shortcutsCode.MOVE_DOWN.keyCode == e.keyCode) {
                         if (scope.activeEle.state == 'edit') {
 
                         } else {
                             moveEle("bottom", e);
                         }
                     }
-                    if (shortcutsCode.MOVE_LEFT.keyCode) {
+                    if (shortcutsCode.MOVE_LEFT.keyCode == e.keyCode) {
                         if (scope.activeEle.state == 'edit') {
 
                         } else {
                             moveEle("left", e);
                         }
                     }
-                    if (shortcutsCode.MOVE_RIGHT.keyCode) {
+                    if (shortcutsCode.MOVE_RIGHT.keyCode == e.keyCode) {
                         if (scope.activeEle.state == 'edit') {
 
                         } else {
@@ -638,7 +638,7 @@ angular.module('creator', [])
                     }
 
                     //删除
-                    if (shortcutsCode.DELETE.keyCode) {
+                    if (shortcutsCode.DELETE.keyCode == e.keyCode) {
                         if (scope.activeEle !== null) {
                             websiteData.hideEle(scope.activeEle.ID);
                         }
