@@ -30,6 +30,7 @@ angular.module('eleMenu', [])
             }
         };
     })
+
     .directive('phoneEleMenu', function ($compile, eleSettingService) {
         return {
             restrict: 'A',
@@ -53,13 +54,4 @@ angular.module('eleMenu', [])
 
             }
         };
-    })
-    .factory("eleMenuService",function(){
-        var handle={
-            create:function(){},
-            show:function(){},
-            removePlugin:function(){}
-        };
-        
-        return handle;
     });
