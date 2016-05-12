@@ -8,7 +8,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var template="";
                 if(attrs.thumbnail){
                     template="<div class='ele-session-box' id="+data.ID+" ele-type='session'>" +
@@ -40,7 +40,7 @@ angular.module('myBuilderApp')
             },
             replace: true,
             compile:function(element, attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 //插入背景
                 var dom=$(element);
                 dom.css("background-image", "url(" + data.background.url + ")");
@@ -72,7 +72,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var template="";
                 if(attrs.thumbnail){
                     template="<div class='ele-session-box' id="+data.ID+" ele-type='session'>" +
@@ -107,7 +107,7 @@ angular.module('myBuilderApp')
             },
             replace: true,
             compile:function(element, attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 //插入背景
                 var dom=$(element);
                 dom.css("background-image", "url(" + data.background.url + ")");
@@ -145,7 +145,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
 
                 var template="";
 
@@ -184,7 +184,7 @@ angular.module('myBuilderApp')
             },
             replace: true,
             link: function (scope, element, attrs) {
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
 
                 eleApplyService.defaultApply(element,data);
             }
@@ -194,7 +194,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var template="";
                 if(attrs.thumbnail){
                     template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box">',
@@ -226,7 +226,7 @@ angular.module('myBuilderApp')
             },
             replace: true,
             link: function (scope, element, attrs) {
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 eleApplyService.defaultApply(element,data);
             }
         }
@@ -235,7 +235,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var template="";
                 if(attrs.thumbnail){
                     template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box">',
@@ -271,7 +271,7 @@ angular.module('myBuilderApp')
             },
             replace: true,
             compile:function(element, attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var dom=$(element);
                 var domStyle=dom.find(" >.ele-box >.ele");
                 for(var i=0;i<data.eleList.length;i++){
@@ -279,7 +279,7 @@ angular.module('myBuilderApp')
                 }
 
                 return function (scope, element, attrs) {
-                    var data=JSON.parse(attrs.eleConfig);
+                    var data=element.context.eleConfig;
                     eleApplyService.defaultApply(element,data);
                 }
             }
@@ -289,7 +289,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var template="";
                 if(attrs.thumbnail){
                     template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box">',
@@ -322,7 +322,7 @@ angular.module('myBuilderApp')
             },
             replace: true,
             link: function (scope, element, attrs) {
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
 
                 //插入item
                 var dom=$(element);
@@ -349,7 +349,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var template="";
                 if(attrs.thumbnail){
                     template="<div class='ele-session-box' id="+data.ID+" ele-type='session')>" +
@@ -371,7 +371,7 @@ angular.module('myBuilderApp')
             },
             replace: true,
             compile:function(element, attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 //插入背景
                 var dom=$(element);
                 dom.css("background-image", "url(" + data.background.url + ")");
@@ -412,7 +412,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var template="";
                 if(attrs.thumbnail){
                     template="<div class='ele-session-box' id="+data.ID+" ele-type='session')>" +
@@ -434,7 +434,7 @@ angular.module('myBuilderApp')
             },
             replace: true,
             compile:function(element, attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 //插入背景
                 var dom=$(element);
                 dom.css("background-image", "url(" + data.background.url + ")");
@@ -480,7 +480,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var template="";
                 if(attrs.thumbnail){
                     template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box">',
@@ -517,7 +517,7 @@ angular.module('myBuilderApp')
             },
             replace: true,
             link: function (scope, element, attrs) {
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
 
                 eleApplyService.phoneDefaultApply(element,data);
 
@@ -544,7 +544,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var template="";
                 if(attrs.thumbnail){
                     template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box">',
@@ -577,7 +577,7 @@ angular.module('myBuilderApp')
             },
             replace: true,
             link: function (scope, element, attrs) {
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
 
                 eleApplyService.phoneDefaultApply(element,data);
 
@@ -593,7 +593,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var template="";
                 if(attrs.thumbnail){
                     template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box">',
@@ -630,14 +630,14 @@ angular.module('myBuilderApp')
             },
             replace: true,
             compile:function(element, attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var dom=$(element);
                 var domStyle=dom.find(" >.ele-box >.ele");
                 for(var i=0;i<data.eleList.length;i++){
                     domStyle.append(phoneCreatorServices.createEle(data.eleList[i]));
                 }
                 return function (scope, element, attrs) {
-                    var data=JSON.parse(attrs.eleConfig);
+                    var data=element.context.eleConfig;
                     eleApplyService.phoneDefaultApply(element,data);
                 }
             }
@@ -647,7 +647,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template:function(element,attrs){
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
                 var template="";
                 if(attrs.thumbnail){
                     template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box">',
@@ -678,7 +678,7 @@ angular.module('myBuilderApp')
             },
             replace: true,
             link: function (scope, element, attrs) {
-                var data=JSON.parse(attrs.eleConfig);
+                var data=element.context.eleConfig;
 
                 var dom=$(element);
                 var domStyle = dom.find(" >.ele-box >.ele");

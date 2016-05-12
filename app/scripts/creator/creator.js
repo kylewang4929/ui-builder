@@ -670,8 +670,9 @@ angular.module('creator', [])
                 return dom;
             },
             createSession: function (data) {
-                var dom = "<div " + data.eleTemplateType + " ele-config=\'" + JSON.stringify(data) + "\'></div>";
+                var dom = "<div " + data.eleTemplateType + "></div>";
                 dom = $(dom);
+                dom.get(0).eleConfig=data;                
                 return dom;
             },
             createEle: function (data) {
@@ -685,23 +686,27 @@ angular.module('creator', [])
                 return dom;
             },
             createText: function (data) {
-                var dom = "<div " + data.eleTemplateType + " ele-config=\'" + JSON.stringify(data) + "\' template-type=\'" + data.eleTemplateType + "\'></div>";
+                var dom = "<div " + data.eleTemplateType + " template-type=\'" + data.eleTemplateType + "\'></div>";
                 dom = $(dom);
+                dom.get(0).eleConfig=data;
                 return dom;
             },
             createGroup: function (data) {
-                var dom = "<div " + data.eleTemplateType + " ele-config=\'" + JSON.stringify(data) + "\' template-type=\'" + data.eleTemplateType + "\'></div>";
+                var dom = "<div " + data.eleTemplateType + " template-type=\'" + data.eleTemplateType + "\'></div>";
                 dom = $(dom);
+                dom.get(0).eleConfig=data;                
                 return dom;
             },
             createImage: function (data) {
-                var dom = "<div " + data.eleTemplateType + " ele-config=\'" + JSON.stringify(data) + "\' template-type=\'" + data.eleTemplateType + "\'></div>";
+                var dom = "<div " + data.eleTemplateType + " template-type=\'" + data.eleTemplateType + "\'></div>";
                 dom = $(dom);
+                dom.get(0).eleConfig=data;                
                 return dom;
             },
             createMenu: function (data) {
-                var dom = "<div " + data.eleTemplateType + " ele-config=\'" + JSON.stringify(data) + "\' template-type=\'" + data.eleTemplateType + "\'></div>";
+                var dom = "<div " + data.eleTemplateType + " template-type=\'" + data.eleTemplateType + "\'></div>";
                 dom = $(dom);
+                dom.get(0).eleConfig=data;                
                 return dom;
             }
         };
@@ -724,8 +729,9 @@ angular.module('creator', [])
                 return dom;
             },
             createSession: function (data) {
-                var dom = "<div " + data.eleTemplateType + "-phone" + " ele-config=\'" + JSON.stringify(data) + "\'></div>";
+                var dom = "<div " + data.eleTemplateType + "-phone" + "></div>";
                 dom = $(dom);
+                dom.get(0).eleConfig=data;
                 return dom;
             },
             createEle: function (data) {
@@ -741,8 +747,9 @@ angular.module('creator', [])
             createText: function (data) {
                 var eleTemplateType = data.eleTemplateType + "-phone";
 
-                var dom = "<div " + eleTemplateType + " ele-config=\'" + JSON.stringify(data) + "\'></div>";
+                var dom = "<div " + eleTemplateType + "></div>";
                 dom = $(dom);
+                dom.get(0).eleConfig=data;
                 return dom;
             },
             scaleText: function (string, scale) {
@@ -763,24 +770,27 @@ angular.module('creator', [])
             createGroup: function (data) {
                 var eleTemplateType = data.eleTemplateType + "-phone";
 
-                var dom = "<div " + eleTemplateType + " ele-config=\'" + JSON.stringify(data) + "\'></div>";
+                var dom = "<div " + eleTemplateType + "></div>";
 
                 dom = $(dom);
+                dom.get(0).eleConfig=data;
                 return dom;
             },
             createImage: function (data) {
                 var eleTemplateType = data.eleTemplateType + "-phone";
 
-                var dom = "<div " + eleTemplateType + " ele-config=\'" + JSON.stringify(data) + "\'></div>";
+                var dom = "<div " + eleTemplateType + "></div>";
 
                 dom = $(dom);
+                dom.get(0).eleConfig=data;
                 return dom;
             },
             createMenu: function (data) {
                 var eleTemplateType = data.eleTemplateType + "-phone";
 
-                var dom = "<div " + eleTemplateType + " ele-config=\'" + JSON.stringify(data) + "\'></div>";
+                var dom = "<div " + eleTemplateType + "></div>";
                 dom = $(dom);
+                dom.get(0).eleConfig=data;
                 return dom;
             }
         };

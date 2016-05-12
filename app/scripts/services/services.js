@@ -58,7 +58,7 @@ angular.module('myBuilderApp')
             }
         };
         return handle;
-    })  
+    })
     .factory('shearPlate', function () {
         var data = {
             type: "",
@@ -117,6 +117,25 @@ angular.module('myBuilderApp')
                 } else {
                     return false;
                 }
+            }
+        };
+        return handle;
+    })
+    
+    /**
+     * 计算元素的真实坐标
+     */
+    .factory('elePosition', function () {
+        var handle = {
+            getLeft: function (e) {
+                var offset = e.offsetLeft;
+                if (e.offsetParent != null) offset += getLeft(e.offsetParent);
+                return offset;
+            },
+            getTop: function (e) {
+                var offset = e.offsetTop;
+                if (e.offsetParent != null) offset += getTop(e.offsetParent);
+                return offset;
             }
         };
         return handle;
