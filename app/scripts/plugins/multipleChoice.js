@@ -343,7 +343,6 @@ angular.module('multipleChoice', [])
                 if(flag==false){
                     //加入激活元素 设置当前session 加阴影
                     var eleDom=$("#"+id+".position-box");
-                    console.log(eleDom);
                     currentSession=eleDom.parents('.ele-session-box').attr('id');
                     var eleData=this.getEleData(eleDom);
                     eleData.state=true;

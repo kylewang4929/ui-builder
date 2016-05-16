@@ -1,9 +1,9 @@
 "use strict";
 angular.module('myBuilderApp')
-    .directive('rotate', function(builderTool, websiteData, rotateEleCalculate) {
+    .directive('rotate', function (builderTool, websiteData, rotateEleCalculate) {
         return {
             restrict: 'A',
-            link: function(scope, element, attrs) {
+            link: function (scope, element, attrs) {
                 var parameter = {
                     cx: 0,
                     cy: 0,
@@ -30,7 +30,7 @@ angular.module('myBuilderApp')
 
                 builderTool.reviseRotateCss(rotateEleCalculate.getRotate(element), attrs.id);
 
-                $(element).find(" >.rotate").on("mousedown", function(e) {
+                $(element).find(" >.rotate").on("mousedown", function (e) {
                     parameter.flag = true;
                     //获取圆心 顶点以及大小等信息
                     var centerOffset = $(element).find(" >.center").offset();
@@ -104,7 +104,7 @@ angular.module('myBuilderApp')
                 $(document).on("mousemove", listenMousemove);
                 $(document).on("mouseup", listenMouseup);
 
-                scope.$on('$destroy', function() {
+                scope.$on('$destroy', function () {
                     $(document).off("mousemove", listenMousemove);
                     $(document).off("mouseup", listenMouseup);
                 });
@@ -112,11 +112,11 @@ angular.module('myBuilderApp')
             }
         };
     })
-    
-    .directive('dragEle', function(activeSessionService, builderTool, websiteData, changeSessionTool, rotateEleCalculate,activePageService) {
+
+    .directive('dragEle', function (activeSessionService, builderTool, websiteData, changeSessionTool, rotateEleCalculate, activePageService,$rootScope) {
         return {
             restrict: 'A',
-            link: function(scope, element, attrs) {
+            link: function (scope, element, attrs) {
                 var parameter = {
                     flag: false,
                     left: 0,
@@ -152,7 +152,7 @@ angular.module('myBuilderApp')
                 } else {
                     handle = element.find("." + attrs.handle);
                 }
-                handle.on("mousedown", function(e) {
+                handle.on("mousedown", function (e) {
                     //e.stopPropagation();
                     if (e.buttons !== 1) {
                         return;
@@ -194,6 +194,7 @@ angular.module('myBuilderApp')
 
                 });
 
+                var moveFirstFlag = true;
                 function listenMousemove(e) {
                     //编辑状态不可滑动
                     //e.stopPropagation();
@@ -201,6 +202,13 @@ angular.module('myBuilderApp')
                         return;
                     }
                     if (parameter.flag) {
+
+                        if (moveFirstFlag) {
+                            //向下通知 正在移动
+                            moveFirstFlag = false;
+                            $rootScope.$emit("eleDragStart");
+                        }
+
                         var offsetX = e.clientX - parameter.cx;
                         var offsetY = e.clientY - parameter.cy;
 
@@ -247,6 +255,13 @@ angular.module('myBuilderApp')
                     //e.stopPropagation();
                     if (parameter.flag) {
                         parameter.flag = false;
+                        
+                        //标记移动结束
+                        if(moveFirstFlag==false){
+                            moveFirstFlag=true;
+                            $rootScope.$emit("eleDragEnd");
+                        }
+                                                
                         if (parameter.type == 'ele') {
                             var ele = [{ ID: attrs.id, type: attrs.eleType }];
                             if (parameter.isGroupEle != true) {
@@ -263,7 +278,7 @@ angular.module('myBuilderApp')
                 $(document).on("mousemove", listenMousemove);
                 $(document).on("mouseup", listenMouseup);
 
-                scope.$on("$destroy", function() {
+                scope.$on("$destroy", function () {
                     $(document).off("mousemove", listenMousemove);
                     $(document).off("mouseup", listenMouseup);
                 });
@@ -272,10 +287,10 @@ angular.module('myBuilderApp')
         };
     })
 
-    .directive('resize', function($timeout, builderTool, websiteData, rotateEleCalculate,activePageService) {
+    .directive('resize', function ($timeout, builderTool, websiteData, rotateEleCalculate, activePageService,$rootScope) {
         return {
             restrict: 'A',
-            link: function(scope, element, attrs) {
+            link: function (scope, element, attrs) {
                 var parameter = {
                     flag: false,
                     left: 0,
@@ -303,7 +318,7 @@ angular.module('myBuilderApp')
                 var eleDom = eleBox.find("> .ele");
 
                 if (attrs.eleType !== 'group') {
-                    $(element).on("click", function() {
+                    $(element).on("click", function () {
                         var height = eleDom.height() / 2;
                         eleDom.css("margin-top", -height + "px");
                     });
@@ -312,13 +327,13 @@ angular.module('myBuilderApp')
                 function fixPosition() {
                     var height = eleDom.height() / 2;
                     eleDom.css("margin-top", -height + "px");
-                    $(eleDom).resize(function() {
+                    $(eleDom).resize(function () {
                         if (eleDom.height() > parseInt(eleBox.css("min-height"))) {
                             eleBox.css("min-height", eleDom.height() + "px");
                         }
                     })
 
-                    $(element).resize(function() {
+                    $(element).resize(function () {
 
                         //当元素被隐藏的时候不调整高度
                         if (eleDom.is(":hidden")) {
@@ -332,7 +347,7 @@ angular.module('myBuilderApp')
 
                 fixPosition();
 
-                $(element).find(" >.resize").on("mousedown", function(e) {
+                $(element).find(" >.resize").on("mousedown", function (e) {
 
                     e.stopPropagation();
 
@@ -744,11 +759,19 @@ angular.module('myBuilderApp')
                     }
                 }
 
+
+                var moveFirstFlag=true;
                 function listenMousemove(e) {
                     if (parameter.flag) {
                         //偏移值
                         var offsetX = e.clientX - parameter.cx;
                         var offsetY = e.clientY - parameter.cy;
+                        
+                        if (moveFirstFlag) {
+                            //向下通知 正在移动
+                            moveFirstFlag = false;
+                            $rootScope.$emit("eleDragStart");
+                        }
 
                         switch (parameter.target) {
                             case 0: leftTopResize(offsetX, offsetY, parameter.rightRotate); break;
@@ -785,6 +808,12 @@ angular.module('myBuilderApp')
                     if (parameter.flag) {
                         parameter.flag = false;
 
+                        //标记移动结束
+                        if(moveFirstFlag==false){
+                            moveFirstFlag=true;
+                            $rootScope.$emit("eleDragEnd");
+                        }
+
                         if (parameter.isGroupEle != true) {
                             var eleData = builderTool.getEle(attrs.id, attrs.eleType);
                             websiteData.updateEle(scope.websiteCode.ID, eleData);
@@ -800,7 +829,7 @@ angular.module('myBuilderApp')
                 $(document).on("mousemove", listenMousemove);
                 $(document).on("mouseup", listenMouseup);
 
-                scope.$on("$destroy", function() {
+                scope.$on("$destroy", function () {
                     $(document).off("mousemove", listenMousemove);
                     $(document).off("mouseup", listenMouseup);
                 });

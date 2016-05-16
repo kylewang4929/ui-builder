@@ -20,40 +20,6 @@
   &.editing .ele-menu{
     display: none!important;
   }
-  & .ele-menu {
-    & button {
-      .transition(0.1s);
-      display: none;
-      border-radius: 40px;
-      margin-right: 8px;
-      & i {
-        position: absolute;
-        top: 0px;
-        left: 12px;
-      }
-      & span {
-        opacity: 0;
-        top: -1px;
-        left: 35px;
-        font-size: 14px;
-        display: block;
-        position: absolute;
-        .transition(0.2s);
-      }
-      &:hover {
-        width: 80px;
-        .transition-delay(0s);
-        & span {
-          opacity: 1;
-        }
-      }
-    }
-    .close-user-select;
-    white-space: nowrap;
-    position: absolute;
-    left: 0px;
-    bottom: -50px;
-  }
 
   & .ele-label {
     position: absolute;
@@ -272,5 +238,41 @@
       }
       overflow: hidden;
     }
+  }
+}
+
+
+& .ele-menu-box{
+  position: absolute;
+  
+  & .ele-menu {
+    & button {
+      .transition(0.1s);
+      border-radius: 40px;
+      margin-right: 8px;
+      & i {
+        position: absolute;
+        top: 0px;
+        left: 12px;
+      }
+      & span {
+        opacity: 0;
+        top: -1px;
+        left: 35px;
+        font-size: 14px;
+        display: block;
+        position: absolute;
+        .transition(0.2s);
+      }
+      &:hover {
+        width: 80px;
+        .transition-delay(0s);
+        & span {
+          opacity: 1;
+        }
+      }
+    }
+    .close-user-select;
+    white-space: nowrap;
   }
 }

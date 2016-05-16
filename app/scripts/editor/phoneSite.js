@@ -148,8 +148,6 @@ angular.module('phoneSiteEditor',[])
                 //还原数据的大小  因为有一个缩放的操作
                 eleData.border.width = parseInt(eleData.border.width) / eleData.scale;
                 eleData.border['min-height'] = parseInt(eleData.border['min-height']) / eleData.scale;
-                //
-                //                console.log(eleData.border);
 
                 return eleData;
             },

@@ -1519,58 +1519,6 @@
 .position-box.editing .ele-menu {
   display: none!important;
 }
-.position-box .ele-menu {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  white-space: nowrap;
-  position: absolute;
-  left: 0px;
-  bottom: -50px;
-}
-.position-box .ele-menu button {
-  transition: all 0.1s ease-in-out;
-  -moz-transition: all 0.1s ease-in-out;
-  /* Firefox 4 */
-  -webkit-transition: all 0.1s ease-in-out;
-  /* Safari 和 Chrome */
-  -o-transition: all 0.1s ease-in-out;
-  /* Opera */
-  display: none;
-  border-radius: 40px;
-  margin-right: 8px;
-}
-.position-box .ele-menu button i {
-  position: absolute;
-  top: 0px;
-  left: 12px;
-}
-.position-box .ele-menu button span {
-  opacity: 0;
-  top: -1px;
-  left: 35px;
-  font-size: 14px;
-  display: block;
-  position: absolute;
-  transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  /* Firefox 4 */
-  -webkit-transition: all 0.2s ease-in-out;
-  /* Safari 和 Chrome */
-  -o-transition: all 0.2s ease-in-out;
-  /* Opera */
-}
-.position-box .ele-menu button:hover {
-  width: 80px;
-  transition-delay: 0s !important;
-  -moz-transition-delay: 0s !important;
-  -webkit-transition-delay: 0s !important;
-  -o-transition-delay: 0s !important;
-}
-.position-box .ele-menu button:hover span {
-  opacity: 1;
-}
 .position-box .ele-label {
   position: absolute;
   left: -1px;
@@ -1777,6 +1725,57 @@
 }
 .position-box .ele-box .menu-box.phone i {
   display: block;
+}
+.ele-menu-box {
+  position: absolute;
+}
+.ele-menu-box .ele-menu {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+}
+.ele-menu-box .ele-menu button {
+  transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  /* Firefox 4 */
+  -webkit-transition: all 0.1s ease-in-out;
+  /* Safari 和 Chrome */
+  -o-transition: all 0.1s ease-in-out;
+  /* Opera */
+  border-radius: 40px;
+  margin-right: 8px;
+}
+.ele-menu-box .ele-menu button i {
+  position: absolute;
+  top: 0px;
+  left: 12px;
+}
+.ele-menu-box .ele-menu button span {
+  opacity: 0;
+  top: -1px;
+  left: 35px;
+  font-size: 14px;
+  display: block;
+  position: absolute;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  /* Firefox 4 */
+  -webkit-transition: all 0.2s ease-in-out;
+  /* Safari 和 Chrome */
+  -o-transition: all 0.2s ease-in-out;
+  /* Opera */
+}
+.ele-menu-box .ele-menu button:hover {
+  width: 80px;
+  transition-delay: 0s !important;
+  -moz-transition-delay: 0s !important;
+  -webkit-transition-delay: 0s !important;
+  -o-transition-delay: 0s !important;
+}
+.ele-menu-box .ele-menu button:hover span {
+  opacity: 1;
 }
 /*scroll*/
 .scroller-page {

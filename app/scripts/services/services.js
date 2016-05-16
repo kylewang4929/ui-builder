@@ -87,7 +87,7 @@ angular.module('myBuilderApp')
         };
         return handle;
     })
-    .factory('activeEleService', function () {
+    .factory('activeEleService', function (eleMenuServices) {
         var data = { ID: "ele", value: {} };
         var handle = {
             getEle: function () {
@@ -95,9 +95,18 @@ angular.module('myBuilderApp')
             },
             setEle: function (data) {
                 data.value = data;
+                if(data.state=="edit"){
+                    //隐藏menu
+                    eleMenuServices.hideDom();                    
+                }else{
+                    //切换显示menu
+                    eleMenuServices.showDom(data.ID,data.type);
+                }
             },
             clear: function () {
                 data.value = {};
+                //隐藏menu 
+                eleMenuServices.hideDom();                                    
             }
         };
         return handle;
@@ -129,12 +138,12 @@ angular.module('myBuilderApp')
         var handle = {
             getLeft: function (e) {
                 var offset = e.offsetLeft;
-                if (e.offsetParent != null) offset += getLeft(e.offsetParent);
+                if (e.offsetParent != null) offset += this.getLeft(e.offsetParent);
                 return offset;
             },
             getTop: function (e) {
                 var offset = e.offsetTop;
-                if (e.offsetParent != null) offset += getTop(e.offsetParent);
+                if (e.offsetParent != null) offset += this.getTop(e.offsetParent);
                 return offset;
             }
         };

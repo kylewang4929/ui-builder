@@ -1,6 +1,6 @@
 "use strict";
 angular.module('creator', [])
-    .directive('creator', function (creatorServices, builderTool, websiteData, historyLog, textEditorService, colorPickService, shearPlate, multipleChoiceService, activeEleService, activeSessionService, rightClickMenuService, eleSettingService,shortcuts,activePageService) {
+    .directive('creator', function (creatorServices, builderTool, websiteData, historyLog, textEditorService, colorPickService, shearPlate, multipleChoiceService, activeEleService, activeSessionService, rightClickMenuService, eleSettingService,shortcuts,activePageService,eleMenuServices) {
         return {
             restrict: 'A',
             scope: {
@@ -8,8 +8,10 @@ angular.module('creator', [])
             },
             link: function (scope, element) {
 
+                //初始化eleMenu组件
+                eleMenuServices.init("web");
+
                 var shortcutsCode=shortcuts.get();
-                
 
                 builderTool.init(scope);
                 websiteData.initScope(scope);
@@ -38,6 +40,9 @@ angular.module('creator', [])
 
 
                 scope.activeEle = null;
+                activeEleService.clear();
+                
+                
                 scope.activeGroup = null;
 
                 scope.editGroup = function (id, e) {
@@ -55,6 +60,8 @@ angular.module('creator', [])
                         }
                         multipleChoiceService.addEle(id);
                         scope.activeEle = null;
+                        //清除激活的元素
+                        activeEleService.clear();
                         return;
                     }
 
@@ -68,11 +75,13 @@ angular.module('creator', [])
                     if (scope.activeEle === null || scope.activeEle === undefined) {
                         multipleChoiceService.removeEle();
                         scope.activeEle = websiteData.getEle(scope.websiteCode.ID, id);
+                        //设置激活的元素
                         activeEleService.setEle(jQuery.extend(true, {}, scope.activeEle));
                         scope.activeEle.state = 'select';
                     } else if (scope.activeEle.ID !== id) {
                         //关闭编辑器 等各种窗口
                         scope.activeEle = null;
+                        //清除激活的元素
                         activeEleService.clear();
                         if (window.getSelection()) {
                             window.getSelection().removeAllRanges();
@@ -101,6 +110,7 @@ angular.module('creator', [])
                     colorPickService.hideDom();
                     scope.activeEle = websiteData.getEle(scope.websiteCode.ID, id);
                     scope.activeEle.state = 'edit';
+                    activeEleService.setEle(jQuery.extend(true, {}, scope.activeEle));                    
                     editEleDom.addClass("editing");
                 };
 
@@ -162,6 +172,7 @@ angular.module('creator', [])
                             websiteData.updateEle(scope.websiteCode.ID, eleData);
                         }
                         scope.activeEle = null;
+                        activeEleService.clear();                        
                     });
                     //关闭设置菜单
                     eleSettingService.hideDom();
@@ -251,6 +262,9 @@ angular.module('creator', [])
                             obj.value.ID = "a" + parseInt(Math.random() * 100000);
                             websiteData.addEle(scope.websiteCode.ID, activeSessionID, obj.value, scope);
                             scope.activeEle = obj.value;
+                            //设置激活元素
+                            activeEleService.setEle(jQuery.extend(true, {}, scope.activeEle));                    
+                            
                         }
                     }
                     if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode == shortcutsCode.UNDO.keyCode) {
@@ -304,7 +318,6 @@ angular.module('creator', [])
                             }
                             if (obj.type == "updateEle") {
                                 websiteData.updateEle(scope.websiteCode.ID, obj.value, 'forward');
-                                console.log(obj.value);
                                 builderTool.updateEle(obj.value);
                             }
                             if (obj.type == "add") {
@@ -385,7 +398,6 @@ angular.module('creator', [])
                         if (eleList.value.length > 0) {
                             for (var i = 0; i < eleList.value.length; i++) {
                                 if (eleList.value[i].state) {
-                                    console.log();
                                     websiteData.deleteEle(activePageService.getActivePage().value, eleList.value[i].ID);
                                 }
                             }
@@ -399,19 +411,23 @@ angular.module('creator', [])
 
                 scope.$on("$destroy", function () {
                     $(document).off("keydown", listenKeydown);
+                    
+                    eleMenuServices.removePlugin();
+                    
                 });
 
             }
         };
     })
-    .directive('creatorPhone', function (phoneCreatorServices, phoneBuilderTool, websiteData, phoneHistoryLog, activeEleService, activeSessionService, rightClickMenuService,shortcuts) {
+    .directive('creatorPhone', function (phoneCreatorServices, phoneBuilderTool, websiteData, phoneHistoryLog, activeEleService, activeSessionService, rightClickMenuService,shortcuts,eleMenuServices) {
         return {
             restrict: 'A',
             scope: {
                 websiteCode: "="
             },
             link: function (scope, element) {
-                
+                //初始化eleMenu
+                eleMenuServices.init("phone");
                 
                 var shortcutsCode=shortcuts.get();
 
@@ -438,11 +454,19 @@ angular.module('creator', [])
 
 
                 scope.activeEle = null;
+                activeEleService.clear();
+                
+                
+                
                 scope.activeGroup = null;
 
                 scope.editGroup = function (id, e) {
                     scope.activeGroup = id;
+                    
+                    //清除激活元素
                     scope.activeEle = null;
+                    activeEleService.clear();
+                    
                     var target = $(e.target);
                     target.parent('.ele-box').parent('.position-box').addClass('group-active');
                 }
@@ -510,6 +534,8 @@ angular.module('creator', [])
                             return;
                         }
                         scope.activeEle = null;
+                        activeEleService.clear();
+                        
                     });
                 });
 
@@ -649,6 +675,8 @@ angular.module('creator', [])
 
                 scope.$on("$destroy", function () {
                     $(document).off("keydown", listenKeydown);
+                    
+                    eleMenuServices.removePlugin();
                 });
 
             }

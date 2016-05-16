@@ -219,7 +219,6 @@ angular.module('kyle.eleSetting', [])
                     var eleWidth = parseInt(domData.value.width());
                     var bodyHeight = parseInt($("body").height());
                     var bodyWidth = parseInt($("body").width());
-                    console.log(left);
                     //将位置调整成居中
                     top=top-eleHeight/2;
                     left=left-eleWidth/2;

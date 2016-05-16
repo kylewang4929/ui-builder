@@ -1,6 +1,6 @@
 "use strict";
 angular.module('myBuilderApp')
-    .directive('phoneResize', function ($timeout, websiteData, phoneBuilderTool, rotateEleCalculate,activePageService) {
+    .directive('phoneResize', function ($timeout, websiteData, phoneBuilderTool, rotateEleCalculate,activePageService,$rootScope) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -474,9 +474,18 @@ angular.module('myBuilderApp')
                     }
                 }
 
+                var moveFirstFlag=true;                
 
                 function listenMousemove(e) {
                     if (parameter.flag) {
+                        
+                        if (moveFirstFlag) {
+                            //向下通知 正在移动
+                            moveFirstFlag = false;
+                            $rootScope.$emit("eleDragStart");
+                        }
+                        
+                        
                         //偏移值
                         var offsetX = e.clientX - parameter.cx;
                         var offsetY = e.clientY - parameter.cy;
@@ -515,6 +524,10 @@ angular.module('myBuilderApp')
                 function listenMouseup(e) {
                     if (parameter.flag) {
                         parameter.flag = false;
+
+                        if(moveFirstFlag==false){
+                            moveFirstFlag=true;                            
+                        }
 
                         if (parameter.isGroupEle != true) {
                             var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
@@ -610,12 +623,20 @@ angular.module('myBuilderApp')
 
                 });
 
+                var moveFirstFlag=true;                
                 function listenMousemove(e) {
                     //编辑状态不可滑动
                     if (parameter.contenteditable) {
                         return;
                     }
                     if (parameter.flag) {
+                        
+                        if (moveFirstFlag) {
+                            //向下通知 正在移动
+                            moveFirstFlag = false;
+                            $rootScope.$emit("eleDragStart");
+                        }                 
+                        
                         var offsetX = e.clientX - parameter.cx;
                         var offsetY = e.clientY - parameter.cy;
 
@@ -661,6 +682,13 @@ angular.module('myBuilderApp')
                 function listenMouseup(e) {
                     if (parameter.flag) {
                         parameter.flag = false;
+                        
+                        //标记移动结束
+                        if(moveFirstFlag==false){
+                            moveFirstFlag=true;      
+                            $rootScope.$emit("eleDragEnd");                                                  
+                        }
+                        
                         if (parameter.type == 'ele') {
 
                             if (parameter.isGroupEle != true) {
