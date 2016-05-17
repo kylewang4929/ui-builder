@@ -17,9 +17,6 @@
       display: none !important;
     }
   }
-  &.editing .ele-menu{
-    display: none!important;
-  }
 
   & .ele-label {
     position: absolute;
@@ -45,11 +42,6 @@
   }
 
   &.active {
-    & > .ele-menu {
-      & .btn {
-        display: inline-block;
-      }
-    }
     & > .ele-label {
       display: none;
     }
@@ -247,6 +239,10 @@
   
   & .ele-menu {
     & button {
+      &.all-button{
+        display: inline-block;
+      }
+      display: none;
       .transition(0.1s);
       border-radius: 40px;
       margin-right: 8px;

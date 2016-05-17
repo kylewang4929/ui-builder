@@ -1516,9 +1516,6 @@
 .position-box.multiple-choice-border .ele-label {
   display: none !important;
 }
-.position-box.editing .ele-menu {
-  display: none!important;
-}
 .position-box .ele-label {
   position: absolute;
   left: -1px;
@@ -1543,9 +1540,6 @@
 .position-box.active {
   border: 1px solid #4FC1E9;
   z-index: 500;
-}
-.position-box.active > .ele-menu .btn {
-  display: inline-block;
 }
 .position-box.active > .ele-label {
   display: none;
@@ -1737,6 +1731,7 @@
   white-space: nowrap;
 }
 .ele-menu-box .ele-menu button {
+  display: none;
   transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   /* Firefox 4 */
@@ -1746,6 +1741,9 @@
   /* Opera */
   border-radius: 40px;
   margin-right: 8px;
+}
+.ele-menu-box .ele-menu button.all-button {
+  display: inline-block;
 }
 .ele-menu-box .ele-menu button i {
   position: absolute;
