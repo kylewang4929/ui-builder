@@ -32,7 +32,8 @@ angular
         "browserInfo",
         "shortcuts",
         "insert.directive",
-        "eleMenu"
+        "eleMenu",
+        "addSession"
     ])
     .config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
 

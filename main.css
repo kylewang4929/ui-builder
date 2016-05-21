@@ -1167,33 +1167,11 @@
   color: #4FC1E9;
 }
 .add-session-box {
-  height: 0px;
-  background-color: #4c4c4c;
-  box-shadow: inset 4px 6px 28px rgba(0, 0, 0, 0.7);
-  position: relative;
-  transition: height 0.4s ease-in-out;
-  -moz-transition: height 0.4s ease-in-out;
-  -webkit-transition: height 0.4s ease-in-out;
-  -o-transition: height 0.4s ease-in-out;
-  overflow: hidden;
-}
-.add-session-box.in {
-  height: 200px;
-}
-.add-session-slide {
-  margin-top: 20px;
-  padding: 20px 20px;
-}
-.add-session-slide .swiper-slide {
   height: 120px;
-  width: 240px;
-  padding: 0px 20px;
-}
-.add-session-slide .session-preview-box {
-  border-radius: 6px;
-  height: 100%;
-  width: 100%;
-  background-color: #fff;
+  background-color: #4c4c4c;
+  box-shadow: inset 0px 0px 28px rgba(0, 0, 0, 0.7);
+  position: relative;
+  z-index: 9;
 }
 /*nav bar*/
 .top-nav-bar-box {
@@ -2405,7 +2383,7 @@ body {
   left: 50%;
   margin-left: 140px;
 }
-.work-space-box .work-space .edit-space-box .edit-space .ele-session-box .add-session-handle {
+.work-space-box .work-space .edit-space-box .edit-space .ele-session-box .add-session {
   transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   /* Firefox 4 */
@@ -2422,10 +2400,6 @@ body {
   /* Safari 和 Chrome */
   -o-transform: scale(0, 0);
   /* Opera */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   cursor: pointer;
   color: #fff;
   width: 26px;
@@ -2437,18 +2411,7 @@ body {
   position: absolute;
   z-index: 999;
 }
-.work-space-box .work-space .edit-space-box .edit-space .ele-session-box .add-session-handle.open {
-  transform: scale(1, 1) rotate(135deg) !important;
-  -ms-transform: scale(1, 1) rotate(135deg) !important;
-  /* IE 9 */
-  -moz-transform: scale(1, 1) rotate(135deg) !important;
-  /* Firefox */
-  -webkit-transform: scale(1, 1) rotate(135deg) !important;
-  /* Safari 和 Chrome */
-  -o-transform: scale(1, 1) rotate(135deg) !important;
-  /* Opera */
-}
-.work-space-box .work-space .edit-space-box .edit-space .ele-session-box .add-session-handle.bottom {
+.work-space-box .work-space .edit-space-box .edit-space .ele-session-box .add-session.bottom {
   bottom: -13px;
   left: 50%;
   margin-left: -13px;
@@ -2480,7 +2443,7 @@ body {
   -o-transform: scale(1, 1);
   /* Opera */
 }
-.work-space-box .work-space .edit-space-box .edit-space .ele-session-box:hover .add-session-handle {
+.work-space-box .work-space .edit-space-box .edit-space .ele-session-box:hover .add-session {
   transform: scale(1, 1);
   -ms-transform: scale(1, 1);
   /* IE 9 */

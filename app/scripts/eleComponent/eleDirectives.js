@@ -18,7 +18,7 @@ angular.module('myBuilderApp')
                 }else{
                     template="<div class='ele-session-box' id="+data.ID+" ele-type='session' session-resize ng-mouseover=hoverSession($event,'"+data.ID+"')>" +
                         '<div class="session-resize only-bottom z-depth-2" ele-type="resize"><i ele-type="resize" class="mdi mdi-arrow-down-bold"></i></div>'+
-                        '<div class="add-session bottom z-depth-2"><i class="mdi mdi-plus"></i></div>'+                        
+                        '<div add-session-handle></div>'+
                         '<div class="over-shadow"></div>'+
                         '<div class="ele-session"></div>'+
                         "<div class='menu-tool-box'>" +
@@ -82,7 +82,7 @@ angular.module('myBuilderApp')
                 }else{
                     template="<div class='ele-session-box' id="+data.ID+" ele-type='session' session-resize ng-mouseover=hoverSession($event,'"+data.ID+"')>" +
                         '<div class="session-resize only-bottom z-depth-2" ele-type="resize"><i ele-type="resize" class="mdi mdi-arrow-down-bold"></i></div>'+
-                        '<div class="add-session bottom z-depth-2"><i class="mdi mdi-plus"></i></div>'+
+                        '<div add-session-handle></div>'+
                         '<div class="over-shadow"></div>'+
                         '<div class="ele-session"></div>'+
                         "<div class='menu-tool-box'>" +

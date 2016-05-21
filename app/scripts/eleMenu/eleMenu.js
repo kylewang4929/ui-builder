@@ -43,13 +43,21 @@ angular.module('eleMenu', [])
 
     .factory("eleMenuServices", function ($rootScope, $compile, elePosition, $timeout) {
 
+
+        var deleteEleEvent=$rootScope.$on("deleteEle", function () {
+            handle.hideDom();            
+        });
+        var updateEleEvent=$rootScope.$on("updateEle", function () {
+            handle.showDom(activeEle.ID, activeEle.type);            
+        });
+
         var dragStartOff = $rootScope.$on("eleDragStart", function () {
             handle.hideDom();
         });
         var dragEndOff = $rootScope.$on("eleDragEnd", function () {
             handle.showDom(activeEle.ID, activeEle.type);
         });
-        
+
         var dom = null;
         var activeEle = {};
         var mode = "";
@@ -132,6 +140,8 @@ angular.module('eleMenu', [])
                     //注销监听
                     dragStartOff();
                     dragEndOff();
+                    deleteEleEvent();
+                    updateEleEvent();
                 }
             }
         };

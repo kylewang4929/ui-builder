@@ -5,6 +5,7 @@
 @import "../scripts/colorpick/style.less";
 @import "../scripts/eleSetting/style.less";
 @import "../scripts/textEditor/style.less";
+@import "../scripts/addSessionCtrl/style.less"; 
 
 /*nav bar*/
 @import "topnav.less";
@@ -613,13 +614,24 @@ html, body {
 
             }
           }
-          & .add-session{
+          & .add-session-handle{
             .transition(0.2s);
             transform: scale(0, 0);
             -ms-transform: scale(0, 0); /* IE 9 */
             -moz-transform: scale(0, 0); /* Firefox */
             -webkit-transform: scale(0, 0); /* Safari 和 Chrome */
             -o-transform: scale(0, 0); /* Opera */
+            
+            &.open{
+              transform: scale(1, 1) rotate(135deg)!important;
+              -ms-transform: scale(1, 1) rotate(135deg)!important; /* IE 9 */
+              -moz-transform: scale(1, 1) rotate(135deg)!important; /* Firefox */
+              -webkit-transform: scale(1, 1) rotate(135deg)!important; /* Safari 和 Chrome */
+              -o-transform: scale(1, 1) rotate(135deg)!important; /* Opera */
+            }
+            
+            .close-user-select;
+            
             cursor: pointer;
             color: #fff;
             width: 26px;
@@ -651,9 +663,9 @@ html, body {
           & .ele-session {
             position: relative;
             width: 1024px;
-            margin: auto;
-          }
-
+            margin: auto; 
+          } 
+ 
           &:hover {
             & .session-resize {
               transform: scale(1, 1);
@@ -662,7 +674,7 @@ html, body {
               -webkit-transform: scale(1, 1); /* Safari 和 Chrome */
               -o-transform: scale(1, 1); /* Opera */
             }
-            & .add-session {
+            & .add-session-handle {
               transform: scale(1, 1);
               -ms-transform: scale(1, 1); /* IE 9 */
               -moz-transform: scale(1, 1); /* Firefox */

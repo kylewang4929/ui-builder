@@ -1,0 +1,29 @@
+.add-session-box{
+    height: 0px; 
+    background-color: #4c4c4c;
+    box-shadow: inset 4px 6px 28px rgba(0, 0, 0, .7);
+    position: relative;
+    transition: height .4s ease-in-out;
+    -moz-transition: height .4s ease-in-out;
+    -webkit-transition: height .4s ease-in-out; 
+    -o-transition: height .4s ease-in-out;
+    overflow: hidden;
+}
+.add-session-box.in{
+    height: 200px;
+}
+.add-session-slide{ 
+    margin-top: 20px; 
+    padding: 20px 20px;
+    & .swiper-slide{
+      height: 120px;
+      width: 240px;
+      padding: 0px 20px;
+    } 
+    & .session-preview-box{
+        border-radius: 6px;
+        height: 100%;
+        width: 100%;
+        background-color: #fff;
+    }
+}

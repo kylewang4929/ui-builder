@@ -1,6 +1,6 @@
 "use strict";
 angular.module('webSiteEditor',[])
-    .factory('builderTool', function (creatorServices, $compile, $timeout) {
+    .factory('builderTool', function (creatorServices, $compile, $timeout,$rootScope) {
 
         var data = [];
         var createScope = null;
@@ -91,9 +91,11 @@ angular.module('webSiteEditor',[])
                     case "menu": this.updateEleMenu(eleData); break;
                     case "group": this.updateEleGroup(eleData); break;
                 }
+                $rootScope.$emit("updateEle");                
             },
             deleteEle: function (id) {
                 $("#" + id + ".position-box").remove();
+                $rootScope.$emit("deleteEle");                
             },
             addEle: function (sessionID, obj) {
                 var dom = creatorServices.createEle(obj);
