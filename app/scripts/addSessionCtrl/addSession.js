@@ -3,7 +3,7 @@ angular.module('addSession', [])
     .directive('addSessionBox', function () {
         return {
             restrict: 'A',
-            templateUrl:"views/addSession/sessionList.html",
+            templateUrl: "views/addSession/sessionList.html",
             link: function (scope, element, attrs) {
                 var mySwiper = $(element).find(".swiper-container").swiper({
                     direction: 'horizontal',
@@ -12,7 +12,7 @@ angular.module('addSession', [])
             }
         }
     })
-    .directive('addSessionHandle', function ( $compile, $timeout,elePosition,levelScroll) {
+    .directive('addSessionHandle', function ($compile, $timeout, elePosition, levelScroll) {
         return {
             restrict: 'A',
             scope: {},
@@ -20,10 +20,10 @@ angular.module('addSession', [])
             replace: true,
             link: function (scope, element, attrs) {
                 //记录高度 由于动画的原因无法正常获取高度                
-                var addSessionBoxHeight=200;
+                var addSessionBoxHeight = 200;
 
                 //存储滚动条到handle
-                var mainScrollHandle=$('#main-web-editor-scroll');
+                var mainScrollHandle = $('#main-web-editor-scroll');
 
                 var parentSessionDom = $(element).parent(".ele-session-box");
                 scope.showFlag = false;
@@ -40,7 +40,9 @@ angular.module('addSession', [])
                             //隐藏
                             $timeout(function () {
                                 dom.removeClass("in");
-                                scope.showFlag = false;
+                                $timeout(function () {
+                                    scope.showFlag = false;
+                                },300);
                             }, 100);
 
                         }
@@ -58,23 +60,25 @@ angular.module('addSession', [])
                             dom = $compile(template)(scope);
                             parentSessionDom.after(dom);
                         }
-                        
+
                         $timeout(function () {
-                            
+
                             //计算绝对位置 滚动滚动条到屏幕中间
-                            var y=elePosition.getTop(dom[0]);
-                            var start=mainScrollHandle.scrollTop();
-                            
-                            var scrollEnd=0;
-                            scrollEnd=y+addSessionBoxHeight/2-$("body").height()/2;
-                            
-                            levelScroll.scrollTop(mainScrollHandle,scrollEnd);
-                            
+                            var y = elePosition.getTop(dom[0]);
+                            var start = mainScrollHandle.scrollTop();
+
+                            var scrollEnd = 0;
+                            scrollEnd = y + addSessionBoxHeight / 2 - $("body").height() / 2;
+
+                            levelScroll.scrollTop(mainScrollHandle, scrollEnd);
+
                             dom.addClass("in");
                         });
                     } else {
                         //隐藏
-                        scope.showFlag = false;
+                        $timeout(function () {
+                            scope.showFlag = false;
+                        },300);
                         dom.removeClass("in");
                     }
                 });

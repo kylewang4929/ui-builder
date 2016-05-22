@@ -15,28 +15,38 @@
 .add-session-box.in{
     height: 200px;
 }
-.add-session-slide{ 
-    margin-top: 20px; 
+.session-preview{ 
+    padding: 28px 100px;    
+    line-height: 0;
     cursor: pointer;
-    padding: 20px 60px;
-    
-    & .swiper-slide{
-      height: 120px;
-      width: 240px;
-      padding: 0px 20px;
-      .transition(0.2s);
-      &:hover{
-        transform: scale(1.1, 1.1);
-        -ms-transform: scale(1.1, 1.1); /* IE 9 */
-        -moz-transform: scale(1.1, 1.1); /* Firefox */
-        -webkit-transform: scale(1.1, 1.1); /* Safari 和 Chrome */
-        -o-transform: scale(1.1, 1.1); /* Opera */
-      }
-    } 
+    height: 200px;
+    & [flex-item]{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
     & .session-preview-box{
         border-radius: 6px;
-        height: 100%;
+        height: 140px;
         width: 100%;
         background-color: #fff;
+        
+        .transition(0.2s);
+        
+        &:hover{
+            transform: scale(1.05, 1.05);    
+            -ms-transform: scale(1.05, 1.05); /* IE 9 */
+            -moz-transform: scale(1.05, 1.05); /* Firefox */
+            -webkit-transform: scale(1.05, 1.05); /* Safari 和 Chrome */
+            -o-transform: scale(1.05, 1.05); /* Opera */
+        }
+        
+    }
+}
+.session-preview-scroll{
+    & .ps-scrollbar-x-rail{
+        opacity: 0!important;
+    }
+    & .ps-scrollbar-y-rail{
+        opacity: 0!important;
     }
 }

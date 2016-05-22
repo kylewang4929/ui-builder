@@ -30,6 +30,10 @@
 .z-depth-5 {
   box-shadow: 0px 27px 24px 0px rgba(0, 0, 0, 0.2), 0px 40px 77px 0px rgba(0, 0, 0, 0.22);
 }
+.scroller {
+  overflow: hidden;
+  position: relative;
+}
 /*引入其他类库的less*/
 .color-pick-box {
   -webkit-user-select: none;
@@ -1182,15 +1186,21 @@
 .add-session-box.in {
   height: 200px;
 }
-.add-session-slide {
-  margin-top: 20px;
+.session-preview {
+  padding: 28px 100px;
+  line-height: 0;
   cursor: pointer;
-  padding: 20px 60px;
+  height: 200px;
 }
-.add-session-slide .swiper-slide {
-  height: 120px;
-  width: 240px;
-  padding: 0px 20px;
+.session-preview [flex-item] {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.session-preview .session-preview-box {
+  border-radius: 6px;
+  height: 140px;
+  width: 100%;
+  background-color: #fff;
   transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   /* Firefox 4 */
@@ -1199,22 +1209,22 @@
   -o-transition: all 0.2s ease-in-out;
   /* Opera */
 }
-.add-session-slide .swiper-slide:hover {
-  transform: scale(1.1, 1.1);
-  -ms-transform: scale(1.1, 1.1);
+.session-preview .session-preview-box:hover {
+  transform: scale(1.05, 1.05);
+  -ms-transform: scale(1.05, 1.05);
   /* IE 9 */
-  -moz-transform: scale(1.1, 1.1);
+  -moz-transform: scale(1.05, 1.05);
   /* Firefox */
-  -webkit-transform: scale(1.1, 1.1);
+  -webkit-transform: scale(1.05, 1.05);
   /* Safari 和 Chrome */
-  -o-transform: scale(1.1, 1.1);
+  -o-transform: scale(1.05, 1.05);
   /* Opera */
 }
-.add-session-slide .session-preview-box {
-  border-radius: 6px;
-  height: 100%;
-  width: 100%;
-  background-color: #fff;
+.session-preview-scroll .ps-scrollbar-x-rail {
+  opacity: 0!important;
+}
+.session-preview-scroll .ps-scrollbar-y-rail {
+  opacity: 0!important;
 }
 /*nav bar*/
 .top-nav-bar-box {
