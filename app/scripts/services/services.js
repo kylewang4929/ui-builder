@@ -149,6 +149,49 @@ angular.module('myBuilderApp')
         };
         return handle;
     })
+    /**
+     * 平滑滚动
+     */
+    .factory('levelScroll', function ($timeout) {
+        var handle = {
+            scrollTop: function (dom,targetPosition) {
+                
+                var start=dom.scrollTop();
+                
+                function levelScrollDown(scrollDom,scrollStart,scrollEnd){
+                    scrollDom.scrollTop(scrollStart+6);        
+                    if(scrollStart+6 < scrollEnd){
+                        $timeout(function(){
+                            levelScrollDown(scrollDom,scrollStart+6,scrollEnd)
+                        },1);                        
+                    }            
+                }
+                function levelScrollUp(scrollDom,scrollStart,scrollEnd){
+                    scrollDom.scrollTop(scrollStart-6);        
+                    if(scrollStart-6 > scrollEnd){
+                        $timeout(function(){
+                            levelScrollUp(scrollDom,scrollStart-6,scrollEnd)
+                        },1);                        
+                    }            
+                }
+                if(start < targetPosition){
+                    levelScrollDown(dom,start,targetPosition)                    
+                }else{
+                    levelScrollUp(dom,start,targetPosition)                                        
+                }
+                
+
+                
+            },
+            scrollLeft: function (dom,targetPosition) {
+                
+                var start=dom.scrollLeft();
+                
+                dom.scrollLeft(targetPosition);                
+            }
+        };
+        return handle;
+    })
     .factory('activePageService', function () {
         var data = { ID: "page", value: {} };
         var handle = {

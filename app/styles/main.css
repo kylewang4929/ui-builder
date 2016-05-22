@@ -1176,18 +1176,39 @@
   -webkit-transition: height 0.4s ease-in-out;
   -o-transition: height 0.4s ease-in-out;
   overflow: hidden;
+  padding: 0px 0px;
+  z-index: 0;
 }
 .add-session-box.in {
   height: 200px;
 }
 .add-session-slide {
   margin-top: 20px;
-  padding: 20px 20px;
+  cursor: pointer;
+  padding: 20px 60px;
 }
 .add-session-slide .swiper-slide {
   height: 120px;
   width: 240px;
   padding: 0px 20px;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  /* Firefox 4 */
+  -webkit-transition: all 0.2s ease-in-out;
+  /* Safari 和 Chrome */
+  -o-transition: all 0.2s ease-in-out;
+  /* Opera */
+}
+.add-session-slide .swiper-slide:hover {
+  transform: scale(1.1, 1.1);
+  -ms-transform: scale(1.1, 1.1);
+  /* IE 9 */
+  -moz-transform: scale(1.1, 1.1);
+  /* Firefox */
+  -webkit-transform: scale(1.1, 1.1);
+  /* Safari 和 Chrome */
+  -o-transform: scale(1.1, 1.1);
+  /* Opera */
 }
 .add-session-slide .session-preview-box {
   border-radius: 6px;
@@ -2437,15 +2458,35 @@ body {
   position: absolute;
   z-index: 999;
 }
-.work-space-box .work-space .edit-space-box .edit-space .ele-session-box .add-session-handle.open {
-  transform: scale(1, 1) rotate(135deg) !important;
-  -ms-transform: scale(1, 1) rotate(135deg) !important;
-  /* IE 9 */
-  -moz-transform: scale(1, 1) rotate(135deg) !important;
-  /* Firefox */
-  -webkit-transform: scale(1, 1) rotate(135deg) !important;
+.work-space-box .work-space .edit-space-box .edit-space .ele-session-box .add-session-handle i {
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  /* Firefox 4 */
+  -webkit-transition: all 0.2s ease-in-out;
   /* Safari 和 Chrome */
-  -o-transform: scale(1, 1) rotate(135deg) !important;
+  -o-transition: all 0.2s ease-in-out;
+  /* Opera */
+}
+.work-space-box .work-space .edit-space-box .edit-space .ele-session-box .add-session-handle.open {
+  transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  /* IE 9 */
+  -moz-transform: scale(1, 1);
+  /* Firefox */
+  -webkit-transform: scale(1, 1);
+  /* Safari 和 Chrome */
+  -o-transform: scale(1, 1);
+  /* Opera */
+}
+.work-space-box .work-space .edit-space-box .edit-space .ele-session-box .add-session-handle.open i {
+  transform: rotate(135deg) !important;
+  -ms-transform: rotate(135deg) !important;
+  /* IE 9 */
+  -moz-transform: rotate(135deg) !important;
+  /* Firefox */
+  -webkit-transform: rotate(135deg) !important;
+  /* Safari 和 Chrome */
+  -o-transform: rotate(135deg) !important;
   /* Opera */
 }
 .work-space-box .work-space .edit-space-box .edit-space .ele-session-box .add-session-handle.bottom {

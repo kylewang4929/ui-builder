@@ -7,20 +7,23 @@ angular.module('addSession', [])
             link: function (scope, element, attrs) {
                 var mySwiper = $(element).find(".swiper-container").swiper({
                     direction: 'horizontal',
-                    slidesPerView: "auto",
-                    slidesOffsetBefore: 20,
-                    slidesOffsetAfter: 20
+                    slidesPerView: "auto"
                 });
             }
         }
     })
-    .directive('addSessionHandle', function ( $compile, $timeout) {
+    .directive('addSessionHandle', function ( $compile, $timeout,elePosition,levelScroll) {
         return {
             restrict: 'A',
             scope: {},
             template: '<div class="add-session-handle bottom z-depth-2" ng-class="{true:\'open\'}[showFlag]"><i class="mdi mdi-plus"></i></div>',
             replace: true,
             link: function (scope, element, attrs) {
+                //记录高度 由于动画的原因无法正常获取高度                
+                var addSessionBoxHeight=200;
+
+                //存储滚动条到handle
+                var mainScrollHandle=$('#main-web-editor-scroll');
 
                 var parentSessionDom = $(element).parent(".ele-session-box");
                 scope.showFlag = false;
@@ -57,6 +60,16 @@ angular.module('addSession', [])
                         }
                         
                         $timeout(function () {
+                            
+                            //计算绝对位置 滚动滚动条到屏幕中间
+                            var y=elePosition.getTop(dom[0]);
+                            var start=mainScrollHandle.scrollTop();
+                            
+                            var scrollEnd=0;
+                            scrollEnd=y+addSessionBoxHeight/2-$("body").height()/2;
+                            
+                            levelScroll.scrollTop(mainScrollHandle,scrollEnd);
+                            
                             dom.addClass("in");
                         });
                     } else {

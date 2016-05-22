@@ -1,5 +1,6 @@
 .add-session-box{
-    height: 0px; 
+    height: 0px;
+    position: relative;
     background-color: #4c4c4c;
     box-shadow: inset 4px 6px 28px rgba(0, 0, 0, .7);
     position: relative;
@@ -8,17 +9,29 @@
     -webkit-transition: height .4s ease-in-out; 
     -o-transition: height .4s ease-in-out;
     overflow: hidden;
+    padding: 0px 0px;
+    z-index: 0;
 }
 .add-session-box.in{
     height: 200px;
 }
 .add-session-slide{ 
     margin-top: 20px; 
-    padding: 20px 20px;
+    cursor: pointer;
+    padding: 20px 60px;
+    
     & .swiper-slide{
       height: 120px;
       width: 240px;
       padding: 0px 20px;
+      .transition(0.2s);
+      &:hover{
+        transform: scale(1.1, 1.1);
+        -ms-transform: scale(1.1, 1.1); /* IE 9 */
+        -moz-transform: scale(1.1, 1.1); /* Firefox */
+        -webkit-transform: scale(1.1, 1.1); /* Safari 和 Chrome */
+        -o-transform: scale(1.1, 1.1); /* Opera */
+      }
     } 
     & .session-preview-box{
         border-radius: 6px;
