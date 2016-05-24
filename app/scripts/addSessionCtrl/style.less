@@ -4,31 +4,34 @@
     background-color: #4c4c4c;
     box-shadow: inset 4px 6px 28px rgba(0, 0, 0, .7);
     position: relative;
-    transition: height .4s ease-in-out;
-    -moz-transition: height .4s ease-in-out;
-    -webkit-transition: height .4s ease-in-out; 
-    -o-transition: height .4s ease-in-out;
+    transition: height .4s ease;
+    -moz-transition: height .4s ease;
+    -webkit-transition: height .4s ease; 
+    -o-transition: height .4s ease;
     overflow: hidden;
     padding: 0px 0px;
     z-index: 0;
 }
 .add-session-box.in{
-    height: 200px;
+    height: 220px;
 }
 .session-preview{ 
-    padding: 28px 100px;    
+    padding: 28px 0px;    
     line-height: 0;
     cursor: pointer;
-    height: 200px;
+    height: 220px;
     & [flex-item]{
         padding-left: 20px;
         padding-right: 20px;
     }
     & .session-preview-box{
         border-radius: 6px;
-        height: 140px;
+        height: 160px;
         width: 100%;
         background-color: #fff;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
         
         .transition(0.2s);
         
