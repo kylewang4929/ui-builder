@@ -1,6 +1,6 @@
 "use strict";
 angular.module('creator', [])
-    .directive('creator', function (creatorServices, builderTool, websiteData, historyLog, textEditorService, colorPickService, shearPlate, multipleChoiceService, activeEleService, activeSessionService, rightClickMenuService, eleSettingService,shortcuts,activePageService,eleMenuServices) {
+    .directive('creator', function (creatorServices, builderTool, websiteData, historyLog, textEditorService, colorPickService, shearPlate, multipleChoiceService, activeEleService, activeSessionService, rightClickMenuService, eleSettingService,shortcuts,activePageService,eleMenuServices,imageLibraryService) {
         return {
             restrict: 'A',
             scope: {
@@ -97,6 +97,10 @@ angular.module('creator', [])
                     }
                 };
 
+                /**
+                 * 编辑文字的方法
+                 * 传入ID，添加相关的css，移除基本样式，进入编辑状态
+                 */
                 scope.editEle = function (id) {
 
                     var editEleDom = $("#" + id + ".position-box");
@@ -113,6 +117,13 @@ angular.module('creator', [])
                     activeEleService.setEle(jQuery.extend(true, {}, scope.activeEle));                    
                     editEleDom.addClass("editing");
                 };
+                /**
+                 * 编辑图片的方法
+                 * 打开图片库
+                 */
+                scope.editImage = function (id){
+                    imageLibraryService.showDom();
+                }
 
                 scope.deleteSession = function (ID) {
                     swal({
@@ -409,11 +420,13 @@ angular.module('creator', [])
 
                 $(document).on("keydown", listenKeydown);
 
+                /**
+                 * 销毁相关插件和监听
+                 */
                 scope.$on("$destroy", function () {
                     $(document).off("keydown", listenKeydown);
-                    
                     eleMenuServices.removePlugin();
-                    
+                    imageLibraryService.removePlugin();
                 });
 
             }

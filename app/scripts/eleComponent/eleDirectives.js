@@ -203,7 +203,7 @@ angular.module('myBuilderApp')
                         '                </div>',
                         '            </div>'].join("");
                 }else{
-                    template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele" rotate resize ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                    template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele" rotate resize ng-dblclick=editImage(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
                         '                <div class="rotate" ondragstart="event.preventDefault()" onmousedown=event.stopPropagation();><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line" ondragstart="event.preventDefault()"></div>',
                         '                <div class="center" ondragstart="event.preventDefault()"></div>',

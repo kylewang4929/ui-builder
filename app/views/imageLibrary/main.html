@@ -1,0 +1,79 @@
+<div class="my-modal z-depth-2 image-library">
+    <div class="modal-title">
+        <div class="title">图片库</div>
+        <div class="option">
+            <lx-icon class="z-depth-1" lx-id="help" lx-size="xs" lx-color="blue" lx-type="circled"></lx-icon>
+            <lx-icon class="z-depth-1" ng-click="cancel()" lx-id="close" lx-size="xs" lx-color="blue" lx-type="circled"></lx-icon>
+        </div>
+    </div>
+    <div class="modal-content">
+        <div class="option-box">
+            <div class="option-list">
+                <div class="option-item active" lx-ripple="light-blue-500">
+                    我的图片
+                </div>
+                <div class="option-item" lx-ripple="light-blue-500">
+                    Builder图片
+                </div>
+                <div class="option-item" lx-ripple="light-blue-500">
+                    云图片
+                </div>
+            </div>
+            <div class="right-button">
+                <div class="radius-button z-depth-1" lx-ripple="white">
+                    <i class="mdi mdi-cloud"></i> 上传图片
+                </div>
+            </div>
+        </div>
+        <div class="option-box">
+            <div class="title">
+                点击或拖拽上传图片到图片库中。支持JPEG、JPG和GIF格式的图片，单次不能上传超过10MB的图片。
+            </div>
+            <div class="right-option">
+                <div class="item">
+                    <div class="border"></div>
+                    <lx-dropdown>
+                        <lx-dropdown-toggle>
+                            <lx-button lx-color="white" class="z-depth-1">排序:A-Z</lx-button>
+                        </lx-dropdown-toggle>
+
+                        <lx-dropdown-menu class="hover-theme z-depth-1 image-library-sort">
+                            <ul>
+                                <li><a class="dropdown-link"><span>A-Z</span></a></li>
+                                <li><a class="dropdown-link"><span>Z-A</span></a></li>
+                                <li><a class="dropdown-link"><span>最新</span></a></li>
+                                <li><a class="dropdown-link"><span>最旧</span></a></li>
+                            </ul>
+                        </lx-dropdown-menu>
+                    </lx-dropdown>
+                </div>
+                <div class="item">
+                    <div class="border"></div>
+                    <lx-text-field lx-label="搜索" lx-allow-clear="true">
+                        <input type="text" ng-model="vm.textFields.floating.company">
+                    </lx-text-field>
+
+                </div>
+                <div class="item">
+                    <lx-dropdown>
+                        <lx-dropdown-toggle>
+                            <lx-button lx-color="white" class="z-depth-1"><i class="mdi mdi-apps"></i></lx-button>
+                        </lx-dropdown-toggle>
+
+                        <lx-dropdown-menu class="hover-theme z-depth-1 image-library-display-mode">
+                            <ul>
+                                <li><a class="dropdown-link"><i class="mdi mdi-apps"></i></a></li>
+                                <li><a class="dropdown-link"><i class="mdi mdi-view-list"></i></a></li>
+                            </ul>
+                        </lx-dropdown-menu>
+                    </lx-dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="content-box">
+            <div class="list"></div>
+            <div class="content"></div>
+        </div>
+    </div>
+    <div class="modal-foot"></div>
+</div>

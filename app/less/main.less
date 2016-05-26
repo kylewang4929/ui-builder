@@ -6,6 +6,7 @@
 @import "../scripts/eleSetting/style.less";
 @import "../scripts/textEditor/style.less";
 @import "../scripts/addSessionCtrl/style.less"; 
+@import "../scripts/imageLibrary/style.less"; 
 
 /*nav bar*/
 @import "topnav.less";
@@ -132,20 +133,25 @@ html, body {
         overflow: hidden;
         z-index: 99;
         //配置颜色
-        &.background .title-button {
-          color: @backgroundMenu;
+        &.background .icon--circled {
+          background-color: @backgroundMenu;
+          color: #fff;
         }
-        &.add .title-button {
-          color: @addMenu;
+        &.add .icon--circled {
+          background-color: @addMenu;
+          color: #fff;          
         }
-        &.app .title-button {
-          color: @appMenu;
+        &.app .icon--circled {
+          background-color: @appMenu;
+          color: #fff;          
         }
-        &.upload .title-button {
-          color: @uploadMenu;
+        &.upload .icon--circled {
+          background-color: @uploadMenu;
+          color: #fff;          
         }
-        &.hideEle .title-button {
-          color: @hideEle;
+        &.hideEle .icon--circled{
+          background-color: @hideEle;
+          color: #fff;        
         }
 
         & .main-box {
@@ -329,13 +335,8 @@ html, body {
             }
             & .title-button {
               float: right;
-              height: 21px;
-              width: 21px;
-              font-size: 25px;
               margin-left: 10px;
               cursor: pointer;
-              border-radius: 50%;
-              overflow: hidden;
               & i {
                 display: block;
                 margin-left: -2px;
@@ -439,7 +440,7 @@ html, body {
 
     & .menu-list {
       position: absolute;
-      z-index: 1001;
+      z-index: 900;
       top: 50%;
       margin: -160px 0px 0px 20px;
 
@@ -916,4 +917,199 @@ html, body {
   position: absolute;
   cursor: pointer;
   pointer-events: none;
+}
+
+
+
+/*
+ * 临时放imagelibrary的less
+*/
+.my-modal-box{
+  background-color: rgba(0,0,0,0);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  top: 0px;
+  left: 0px;
+  padding: 25px 50px;
+  pointer-events: none;
+  
+  &.open{
+    pointer-events: auto;
+    background-color: rgba(0,0,0,.4);
+    
+    /*
+    * 弹窗开启
+    */
+    & .my-modal{
+      margin-top: 0px;    
+      opacity: 1;  
+    }
+  }
+  
+  & .my-modal{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin-top: -80px;
+    background-color: #fff;
+    border-radius: 8px;
+    opacity: 0;
+    overflow: hidden;
+    .transition(0.2s);
+    
+    & .modal-title{
+      height: 55px;
+      background-color: @baseColor;
+      position: relative;
+      & .title{
+        line-height: 55px;
+        font-size: 20px;
+        color: #fff;
+        padding: 0px 30px;
+        font-weight: bold;
+      }
+      & .option{
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        height: 60px;
+        padding-top: 14px;
+        padding-right: 20px;
+        & .icon--circled{
+          margin-right: 4px;
+          background-color: #fff;
+          color: @baseColor;
+          cursor: pointer;
+        }
+      }
+    }
+    
+    & .modal-content{
+      & .option-box{
+        
+        & .title{
+          padding: 0px 30px;
+          line-height: 55px;
+          font-size: 15px;
+          color: @baseTextColor;
+        }
+        & .right-option{
+          height: 55px;
+          position: absolute;
+          right: 10px;
+          top: 0px;
+          & > .item{
+            & button{
+              .z-depth-1;
+              margin-top: 9px;
+              border-radius: 6px;
+            }
+            
+            & .dropdown{
+              & button:hover{
+                background-color: @baseColor;
+                color: #fff;
+              }
+              & button{
+                box-shadow: none;
+                padding-top: 2px;
+              }
+            }
+            & .border{
+              width: 1px;
+              height: 30px;
+              right: 0px;
+              top: 14px;
+              position: absolute;
+              background-color: @baseBorderColor;
+            }
+            & .text-field{
+              margin-top: -18px;
+              & .text-field__label{
+                font-size: 13px!important;
+              }
+              & .text-field__input{
+                color: @baseTextColor;
+              }
+            }
+            position: relative;
+            padding: 0px 20px;
+            height: 100%;
+            float: left;
+          }
+        }
+        
+        position: relative;
+        height: 55px;
+        overflow: hidden;           
+        &:nth-child(1){
+          background-color: #eaf7ff;
+        }
+        &:nth-child(2){
+          border-bottom: 1px solid @baseBorderColor;
+        }
+        & .right-button{
+          padding: 10px;
+          top: 0px;
+          position: absolute;
+          right: 20px;
+          width: 130px;
+          & .radius-button{
+            background-color: #fb7d33;
+            color: #fff;
+            font-weight: bold;
+            font-size: 15px;
+          }
+        }
+        & .option-list{
+          height: 55px;
+          border-bottom: 1px solid #d3edff;
+          & .option-item{
+            
+            &.active{
+              background-color: #fff;
+              height: 56px;
+              position: relative;
+            }
+            
+            height: 100%;
+            cursor: pointer;
+            .close-user-select;
+            font-weight: bold;
+            float: left;
+            color: #075673;
+            height: 55px;
+            width: 140px;
+            text-align: center;
+            line-height: 55px;
+            border-right: 1px solid #d3edff;
+          }
+        }
+      }
+    }
+    
+  }
+}
+
+.image-library-sort.dropdown-menu{
+    width: 78px;
+    min-width: 78px;
+    margin-top: -38px;
+    border-radius: 6px;
+}
+.image-library-display-mode.dropdown-menu{
+  min-width: 42px;
+  width: 42px;
+  margin-top: -38px;  
+  border-radius: 6px;  
+  & .dropdown-link{
+    width: auto;
+    min-width: auto;
+    padding: 0px 9px 0px 10px;
+    & > i{
+      margin: 0px;
+    }
+  }
 }

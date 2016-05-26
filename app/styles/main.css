@@ -34,6 +34,37 @@
   overflow: hidden;
   position: relative;
 }
+.radius-button {
+  width: 100%;
+  height: 34px;
+  border-radius: 20px;
+  background-color: #fff;
+  background-color: #000;
+  text-align: center;
+  line-height: 34px;
+  cursor: pointer;
+}
+.radius-button i {
+  font-size: 17px;
+}
+/*对dropdown做些小小的改动*/
+.dropdown-menu.hover-theme .dropdown-link:hover {
+  background-color: #4FC1E9;
+  color: #fff;
+}
+.dropdown-menu.hover-theme .dropdown-link:hover i {
+  color: #fff;
+}
+.dropdown-menu.margin {
+  border-radius: 6px;
+  margin-top: 6px;
+}
+.text-field:after {
+  background-color: #4FC1E9;
+}
+.text-field.text-field--is-active .text-field__label {
+  color: #4FC1E9;
+}
 /*引入其他类库的less*/
 .color-pick-box {
   -webkit-user-select: none;
@@ -1240,7 +1271,7 @@
   background: #4FC1E9;
   height: 50px;
   width: 100%;
-  z-index: 999999;
+  z-index: 999;
   position: absolute;
 }
 .top-nav-bar-box .top-nav-bar .left-bar {
@@ -1946,20 +1977,25 @@ body {
   overflow: hidden;
   z-index: 99;
 }
-.work-space-box .work-space .menu-content .menu-content-item.background .title-button {
-  color: #FF9800;
+.work-space-box .work-space .menu-content .menu-content-item.background .icon--circled {
+  background-color: #FF9800;
+  color: #fff;
 }
-.work-space-box .work-space .menu-content .menu-content-item.add .title-button {
-  color: #3899EC;
+.work-space-box .work-space .menu-content .menu-content-item.add .icon--circled {
+  background-color: #3899EC;
+  color: #fff;
 }
-.work-space-box .work-space .menu-content .menu-content-item.app .title-button {
-  color: #D0427C;
+.work-space-box .work-space .menu-content .menu-content-item.app .icon--circled {
+  background-color: #D0427C;
+  color: #fff;
 }
-.work-space-box .work-space .menu-content .menu-content-item.upload .title-button {
-  color: #FA7C33;
+.work-space-box .work-space .menu-content .menu-content-item.upload .icon--circled {
+  background-color: #FA7C33;
+  color: #fff;
 }
-.work-space-box .work-space .menu-content .menu-content-item.hideEle .title-button {
-  color: #4FC1E9;
+.work-space-box .work-space .menu-content .menu-content-item.hideEle .icon--circled {
+  background-color: #4FC1E9;
+  color: #fff;
 }
 .work-space-box .work-space .menu-content .menu-content-item .main-box {
   width: 100%;
@@ -2159,13 +2195,8 @@ body {
 }
 .work-space-box .work-space .menu-content .menu-content-item .main-box .title .title-button {
   float: right;
-  height: 21px;
-  width: 21px;
-  font-size: 25px;
   margin-left: 10px;
   cursor: pointer;
-  border-radius: 50%;
-  overflow: hidden;
 }
 .work-space-box .work-space .menu-content .menu-content-item .main-box .title .title-button i {
   display: block;
@@ -2249,7 +2280,7 @@ body {
 }
 .work-space-box .work-space .menu-list {
   position: absolute;
-  z-index: 1001;
+  z-index: 900;
   top: 50%;
   margin: -160px 0px 0px 20px;
 }
@@ -2764,4 +2795,189 @@ body {
   position: absolute;
   cursor: pointer;
   pointer-events: none;
+}
+/*
+ * 临时放imagelibrary的less
+*/
+.my-modal-box {
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  top: 0px;
+  left: 0px;
+  padding: 25px 50px;
+  pointer-events: none;
+}
+.my-modal-box.open {
+  pointer-events: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  /*
+    * 弹窗开启
+    */
+}
+.my-modal-box.open .my-modal {
+  margin-top: 0px;
+  opacity: 1;
+}
+.my-modal-box .my-modal {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin-top: -80px;
+  background-color: #fff;
+  border-radius: 8px;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  /* Firefox 4 */
+  -webkit-transition: all 0.2s ease-in-out;
+  /* Safari 和 Chrome */
+  -o-transition: all 0.2s ease-in-out;
+  /* Opera */
+}
+.my-modal-box .my-modal .modal-title {
+  height: 55px;
+  background-color: #4FC1E9;
+  position: relative;
+}
+.my-modal-box .my-modal .modal-title .title {
+  line-height: 55px;
+  font-size: 20px;
+  color: #fff;
+  padding: 0px 30px;
+  font-weight: bold;
+}
+.my-modal-box .my-modal .modal-title .option {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 60px;
+  padding-top: 14px;
+  padding-right: 20px;
+}
+.my-modal-box .my-modal .modal-title .option .icon--circled {
+  margin-right: 4px;
+  background-color: #fff;
+  color: #4FC1E9;
+  cursor: pointer;
+}
+.my-modal-box .my-modal .modal-content .option-box {
+  position: relative;
+  height: 55px;
+  overflow: hidden;
+}
+.my-modal-box .my-modal .modal-content .option-box .title {
+  padding: 0px 30px;
+  line-height: 55px;
+  font-size: 15px;
+  color: #7e7e7e;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option {
+  height: 55px;
+  position: absolute;
+  right: 10px;
+  top: 0px;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item {
+  position: relative;
+  padding: 0px 20px;
+  height: 100%;
+  float: left;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item button {
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
+  margin-top: 9px;
+  border-radius: 6px;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item .dropdown button:hover {
+  background-color: #4FC1E9;
+  color: #fff;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item .dropdown button {
+  box-shadow: none;
+  padding-top: 2px;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item .border {
+  width: 1px;
+  height: 30px;
+  right: 0px;
+  top: 14px;
+  position: absolute;
+  background-color: #e0e0e0;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item .text-field {
+  margin-top: -18px;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item .text-field .text-field__label {
+  font-size: 13px!important;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item .text-field .text-field__input {
+  color: #7e7e7e;
+}
+.my-modal-box .my-modal .modal-content .option-box:nth-child(1) {
+  background-color: #eaf7ff;
+}
+.my-modal-box .my-modal .modal-content .option-box:nth-child(2) {
+  border-bottom: 1px solid #e0e0e0;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-button {
+  padding: 10px;
+  top: 0px;
+  position: absolute;
+  right: 20px;
+  width: 130px;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-button .radius-button {
+  background-color: #fb7d33;
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+}
+.my-modal-box .my-modal .modal-content .option-box .option-list {
+  height: 55px;
+  border-bottom: 1px solid #d3edff;
+}
+.my-modal-box .my-modal .modal-content .option-box .option-list .option-item {
+  height: 100%;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-weight: bold;
+  float: left;
+  color: #075673;
+  height: 55px;
+  width: 140px;
+  text-align: center;
+  line-height: 55px;
+  border-right: 1px solid #d3edff;
+}
+.my-modal-box .my-modal .modal-content .option-box .option-list .option-item.active {
+  background-color: #fff;
+  height: 56px;
+  position: relative;
+}
+.image-library-sort.dropdown-menu {
+  width: 78px;
+  min-width: 78px;
+  margin-top: -38px;
+  border-radius: 6px;
+}
+.image-library-display-mode.dropdown-menu {
+  min-width: 42px;
+  width: 42px;
+  margin-top: -38px;
+  border-radius: 6px;
+}
+.image-library-display-mode.dropdown-menu .dropdown-link {
+  width: auto;
+  min-width: auto;
+  padding: 0px 9px 0px 10px;
+}
+.image-library-display-mode.dropdown-menu .dropdown-link > i {
+  margin: 0px;
 }

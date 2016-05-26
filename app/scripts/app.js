@@ -33,7 +33,8 @@ angular
         "shortcuts",
         "insert.directive",
         "eleMenu",
-        "addSession"
+        "addSession",
+        "kyle.imageLibrary"
     ])
     .config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
 

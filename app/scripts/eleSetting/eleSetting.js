@@ -146,7 +146,8 @@ angular.module('kyle.eleSetting', [])
                     prevButton: '.swiper-button-prev',
                     slidesPerView: 4,
                     slidesOffsetBefore: 20,
-                    slidesOffsetAfter: 20
+                    slidesOffsetAfter: 20,
+                    mousewheelControl:true
                 });
             }
         };
