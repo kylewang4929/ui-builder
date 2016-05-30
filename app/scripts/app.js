@@ -34,7 +34,8 @@ angular
         "insert.directive",
         "eleMenu",
         "addSession",
-        "kyle.imageLibrary"
+        "kyle.imageLibrary",
+        "kyle.imageCrop"
     ])
     .config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
 

@@ -243,7 +243,6 @@ angular.module('myBuilderApp')
                     //暂时没有考虑图片的位置和放大的问题
                     var height="";
                     var width="";
-                    console.log(parseFloat(data.cropInfo.height));
                     if(originalWidth>originalHeight){
                         //最小的一边是高，高填充 高按比例(width/height=data.imageSize.width/data.imageSize.height)
                         height=y/parseFloat(data.cropInfo.height);
@@ -630,7 +629,6 @@ angular.module('myBuilderApp')
                     //暂时没有考虑图片的位置和放大的问题
                     var height="";
                     var width="";
-                    console.log(parseFloat(data.cropInfo.height));
                     if(originalWidth>originalHeight){
                         //最小的一边是高，高填充 高按比例(width/height=data.imageSize.width/data.imageSize.height)
                         height=y/parseFloat(data.cropInfo.height);

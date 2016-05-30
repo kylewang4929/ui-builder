@@ -93,14 +93,14 @@ angular.module('myBuilderApp')
             getEle: function () {
                 return data;
             },
-            setEle: function (data) {
-                data.value = data;
-                if(data.state=="edit"){
+            setEle: function (ele) {
+                data.value = ele;
+                if(data.value.state=="edit"){
                     //隐藏menu
                     eleMenuServices.hideDom();                    
                 }else{
                     //切换显示menu
-                    eleMenuServices.showDom(data.ID,data.type);
+                    eleMenuServices.showDom(data.value.ID,data.value.type);
                 }
             },
             clear: function () {

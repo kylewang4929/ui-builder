@@ -1,11 +1,11 @@
 "use strict";
 angular.module('eleMenu', [])
-    .directive('eleMenu', function ($compile, eleSettingService, eleMenuServices, imageLibraryService) {
+    .directive('eleMenu', function ($compile, eleSettingService, eleMenuServices, imageLibraryService,imageCropService,activeEleService) {
         return {
             restrict: 'A',
             template: "<div class='ele-menu' onmousedown='event.stopPropagation()'>" +
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 image-button' lx-ripple ng-click='changeImage()'><i class='mdi mdi-repeat'></i><span>更换</span></button>" +
-            "<button class='btn btn--l btn--blue btn--fab z-depth-1 image-button' lx-ripple><i class='mdi mdi-crop'></i><span>裁剪</span></button>" +
+            "<button class='btn btn--l btn--blue btn--fab z-depth-1 image-button' lx-ripple ng-click='openCrop()'><i class='mdi mdi-crop'></i><span>裁剪</span></button>" +
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 text-button' lx-ripple><i class='mdi mdi-pencil'></i><span>编辑</span></button>" +
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 group-button' lx-ripple><i class='mdi mdi-pencil'></i><span>编辑</span></button>" +
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 all-button' lx-ripple ng-click=openSettingBox('design',$event)><i class='mdi mdi-checkerboard'></i><span>设计</span></button>" +
@@ -13,22 +13,25 @@ angular.module('eleMenu', [])
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 all-button' lx-ripple ng-click=openSettingBox('animate',$event)><i class='mdi mdi-auto-fix'></i><span>动画</span></button>" +
             "</div>",
             link: function (scope, element, attrs) {
+                
+                var activeEle=activeEleService.getEle();                
+                
                 //监听属性 同步更改
-
-                scope.eleMenu = eleMenuServices.getType();
-
                 scope.changeImage = function () {
                     imageLibraryService.showDom();
                 }
 
                 scope.openSettingBox = function (type, e) {
                     if (type == 'design') {
-                        type = scope.eleMenu.value + type;
+                        type = activeEle.value.type + type;
                     }
-                    var ID = attrs.id;
+                    var ID = activeEle.value.ID;
                     var left = e.clientX;
                     var top = e.clientY;
                     eleSettingService.showDom(left, top, type, ID);
+                }
+                scope.openCrop=function(){
+                    imageCropService.openCrop(angular.copy(activeEle.value));
                 }
 
             }

@@ -26,8 +26,8 @@
             "type": "image",
             "url": "images/website/logo.png",
             "imageSize":{
-                "width":"170px",
-                "height":"50px"
+                "width":"439px",
+                "height":"125px"
             },
             "cropInfo":{
                 "width":"1",
@@ -181,8 +181,8 @@
                         "type": "image",
                         "url": "images/website/pc.png",
                         "imageSize":{
-                            "width":"399px",
-                            "height":"324px"
+                            "width":"680px",
+                            "height":"552px"
                         },
                         "cropInfo":{
                             "width":"1",
@@ -222,8 +222,8 @@
                         "type": "image",
                         "url": "images/website/shuangyinhao.png",
                         "imageSize":{
-                            "width":"70px",
-                            "height":"70px"
+                            "width":"150px",
+                            "height":"150px"
                         },
                         "cropInfo":{
                             "width":"1",

@@ -264,7 +264,7 @@ angular.module('dataService', [])
                     if (data[i].ID == activePageService.getActivePage().value) {
                         for (var j = 0; j < data[i].sessionList.length; j++) {
                             if (data[i].sessionList[j].ID == endSession) {
-                                var eleData = builderTool.getEle(newObj.ID, newObj.type);
+                                var eleData = builderTool.getEle(newObj.ID,newObj.type);
 
                                 //此处应该调用计算phoneStyle的方法
 

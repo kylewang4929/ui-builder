@@ -119,11 +119,14 @@ angular.module('webSiteEditor',[])
                 if (string == undefined) {
                     return {};
                 } else {
-                    var style = string.replace(/\s/g, "").split(";");
+                    var style = string.split(";");
                     var styleObj = {};
                     for (var i = 0; i < style.length; i++) {
                         var itemStyle = style[i].split(":");
-                        styleObj[itemStyle[0]] = itemStyle[1];
+                        if($.trim(itemStyle[0])==""){
+                            continue;
+                        }
+                        styleObj[$.trim(itemStyle[0])] = $.trim(itemStyle[1]);
                     }
                     return styleObj;
                 }
@@ -158,6 +161,24 @@ angular.module('webSiteEditor',[])
                 eleData.url = styleDom.css("background-image");
                 eleData.url = eleData.url.substring(5, eleData.url.length - 2);
                 eleData.eleTemplateType = dom.attr("template-type");
+                
+                //计算图片的原始大小 以及图片的缩放比例
+                var img=document.createElement('img');
+                img.src=eleData.url;
+                eleData.imageSize={
+                    width:img.width,
+                    height:img.height
+                };
+                
+                //计算图片尺寸
+                var imageBackgroundSize=eleData.style['background-size'].split(" ");
+                console.log(eleData.style['background-size']);
+                //元素尺寸 比 图片尺寸
+                eleData.cropInfo={
+                    width:parseFloat(eleData.border.width)/parseFloat(imageBackgroundSize[0]),
+                    height:parseFloat(eleData.border['min-height'])/parseFloat(imageBackgroundSize[1])
+                };
+                console.log(eleData)
                 return eleData;
             },
             getEleMenu: function (ID) {

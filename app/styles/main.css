@@ -1298,6 +1298,258 @@
 .session-preview-scroll .ps-scrollbar-y-rail {
   opacity: 0!important;
 }
+/*
+ * 临时放imagelibrary的less
+*/
+.my-modal-box {
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  top: 0px;
+  left: 0px;
+  padding: 25px 50px;
+  pointer-events: none;
+}
+.my-modal-box.open {
+  pointer-events: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  /*
+    * 弹窗开启
+    */
+}
+.my-modal-box.open .my-modal {
+  margin-top: 0px;
+  opacity: 1;
+}
+.my-modal-box .my-modal {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin-top: -80px;
+  background-color: #fff;
+  border-radius: 8px;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  /* Firefox 4 */
+  -webkit-transition: all 0.2s ease-in-out;
+  /* Safari 和 Chrome */
+  -o-transition: all 0.2s ease-in-out;
+  /* Opera */
+}
+.my-modal-box .my-modal .modal-title {
+  height: 55px;
+  background-color: #4FC1E9;
+  position: relative;
+}
+.my-modal-box .my-modal .modal-title .title {
+  line-height: 55px;
+  font-size: 20px;
+  color: #fff;
+  padding: 0px 30px;
+  font-weight: bold;
+}
+.my-modal-box .my-modal .modal-title .option {
+  position: absolute;
+  z-index: 99;
+  right: 0px;
+  top: 0px;
+  height: 60px;
+  padding-top: 14px;
+  padding-right: 20px;
+}
+.my-modal-box .my-modal .modal-title .option .icon--circled {
+  margin-right: 4px;
+  background-color: #fff;
+  color: #4FC1E9;
+  cursor: pointer;
+}
+.my-modal-box .my-modal .modal-content {
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  padding-top: 55px;
+  padding-bottom: 55px;
+}
+.my-modal-box .my-modal .modal-content .option-box {
+  position: relative;
+  height: 55px;
+  z-index: 99;
+  overflow: hidden;
+}
+.my-modal-box .my-modal .modal-content .option-box .title {
+  padding: 0px 30px;
+  line-height: 55px;
+  font-size: 15px;
+  color: #7e7e7e;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option {
+  height: 55px;
+  position: absolute;
+  right: 10px;
+  top: 0px;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item {
+  position: relative;
+  padding: 0px 20px;
+  height: 100%;
+  float: left;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item button {
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
+  margin-top: 9px;
+  border-radius: 6px;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item .dropdown button:hover {
+  background-color: #4FC1E9;
+  color: #fff;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item .dropdown button {
+  box-shadow: none;
+  padding-top: 2px;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item .border {
+  width: 1px;
+  height: 30px;
+  right: 0px;
+  top: 14px;
+  position: absolute;
+  background-color: #e0e0e0;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item .text-field {
+  margin-top: -18px;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item .text-field .text-field__label {
+  font-size: 13px!important;
+}
+.my-modal-box .my-modal .modal-content .option-box .right-option > .item .text-field .text-field__input {
+  color: #7e7e7e;
+}
+.my-modal-box .my-modal .modal-content .option-box:nth-child(1) {
+  background-color: #eaf7ff;
+}
+.my-modal-box .my-modal .modal-content .option-box:nth-child(2) {
+  border-bottom: 1px solid #e0e0e0;
+}
+.my-modal-box .my-modal .modal-content .option-box .option-list {
+  height: 55px;
+  border-bottom: 1px solid #d3edff;
+}
+.my-modal-box .my-modal .modal-content .option-box .option-list .option-item {
+  height: 100%;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-weight: bold;
+  float: left;
+  color: #075673;
+  height: 55px;
+  width: 140px;
+  text-align: center;
+  line-height: 55px;
+  border-right: 1px solid #d3edff;
+}
+.my-modal-box .my-modal .modal-content .option-box .option-list .option-item.active {
+  background-color: #fff;
+  height: 56px;
+  position: relative;
+}
+.my-modal-box .my-modal .modal-content .content-box {
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  padding: 165px 0px 55px 0px;
+}
+.my-modal-box .my-modal .modal-content .content-box .content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 165px 0px 55px 200px;
+  top: 0px;
+  left: 0px;
+}
+.my-modal-box .my-modal .modal-content .content-box .list {
+  z-index: 99;
+  padding-bottom: 45px;
+  height: 100%;
+  position: relative;
+  width: 200px;
+  border-right: 1px solid #e0e0e0;
+}
+.my-modal-box .my-modal .modal-content .content-box .list .item {
+  text-align: left;
+  padding: 12px 30px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.my-modal-box .my-modal .modal-content .content-box .list .item.add {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  color: #4FC1E9;
+  cursor: pointer;
+}
+.my-modal-box .my-modal .modal-content .content-box .list .item.add:hover {
+  background-color: transparent;
+}
+.my-modal-box .my-modal .modal-content .content-box .list .item.active {
+  background-color: #4FC1E9 !important;
+  color: #fff!important;
+}
+.my-modal-box .my-modal .modal-content .content-box .list .item:hover {
+  background-color: rgba(84, 205, 248, 0.2);
+}
+.my-modal-box .my-modal .right-button {
+  padding: 10px;
+  top: 0px;
+  position: absolute;
+  right: 20px;
+  width: 130px;
+}
+.my-modal-box .my-modal .right-button .radius-button {
+  background-color: #fb7d33;
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+}
+.my-modal-box .my-modal .right-button .radius-button.un-active {
+  background-color: #A7A7A7;
+}
+.my-modal-box .my-modal .modal-foot {
+  border-top: 1px solid #e0e0e0;
+  position: absolute;
+  height: 55px;
+  width: 100%;
+  bottom: 0px;
+}
+.image-library-sort.dropdown-menu {
+  width: 78px;
+  min-width: 78px;
+  margin-top: -38px;
+  border-radius: 6px;
+}
+.image-library-display-mode.dropdown-menu {
+  min-width: 42px;
+  width: 42px;
+  margin-top: -38px;
+  border-radius: 6px;
+}
+.image-library-display-mode.dropdown-menu .dropdown-link {
+  width: auto;
+  min-width: auto;
+  padding: 0px 9px 0px 10px;
+}
+.image-library-display-mode.dropdown-menu .dropdown-link > i {
+  margin: 0px;
+}
 /*nav bar*/
 .top-nav-bar-box {
   width: 100%;
@@ -2834,254 +3086,18 @@ body {
   pointer-events: none;
 }
 /*
- * 临时放imagelibrary的less
+ *临时放裁剪图片的css
 */
-.my-modal-box {
-  background-color: rgba(0, 0, 0, 0);
+.crop-image-box {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 999;
-  top: 0px;
-  left: 0px;
-  padding: 25px 50px;
-  pointer-events: none;
-}
-.my-modal-box.open {
-  pointer-events: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-  /*
-    * 弹窗开启
-    */
-}
-.my-modal-box.open .my-modal {
-  margin-top: 0px;
-  opacity: 1;
-}
-.my-modal-box .my-modal {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  margin-top: -80px;
-  background-color: #fff;
-  border-radius: 8px;
-  opacity: 0;
-  overflow: hidden;
-  transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  /* Firefox 4 */
-  -webkit-transition: all 0.2s ease-in-out;
-  /* Safari 和 Chrome */
-  -o-transition: all 0.2s ease-in-out;
-  /* Opera */
-}
-.my-modal-box .my-modal .modal-title {
-  height: 55px;
-  background-color: #4FC1E9;
-  position: relative;
-}
-.my-modal-box .my-modal .modal-title .title {
-  line-height: 55px;
-  font-size: 20px;
-  color: #fff;
-  padding: 0px 30px;
-  font-weight: bold;
-}
-.my-modal-box .my-modal .modal-title .option {
-  position: absolute;
-  z-index: 99;
-  right: 0px;
-  top: 0px;
-  height: 60px;
-  padding-top: 14px;
-  padding-right: 20px;
-}
-.my-modal-box .my-modal .modal-title .option .icon--circled {
-  margin-right: 4px;
-  background-color: #fff;
-  color: #4FC1E9;
-  cursor: pointer;
-}
-.my-modal-box .my-modal .modal-content {
-  height: 100%;
-  position: absolute;
-  top: 0px;
-  width: 100%;
-  padding-top: 55px;
-  padding-bottom: 55px;
-}
-.my-modal-box .my-modal .modal-content .option-box {
-  position: relative;
-  height: 55px;
-  z-index: 99;
+  background-repeat: no-repeat;
   overflow: hidden;
 }
-.my-modal-box .my-modal .modal-content .option-box .title {
-  padding: 0px 30px;
-  line-height: 55px;
-  font-size: 15px;
-  color: #7e7e7e;
-}
-.my-modal-box .my-modal .modal-content .option-box .right-option {
-  height: 55px;
-  position: absolute;
-  right: 10px;
-  top: 0px;
-}
-.my-modal-box .my-modal .modal-content .option-box .right-option > .item {
-  position: relative;
-  padding: 0px 20px;
-  height: 100%;
-  float: left;
-}
-.my-modal-box .my-modal .modal-content .option-box .right-option > .item button {
-  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
-  margin-top: 9px;
-  border-radius: 6px;
-}
-.my-modal-box .my-modal .modal-content .option-box .right-option > .item .dropdown button:hover {
-  background-color: #4FC1E9;
-  color: #fff;
-}
-.my-modal-box .my-modal .modal-content .option-box .right-option > .item .dropdown button {
-  box-shadow: none;
-  padding-top: 2px;
-}
-.my-modal-box .my-modal .modal-content .option-box .right-option > .item .border {
-  width: 1px;
-  height: 30px;
-  right: 0px;
-  top: 14px;
-  position: absolute;
-  background-color: #e0e0e0;
-}
-.my-modal-box .my-modal .modal-content .option-box .right-option > .item .text-field {
-  margin-top: -18px;
-}
-.my-modal-box .my-modal .modal-content .option-box .right-option > .item .text-field .text-field__label {
-  font-size: 13px!important;
-}
-.my-modal-box .my-modal .modal-content .option-box .right-option > .item .text-field .text-field__input {
-  color: #7e7e7e;
-}
-.my-modal-box .my-modal .modal-content .option-box:nth-child(1) {
-  background-color: #eaf7ff;
-}
-.my-modal-box .my-modal .modal-content .option-box:nth-child(2) {
-  border-bottom: 1px solid #e0e0e0;
-}
-.my-modal-box .my-modal .modal-content .option-box .option-list {
-  height: 55px;
-  border-bottom: 1px solid #d3edff;
-}
-.my-modal-box .my-modal .modal-content .option-box .option-list .option-item {
-  height: 100%;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  font-weight: bold;
-  float: left;
-  color: #075673;
-  height: 55px;
-  width: 140px;
-  text-align: center;
-  line-height: 55px;
-  border-right: 1px solid #d3edff;
-}
-.my-modal-box .my-modal .modal-content .option-box .option-list .option-item.active {
-  background-color: #fff;
-  height: 56px;
-  position: relative;
-}
-.my-modal-box .my-modal .modal-content .content-box {
-  height: 100%;
-  position: absolute;
-  top: 0px;
-  width: 100%;
-  padding: 165px 0px 55px 0px;
-}
-.my-modal-box .my-modal .modal-content .content-box .content {
+.crop-image-box .cover {
   width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.crop-image-box .crop-box {
   position: absolute;
-  padding: 165px 0px 55px 200px;
-  top: 0px;
-  left: 0px;
-}
-.my-modal-box .my-modal .modal-content .content-box .list {
-  z-index: 99;
-  padding-bottom: 45px;
-  height: 100%;
-  position: relative;
-  width: 200px;
-  border-right: 1px solid #e0e0e0;
-}
-.my-modal-box .my-modal .modal-content .content-box .list .item {
-  text-align: left;
-  padding: 12px 30px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-}
-.my-modal-box .my-modal .modal-content .content-box .list .item.add {
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-  color: #4FC1E9;
-  cursor: pointer;
-}
-.my-modal-box .my-modal .modal-content .content-box .list .item.add:hover {
-  background-color: transparent;
-}
-.my-modal-box .my-modal .modal-content .content-box .list .item.active {
-  background-color: #4FC1E9 !important;
-  color: #fff!important;
-}
-.my-modal-box .my-modal .modal-content .content-box .list .item:hover {
-  background-color: rgba(84, 205, 248, 0.2);
-}
-.my-modal-box .my-modal .right-button {
-  padding: 10px;
-  top: 0px;
-  position: absolute;
-  right: 20px;
-  width: 130px;
-}
-.my-modal-box .my-modal .right-button .radius-button {
-  background-color: #fb7d33;
-  color: #fff;
-  font-weight: bold;
-  font-size: 15px;
-}
-.my-modal-box .my-modal .right-button .radius-button.un-active {
-  background-color: #A7A7A7;
-}
-.my-modal-box .my-modal .modal-foot {
-  border-top: 1px solid #e0e0e0;
-  position: absolute;
-  height: 55px;
-  width: 100%;
-  bottom: 0px;
-}
-.image-library-sort.dropdown-menu {
-  width: 78px;
-  min-width: 78px;
-  margin-top: -38px;
-  border-radius: 6px;
-}
-.image-library-display-mode.dropdown-menu {
-  min-width: 42px;
-  width: 42px;
-  margin-top: -38px;
-  border-radius: 6px;
-}
-.image-library-display-mode.dropdown-menu .dropdown-link {
-  width: auto;
-  min-width: auto;
-  padding: 0px 9px 0px 10px;
-}
-.image-library-display-mode.dropdown-menu .dropdown-link > i {
-  margin: 0px;
 }
