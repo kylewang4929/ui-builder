@@ -106,7 +106,7 @@ angular.module('myBuilderApp')
             clear: function () {
                 data.value = {};
                 //隐藏menu 
-                eleMenuServices.hideDom();                                    
+                eleMenuServices.hideDom(true);                                    
             }
         };
         return handle;
@@ -152,9 +152,12 @@ angular.module('myBuilderApp')
     /**
      * 平滑滚动
      */
-    .factory('levelScroll', function ($timeout) {
+    .factory('levelScroll', function ($timeout,$rootScope) {
         var handle = {
             scrollTop: function (dom,targetPosition) {
+                
+                //广播滚动开始的事件
+                $rootScope.$emit("levelScrollStart");
                 
                 var start=dom.scrollTop();
                 
@@ -164,7 +167,10 @@ angular.module('myBuilderApp')
                         $timeout(function(){
                             levelScrollDown(scrollDom,scrollStart+6,scrollEnd)
                         },1);                        
-                    }            
+                    }else{
+                        //结束
+                        $rootScope.$emit("levelScrollEnd");                        
+                    }         
                 }
                 function levelScrollUp(scrollDom,scrollStart,scrollEnd){
                     scrollDom.scrollTop(scrollStart-6);        
@@ -172,7 +178,10 @@ angular.module('myBuilderApp')
                         $timeout(function(){
                             levelScrollUp(scrollDom,scrollStart-6,scrollEnd)
                         },1);                        
-                    }            
+                    }else{
+                        //结束
+                        $rootScope.$emit("levelScrollEnd");                        
+                    }     
                 }
                 if(start < targetPosition){
                     levelScrollDown(dom,start,targetPosition)                    
@@ -184,10 +193,7 @@ angular.module('myBuilderApp')
                 
             },
             scrollLeft: function (dom,targetPosition) {
-                
-                var start=dom.scrollLeft();
-                
-                dom.scrollLeft(targetPosition);                
+                            
             }
         };
         return handle;

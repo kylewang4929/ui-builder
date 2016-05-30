@@ -65,6 +65,44 @@
 .text-field.text-field--is-active .text-field__label {
   color: #4FC1E9;
 }
+.vertical-outer {
+  display: table;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.vertical-middle {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+}
+.page-state-alert-box {
+  padding: 20px 20px;
+  height: 100%;
+  width: 100%;
+}
+.page-state-alert-box .page-state-alert {
+  width: 100%;
+  text-align: center;
+  padding: 0px 40px;
+}
+.page-state-alert-box .page-state-alert.no-image .intro {
+  color: #7e7e7e;
+}
+.page-state-alert-box .page-state-alert.no-image .intro > .title {
+  font-size: 17px;
+  font-weight: bold;
+  padding: 0px 0px 0px 0px;
+}
+.page-state-alert-box .page-state-alert.no-image .intro > .text {
+  font-size: 14px;
+}
+.page-state-alert-box .page-state-alert.no-image .icon {
+  cursor: pointer;
+  font-size: 150px;
+  color: rgba(79, 193, 233, 0.5);
+}
 /*引入其他类库的less*/
 .color-pick-box {
   -webkit-user-select: none;
@@ -1799,9 +1837,7 @@
   outline: 0;
 }
 .position-box .ele-box .ele-image {
-  background-position: center center;
   background-repeat: no-repeat;
-  background-size: cover;
   width: 100%;
   height: 100%;
 }
@@ -1816,6 +1852,7 @@
 }
 .ele-menu-box {
   position: absolute;
+  z-index: 997;
 }
 .ele-menu-box .ele-menu {
   -webkit-user-select: none;
@@ -2852,6 +2889,7 @@ body {
 }
 .my-modal-box .my-modal .modal-title .option {
   position: absolute;
+  z-index: 99;
   right: 0px;
   top: 0px;
   height: 60px;
@@ -2864,9 +2902,18 @@ body {
   color: #4FC1E9;
   cursor: pointer;
 }
+.my-modal-box .my-modal .modal-content {
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  padding-top: 55px;
+  padding-bottom: 55px;
+}
 .my-modal-box .my-modal .modal-content .option-box {
   position: relative;
   height: 55px;
+  z-index: 99;
   overflow: hidden;
 }
 .my-modal-box .my-modal .modal-content .option-box .title {
@@ -2923,19 +2970,6 @@ body {
 .my-modal-box .my-modal .modal-content .option-box:nth-child(2) {
   border-bottom: 1px solid #e0e0e0;
 }
-.my-modal-box .my-modal .modal-content .option-box .right-button {
-  padding: 10px;
-  top: 0px;
-  position: absolute;
-  right: 20px;
-  width: 130px;
-}
-.my-modal-box .my-modal .modal-content .option-box .right-button .radius-button {
-  background-color: #fb7d33;
-  color: #fff;
-  font-weight: bold;
-  font-size: 15px;
-}
 .my-modal-box .my-modal .modal-content .option-box .option-list {
   height: 55px;
   border-bottom: 1px solid #d3edff;
@@ -2960,6 +2994,76 @@ body {
   background-color: #fff;
   height: 56px;
   position: relative;
+}
+.my-modal-box .my-modal .modal-content .content-box {
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  padding: 165px 0px 55px 0px;
+}
+.my-modal-box .my-modal .modal-content .content-box .content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 165px 0px 55px 200px;
+  top: 0px;
+  left: 0px;
+}
+.my-modal-box .my-modal .modal-content .content-box .list {
+  z-index: 99;
+  padding-bottom: 45px;
+  height: 100%;
+  position: relative;
+  width: 200px;
+  border-right: 1px solid #e0e0e0;
+}
+.my-modal-box .my-modal .modal-content .content-box .list .item {
+  text-align: left;
+  padding: 12px 30px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.my-modal-box .my-modal .modal-content .content-box .list .item.add {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  color: #4FC1E9;
+  cursor: pointer;
+}
+.my-modal-box .my-modal .modal-content .content-box .list .item.add:hover {
+  background-color: transparent;
+}
+.my-modal-box .my-modal .modal-content .content-box .list .item.active {
+  background-color: #4FC1E9 !important;
+  color: #fff!important;
+}
+.my-modal-box .my-modal .modal-content .content-box .list .item:hover {
+  background-color: rgba(84, 205, 248, 0.2);
+}
+.my-modal-box .my-modal .right-button {
+  padding: 10px;
+  top: 0px;
+  position: absolute;
+  right: 20px;
+  width: 130px;
+}
+.my-modal-box .my-modal .right-button .radius-button {
+  background-color: #fb7d33;
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+}
+.my-modal-box .my-modal .right-button .radius-button.un-active {
+  background-color: #A7A7A7;
+}
+.my-modal-box .my-modal .modal-foot {
+  border-top: 1px solid #e0e0e0;
+  position: absolute;
+  height: 55px;
+  width: 100%;
+  bottom: 0px;
 }
 .image-library-sort.dropdown-menu {
   width: 78px;

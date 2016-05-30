@@ -551,7 +551,7 @@ angular.module('myBuilderApp')
             }
         };
     })
-    .directive('phoneDragEle', function (activeSessionService, phoneBuilderTool, websiteData, rotateEleCalculate,activePageService) {
+    .directive('phoneDragEle', function (activeSessionService, phoneBuilderTool, websiteData, rotateEleCalculate,activePageService,$rootScope) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {

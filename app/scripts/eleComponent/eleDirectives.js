@@ -227,6 +227,36 @@ angular.module('myBuilderApp')
             link: function (scope, element, attrs) {
                 var data=element.context.eleConfig;
                 eleApplyService.defaultApply(element,data);
+                
+                var originalWidth=parseInt(data.imageSize.width);
+                var originalHeight=parseInt(data.imageSize.height);
+                
+                /**
+                 * 添加发生形变时的监听
+                 */
+                var eleBox=element.find(" > .ele-box");
+                var ele=eleBox.find(" > .ele");
+                eleBox.on("resize",function(e){
+                    var x=eleBox.width();
+                    var y=parseInt(eleBox.css('min-height'));
+                    
+                    //暂时没有考虑图片的位置和放大的问题
+                    var height="";
+                    var width="";
+                    console.log(parseFloat(data.cropInfo.height));
+                    if(originalWidth>originalHeight){
+                        //最小的一边是高，高填充 高按比例(width/height=data.imageSize.width/data.imageSize.height)
+                        height=y/parseFloat(data.cropInfo.height);
+                        width=originalWidth/originalHeight*height;
+                    }else{
+                        //最小的一边是宽，宽填充 宽按比例
+                        width=x/parseFloat(data.cropInfo.width);                        
+                        height=originalWidth/originalHeight*width;
+                    }
+                    ele.css('background-size',width+"px " + height + "px");
+                    
+                });
+                
             }
         }
     })
@@ -585,6 +615,36 @@ angular.module('myBuilderApp')
                 domBorder.css('width', parseInt(data.phoneStyle.border['width'])*data.phoneStyle.scale);
                 domBorder.css('min-height', parseInt(data.phoneStyle.border['min-height'])*data.phoneStyle.scale);
 
+                var originalWidth=parseInt(data.imageSize.width);
+                var originalHeight=parseInt(data.imageSize.height);
+                
+                /**
+                 * 添加发生形变时的监听
+                 */
+                var eleBox=element.find(" > .ele-box");
+                var ele=eleBox.find(" > .ele");
+                eleBox.on("resize",function(e){
+                    var x=eleBox.width();
+                    var y=parseInt(eleBox.css('min-height'));
+                    
+                    //暂时没有考虑图片的位置和放大的问题
+                    var height="";
+                    var width="";
+                    console.log(parseFloat(data.cropInfo.height));
+                    if(originalWidth>originalHeight){
+                        //最小的一边是高，高填充 高按比例(width/height=data.imageSize.width/data.imageSize.height)
+                        height=y/parseFloat(data.cropInfo.height);
+                        width=originalWidth/originalHeight*height;
+                    }else{
+                        //最小的一边是宽，宽填充 宽按比例
+                        width=x/parseFloat(data.cropInfo.width);                        
+                        height=originalWidth/originalHeight*width;
+                    }
+                    ele.css('background-size',width+"px " + height + "px");
+                    
+                });
+                
+                
             }
         }
     })

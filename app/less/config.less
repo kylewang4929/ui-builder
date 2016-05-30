@@ -116,3 +116,47 @@
     }
   }
 }
+
+//垂直居中
+.vertical-outer {
+  display:table;
+  width: 100%;
+  height: 100%;
+  overflow:hidden; 
+}
+.vertical-middle {
+  display:table-cell;
+  vertical-align:middle;
+  width: 100%;
+  height: 100%;
+} 
+
+//页面状态提示
+.page-state-alert-box{
+  padding: 20px 20px;
+  height: 100%;
+  width: 100%;
+  & .page-state-alert{
+    width: 100%;
+    text-align: center;
+    padding: 0px 40px;
+    &.no-image{
+      & .intro{
+        color: @baseTextColor;
+        & > .title{
+          font-size: 17px;
+          font-weight: bold;
+          padding: 0px 0px 0px 0px;
+        }
+        & > .text{
+          font-size: 14px;
+        }
+      }
+      & .icon{
+        cursor: pointer;
+        font-size: 150px;
+        color: fade(@baseColor,50%);
+      } 
+    }
+  }
+}

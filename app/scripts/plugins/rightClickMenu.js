@@ -36,7 +36,7 @@ angular.module('kyle.rightClickMenu', [])
     .directive('rightClickMenu', function (rightClickMenuService,websiteData,shearPlate,$rootScope,multipleChoiceService,builderTool,activePageService) {
         return {
             restrict: 'A',
-            template: ['<div class="right-click-menu-box z-depth-2" onmousedown="event.stopPropagation()" ng-click="hideDom()">',
+            template: ['<div class="right-click-menu-box close-user-select z-depth-2" onmousedown="event.stopPropagation()" ng-click="hideDom()">',
                 '            <div class="right-click-menu-list">',
                 '                <div class="right-click-menu-item border" right-click-menu-edit-ele="activeID" ng-show="rightMenuType==\'text\'||rightMenuType==\'group\'"><i class="mdi mdi-pencil"></i>编辑</div>',
                 '                <div class="right-click-menu-item border" right-click-menu-edit-ele="activeID" ng-show="rightMenuType==\'image\'"><i class="mdi mdi-image-area"></i>裁剪</div>',

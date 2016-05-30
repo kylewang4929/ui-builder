@@ -20,12 +20,12 @@
 
         <div class="session-limit" ng-show="modelState=='web'"></div>
 
-        <perfect-scrollbar id="main-web-editor-scroll" class="scroller-page" wheel-propagation="true" wheel-speed="5" ng-if="modelState=='web'">
+        <perfect-scrollbar id="main-editor-scroll" class="scroller-page" wheel-propagation="true" wheel-speed="5" ng-if="modelState=='web'">
             <div id="edit-space" class="edit-space" creator website-code="websiteData" right-click-menu-init drag-select-ele ng-click="cancelActive($event);cancelEditGroup($event);">
             </div>
         </perfect-scrollbar>
 
-        <perfect-scrollbar id="main-phone-editor-scroll" class="scroller-page phone" wheel-propagation="true" wheel-speed="5" ng-if="modelState=='phone'">
+        <perfect-scrollbar id="main-editor-scroll" class="scroller-page phone" wheel-propagation="true" wheel-speed="5" ng-if="modelState=='phone'">
             <div class="phone-box z-depth-2">
                 <div class="phone-top">
                     <img src="images/phone_top.png">

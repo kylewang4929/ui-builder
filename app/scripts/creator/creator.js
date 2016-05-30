@@ -119,10 +119,10 @@ angular.module('creator', [])
                 };
                 /**
                  * 编辑图片的方法
-                 * 打开图片库
+                 *
                  */
                 scope.editImage = function (id){
-                    imageLibraryService.showDom();
+                    
                 }
 
                 scope.deleteSession = function (ID) {

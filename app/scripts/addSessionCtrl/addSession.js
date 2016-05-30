@@ -12,18 +12,18 @@ angular.module('addSession', [])
             }
         }
     })
-    .directive('addSessionHandle', function ($compile, $timeout, elePosition, levelScroll) {
+    .directive('addSessionHandle', function ($compile, $timeout, elePosition, levelScroll,$rootScope) {
         return {
             restrict: 'A',
             scope: {},
-            template: '<div class="add-session-handle bottom z-depth-2" ng-class="{true:\'open\'}[showFlag]"><i class="mdi mdi-plus"></i></div>',
+            template: '<div class="add-session-handle bottom z-depth-2" onmousedown="event.stopPropagation()" ng-class="{true:\'open\'}[showFlag]"><i class="mdi mdi-plus"></i></div>',
             replace: true,
             link: function (scope, element, attrs) {
                 //记录高度 由于动画的原因无法正常获取高度                
                 var addSessionBoxHeight = 200;
 
                 //存储滚动条到handle
-                var mainScrollHandle = $('#main-web-editor-scroll');
+                var mainScrollHandle = $('#main-editor-scroll');
 
                 var parentSessionDom = $(element).parent(".ele-session-box");
                 scope.showFlag = false;
@@ -39,12 +39,18 @@ angular.module('addSession', [])
                         } else {
                             //隐藏
                             $timeout(function () {
+                                //开始形变
+                                $rootScope.$emit("addSessionOpenStart");
                                 dom.removeClass("in");
+                                dom.one("webkitTransitionEnd otransitionend transitionend",function(){
+                                    //形变结束
+                                    $rootScope.$emit("addSessionOpenEnd");                                    
+                                });
                                 $timeout(function () {
                                     scope.showFlag = false;
+                                    
                                 },300);
                             }, 100);
-
                         }
 
                     }
@@ -73,13 +79,20 @@ angular.module('addSession', [])
                             levelScroll.scrollTop(mainScrollHandle, scrollEnd);
 
                             dom.addClass("in");
+                            
                         });
                     } else {
                         //隐藏
                         $timeout(function () {
                             scope.showFlag = false;
                         },300);
+                        //形变开始
+                        $rootScope.$emit("addSessionOpenStart");                        
                         dom.removeClass("in");
+                        dom.one("webkitTransitionEnd otransitionend transitionend",function(){
+                            //形变结束
+                            $rootScope.$emit("addSessionOpenEnd");                                    
+                        });
                     }
                 });
 
