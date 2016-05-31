@@ -199,7 +199,7 @@ angular.module('myBuilderApp')
                     template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box">',
                         '                <div class="ele-label">图片</div>',
                         '                <div class="ele-box">',
-                            '                    <div class="ele ele-image" style="background-image:url(' + data.url + ')" ondragstart=event.preventDefault()></div>',
+                            '                    <div class="ele ele-image" style=background-image:url("' + data.url + '") ondragstart=event.preventDefault()></div>',
                         '                </div>',
                         '            </div>'].join("");
                 }else{
@@ -217,7 +217,7 @@ angular.module('myBuilderApp')
                         '                <div class="resize only-bottom" ondragstart="event.preventDefault()"></div>',
                         '                <div class="ele-label">图片</div>',
                         '                <div class="ele-box">',
-                            '                    <div class="ele ele-image" style="background-image:url(' + data.url + ')" ondragstart=event.preventDefault()></div>',
+                            '                    <div class="ele ele-image" style=background-image:url("' + data.url + '") ondragstart=event.preventDefault()></div>',
                         '                </div>',
                         '            </div>'].join("");
                 }

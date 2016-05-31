@@ -2104,7 +2104,7 @@
 }
 .ele-menu-box {
   position: absolute;
-  z-index: 997;
+  z-index: 999;
 }
 .ele-menu-box .ele-menu {
   -webkit-user-select: none;
@@ -2747,7 +2747,7 @@ body {
   background-color: #4FC1E9;
   border-radius: 4px;
   position: absolute;
-  z-index: 999;
+  z-index: 200;
   text-align: center;
   line-height: 24px;
 }
@@ -2789,7 +2789,7 @@ body {
   line-height: 26px;
   background-color: #4FC1E9;
   position: absolute;
-  z-index: 999;
+  z-index: 200;
 }
 .work-space-box .work-space .edit-space-box .edit-space .ele-session-box .add-session-handle i {
   transition: all 0.2s ease-in-out;
@@ -3090,14 +3090,96 @@ body {
 */
 .crop-image-box {
   position: absolute;
+  z-index: 999;
   background-repeat: no-repeat;
-  overflow: hidden;
 }
 .crop-image-box .cover {
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0.5;
 }
 .crop-image-box .crop-box {
+  position: absolute;
+  cursor: move;
+  border: 1px solid #4fc1e9;
+}
+.crop-image-box .crop-box .handle {
+  background-color: #4FC1E9;
+  position: absolute;
+}
+.crop-image-box .crop-box .handle.left {
+  width: 4px;
+  height: 20px;
+  left: -2px;
+  top: 50%;
+  margin-top: -15px;
+  cursor: w-resize;
+}
+.crop-image-box .crop-box .handle.right {
+  width: 4px;
+  height: 20px;
+  right: -2px;
+  top: 50%;
+  margin-top: -15px;
+  cursor: e-resize;
+}
+.crop-image-box .crop-box .handle.bottom {
+  width: 20px;
+  height: 4px;
+  bottom: -2px;
+  left: 50%;
+  margin-left: -15px;
+  cursor: s-resize;
+}
+.crop-image-box .crop-box .handle.top {
+  width: 20px;
+  cursor: n-resize;
+  height: 4px;
+  top: -2px;
+  left: 50%;
+  margin-left: -15px;
+}
+.crop-image-box .crop-box .handle.left-top {
+  left: -2px;
+  top: -2px;
+  cursor: nw-resize;
+}
+.crop-image-box .crop-box .handle.left-bottom {
+  left: -2px;
+  bottom: 2px;
+  cursor: sw-resize;
+}
+.crop-image-box .crop-box .handle.left-bottom .vertical {
+  margin-top: -16px;
+}
+.crop-image-box .crop-box .handle.right-top {
+  right: 2px;
+  top: -2px;
+  cursor: ne-resize;
+}
+.crop-image-box .crop-box .handle.right-top .horizontal {
+  margin-left: -16px;
+}
+.crop-image-box .crop-box .handle.right-bottom {
+  right: 2px;
+  bottom: 2px;
+  cursor: se-resize;
+}
+.crop-image-box .crop-box .handle.right-bottom .horizontal {
+  margin-left: -16px;
+}
+.crop-image-box .crop-box .handle.right-bottom .vertical {
+  margin-top: -16px;
+}
+.crop-image-box .crop-box .handle .vertical {
+  width: 4px;
+  height: 20px;
+  background-color: #4FC1E9;
+  position: absolute;
+}
+.crop-image-box .crop-box .handle .horizontal {
+  width: 20px;
+  height: 4px;
+  background-color: #4FC1E9;
   position: absolute;
 }

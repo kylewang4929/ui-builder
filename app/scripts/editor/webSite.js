@@ -115,21 +115,14 @@ angular.module('webSiteEditor',[])
 
                 return eleData;
             },
-            resolveStyle: function (string) {
-                if (string == undefined) {
-                    return {};
-                } else {
-                    var style = string.split(";");
-                    var styleObj = {};
-                    for (var i = 0; i < style.length; i++) {
-                        var itemStyle = style[i].split(":");
-                        if($.trim(itemStyle[0])==""){
-                            continue;
-                        }
-                        styleObj[$.trim(itemStyle[0])] = $.trim(itemStyle[1]);
-                    }
-                    return styleObj;
-                }
+            resolveStyle: function (dom) {
+                var style={};
+                
+                angular.forEach(dom.style,function(obj,index){
+                    style[obj]=$(dom).css(obj);
+                });
+                
+                return style;
             },
             getEleText: function (ID) {
                 var eleData = {};
@@ -139,11 +132,11 @@ angular.module('webSiteEditor',[])
                 eleData.type = "text";
                 eleData.textValue = dom.find('.ele .ql-editor').get(0).innerHTML;
 
-                eleData.position = this.resolveStyle(dom.attr("style"));
+                eleData.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom.attr("style"));
+                eleData.border = this.resolveStyle(styleDom[0]);
                 styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom.attr("style"));
+                eleData.style = this.resolveStyle(styleDom[0]);
                 eleData.eleTemplateType = dom.attr("template-type");
                 return eleData;
             },
@@ -153,11 +146,11 @@ angular.module('webSiteEditor',[])
                 eleData.ID = ID;
                 eleData.type = "image";
 
-                eleData.position = this.resolveStyle(dom.attr("style"));
+                eleData.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom.attr("style"));
+                eleData.border = this.resolveStyle(styleDom[0]);
                 styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom.attr("style"));
+                eleData.style = this.resolveStyle(styleDom[0]);
                 eleData.url = styleDom.css("background-image");
                 eleData.url = eleData.url.substring(5, eleData.url.length - 2);
                 eleData.eleTemplateType = dom.attr("template-type");
@@ -172,13 +165,11 @@ angular.module('webSiteEditor',[])
                 
                 //计算图片尺寸
                 var imageBackgroundSize=eleData.style['background-size'].split(" ");
-                console.log(eleData.style['background-size']);
                 //元素尺寸 比 图片尺寸
                 eleData.cropInfo={
                     width:parseFloat(eleData.border.width)/parseFloat(imageBackgroundSize[0]),
                     height:parseFloat(eleData.border['min-height'])/parseFloat(imageBackgroundSize[1])
                 };
-                console.log(eleData)
                 return eleData;
             },
             getEleMenu: function (ID) {
@@ -188,11 +179,11 @@ angular.module('webSiteEditor',[])
                 eleData.ID = ID;
                 eleData.type = "menu";
 
-                eleData.position = this.resolveStyle(dom.attr("style"));
+                eleData.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom.attr("style"));
+                eleData.border = this.resolveStyle(styleDom[0]);
                 styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom.attr("style"));
+                eleData.style = this.resolveStyle(styleDom[0]);
                 //读取item
                 eleData.item = [];
                 styleDom = styleDom.find(".menu-item");
@@ -209,11 +200,11 @@ angular.module('webSiteEditor',[])
 
                 eleData.ID = ID;
                 eleData.type = "group";
-                eleData.position = this.resolveStyle(dom.attr("style"));
+                eleData.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom.attr("style"));
+                eleData.border = this.resolveStyle(styleDom[0]);
                 styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom.attr("style"));
+                eleData.style = this.resolveStyle(styleDom[0]);
 
                 var eleList = dom.find(">.ele-box >.ele >.position-box");
                 var eleListData = [];

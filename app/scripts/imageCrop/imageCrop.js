@@ -4,7 +4,16 @@ angular.module('kyle.imageCrop', [])
         return {
             restrict: 'A',
             template:'<div class="cover">'+
-            '<div class="crop-box"><div class="crop-image"></div></div>'+
+            '</div>'+
+            '<div class="crop-box">'+
+            '<div class="handle left"></div>'+
+            '<div class="handle right"></div>'+
+            '<div class="handle top"></div>'+
+            '<div class="handle bottom"></div>'+
+            '<div class="handle left-top"><div class="vertical"></div><div class="horizontal"></div></div>'+
+            '<div class="handle right-top"><div class="vertical"></div><div class="horizontal"></div></div>'+
+            '<div class="handle left-bottom"><div class="vertical"></div><div class="horizontal"></div></div>'+
+            '<div class="handle right-bottom"><div class="vertical"></div><div class="horizontal"></div></div>'+
             '</div>',
             link: function (scope, element, attrs) {
                 var activeEle=imageCropService.getActiveEle();
@@ -14,13 +23,33 @@ angular.module('kyle.imageCrop', [])
                 
                 //绘制相应的图片 包括
                 $(element).css({
-                    'background-image':'url("'+activeEle.url+'")',
-                    'background-size':imageWidth+"px "+imageHeight+"px",
+                    
                     'width':imageWidth,
                     'height':imageHeight,
                     'left':activeEle.position.left,
                     'top':activeEle.position.top
                 });
+                
+                $(element).find('.cover').css({
+                    'width':"100%",
+                    'height':"100%",
+                    'left':"0px",
+                    'top':"0px",
+                    'background-image':'url("'+activeEle.url+'")',
+                    'background-size':imageWidth+"px "+imageHeight+"px"
+                });
+                
+                //设置crop－box
+                
+                $(element).find('.crop-box').css({
+                    'width':parseFloat(activeEle.cropInfo.width)*100+"%",
+                    'height':parseFloat(activeEle.cropInfo.height)*100+"%",
+                    'left':"0px",
+                    'top':"0px",
+                    'background-image':'url("'+activeEle.url+'")',
+                    'background-size':imageWidth+"px "+imageHeight+"px"
+                });
+                
                 
             }
         }
@@ -33,7 +62,6 @@ angular.module('kyle.imageCrop', [])
         
         var handle={
             openCrop:function (ele) {
-                console.log(ele);
                 activeEle=ele;
                 //先隐藏原元素
                 activeEleDom=$("#"+activeEle.ID).hide();

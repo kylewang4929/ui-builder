@@ -87,13 +87,16 @@ angular.module('myBuilderApp')
         };
         return handle;
     })
-    .factory('activeEleService', function (eleMenuServices) {
+    .factory('activeEleService', function (eleMenuServices,websiteData,activePageService) {
         var data = { ID: "ele", value: {} };
         var handle = {
             getEle: function () {
+                //重新获取元素的内容 刷新一次
+                data.value=websiteData.getEle(activePageService.getActivePage().value,data.value.ID);
                 return data;
             },
             setEle: function (ele) {
+                console.log(ele);
                 data.value = ele;
                 if(data.value.state=="edit"){
                     //隐藏menu

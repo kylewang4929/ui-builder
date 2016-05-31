@@ -265,11 +265,15 @@ angular.module('myBuilderApp')
                         if (parameter.type == 'ele') {
                             var ele = [{ ID: attrs.id, type: attrs.eleType }];
                             if (parameter.isGroupEle != true) {
-                                changeSessionTool.overCheck(ele);
+                                scope.$apply(function(){
+                                    changeSessionTool.overCheck(ele);
+                                });
                             } else {
                                 //更新组
                                 var eleData = builderTool.getEle(firstParentGroupID, "group");
-                                websiteData.updateEle(activePageService.getActivePage().value, eleData);
+                                scope.$apply(function(){
+                                    websiteData.updateEle(activePageService.getActivePage().value, eleData);                                    
+                                });
                             }
                         }
                     }

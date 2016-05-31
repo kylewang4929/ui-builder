@@ -91,18 +91,14 @@ angular.module('phoneSiteEditor',[])
 
                 return eleData;
             },
-            resolveStyle: function(string) {
-                if (string == undefined) {
-                    return {};
-                } else {
-                    var style = string.replace(/\s/g, "").split(";");
-                    var styleObj = {};
-                    for (var i = 0; i < style.length; i++) {
-                        var itemStyle = style[i].split(":");
-                        styleObj[itemStyle[0]] = itemStyle[1];
-                    }
-                    return styleObj;
-                }
+            resolveStyle: function(dom) {
+                var style={};
+                
+                angular.forEach(dom.style,function(obj,index){
+                    style[obj]=$(dom).css(obj);
+                });
+                
+                return style;
             },
             getEleText: function(ID) {
                 var eleData = {};
@@ -112,11 +108,11 @@ angular.module('phoneSiteEditor',[])
                 eleData.type = "text";
                 eleData.textValue = dom.find('.ele').get(0).innerHTML;
 
-                eleData.position = this.resolveStyle(dom.attr("style"));
+                eleData.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom.attr("style"));
+                eleData.border = this.resolveStyle(styleDom[0]);
                 var styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom.attr("style"));
+                eleData.style = this.resolveStyle(styleDom[0]);
 
                 //获取缩放比例
                 eleData.scale = dom.attr('scale');
@@ -134,11 +130,11 @@ angular.module('phoneSiteEditor',[])
                 eleData.ID = ID;
                 eleData.type = "image";
 
-                eleData.position = this.resolveStyle(dom.attr("style"));
+                eleData.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom.attr("style"));
+                eleData.border = this.resolveStyle(styleDom[0]);
                 var styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom.attr("style"));
+                eleData.style = this.resolveStyle(styleDom[0]);
                 eleData.url = styleDom.css("background-image");
                 eleData.url = eleData.url.substring(5, eleData.url.length - 2);
 
@@ -148,7 +144,7 @@ angular.module('phoneSiteEditor',[])
                 //还原数据的大小  因为有一个缩放的操作
                 eleData.border.width = parseInt(eleData.border.width) / eleData.scale;
                 eleData.border['min-height'] = parseInt(eleData.border['min-height']) / eleData.scale;
-
+                
                 return eleData;
             },
             getEleMenu: function(ID) {
@@ -158,11 +154,11 @@ angular.module('phoneSiteEditor',[])
                 eleData.ID = ID;
                 eleData.type = "menu";
 
-                eleData.position = this.resolveStyle(dom.attr("style"));
+                eleData.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom.attr("style"));
+                eleData.border = this.resolveStyle(styleDom[0]);
                 var styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom.attr("style"));
+                eleData.style = this.resolveStyle(styleDom[0]);
                 //读取item
                 eleData.item = [];
                 styleDom = styleDom.find(".menu-item");
@@ -181,11 +177,11 @@ angular.module('phoneSiteEditor',[])
 
                 eleData.ID = ID;
                 eleData.type = "group";
-                eleData.position = this.resolveStyle(dom.attr("style"));
+                eleData.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom.attr("style"));
+                eleData.border = this.resolveStyle(styleDom[0]);
                 var styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom.attr("style"));
+                eleData.style = this.resolveStyle(styleDom[0]);
 
 
                 var eleList = dom.find(">.ele-box >.ele >.position-box");

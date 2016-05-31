@@ -12,7 +12,8 @@
     "style": {
         "min-height": "65px",
         "background-size": "cover",
-        "background-position": "center center",
+        "background-position-x": "center",
+        "background-position-y": "center",
         "background-repeat": "no-repeat",
         "background-color": "#fff",
         "position": "relative"
@@ -44,13 +45,15 @@
                 },
                 "style": {
                     "background-size":"170px 50px",
-                    "background-position":"50% 50%"                                    
+                    "background-position-x":"50%",                                 
+                    "background-position-y":"50%"                                 
                 },
                 "scale": 0.7
             },
             "style": {
                 "background-size":"170px 50px",
-                "background-position":"50% 50%"
+                "background-position-x":"50%",                                 
+                "background-position-y":"50%"
             },
             "position": {
                 "left": "91px",
@@ -139,7 +142,8 @@
                 "style": {
                     "min-height": "500px",
                     "background-size": "cover",
-                    "background-position": "center center",
+                    "background-position-x":"center",                                 
+                    "background-position-y":"center",
                     "background-repeat": "no-repeat",
                     "position": "relative"
                 },
@@ -199,13 +203,15 @@
                             },
                             "style": {
                                 "background-size":"399px 324px",
-                                "background-position":"50% 50%"                                
+                                "background-position-x":"50%",                                 
+                                "background-position-y":"50%"                               
                             },
                             "scale": 0.7                            
                         },
                         "style": {
                             "background-size":"399px 324px",
-                            "background-position":"50% 50%"                                                                             
+                            "background-position-x":"50%",                                 
+                            "background-position-y":"50%"                                                                               
                         },
                         "position": {
                             "left": "580px",
@@ -240,13 +246,15 @@
                             },
                             "style": {
                                 "background-size":"70px 70px",
-                                "background-position":"50% 50%"                                
+                                "background-position-x":"50%",                                 
+                                "background-position-y":"50%"                                  
                             },
                             "scale": 0.7
                         },
                         "style": {
                             "background-size":"70px 70px",
-                            "background-position":"50% 50%"                                                     
+                            "background-position-x":"50%",                                 
+                            "background-position-y":"50%"                                                      
                         },
                         "position": {
                             "left": "44px",
@@ -303,7 +311,8 @@
                 "style": {
                     "min-height": "400px",
                     "background-size": "cover",
-                    "background-position": "center center",
+                    "background-position-x":"center",                                 
+                    "background-position-y":"center",
                     "background-repeat": "no-repeat",
                     "position": "relative"
                 },

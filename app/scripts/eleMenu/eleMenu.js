@@ -14,7 +14,6 @@ angular.module('eleMenu', [])
             "</div>",
             link: function (scope, element, attrs) {
                 
-                var activeEle=activeEleService.getEle();                
                 
                 //监听属性 同步更改
                 scope.changeImage = function () {
@@ -31,7 +30,7 @@ angular.module('eleMenu', [])
                     eleSettingService.showDom(left, top, type, ID);
                 }
                 scope.openCrop=function(){
-                    imageCropService.openCrop(angular.copy(activeEle.value));
+                    imageCropService.openCrop(angular.copy(activeEleService.getEle().value));
                 }
 
             }

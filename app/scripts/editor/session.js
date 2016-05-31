@@ -72,7 +72,6 @@ angular.module('sessionEditor',[])
                     for (var i = 0; i < ele.length; i++) {
                         websiteData.changeSession(parameter.currentSession.ID, parameter.targetSession, builderTool.getEle(ele[i].ID, ele[i].type));
                     }
-
                     return parameter.targetSession;
                 } else {
                     for (var i = 0; i < ele.length; i++) {
