@@ -21,6 +21,7 @@ angular.module('eleMenu', [])
                 }
 
                 scope.openSettingBox = function (type, e) {
+                    var activeEle=activeEleService.getEle();
                     if (type == 'design') {
                         type = activeEle.value.type + type;
                     }

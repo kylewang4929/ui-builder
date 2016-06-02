@@ -1,24 +1,17 @@
 /*基础配置文件*/
 @import "config.less";
 
-/*引入其他类库的less*/
-@import "../scripts/colorpick/style.less";
-@import "../scripts/eleSetting/style.less";
-@import "../scripts/textEditor/style.less";
-@import "../scripts/addSessionCtrl/style.less"; 
-@import "../scripts/imageLibrary/style.less"; 
-
 /*nav bar*/
-@import "topnav.less";
-
+@import "topnav.less"; 
+ 
 /*元素的基本属性*/
 @import "eleConfig.less";
-
-/*scroll*/
+ 
+/*scroll*/ 
 .scroller-page {
   height: 100%;
   overflow-y: hidden;
-  position: relative;
+  position: relative; 
   & .edit-space {
     padding-bottom: 100px;
   }
@@ -587,6 +580,7 @@ html, body {
           height: auto;
           width: 100%;
           background-color: #fff;
+          background-position: center center;
 
           & .session-resize {
             &.phone {
@@ -804,15 +798,6 @@ html, body {
   width: 100%;
 }
 
-/*放大*/
-.scale-10 {
-  -moz-transform: scale(1.05, 1.05);
-  -webkit-transform: scale(1.05, 1.05);
-  -o-transform: scale(1.05, 1.05);
-  transform: scale(1.05, 1.05);
-  -ms-transform: scale(1.05, 1.05);
-}
-
 /*重写 editor*/
 .ql-editor u {
   text-decoration: underline;
@@ -917,106 +902,4 @@ html, body {
   position: absolute;
   cursor: pointer;
   pointer-events: none;
-} 
-
-/*
- *临时放裁剪图片的css
-*/
-.crop-image-box{
-  position: absolute;
-  z-index: 999;
-  background-repeat: no-repeat;
-  & .cover{
-    width: 100%;
-    height: 100%;
-    opacity: 0.5;
-  }
-  & .crop-box{
-    position: absolute;
-    cursor: move;
-    border: 1px solid fade(@baseColor,100%);
-    & .handle{
-      background-color: @baseColor;
-      position: absolute;
-      &.left{
-        width: 4px;
-        height: 20px;
-        left: -2px;
-        top: 50%;
-        margin-top: -15px;
-        cursor: w-resize;
-      }
-      &.right{
-        width: 4px;
-        height: 20px;
-        right: -2px;
-        top: 50%;
-        margin-top: -15px;
-        cursor: e-resize;
-      }
-      &.bottom{
-        width: 20px;
-        height: 4px;
-        bottom: -2px;
-        left: 50%;
-        margin-left: -15px;
-        cursor: s-resize;
-      }
-      &.top{
-        width: 20px;
-        cursor: n-resize;
-        height: 4px;
-        top: -2px;
-        left: 50%;
-        margin-left: -15px;        
-      }
-      
-      &.left-top{
-        left: -2px;
-        top: -2px;
-        cursor: nw-resize;
-      }
-      &.left-bottom{
-        left: -2px;
-        bottom: 2px;
-        cursor: sw-resize;                 
-        & .vertical{
-          margin-top: -16px;
-        }
-      }
-      &.right-top{
-        right: 2px;
-        top: -2px;
-        cursor: ne-resize;     
-        & .horizontal{
-          margin-left: -16px;
-        }
-      }
-      &.right-bottom{
-        right: 2px;
-        bottom: 2px;
-        cursor: se-resize;         
-        & .horizontal{
-          margin-left: -16px;
-        }
-        & .vertical{
-          margin-top: -16px;
-        }
-      }
-      
-      & .vertical{
-        width: 4px;
-        height: 20px;
-        background-color: @baseColor;
-        position: absolute;
-      }
-      & .horizontal{
-        width: 20px;
-        height: 4px;
-        background-color: @baseColor;
-        position: absolute;        
-      }
-      
-    }
-  }
 }

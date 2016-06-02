@@ -10,9 +10,10 @@ angular.module('kyle.eleSetting', [])
                 '            {{boxInitData.title}}',
                 '            <button class="btn btn--xs btn--white btn--icon" lx-ripple ng-click="closeEleSetting()"><i class="mdi mdi-close"></i></button>',
                 '        </div>',
-                '        <div ele-setting-box-design ng-show=boxInitData.type=="imagedesign"></div>',
-                '        <div ele-setting-box-layers ng-show=boxInitData.type=="layers"></div>',
-                '        <div ele-setting-box-animate ng-show=boxInitData.type=="animate"></div>',
+                '        <div ele-setting-box-design-image ng-if=boxInitData.type=="imagedesign"></div>',
+                '        <div ele-setting-box-design-text ng-if=boxInitData.type=="textdesign"></div>',
+                '        <div ele-setting-box-layers ng-if=boxInitData.type=="layers"></div>',
+                '        <div ele-setting-box-animate ng-if=boxInitData.type=="animate"></div>',
                 '    </div>',
                 '</div>'].join(""),
             link: function (scope, element) {
@@ -21,6 +22,7 @@ angular.module('kyle.eleSetting', [])
                 scope.$watch("boxInitData", function () {
                     switch (scope.boxInitData.type) {
                         case "imagedesign": scope.boxInitData.title = "图片设计"; break;
+                        case "textdesign": scope.boxInitData.title = "文字设计"; break;
                         case "layers": scope.boxInitData.title = "布局"; break;
                         case "animate": scope.boxInitData.title = "动画"; break;
                     }
@@ -34,7 +36,7 @@ angular.module('kyle.eleSetting', [])
     })
 
 
-    .directive('eleSettingBoxDesign', function (eleSettingService) {
+    .directive('eleSettingBoxDesignImage', function (eleSettingService) {
         return {
             restrict: 'A',
             template: [
@@ -95,6 +97,19 @@ angular.module('kyle.eleSetting', [])
                 '               </div>',
                 '           </div>',
                 '           <div class="ele-setting-content" ng-init="activeLeftMenu=\'background\'" ng-if="tabState==1"></div>',
+                '        </div>',
+            ].join(""),
+            link: function (scope, element) {
+
+            }
+        };
+    })
+    
+    .directive('eleSettingBoxDesignText', function (eleSettingService) {
+        return {
+            restrict: 'A',
+            template: [
+                '        <div class="content-box" style="height:400px">',
                 '        </div>',
             ].join(""),
             link: function (scope, element) {
