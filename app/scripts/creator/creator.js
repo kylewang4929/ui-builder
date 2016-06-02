@@ -278,7 +278,7 @@ angular.module('creator', [])
                             
                         }
                     }
-                    if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode == shortcutsCode.UNDO.keyCode) {
+                    if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode == shortcutsCode.UNDO.keyCode && !e[shortcutsCode.REDO.shiftKey]) {
                         //后退
                         var obj = historyLog.retreatPop();
                         if (obj != undefined) {
