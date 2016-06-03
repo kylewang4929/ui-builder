@@ -43,7 +43,7 @@ angular.module('shortcuts', ["browserInfo"])
             DELETE:{
                 keyCode:46
             }
-        }
+        };
         var keyboardMac = {
             UNDO: {
                 ctrlKey: "metaKey",
@@ -85,7 +85,7 @@ angular.module('shortcuts', ["browserInfo"])
             DELETE:{
                 keyCode:8
             }
-        }
+        };
 
 
 

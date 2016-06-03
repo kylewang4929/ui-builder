@@ -51,7 +51,7 @@ angular.module('myBuilderApp')
                         if (eleDom.height() > parseInt(eleBox.css("min-height"))) {
                             eleBox.css("min-height", eleDom.height() + "px");
                         }
-                    })
+                    });
 
                     $(element).resize(function () {
                         var height = eleDom.height() / 2;
@@ -510,11 +510,11 @@ angular.module('myBuilderApp')
                             var triggerData = { ID: groupID, elePar: elePar };
                             $(element).trigger("groupUpdate", triggerData);
                             if (elePar.left < 0) {
-                                offsetX = (elePar.width - outerWidth) / 2
+                                offsetX = (elePar.width - outerWidth) / 2;
                                 $(element).css({ left: offsetX });
                             }
                             if (elePar.top < 0) {
-                                offsetY = (elePar.height - outerHeight) / 2
+                                offsetY = (elePar.height - outerHeight) / 2;
                                 $(element).css({ top: offsetY + "px" });
                             }
                         }
@@ -525,16 +525,17 @@ angular.module('myBuilderApp')
                     if (parameter.flag) {
                         parameter.flag = false;
 
-                        if(moveFirstFlag==false){
+                        if(moveFirstFlag === false){
                             moveFirstFlag=true;                            
                         }
 
-                        if (parameter.isGroupEle != true) {
-                            var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
+                        var eleData={};
+                        if (parameter.isGroupEle !== true) {
+                            eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
                             websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
                         } else {
                             //更新组
-                            var eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
+                            eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
                             websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
                         }
 
@@ -578,7 +579,7 @@ angular.module('myBuilderApp')
                     var groupEleList = $(element).parents('.position-box[ele-type=group]');
                     groupID = groupEleList.eq(0).attr('id');
                     firstParentGroupID = groupEleList.eq(groupEleList.length - 1).attr('id');
-                }
+                } 
 
                 parameter.type = attrs.phoneDragEle;
 
@@ -593,7 +594,7 @@ angular.module('myBuilderApp')
                         return;
                     }
                     var multipleChoiceState = $(element).attr("multiple-choice");
-                    if (multipleChoiceState == 'true') {
+                    if (multipleChoiceState === 'true') {
                         return;
                     }
 
@@ -666,10 +667,10 @@ angular.module('myBuilderApp')
                             var triggerData = { ID: groupID, elePar: elePar };
                             $(element).trigger("groupUpdate", triggerData);
                             if (elePar.left < 0) {
-                                offsetX = (elePar.width - outerWidth) / 2
+                                offsetX = (elePar.width - outerWidth) / 2;
                             }
                             if (elePar.top < 0) {
-                                offsetY = (elePar.height - outerHeight) / 2
+                                offsetY = (elePar.height - outerHeight) / 2;
                             }
                         }
 
@@ -683,21 +684,22 @@ angular.module('myBuilderApp')
                         parameter.flag = false;
                         
                         //标记移动结束
-                        if(moveFirstFlag==false){
+                        if(moveFirstFlag === false){
                             moveFirstFlag=true;      
                             $rootScope.$emit("eleDragEnd");                                                  
                         }
                         
-                        if (parameter.type == 'ele') {
-                            if (parameter.isGroupEle != true) {
-                                var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
+                        var eleData={};
+                        if (parameter.type === 'ele') {
+                            if (parameter.isGroupEle !== true) {
+                                eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
                                 scope.$apply(function(){
                                     websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);                                    
                                 });
                             } else {
-                                var eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
+                                eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
                                 scope.$apply(function(){
-                                    websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData)                                    
+                                    websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);                                   
                                 });
                             }
 

@@ -12,34 +12,34 @@ angular.module('phoneSiteEditor',[])
             addEle: function(sessionID, obj) {
                 var dom = phoneCreatorServices.createEle(obj);
                 dom = $compile(dom.get(0))(createScope);
-                if (obj.showState == false) {
+                if (obj.showState === false) {
                     dom.css("display", 'none');
                 }
                 $("#" + sessionID + ".ele-session-box").append(dom);
             },
             hideEle: function(ID, type) {
-                if (type == 'session') {
+                if (type === 'session') {
                     $("#" + ID + ".ele-session-box").hide();
                 }
-                if (type == 'ele') {
+                if (type === 'ele') {
                     $("#" + ID + ".position-box").hide();
                 }
             },
             showEle: function(ID, type) {
-                if (type == 'session') {
+                if (type === 'session') {
                     $("#" + ID + ".ele-session-box").show();
                 }
-                if (type == 'ele') {
+                if (type === 'ele') {
                     $("#" + ID + ".position-box").show();
                 }
             },
             moveEle: function(ID, direction, value) {
                 var dom = $("#" + ID + ".position-box");
-                if (direction == 'top') {
+                if (direction === 'top') {
                     var cTop = dom.css('top');
                     dom.css('top', parseInt(cTop) + value);
                 }
-                if (direction == 'left') {
+                if (direction === 'left') {
                     var cLeft = dom.css('left');
                     dom.css('left', parseInt(cLeft) + value);
                 }
@@ -102,6 +102,7 @@ angular.module('phoneSiteEditor',[])
             },
             getEleText: function(ID) {
                 var eleData = {};
+                var styleDom={};
                 eleData.phoneStyle={};
                 var dom = $("#" + ID + ".position-box");
 
@@ -110,9 +111,9 @@ angular.module('phoneSiteEditor',[])
                 eleData.textValue = dom.find('.ele').get(0).innerHTML;
 
                 eleData.phoneStyle.position = this.resolveStyle(dom[0]);
-                var styleDom = dom.find(".ele-box");
+                styleDom = dom.find(".ele-box");
                 eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
-                var styleDom = dom.find(".ele");
+                styleDom = dom.find(".ele");
                 eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
 
                 //获取缩放比例
@@ -126,6 +127,7 @@ angular.module('phoneSiteEditor',[])
             },
             getEleImage: function(ID) {
                 var eleData = {};
+                var styleDom={};
                 eleData.phoneStyle={};                
                 var dom = $("#" + ID + ".position-box");
 
@@ -133,9 +135,9 @@ angular.module('phoneSiteEditor',[])
                 eleData.type = "image";
 
                 eleData.phoneStyle.position = this.resolveStyle(dom[0]);
-                var styleDom = dom.find(".ele-box");
+                styleDom = dom.find(".ele-box");
                 eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
-                var styleDom = dom.find(".ele");
+                styleDom = dom.find(".ele");
                 eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
                 eleData.url = styleDom.css("background-image");
                 eleData.url = eleData.url.substring(5, eleData.url.length - 2);
@@ -151,6 +153,7 @@ angular.module('phoneSiteEditor',[])
             },
             getEleMenu: function(ID) {
                 var eleData = {};
+                var styleDom={};
                 eleData.phoneStyle={};                                
                 var dom = $("#" + ID + ".position-box");
 
@@ -158,15 +161,15 @@ angular.module('phoneSiteEditor',[])
                 eleData.type = "menu";
 
                 eleData.phoneStyle.position = this.resolveStyle(dom[0]);
-                var styleDom = dom.find(".ele-box");
+                styleDom = dom.find(".ele-box");
                 eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
-                var styleDom = dom.find(".ele");
+                styleDom = dom.find(".ele");
                 eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
                 //读取item
                 eleData.item = [];
                 styleDom = styleDom.find(".menu-item");
                 for (var i = 0; i < styleDom.length; i++) {
-                    eleData.item.push({ ID: styleDom.eq(i).attr("id"), name: styleDom.get(i).textContent })
+                    eleData.item.push({ ID: styleDom.eq(i).attr("id"), name: styleDom.get(i).textContent });
                 }
 
                 //获取缩放比例
@@ -176,15 +179,16 @@ angular.module('phoneSiteEditor',[])
             },
             getEleGroup: function(ID) {
                 var eleData = {};
+                var styleDom={};
                 eleData.phoneStyle={};                
                 var dom = $("#" + ID + ".position-box");
 
                 eleData.ID = ID;
                 eleData.type = "group";
                 eleData.phoneStyle.position = this.resolveStyle(dom[0]);
-                var styleDom = dom.find(".ele-box");
+                styleDom = dom.find(".ele-box");
                 eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
-                var styleDom = dom.find(".ele");
+                styleDom = dom.find(".ele");
                 eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
 
 
@@ -234,7 +238,7 @@ angular.module('phoneSiteEditor',[])
                 });
                 
                 //图片缩放
-                dom.css('width', parseInt(eleData.phoneStyle.border['width'])*eleData.phoneStyle.scale);
+                dom.css('width', parseInt(eleData.phoneStyle.border.width)*eleData.phoneStyle.scale);
                 dom.css('min-height', parseInt(eleData.phoneStyle.border['min-height'])*eleData.phoneStyle.scale);
 
                 dom = dom.find(".ele");
@@ -246,7 +250,7 @@ angular.module('phoneSiteEditor',[])
                 var originalHeight=parseFloat(eleData.imageSize.height);
                 
                 //获取元素真实大小
-                var eleActualWidth=parseFloat(eleData.phoneStyle.border['width'])*eleData.phoneStyle.scale;
+                var eleActualWidth=parseFloat(eleData.phoneStyle.border.width)*eleData.phoneStyle.scale;
                 var eleActualHeight=parseFloat(eleData.phoneStyle.border['min-height'])*eleData.phoneStyle.scale;
                 
                 var height=0;

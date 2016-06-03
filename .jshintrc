@@ -9,10 +9,14 @@
     "node": true,
     "strict": true,
     "undef": true,
-    "unused": true,
+    "unused": false,
     "globals": {
         "angular": false,
         "$": false,
-        "jQuery": false
+        "jQuery": false,
+        "Quill":false,
+        "_":false,
+        "swal":false,
+        "USERAGENT":false
     }
 }

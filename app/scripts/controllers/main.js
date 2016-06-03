@@ -16,7 +16,7 @@ angular.module('myBuilderApp')
         $scope.modelState='web';
         $scope.selectModel=function(type){
             $scope.modelState=type;
-        }
+        };
 
         $scope.changePage=function(ID){
             //清除历史纪录
@@ -31,7 +31,7 @@ angular.module('myBuilderApp')
             }
             historyLog.clearAll();
             $scope.$broadcast("refreshPage",$scope.websiteData);
-        }
+        };
 
         $scope.forward=function(){
             //发送命令
@@ -39,29 +39,29 @@ angular.module('myBuilderApp')
             e.keyCode = 89;
             e.ctrlKey=true;
             $(document).trigger(e);//模拟按下回车
-        }
+        };
         $scope.retreat=function(){
             //发送命令
             var e = jQuery.Event("keydown");//模拟一个键盘事件
             e.keyCode = 90;
             e.ctrlKey=true;
             $(document).trigger(e);//模拟按下回车
-        }
+        };
 
         $scope.save=function(){
             var seen = [];
             var json=JSON.stringify(websiteData.getFullDataForCache(), function(key, val) {
-                if (val != null && typeof val == "object") {
+                if (val !== null && typeof val === "object") {
                     if (seen.indexOf(val) >= 0) {
                         //循环引用，插入指针即可
                         var target=jQuery.extend(true, [], val.target);
-                        val={"isPointer":"true",target:target}
+                        val={"isPointer":"true",target:target};
                     }
                     seen.push(val);
                 }
                 return val;
             });
             console.log(json);
-        }
+        };
 
   });

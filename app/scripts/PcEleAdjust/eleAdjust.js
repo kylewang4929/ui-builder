@@ -158,7 +158,7 @@ angular.module('myBuilderApp')
                         return;
                     }
                     var multipleChoiceState = $(element).attr("multiple-choice");
-                    if (multipleChoiceState == 'true') {
+                    if (multipleChoiceState === 'true') {
                         return;
                     }
 
@@ -216,7 +216,7 @@ angular.module('myBuilderApp')
                         offsetY += parameter.top;
 
                         if (parameter.type === 'ele') {
-                            if (parameter.isGroupEle != true) {
+                            if (parameter.isGroupEle !== true) {
                                 changeSessionTool.moveCheck(e.clientY - parameter.cy);
                             }
                         } else {
@@ -241,10 +241,10 @@ angular.module('myBuilderApp')
                             var triggerData = { ID: groupID, elePar: elePar };
                             $(element).trigger("groupUpdate", triggerData);
                             if (elePar.left < 0) {
-                                offsetX = (elePar.width - outerWidth) / 2
+                                offsetX = (elePar.width - outerWidth) / 2;
                             }
                             if (elePar.top < 0) {
-                                offsetY = (elePar.height - outerHeight) / 2
+                                offsetY = (elePar.height - outerHeight) / 2;
                             }
                         }
                         $(element).css({ left: offsetX + "px", top: offsetY + "px" });
@@ -256,14 +256,14 @@ angular.module('myBuilderApp')
                         parameter.flag = false;
                         
                         //标记移动结束
-                        if(moveFirstFlag==false){
+                        if(moveFirstFlag === false){
                             moveFirstFlag=true;
                             $rootScope.$emit("eleDragEnd");
                         }
                                                 
-                        if (parameter.type == 'ele') {
+                        if (parameter.type === 'ele') {
                             var ele = [{ ID: attrs.id, type: attrs.eleType }];
-                            if (parameter.isGroupEle != true) {
+                            if (parameter.isGroupEle !== true) {
                                 scope.$apply(function(){
                                     changeSessionTool.overCheck(ele);
                                 });
@@ -334,7 +334,7 @@ angular.module('myBuilderApp')
                         if (eleDom.height() > parseInt(eleBox.css("min-height"))) {
                             eleBox.css("min-height", eleDom.height() + "px");
                         }
-                    })
+                    });
 
                     $(element).resize(function () {
 
@@ -796,11 +796,11 @@ angular.module('myBuilderApp')
                             var triggerData = { ID: groupID, elePar: elePar };
                             $(element).trigger("groupUpdate", triggerData);
                             if (elePar.left < 0) {
-                                offsetX = (elePar.width - outerWidth) / 2
+                                offsetX = (elePar.width - outerWidth) / 2;
                                 $(element).css({ left: offsetX });
                             }
                             if (elePar.top < 0) {
-                                offsetY = (elePar.height - outerHeight) / 2
+                                offsetY = (elePar.height - outerHeight) / 2;
                                 $(element).css({ top: offsetY + "px" });
                             }
                         }
@@ -812,17 +812,18 @@ angular.module('myBuilderApp')
                         parameter.flag = false;
 
                         //标记移动结束
-                        if(moveFirstFlag==false){
+                        if(moveFirstFlag === false){
                             moveFirstFlag=true;
                             $rootScope.$emit("eleDragEnd");
                         }
 
-                        if (parameter.isGroupEle != true) {
-                            var eleData = builderTool.getEle(attrs.id, attrs.eleType);
+                        var eleData={};
+                        if (parameter.isGroupEle !== true) {
+                            eleData = builderTool.getEle(attrs.id, attrs.eleType);
                             websiteData.updateEle(scope.websiteCode.ID, eleData);
                         } else {
                             //更新组
-                            var eleData = builderTool.getEle(firstParentGroupID, "group");
+                            eleData = builderTool.getEle(firstParentGroupID, "group");
                             websiteData.updateEle(activePageService.getActivePage().value, eleData);
                         }
 

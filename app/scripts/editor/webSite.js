@@ -188,7 +188,7 @@ angular.module('webSiteEditor',[])
                 eleData.item = [];
                 styleDom = styleDom.find(".menu-item");
                 for (var i = 0; i < styleDom.length; i++) {
-                    eleData.item.push({ ID: styleDom.eq(i).attr("id"), name: styleDom.get(i).textContent })
+                    eleData.item.push({ ID: styleDom.eq(i).attr("id"), name: styleDom.get(i).textContent });
                 }
                 eleData.eleTemplateType = dom.attr("template-type");
                 return eleData;
@@ -300,10 +300,10 @@ angular.module('webSiteEditor',[])
                 var borderWidth = 0;
                 var borderHeight = 0;
                 $.each(eleData.border, function (index, value) {
-                    if (index == 'min-height') {
+                    if (index === 'min-height') {
                         borderHeight = parseInt(value);
                     }
-                    if (index == 'width') {
+                    if (index === 'width') {
                         borderWidth = parseInt(value);
                     }
                     domBorder.css(index, value);

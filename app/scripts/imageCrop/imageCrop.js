@@ -52,7 +52,7 @@ angular.module('kyle.imageCrop', [])
                 
                 
             }
-        }
+        };
     })
     .factory("imageCropService",function (eleMenuServices,$compile,$rootScope) {
         var activeEle={};

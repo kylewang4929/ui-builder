@@ -14,15 +14,15 @@ angular.module('dataService', [])
                 scopeObj=scope;
             },
             hideSession: function (ID, historyType) {
-                if (historyType == undefined) {
+                if (historyType === undefined) {
                     historyType = 'default';
                 }
                 var handle = this.searchSessionHandle(activePageService.getActivePage().value);
                 for (var i = 0; i < handle.length; i++) {
-                    if (handle[i].ID == ID) {
+                    if (handle[i].ID === ID) {
                         handle[i].showState = false;
 
-                        var obj = { sessionID: ID }
+                        var obj = { sessionID: ID };
                         phoneHistoryLog.pushHistoryLog(obj, historyType, 'hideSession');
 
                         //删除元素
@@ -32,16 +32,16 @@ angular.module('dataService', [])
             },
             hideEleSearchGroup: function (ele, ID) {
                 for (var i = 0; i < ele.eleList.length; i++) {
-                    if (ele.eleList[i].ID == ID) {
+                    if (ele.eleList[i].ID === ID) {
                         return ele.eleList.splice(i, 1)[0];
                     }
-                    if (ele.eleList[i].type == 'group') {
+                    if (ele.eleList[i].type === 'group') {
                         return this.hideEleSearchGroup(ele.eleList[i], ID);
                     }
                 }
             },
             hideEle: function (ID, historyType) {
-                if (historyType == undefined) {
+                if (historyType === undefined) {
                     historyType = 'default';
                 }
 
@@ -49,18 +49,19 @@ angular.module('dataService', [])
 
                 var handle = this.searchEleHandle(activePageService.getActivePage().value, sessionID);
                 for (var i = 0; i < handle.length; i++) {
-                    if (ID == handle[i].ID) {
+                    var obj={};
+                    if (ID === handle[i].ID) {
                         //找到元素
                         handle[i].showState = false;
 
-                        var obj = { sessionID: sessionID, ID: ID }
+                        obj = { sessionID: sessionID, ID: ID };
                         phoneHistoryLog.pushHistoryLog(obj, historyType, 'hideEle');
 
                         //删除元素
                         phoneBuilderTool.hideEle(ID, 'ele');
                         break;
                     }
-                    if (handle[i].type == 'group') {
+                    if (handle[i].type === 'group') {
                         var groupSearch = this.hideEleSearchGroup(handle[i], ID);
                         if (!!groupSearch) {
 
@@ -68,7 +69,7 @@ angular.module('dataService', [])
 
                             handle.push(groupSearch);
 
-                            var obj = { sessionID: sessionID, ID: ID }
+                            obj = { sessionID: sessionID, ID: ID };
                             phoneHistoryLog.pushHistoryLog(obj, historyType, 'hideEle');
 
                             //删除元素
@@ -83,15 +84,15 @@ angular.module('dataService', [])
                 }
             },
             showSession: function (ID, historyType) {
-                if (historyType == undefined) {
+                if (historyType === undefined) {
                     historyType = 'default';
                 }
                 var handle = this.searchSessionHandle(activePageService.getActivePage().value);
                 for (var i = 0; i < handle.length; i++) {
-                    if (handle[i].ID == ID) {
+                    if (handle[i].ID === ID) {
                         handle[i].showState = true;
 
-                        var obj = { sessionID: ID }
+                        var obj = { sessionID: ID };
                         phoneHistoryLog.pushHistoryLog(obj, historyType, 'showSession');
 
                         //删除元素
@@ -100,18 +101,18 @@ angular.module('dataService', [])
                 }
             },
             showEle: function (ID, historyType) {
-                if (historyType == undefined) {
+                if (historyType === undefined) {
                     historyType = 'default';
                 }
 
                 var sessionID = $("#" + ID + ".position-box").parents('.ele-session-box').attr("id");
                 var handle = this.searchEleHandle(activePageService.getActivePage().value, sessionID);
                 for (var i = 0; i < handle.length; i++) {
-                    if (ID == handle[i].ID) {
+                    if (ID === handle[i].ID) {
                         //找到元素
                         handle[i].showState = true;
 
-                        var obj = { sessionID: sessionID, ID: ID }
+                        var obj = { sessionID: sessionID, ID: ID };
                         phoneHistoryLog.pushHistoryLog(obj, historyType, 'showEle');
                         //删除元素
                         phoneBuilderTool.showEle(ID, 'ele');
@@ -119,16 +120,16 @@ angular.module('dataService', [])
                 }
             },
             changeSessionHeight: function (sessionID, height, historyType) {
-                if (historyType == undefined) {
+                if (historyType === undefined) {
                     historyType = 'default';
                 }
                 var handle = this.searchSessionHandle(activePageService.getActivePage().value);
                 for (var i = 0; i < handle.length; i++) {
-                    if (sessionID == handle[i].ID) {
+                    if (sessionID === handle[i].ID) {
                         //加入历史纪录
                         var obj = { sessionID: sessionID, height: handle[i].style['min-height'] };
 
-                        if (historyType == 'retreat' || historyType == 'forward') {
+                        if (historyType === 'retreat' || historyType === 'forward') {
                             builderTool.changeSessionHeight(sessionID, height);
                         }
                         historyLog.pushHistoryLog(obj, historyType, 'changeSessionHeight');
@@ -139,15 +140,15 @@ angular.module('dataService', [])
                 }
             },
             changePhoneSessionHeight: function (sessionID, height, historyType) {
-                if (historyType == undefined) {
+                if (historyType === undefined) {
                     historyType = 'default';
                 }
                 var handle = this.searchSessionHandle(activePageService.getActivePage().value);
                 for (var i = 0; i < handle.length; i++) {
-                    if (sessionID == handle[i].ID) {
+                    if (sessionID === handle[i].ID) {
                         //加入历史纪录
                         var obj = { sessionID: sessionID, height: handle[i].phoneStyle['min-height'] };
-                        if (historyType == 'retreat' || historyType == 'forward') {
+                        if (historyType === 'retreat' || historyType === 'forward') {
                             builderTool.changeSessionHeight(sessionID, height);
                         }
                         phoneHistoryLog.pushHistoryLog(obj, historyType, 'changeSessionHeight');
@@ -161,15 +162,15 @@ angular.module('dataService', [])
                 var handle = this.searchSessionHandle(activePageService.getActivePage().value);
                 var minHeight = 0;
                 for (var i = 0; i < handle.length; i++) {
-                    if (sessionID == handle[i].ID) {
+                    if (sessionID === handle[i].ID) {
                         for (var j = 0; j < handle[i].eleList.length; j++) {
-                            if (j == 0) {
-                                minHeight = parseInt(handle[i].eleList[j].border['min-height']) + parseInt(handle[i].eleList[j].position['top']);
+                            if (j === 0) {
+                                minHeight = parseInt(handle[i].eleList[j].border['min-height']) + parseInt(handle[i].eleList[j].position.top);
                                 continue;
                             }
 
-                            if (minHeight < parseInt(handle[i].eleList[j].border['min-height']) + parseInt(handle[i].eleList[j].position['top'])) {
-                                minHeight = parseInt(handle[i].eleList[j].border['min-height']) + parseInt(handle[i].eleList[j].position['top']);
+                            if (minHeight < parseInt(handle[i].eleList[j].border['min-height']) + parseInt(handle[i].eleList[j].position.top)) {
+                                minHeight = parseInt(handle[i].eleList[j].border['min-height']) + parseInt(handle[i].eleList[j].position.top);
                             }
                         }
                         return minHeight;
@@ -193,12 +194,12 @@ angular.module('dataService', [])
 
             },
             deleteSession: function (ID, historyType) {
-                if (historyType == undefined) {
+                if (historyType === undefined) {
                     historyType = 'default';
                 }
                 var handle = this.searchSessionHandle(activePageService.getActivePage().value, ID);
                 for (var i = 0; i < handle.length; i++) {
-                    if (handle[i].ID == ID) {
+                    if (handle[i].ID === ID) {
                         var session = handle.splice(i, 1)[0];
                         session.deleteIndex = i;
                         builderTool.deleteSession(ID);
@@ -211,16 +212,16 @@ angular.module('dataService', [])
             },
             searchSessionHandle: function (pageID) {
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].ID == pageID) {
+                    if (data[i].ID === pageID) {
                         return data[i].sessionList;
                     }
                 }
             },
             searchEleHandle: function (pageID, sessionID) {
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].ID == pageID) {
+                    if (data[i].ID === pageID) {
                         for (var j = 0; j < data[i].sessionList.length; j++) {
-                            if (sessionID == data[i].sessionList[j].ID) {
+                            if (sessionID === data[i].sessionList[j].ID) {
                                 return data[i].sessionList[j].eleList;
                             }
                         }
@@ -230,16 +231,21 @@ angular.module('dataService', [])
             changeSession: function (startSession, endSession, newObj, historyType) {
                 //获取元素
                 var oldEle = {};
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].ID == activePageService.getActivePage().value) {
-                        for (var j = 0; j < data[i].sessionList.length; j++) {
-                            if (data[i].sessionList[j].ID == startSession) {
-                                for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
-                                    if (data[i].sessionList[j].eleList[k].ID == newObj.ID) {
+                
+                var i=0;
+                var j=0;
+                var k=0;
+                
+                for (i = 0; i < data.length; i++) {
+                    if (data[i].ID === activePageService.getActivePage().value) {
+                        for (j = 0; j < data[i].sessionList.length; j++) {
+                            if (data[i].sessionList[j].ID === startSession) {
+                                for (k = 0; k < data[i].sessionList[j].eleList.length; k++) {
+                                    if (data[i].sessionList[j].eleList[k].ID === newObj.ID) {
                                         //原数组删除元素
                                         oldEle = data[i].sessionList[j].eleList.splice(k, 1)[0];
                                         //加入历史数据
-                                        if (historyType == 'retreat' || historyType == 'forward') {
+                                        if (historyType === 'retreat' || historyType === 'forward') {
                                             builderTool.updateEle(newObj);
                                             builderTool.justChangeSession(startSession, endSession, newObj);
                                         } else {
@@ -260,10 +266,10 @@ angular.module('dataService', [])
                 }
 
                 //迁移数据
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].ID == activePageService.getActivePage().value) {
-                        for (var j = 0; j < data[i].sessionList.length; j++) {
-                            if (data[i].sessionList[j].ID == endSession) {
+                for (i = 0; i < data.length; i++) {
+                    if (data[i].ID === activePageService.getActivePage().value) {
+                        for (j = 0; j < data[i].sessionList.length; j++) {
+                            if (data[i].sessionList[j].ID === endSession) {
                                 var eleData = builderTool.getEle(newObj.ID,newObj.type);
 
                                 //此处应该调用计算phoneStyle的方法
@@ -271,8 +277,8 @@ angular.module('dataService', [])
                                 eleData.phoneStyle = oldEle.phoneStyle;
                                 eleData.phoneStyle.position.top = eleData.position.top;
                                 eleData.phoneStyle.position.left = eleData.position.left;
-                                if (oldEle.type == 'group') {
-                                    for (var k = 0; k < oldEle.eleList.length; k++) {
+                                if (oldEle.type === 'group') {
+                                    for (k = 0; k < oldEle.eleList.length; k++) {
                                         eleData.eleList[k].phoneStyle = oldEle.eleList[k].phoneStyle;
                                         eleData.eleList[k].phoneStyle.position.top = eleData.eleList[k].position.top;
                                         eleData.eleList[k].phoneStyle.position.left = eleData.eleList[k].position.left;
@@ -313,7 +319,7 @@ angular.module('dataService', [])
                             //需要缩放
                             obj.eleList[i].phoneStyle.scale = (phoneWidth - 20) / width;
                         }
-                        if (i == 0) {
+                        if (i === 0) {
                             maxWidth = width * obj.eleList[i].phoneStyle.scale;
                         }
                         if (width * obj.eleList[i].phoneStyle.scale > maxWidth) {
@@ -322,7 +328,7 @@ angular.module('dataService', [])
                         //调整top
                         obj.eleList[i].phoneStyle.position.top = currentHeight;
                         obj.eleList[i].phoneStyle.position.left = 0;
-                        if (obj.eleList[i].type == 'group') {
+                        if (obj.eleList[i].type === 'group') {
                             currentHeight += parseInt(obj.eleList[i].phoneStyle.border['min-height']);
                         } else {
                             currentHeight += parseInt(obj.eleList[i].phoneStyle.border['min-height']) * obj.eleList[i].phoneStyle.scale;
@@ -365,8 +371,8 @@ angular.module('dataService', [])
                         //缩放并居中 缩到260px
                         obj.phoneStyle.position.left = 10;
                         obj.phoneStyle.scale = (phoneWidth - 20) / width;
-                        if (obj.type == 'image') {
-                            obj.phoneStyle.border['width'] *= obj.phoneStyle.scale;
+                        if (obj.type === 'image') {
+                            obj.phoneStyle.border.width *= obj.phoneStyle.scale;
                             obj.phoneStyle.border['min-height'] *= obj.phoneStyle.scale;
                         }
                     }
@@ -376,7 +382,7 @@ angular.module('dataService', [])
             },
             groupEle: function (eleList, historyType, originalID) {
 
-                if (historyType == undefined) {
+                if (historyType === undefined) {
                     historyType = "default";
                 }
 
@@ -391,11 +397,11 @@ angular.module('dataService', [])
                 var sessionID = $("#" + eleList[0].ID + ".position-box").parents('.ele-session-box').attr('id');
 
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].ID == activePageService.getActivePage().value) {
+                    if (data[i].ID === activePageService.getActivePage().value) {
                         for (var j = 0; j < data[i].sessionList.length; j++) {
-                            if (data[i].sessionList[j].ID == sessionID) {
+                            if (data[i].sessionList[j].ID === sessionID) {
                                 for (var q = 0; q < eleList.length; q++) {
-                                    if (q == 0) {
+                                    if (q === 0) {
                                         par.minTop = eleList[q].position.top;
                                         par.maxTop = eleList[q].position.top + eleList[q].size.height;
                                         par.minLeft = eleList[q].position.left;
@@ -418,7 +424,7 @@ angular.module('dataService', [])
 
 
                                     for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
-                                        if (eleList[q].ID == data[i].sessionList[j].eleList[k].ID) {
+                                        if (eleList[q].ID === data[i].sessionList[j].eleList[k].ID) {
                                             //找到匹配的元素
                                             groupEle.push(data[i].sessionList[j].eleList.splice(k, 1)[0]);
                                             break;
@@ -438,7 +444,7 @@ angular.module('dataService', [])
                                         }
                                         //如果指定了ID 则用指定的ID
                                         var newEle = {
-                                            "ID": originalID != undefined ? originalID : builderTool.createID(),
+                                            "ID": originalID !== undefined ? originalID : builderTool.createID(),
                                             "type": "group",
                                             "style": {},
                                             "position": {
@@ -482,25 +488,23 @@ angular.module('dataService', [])
                 }
             },
             unGroupEle: function (group, historyType) {
-                if (historyType == undefined) {
+                if (historyType === undefined) {
                     historyType = "default";
                 }
                 var sessionID = $("#" + group.ID + ".position-box").parents('.ele-session-box').attr('id');
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].ID == activePageService.getActivePage().value) {
+                    if (data[i].ID === activePageService.getActivePage().value) {
                         for (var j = 0; j < data[i].sessionList.length; j++) {
-                            if (data[i].sessionList[j].ID == sessionID) {
+                            if (data[i].sessionList[j].ID === sessionID) {
                                 for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
-                                    if (group.ID == data[i].sessionList[j].eleList[k].ID) {
+                                    if (group.ID === data[i].sessionList[j].eleList[k].ID) {
                                         //找到元素
                                         var eleList = jQuery.extend(true, [], data[i].sessionList[j].eleList[k].eleList);
                                         var groupScale = data[i].sessionList[j].eleList[k].phoneStyle.scale;
                                         //清除组
                                         data[i].sessionList[j].eleList.splice(k, 1);
                                         //从页面删除元素
-                                        $timeout(function () {
-                                            builderTool.deleteEle(group.ID);
-                                        });
+                                        $timeout(function () {builderTool.deleteEle(group.ID);});
 
                                         //把元素重新计算和加入原始数组
                                         this.calculateForUnGroup(eleList, groupScale);
@@ -516,12 +520,12 @@ angular.module('dataService', [])
                                             //插入元素
                                             builderTool.addEle(sessionID, eleList[q]);
 
-                                            var historyData = { ID: eleList[q].ID, position: { left: parseInt(eleList[q].position.left), top: parseInt(eleList[q].position.top) }, size: { width: parseInt(eleList[q].border.width), height: parseInt(eleList[q].border['min-height']) } }
+                                            var historyData = { ID: eleList[q].ID, position: { left: parseInt(eleList[q].position.left), top: parseInt(eleList[q].position.top) }, size: { width: parseInt(eleList[q].border.width), height: parseInt(eleList[q].border['min-height']) } };
                                             historyLogEleList.push(historyData);
                                         }
 
                                         //加入历史纪录 利用session这个属性（其实设计很不合理 但是懒得改了）保存原group的ID
-                                        var obj = { eleList: historyLogEleList, oldID: group.ID }
+                                        var obj = { eleList: historyLogEleList, oldID: group.ID };
                                         historyLog.pushHistoryLog(obj, historyType, 'unGroup');
 
                                     }
@@ -542,7 +546,7 @@ angular.module('dataService', [])
                     var pageList = webData.pageList;
                     for (var i = 0; i < pageList.length; i++) {
                         for (var j = 0; j < pageList[i].sessionList.length; j++) {
-                            if (pageList[i].sessionList[j].isPointer == 'true') {
+                            if (pageList[i].sessionList[j].isPointer === 'true') {
                                 var target = jQuery.extend(true, [], pageList[i].sessionList[j].target);
                                 var targetContent = webData;
                                 for (var k = 0; k < target.length; k++) {
@@ -565,11 +569,11 @@ angular.module('dataService', [])
             },
             addEle: function (pageID, sessionID, obj, scope, type) {
                 
-                if(scope==""){
+                if(scope===""){
                     scope=scopeObj;
                 }
                 
-                if (type == undefined) {
+                if (type === undefined) {
                     type = "default";
                 }
                 for (var i = 0; i < data.length; i++) {
@@ -590,21 +594,21 @@ angular.module('dataService', [])
                 }
             },
             getEleForGroup: function (obj, id) {
-                if (obj.ID == id) {
+                if (obj.ID === id) {
                     return obj;
                 }
                 for (var i = 0; i < obj.eleList.length; i++) {
-                    if (obj.eleList[i].ID == id) {
+                    if (obj.eleList[i].ID === id) {
                         return obj.eleList[i];
                     }
-                    if (obj.eleList[i].type == 'group') {
+                    if (obj.eleList[i].type === 'group') {
                         var groupSearch = this.getEleForGroup(obj.eleList[i], id);
-                        if (groupSearch != null) {
+                        if (groupSearch !== null) {
                             return groupSearch;
                         }
                     }
                 }
-                if (obj.eleList == undefined) {
+                if (obj.eleList === undefined) {
                     return null;
                 }
             },
@@ -616,9 +620,9 @@ angular.module('dataService', [])
                                 if (data[i].sessionList[j].eleList[k].ID === id) {
                                     return data[i].sessionList[j].eleList[k];
                                 }
-                                if (data[i].sessionList[j].eleList[k].type == 'group') {
+                                if (data[i].sessionList[j].eleList[k].type === 'group') {
                                     var groupEleData = this.getEleForGroup(data[i].sessionList[j].eleList[k], id);
-                                    if (groupEleData != undefined || groupEleData != null) {
+                                    if (groupEleData !== undefined || groupEleData !== null) {
                                         return groupEleData;
                                     }
                                 }
@@ -660,7 +664,7 @@ angular.module('dataService', [])
 
                                 if (data[i].sessionList[j].eleList[k].ID === eleData.ID) {
                                     //找到元素 判断元素是否相同
-                                    if (_.isEqual(eleData, data[i].sessionList[j].eleList[k]) != true) {
+                                    if (_.isEqual(eleData, data[i].sessionList[j].eleList[k]) !== true) {
                                         //加入历史记录 判断是否是从历史记录控制器发过来的更新命令
                                         historyLog.pushHistoryLog(jQuery.extend(true, {}, data[i].sessionList[j].eleList[k]), type, 'updateEle');
                                         eleData = this.retainPhoneStyle(data[i].sessionList[j].eleList[k], eleData);
@@ -685,7 +689,7 @@ angular.module('dataService', [])
                             for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
                                 if (data[i].sessionList[j].eleList[k].ID === eleData.ID) {
                                     //找到元素 判断元素是否相同
-                                    if (_.isEqual(eleData, data[i].sessionList[j].eleList[k]) != true) {
+                                    if (_.isEqual(eleData, data[i].sessionList[j].eleList[k]) !== true) {
 
                                         //加入历史记录 判断是否是从历史记录控制器发过来的更新命令
                                         phoneHistoryLog.pushHistoryLog(angular.copy(data[i].sessionList[j].eleList[k]), type, 'updatePhoneEle');
@@ -702,14 +706,14 @@ angular.module('dataService', [])
                 var phoneStyle = oldData.phoneStyle;
                 phoneStyle.position.left = newData.phoneStyle.position.left;
                 phoneStyle.position.top = newData.phoneStyle.position.top;
-                phoneStyle.border['width'] = newData.phoneStyle.border['width'];
+                phoneStyle.border.width = newData.phoneStyle.border.width;
                 phoneStyle.border['min-height'] = newData.phoneStyle.border['min-height'];
                 phoneStyle.scale = newData.phoneStyle.scale;
-                if (newData.phoneStyle.position['transform'] != undefined) {
-                    phoneStyle.position['transform'] = newData.phoneStyle.position['transform'];
+                if (newData.phoneStyle.position.transform !== undefined) {
+                    phoneStyle.position.transform = newData.phoneStyle.position.transform;
                 }
 
-                if (newData.type == 'group') {
+                if (newData.type === 'group') {
                     oldData.phoneStyle = phoneStyle;
                     for (var i = 0; i < newData.eleList.length; i++) {
                         this.savePhoneStyle(oldData.eleList[i], newData.eleList[i]);
@@ -720,7 +724,7 @@ angular.module('dataService', [])
                 return oldData;
             },
             retainPhoneStyle: function (oldData, newData) {
-                if (newData.type == 'group') {
+                if (newData.type === 'group') {
                     newData.phoneStyle = oldData.phoneStyle;
                     for (var i = 0; i < newData.eleList.length; i++) {
                         newData.eleList[i] = this.retainPhoneStyle(oldData.eleList[i], newData.eleList[i]);
@@ -742,4 +746,4 @@ angular.module('dataService', [])
             }
         };
         return handle;
-    })
+    });

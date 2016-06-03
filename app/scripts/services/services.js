@@ -73,7 +73,7 @@ angular.module('myBuilderApp')
             },
             getData: function () {
                 var returnData = jQuery.extend(true, {}, data);
-                if (data.type == 'cut') {
+                if (data.type === 'cut') {
                     data.type = "";
                     data.value = null;
                     data.ID = "";
@@ -97,7 +97,7 @@ angular.module('myBuilderApp')
             },
             setEle: function (ele) {
                 data.value = ele;
-                if(data.value.state=="edit"){
+                if(data.value.state === "edit"){
                     //隐藏menu
                     eleMenuServices.hideDom();                    
                 }else{
@@ -123,7 +123,7 @@ angular.module('myBuilderApp')
                 data.value = session;
             },
             check: function (session) {
-                if (session != data.value) {
+                if (session !== data.value) {
                     return data.value;
                 } else {
                     return false;
@@ -140,12 +140,16 @@ angular.module('myBuilderApp')
         var handle = {
             getLeft: function (e) {
                 var offset = e.offsetLeft;
-                if (e.offsetParent != null) offset += this.getLeft(e.offsetParent);
+                if (e.offsetParent !== null){
+                    offset += this.getLeft(e.offsetParent);
+                }
                 return offset;
             },
             getTop: function (e) {
                 var offset = e.offsetTop;
-                if (e.offsetParent != null) offset += this.getTop(e.offsetParent);
+                if (e.offsetParent !== null){
+                    offset += this.getTop(e.offsetParent);
+                }
                 return offset;
             }
         };
@@ -167,8 +171,8 @@ angular.module('myBuilderApp')
                     scrollDom.scrollTop(scrollStart+6);        
                     if(scrollStart+6 < scrollEnd){
                         $timeout(function(){
-                            levelScrollDown(scrollDom,scrollStart+6,scrollEnd)
-                        },1);                        
+                            levelScrollDown(scrollDom,scrollStart+6,scrollEnd);
+                        },1);          
                     }else{
                         //结束
                         $rootScope.$emit("levelScrollEnd");                        
@@ -178,7 +182,7 @@ angular.module('myBuilderApp')
                     scrollDom.scrollTop(scrollStart-6);        
                     if(scrollStart-6 > scrollEnd){
                         $timeout(function(){
-                            levelScrollUp(scrollDom,scrollStart-6,scrollEnd)
+                            levelScrollUp(scrollDom,scrollStart-6,scrollEnd);
                         },1);                        
                     }else{
                         //结束
@@ -186,9 +190,9 @@ angular.module('myBuilderApp')
                     }     
                 }
                 if(start < targetPosition){
-                    levelScrollDown(dom,start,targetPosition)                    
+                    levelScrollDown(dom,start,targetPosition);             
                 }else{
-                    levelScrollUp(dom,start,targetPosition)                                        
+                    levelScrollUp(dom,start,targetPosition);                             
                 }
                 
 
@@ -234,7 +238,7 @@ angular.module('myBuilderApp')
             getRotate: function (element) {
                 var rotateText = $(element).css("transform");
                 var rotate = 0;
-                if (rotateText == "none") {
+                if (rotateText === "none") {
                     rotate = 0;
                 } else {
                     rotateText = rotateText.substring(7, rotateText.length - 1);

@@ -58,15 +58,15 @@ angular.module('myBuilderApp')
                 //插入元素
                 var sessionDom=dom.find(".ele-session");
 
-                for (var i = 0; i < data.eleList.length; i++) {
-                    sessionDom.append(creatorServices.createEle(data.eleList[i]));
+                for (var j = 0; j < data.eleList.length; j++) {
+                    sessionDom.append(creatorServices.createEle(data.eleList[j]));
                 }
 
                 return function (scope, element, attrs) {
 
-                }
+                };
             }
-        }
+        };
     })
     .directive('sessionDefault', function (creatorServices) {
         return {
@@ -125,15 +125,15 @@ angular.module('myBuilderApp')
                 //插入元素
                 var sessionDom=dom.find(".ele-session");
 
-                for (var i = 0; i < data.eleList.length; i++) {
-                    sessionDom.append(creatorServices.createEle(data.eleList[i]));
+                for (var j = 0; j < data.eleList.length; j++) {
+                    sessionDom.append(creatorServices.createEle(data.eleList[j]));
                 }
 
                 return function (scope, element, attrs) {
 
-                }
+                };
             }
-        }
+        };
     })
 
 
@@ -150,7 +150,7 @@ angular.module('myBuilderApp')
                 var template="";
 
                 if(attrs.thumbnail){
-                    var template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box">',
+                    template=['<div id="' + data.ID + '" ele-type="'+data.type+'" class="position-box">',
                         '                <div class="ele-label">文本</div>',
                         '                <div class="ele-box">',
                         '                    <div class="ele ele-text">',
@@ -159,7 +159,7 @@ angular.module('myBuilderApp')
                         '                </div>',
                         '            </div>'].join("");
                 }else{
-                    var template=['<div id="' + data.ID + '" ele-type="'+data.type+'" ondragstart="event.preventDefault()" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" full-text drag-ele="ele" rotate resize ng-dblclick=editEle(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                    template=['<div id="' + data.ID + '" ele-type="'+data.type+'" ondragstart="event.preventDefault()" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" full-text drag-ele="ele" rotate resize ng-dblclick=editEle(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
                         '                <div class="rotate" ondragstart="event.preventDefault()" onmousedown=event.stopPropagation();><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line" ondragstart="event.preventDefault()"></div>',
                         '                <div class="center" ondragstart="event.preventDefault()"></div>',
@@ -187,7 +187,7 @@ angular.module('myBuilderApp')
                 var data=element.context.eleConfig;
                 eleApplyService.defaultApply(element,data);
             }
-        }
+        };
     })
     .directive('eleImageDefault', function (eleApplyService) {
         return {
@@ -257,7 +257,7 @@ angular.module('myBuilderApp')
                 });
                 
             }
-        }
+        };
     })
     .directive('eleGroupDefault', function (eleApplyService,creatorServices) {
         return {
@@ -309,9 +309,9 @@ angular.module('myBuilderApp')
                 return function (scope, element, attrs) {
                     var data=element.context.eleConfig;
                     eleApplyService.defaultApply(element,data);
-                }
+                };
             }
-        }
+        };
     })
     .directive('eleMenuDefault', function (eleApplyService) {
         return {
@@ -365,7 +365,7 @@ angular.module('myBuilderApp')
 
                 eleApplyService.defaultApply(element,data);
             }
-        }
+        };
     })
     
     
@@ -422,19 +422,19 @@ angular.module('myBuilderApp')
                 //插入元素
                 var sessionDom=dom.find(".ele-session");
 
-                for (var i = 0; i < data.eleList.length; i++) {
-                    var eleDom=phoneCreatorServices.createEle(data.eleList[i]);
+                for (var j = 0; j < data.eleList.length; j++) {
+                    var eleDom=phoneCreatorServices.createEle(data.eleList[j]);
                     sessionDom.append(eleDom);
-                    if(data.eleList[i].showState==false){
+                    if(data.eleList[j].showState === false){
                         eleDom.css('display','none');
                     }
                 }
 
                 return function (scope, element, attrs) {
 
-                }
+                };
             }
-        }
+        };
     })
     .directive('sessionDefaultPhone', function (phoneCreatorServices) {
         return {
@@ -485,19 +485,19 @@ angular.module('myBuilderApp')
                 //插入元素
                 var sessionDom=dom.find(".ele-session");
 
-                for (var i = 0; i < data.eleList.length; i++) {
-                    var eleDom=phoneCreatorServices.createEle(data.eleList[i]);
+                for (var j = 0; j < data.eleList.length; j++) {
+                    var eleDom=phoneCreatorServices.createEle(data.eleList[j]);
                     sessionDom.append(eleDom);
-                    if(data.eleList[i].showState==false){
+                    if(data.eleList[j].showState === false){
                         eleDom.css('display','none');
                     }
                 }
 
                 return function (scope, element, attrs) {
 
-                }
+                };
             }
-        }
+        };
     })
     
     
@@ -556,17 +556,17 @@ angular.module('myBuilderApp')
                 domBorder.css({"transform-origin":"0% 0%","-ms-transform-origin":"0% 0%","-moz-transform-origin":"0% 0%","-webkit-transform-origin":"0% 0%","-o-transform-origin":"0% 0%"});
 
                 $.each(data.phoneStyle.border, function (index, value) {
-                    if(index=='width'){
+                    if(index==='width'){
                         dom.css(index, parseInt(value)*data.phoneStyle.scale);
                     }
-                    if(index=='min-height'){
+                    if(index==='min-height'){
                         dom.css('height', parseInt(value)*data.phoneStyle.scale);
                     }
                     domBorder.css(index, value);
                 });
 
             }
-        }
+        };
     })
     .directive('eleImageDefaultPhone', function (eleApplyService) {
         return {
@@ -611,7 +611,7 @@ angular.module('myBuilderApp')
 
                 var dom=$(element);
                 var domBorder=dom.find(' >.ele-box');
-                domBorder.css('width', parseInt(data.phoneStyle.border['width'])*data.phoneStyle.scale);
+                domBorder.css('width', parseInt(data.phoneStyle.border.width)*data.phoneStyle.scale);
                 domBorder.css('min-height', parseInt(data.phoneStyle.border['min-height'])*data.phoneStyle.scale);
 
                 var originalWidth=parseInt(data.imageSize.width);
@@ -644,7 +644,7 @@ angular.module('myBuilderApp')
                 
                 
             }
-        }
+        };
     })
     .directive('eleGroupDefaultPhone', function (eleApplyService,phoneCreatorServices,$compile) {
         return {
@@ -696,9 +696,9 @@ angular.module('myBuilderApp')
                 return function (scope, element, attrs) {
                     var data=element.context.eleConfig;
                     eleApplyService.phoneDefaultApply(element,data);
-                }
+                };
             }
-        }
+        };
     })
     .directive('eleMenuDefaultPhone', function (eleApplyService) {
         return {
@@ -739,13 +739,13 @@ angular.module('myBuilderApp')
 
                 var dom=$(element);
                 var domStyle = dom.find(" >.ele-box >.ele");
-                domStyle.find('i').css("color", data.phoneStyle.style['color']);
+                domStyle.find('i').css("color", data.phoneStyle.style.color);
                 domStyle.find('i').css("font-size", data.phoneStyle.style['font-size']);
 
 
                 eleApplyService.phoneDefaultApply(element,data);
             }
-        }
+        };
     })
     
     

@@ -31,12 +31,12 @@ angular.module('creator', [])
                 //用来标记当前激活的session是哪个
                 var activeSessionID = "";
                 scope.hoverSession = function (event, id) {
-                    if (id != activeSessionID) {
+                    if (id !== activeSessionID) {
                         activeSessionID = id;
                         //设置当前激活的session
                         activeSessionService.setSession(activeSessionID);
                     }
-                }
+                };
 
 
                 scope.activeEle = null;
@@ -50,12 +50,12 @@ angular.module('creator', [])
                     scope.activeEle = null;
                     var target = $(e.target);
                     target.parent('.ele-box').parent('.position-box').addClass('group-active');
-                }
+                };
 
                 scope.selectEle = function (even, id) {
-                    if (even[shortcutsCode.ADD.ctrlKey] == true && even.buttons == shortcutsCode.ADD.keyCode) {
+                    if (even[shortcutsCode.ADD.ctrlKey] === true && even.buttons === shortcutsCode.ADD.keyCode) {
                         //加入
-                        if (scope.activeEle != null) {
+                        if (scope.activeEle !== null) {
                             multipleChoiceService.addEle(scope.activeEle.ID);
                         }
                         multipleChoiceService.addEle(id);
@@ -69,7 +69,7 @@ angular.module('creator', [])
 
                     var multipleChoiceState = $("#" + id + ".position-box").attr("multiple-choice");
 
-                    if (multipleChoiceState == 'true') {
+                    if (multipleChoiceState === 'true') {
                         return;
                     }
                     if (scope.activeEle === null || scope.activeEle === undefined) {
@@ -105,7 +105,7 @@ angular.module('creator', [])
 
                     var editEleDom = $("#" + id + ".position-box");
                     var multipleChoiceState = editEleDom.attr("multiple-choice");
-                    if (multipleChoiceState == 'true') {
+                    if (multipleChoiceState === 'true') {
                         return;
                     }
 
@@ -123,7 +123,7 @@ angular.module('creator', [])
                  */
                 scope.editImage = function (id){
                     
-                }
+                };
 
                 scope.deleteSession = function (ID) {
                     swal({
@@ -140,17 +140,17 @@ angular.module('creator', [])
                             if (confirm) {
                                 websiteData.deleteSession(ID);
                             }
-                        })
-                }
+                        });
+                };
 
                 //取消激活
                 $(document).on('mousedown', function (event) {
-                    if (scope.activeGroup != null) {
+                    if (scope.activeGroup !== null) {
 
-                        if (event.buttons == 1) {
+                        if (event.buttons === 1) {
                             $(element).find('#' + scope.activeGroup + '.position-box[ele-type=group]').removeClass('group-active');
                             var groupID = $(event.target).parents('.position-box[ele-type=group]').eq(0).attr("id");
-                            if (groupID == undefined) {
+                            if (groupID === undefined) {
                                 //更新
                             } else {
                                 scope.activeGroup = groupID;
@@ -158,7 +158,7 @@ angular.module('creator', [])
                         }
 
                     }
-                    if (scope.activeEle === null || $(event.target).attr('id') == scope.activeEle.ID) {
+                    if (scope.activeEle === null || $(event.target).attr('id') === scope.activeEle.ID) {
                         return;
                     }
                     scope.$apply(function () {
@@ -208,17 +208,18 @@ angular.module('creator', [])
                         }
 
                         var eleList = multipleChoiceService.getEleList();
+                        var eleData = {};
                         if (eleList.value.length > 0) {
                             for (var i = 0; i < eleList.value.length; i++) {
                                 if (eleList.value[i].state) {
-                                    var eleData = builderTool.getEle(eleList.value[i].ID, eleList.value[i].type);
+                                    eleData = builderTool.getEle(eleList.value[i].ID, eleList.value[i].type);
                                     eleData.position[moveDirection] = (parseInt(eleData.position[moveDirection]) + moveSize) + "px";
                                     builderTool.updateEle(eleData);
                                     websiteData.updateEle(scope.websiteCode.ID, eleData);
                                 }
                             }
                         } else if (scope.activeEle !== null) {
-                            var eleData = builderTool.getEle(scope.activeEle.ID, scope.activeEle.type);
+                            eleData = builderTool.getEle(scope.activeEle.ID, scope.activeEle.type);
                             eleData.position[moveDirection] = (parseInt(eleData.position[moveDirection]) + moveSize) + "px";
                             builderTool.updateEle(eleData);
                             websiteData.updateEle(scope.websiteCode.ID, eleData);
@@ -247,7 +248,7 @@ angular.module('creator', [])
                             for (var i = 0; i < obj.value.length; i++) {
                                 obj.value[i].position.top = parseInt(obj.value[i].position.top) + 20 + "px";
                                 obj.value[i].position.left = parseInt(obj.value[i].position.left) + 20 + "px";
-                                if (type == 'cut') {
+                                if (type === 'cut') {
                                     websiteData.deleteEle(scope.websiteCode.ID, obj.value[i].ID);
                                 }
                                 obj.value[i].ID = "ele" + parseInt(Math.random() * 100000);
@@ -267,7 +268,7 @@ angular.module('creator', [])
                         } else {
                             obj.value.position.top = parseInt(obj.value.position.top) + 20 + "px";
                             obj.value.position.left = parseInt(obj.value.position.left) + 20 + "px";
-                            if (type == 'cut') {
+                            if (type === 'cut') {
                                 websiteData.deleteEle(scope.websiteCode.ID, obj.value.ID);
                             }
                             obj.value.ID = "a" + parseInt(Math.random() * 100000);
@@ -278,125 +279,125 @@ angular.module('creator', [])
                             
                         }
                     }
-                    if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode == shortcutsCode.UNDO.keyCode && !e[shortcutsCode.REDO.shiftKey]) {
+                    if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode === shortcutsCode.UNDO.keyCode && !e[shortcutsCode.REDO.shiftKey]) {
                         //后退
                         var obj = historyLog.retreatPop();
-                        if (obj != undefined) {
+                        if (obj !== undefined) {
                             //更新到数组
-                            if (obj.type == "delete") {
+                            if (obj.type === "delete") {
                                 //插入元素和json
                                 websiteData.addEle(scope.websiteCode.ID, obj.value.sessionId, obj.value, scope, 'retreat');
                             }
-                            if (obj.type == "updateEle") {
+                            if (obj.type === "updateEle") {
                                 websiteData.updateEle(scope.websiteCode.ID, obj.value, 'retreat');
                                 builderTool.updateEle(obj.value);
                             }
-                            if (obj.type == "add") {
+                            if (obj.type === "add") {
                                 websiteData.deleteEle(scope.websiteCode.ID, obj.value.ID, 'retreat');
                             }
-                            if (obj.type == 'changeSession') {
+                            if (obj.type === 'changeSession') {
                                 websiteData.changeSession(obj.value.changeSession.endSession, obj.value.changeSession.startSession, obj.value, 'forward');
                             }
-                            if (obj.type == 'group') {
+                            if (obj.type === 'group') {
                                 var groupEleDom = $("#" + obj.value.ID + ".position-box");
                                 obj.value.position.left = groupEleDom.css("left");
                                 obj.value.position.top = groupEleDom.css("top");
                                 //刷新一次元素的位置，当多重合并的时候会出现位置不正确的问题
                                 websiteData.unGroupEle(obj.value, 'retreat');
                             }
-                            if (obj.type == 'unGroup') {
+                            if (obj.type === 'unGroup') {
                                 websiteData.groupEle(obj.value.eleList, 'retreat', obj.value.oldID);
                             }
-                            if (obj.type == 'deleteSession') {
+                            if (obj.type === 'deleteSession') {
                                 websiteData.addSession(obj.value, 'retreat');
                             }
-                            if (obj.type == 'addSession') {
+                            if (obj.type === 'addSession') {
                                 websiteData.deleteSession(obj.value.ID, 'retreat');
                             }
-                            if (obj.type == 'changeSessionHeight') {
+                            if (obj.type === 'changeSessionHeight') {
                                 websiteData.changeSessionHeight(obj.value.sessionID, obj.value.height, 'retreat');
                             }
 
                         }
                     }
-                    if (e[shortcutsCode.REDO.ctrlKey] && e.keyCode == shortcutsCode.REDO.keyCode && e[shortcutsCode.REDO.shiftKey]) {
+                    if (e[shortcutsCode.REDO.ctrlKey] && e.keyCode === shortcutsCode.REDO.keyCode && e[shortcutsCode.REDO.shiftKey]) {
                         //前进
                         var obj = historyLog.forwardPop();
-                        if (obj != undefined) {
+                        if (obj !== undefined) {
                             //更新到数组
-                            if (obj.type == "delete") {
+                            if (obj.type === "delete") {
                                 websiteData.addEle(scope.websiteCode.ID, obj.value.sessionId, obj.value, scope, 'forward');
                             }
-                            if (obj.type == "updateEle") {
+                            if (obj.type === "updateEle") {
                                 websiteData.updateEle(scope.websiteCode.ID, obj.value, 'forward');
                                 builderTool.updateEle(obj.value);
                             }
-                            if (obj.type == "add") {
+                            if (obj.type === "add") {
                                 websiteData.deleteEle(scope.websiteCode.ID, obj.value.ID, 'forward');
                             }
-                            if (obj.type == 'changeSession') {
+                            if (obj.type === 'changeSession') {
                                 websiteData.changeSession(obj.value.changeSession.endSession, obj.value.changeSession.startSession, obj.value, 'forward');
                             }
-                            if (obj.type == 'group') {
+                            if (obj.type === 'group') {
                                 var groupEleDom = $("#" + obj.value.ID + ".position-box");
                                 obj.value.position.left = groupEleDom.css("left");
                                 obj.value.position.top = groupEleDom.css("top");
                                 websiteData.unGroupEle(obj.value, 'forward');
                             }
-                            if (obj.type == 'unGroup') {
+                            if (obj.type === 'unGroup') {
                                 websiteData.groupEle(obj.value.eleList, 'retreat', obj.value.oldID);
                             }
-                            if (obj.type == 'deleteSession') {
+                            if (obj.type === 'deleteSession') {
                                 websiteData.addSession(obj.value, 'forward');
                             }
-                            if (obj.type == 'addSession') {
+                            if (obj.type === 'addSession') {
                                 websiteData.deleteSession(obj.value.ID, 'forward');
                             }
-                            if (obj.type == 'changeSessionHeight') {
+                            if (obj.type === 'changeSessionHeight') {
                                 websiteData.changeSessionHeight(obj.value.sessionID, obj.value.height, 'forward');
                             }
                         }
                     }
-                    if (e[shortcutsCode.CUT.ctrlKey] && e.keyCode == shortcutsCode.CUT.keyCode) {
+                    if (e[shortcutsCode.CUT.ctrlKey] && e.keyCode === shortcutsCode.CUT.keyCode) {
                         //剪切
                         copy("cut");
                     }
-                    if (e[shortcutsCode.COPY.ctrlKey] && e.keyCode == shortcutsCode.COPY.keyCode) {
+                    if (e[shortcutsCode.COPY.ctrlKey] && e.keyCode === shortcutsCode.COPY.keyCode) {
                         //复制
                         copy("copy");
                     }
-                    if (e[shortcutsCode.PASTE.ctrlKey] && e.keyCode == shortcutsCode.PASTE.keyCode) {
+                    if (e[shortcutsCode.PASTE.ctrlKey] && e.keyCode === shortcutsCode.PASTE.keyCode) {
                         //粘贴
                         var obj = jQuery.extend(true, {}, shearPlate.getData());
-                        if (obj.value == null) {
+                        if (obj.value === null) {
                             return;
                         }
                         paste(obj.type, obj);
                     }
                     //依次上下左右
-                    if (e.keyCode == shortcutsCode.MOVE_TOP.keyCode) {
-                        if (scope.activeEle.state == 'edit') {
+                    if (e.keyCode === shortcutsCode.MOVE_TOP.keyCode) {
+                        if (scope.activeEle.state === 'edit') {
 
                         } else {
                             moveEle("top", e);
                         }
                     }
-                    if (e.keyCode == shortcutsCode.MOVE_DOWN.keyCode) {
-                        if (scope.activeEle.state == 'edit') {
+                    if (e.keyCode === shortcutsCode.MOVE_DOWN.keyCode) {
+                        if (scope.activeEle.state === 'edit') {
 
                         } else {
                             moveEle("bottom", e);
                         }
                     }
-                    if (e.keyCode == shortcutsCode.MOVE_LEFT.keyCode) {
-                        if (scope.activeEle.state == 'edit') {
+                    if (e.keyCode === shortcutsCode.MOVE_LEFT.keyCode) {
+                        if (scope.activeEle.state === 'edit') {
 
                         } else {
                             moveEle("left", e);
                         }
                     }
-                    if (e.keyCode == shortcutsCode.MOVE_RIGHT.keyCode) {
-                        if (scope.activeEle.state == 'edit') {
+                    if (e.keyCode === shortcutsCode.MOVE_RIGHT.keyCode) {
+                        if (scope.activeEle.state === 'edit') {
 
                         } else {
                             moveEle("right", e);
@@ -404,7 +405,7 @@ angular.module('creator', [])
                     }
 
                     //删除
-                    if (e.keyCode == shortcutsCode.DELETE.keyCode) {
+                    if (e.keyCode === shortcutsCode.DELETE.keyCode) {
                         var eleList = multipleChoiceService.getEleList();
                         if (eleList.value.length > 0) {
                             for (var i = 0; i < eleList.value.length; i++) {
@@ -458,12 +459,12 @@ angular.module('creator', [])
                 //用来标记当前激活的session是哪个
                 var activeSessionID = "";
                 scope.hoverSession = function (event, id) {
-                    if (id != activeSessionID) {
+                    if (id !== activeSessionID) {
                         activeSessionID = id;
                         //设置当前激活的session
                         activeSessionService.setSession(activeSessionID);
                     }
-                }
+                };
 
 
                 scope.activeEle = null;
@@ -482,13 +483,13 @@ angular.module('creator', [])
                     
                     var target = $(e.target);
                     target.parent('.ele-box').parent('.position-box').addClass('group-active');
-                }
+                };
 
                 scope.selectEle = function (even, id) {
 
-                    if (even[shortcutsCode.ADD.ctrlKey] == true && even.buttons == shortcutsCode.ADD.keyCode) {
+                    if (even[shortcutsCode.ADD.ctrlKey] === true && even.buttons === shortcutsCode.ADD.keyCode) {
                         //加入
-                        if (scope.activeEle != null) {
+                        if (scope.activeEle !== null) {
                             multipleChoiceService.addEle(scope.activeEle.ID);
                         }
                         multipleChoiceService.addEle(id);
@@ -502,7 +503,7 @@ angular.module('creator', [])
                     rightClickMenuService.hidePhoneDom();
                     
                     var multipleChoiceState = $("#" + id + ".position-box").attr("multiple-choice");
-                    if (multipleChoiceState == 'true') {
+                    if (multipleChoiceState === 'true') {
                         return;
                     }
 
@@ -542,22 +543,22 @@ angular.module('creator', [])
                                     websiteData.hideSession(ID);
                                 });
                             }
-                        })
-                }
+                        });
+                };
 
                 $(document).on('mousedown', function (event) {
-                    if (scope.activeGroup != null) {
-                        if (event.buttons == 1) {
+                    if (scope.activeGroup !== null) {
+                        if (event.buttons === 1) {
                             $(element).find('#' + scope.activeGroup + '.position-box[ele-type=group]').removeClass('group-active');
                             var groupID = $(event.target).parents('.position-box[ele-type=group]').eq(0).attr("id");
-                            if (groupID == undefined) {
+                            if (groupID === undefined) {
                                 //更新
                             } else {
                                 scope.activeGroup = groupID;
                             }
                         }
                     }
-                    if (scope.activeEle === null || $(event.target).attr('id') == scope.activeEle.ID) {
+                    if (scope.activeEle === null || $(event.target).attr('id') === scope.activeEle.ID) {
                         return;
                     }
                     scope.$apply(function () {
@@ -596,34 +597,34 @@ angular.module('creator', [])
                         }
                     }
 
-                    if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode == shortcutsCode.UNDO.keyCode && !e[shortcutsCode.REDO.shiftKey]) {
+                    if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode === shortcutsCode.UNDO.keyCode && !e[shortcutsCode.REDO.shiftKey]) {
                         //后退
                         var obj = phoneHistoryLog.retreatPop();
-                        if (obj != undefined) {
+                        if (obj !== undefined) {
                             //更新到数组
-                            if (obj.type == "updatePhoneEle") {
+                            if (obj.type === "updatePhoneEle") {
                                 websiteData.updatePhoneEle(scope.websiteCode.ID, obj.value, 'retreat');
                                 phoneBuilderTool.updateEle(obj.value);
                             }
-                            if (obj.type == "changeSessionHeight") {
+                            if (obj.type === "changeSessionHeight") {
                                 websiteData.changePhoneSessionHeight(obj.value.sessionID, obj.value.height, 'retreat');
                             }
-                            if (obj.type == "hideSession") {
+                            if (obj.type === "hideSession") {
                                 scope.$apply(function () {
                                     websiteData.showSession(obj.value.sessionID, 'retreat');
                                 });
                             }
-                            if (obj.type == "showSession") {
+                            if (obj.type === "showSession") {
                                 scope.$apply(function () {
                                     websiteData.hideSession(obj.value.sessionID, 'retreat');
                                 });
                             }
-                            if (obj.type == "hideEle") {
+                            if (obj.type === "hideEle") {
                                 scope.$apply(function () {
                                     websiteData.showEle(obj.value.ID, 'retreat');
                                 });
                             }
-                            if (obj.type == "showEle") {
+                            if (obj.type === "showEle") {
                                 scope.$apply(function () {
                                     websiteData.hideEle(obj.value.ID, 'retreat');
                                 });
@@ -631,33 +632,33 @@ angular.module('creator', [])
 
                         }
                     }
-                    if (e[shortcutsCode.REDO.ctrlKey] && e.keyCode == shortcutsCode.REDO.keyCode && e[shortcutsCode.REDO.shiftKey]) {
+                    if (e[shortcutsCode.REDO.ctrlKey] && e.keyCode === shortcutsCode.REDO.keyCode && e[shortcutsCode.REDO.shiftKey]) {
                         //前进
                         var obj = phoneHistoryLog.forwardPop();
-                        if (obj != undefined) {
-                            if (obj.type == "updatePhoneEle") {
+                        if (obj !== undefined) {
+                            if (obj.type === "updatePhoneEle") {
                                 websiteData.updatePhoneEle(scope.websiteCode.ID, obj.value, 'forward');
                                 phoneBuilderTool.updateEle(obj.value);
                             }
-                            if (obj.type == "changeSessionHeight") {
+                            if (obj.type === "changeSessionHeight") {
                                 websiteData.changePhoneSessionHeight(obj.value.sessionID, obj.value.height, 'forward');
                             }
-                            if (obj.type == "hideSession") {
+                            if (obj.type === "hideSession") {
                                 scope.$apply(function () {
                                     websiteData.showSession(obj.value.sessionID, 'forward');
                                 });
                             }
-                            if (obj.type == "showSession") {
+                            if (obj.type === "showSession") {
                                 scope.$apply(function () {
                                     websiteData.hideSession(obj.value.sessionID, 'forward');
                                 });
                             }
-                            if (obj.type == "hideEle") {
+                            if (obj.type === "hideEle") {
                                 scope.$apply(function () {
                                     websiteData.hideEle(obj.value.ID, 'retreat');
                                 });
                             }
-                            if (obj.type == "showEle") {
+                            if (obj.type === "showEle") {
                                 scope.$apply(function () {
                                     websiteData.hideEle(obj.value.ID, 'forward');
                                 });
@@ -665,29 +666,29 @@ angular.module('creator', [])
                         }
                     }
                     //依次上下左右
-                    if (shortcutsCode.MOVE_TOP.keyCode == e.keyCode) {
-                        if (scope.activeEle.state == 'edit') {
+                    if (shortcutsCode.MOVE_TOP.keyCode === e.keyCode) {
+                        if (scope.activeEle.state === 'edit') {
 
                         } else {
                             moveEle("top", e);
                         }
                     }
-                    if (shortcutsCode.MOVE_DOWN.keyCode == e.keyCode) {
-                        if (scope.activeEle.state == 'edit') {
+                    if (shortcutsCode.MOVE_DOWN.keyCode === e.keyCode) {
+                        if (scope.activeEle.state === 'edit') {
 
                         } else {
                             moveEle("bottom", e);
                         }
                     }
-                    if (shortcutsCode.MOVE_LEFT.keyCode == e.keyCode) {
-                        if (scope.activeEle.state == 'edit') {
+                    if (shortcutsCode.MOVE_LEFT.keyCode === e.keyCode) {
+                        if (scope.activeEle.state === 'edit') {
 
                         } else {
                             moveEle("left", e);
                         }
                     }
-                    if (shortcutsCode.MOVE_RIGHT.keyCode == e.keyCode) {
-                        if (scope.activeEle.state == 'edit') {
+                    if (shortcutsCode.MOVE_RIGHT.keyCode === e.keyCode) {
+                        if (scope.activeEle.state === 'edit') {
 
                         } else {
                             moveEle("right", e);
@@ -695,7 +696,7 @@ angular.module('creator', [])
                     }
 
                     //删除
-                    if (shortcutsCode.DELETE.keyCode == e.keyCode) {
+                    if (shortcutsCode.DELETE.keyCode === e.keyCode) {
                         if (scope.activeEle !== null) {
                             websiteData.hideEle(scope.activeEle.ID);
                         }
@@ -781,7 +782,7 @@ angular.module('creator', [])
                     sessionDom = this.createSession(sessionList[i]);
                     sessionDom = $compile(sessionDom.get(0))(scope);
                     dom.append(sessionDom);
-                    if (sessionList[i].showState == false) {
+                    if (sessionList[i].showState === false) {
                         sessionDom.css('display', 'none');
                     }
                 }
@@ -812,11 +813,11 @@ angular.module('creator', [])
                 return dom;
             },
             scaleText: function (string, scale) {
-                if (scale == undefined || scale == null) {
+                if (scale === undefined || scale === null) {
                     scale = 1;
                 }
                 var scaleString = "";
-                while (string.indexOf("font-size:") != -1) {
+                while (string.indexOf("font-size:") !== -1) {
                     scaleString += string.substring(0, string.indexOf("font-size:") + 10);
                     string = string.substring(string.indexOf("font-size:") + 10, string.length);
                     var textSize = string.substring(0, string.indexOf(";"));

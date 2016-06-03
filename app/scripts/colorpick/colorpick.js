@@ -93,13 +93,13 @@ angular.module('kyle.colorPick', [])
                 scope.setColor=function(color){
                     colorPickService.changeColor(color);
                     colorPickService.updateOldColor();
-                }
+                };
 
                 scope.closeColorPick=function(){
                     colorPickService.hideBoxDom();
-                }
+                };
             }
-        }
+        };
     })
     .directive('colorPick', function (colorPickService,userProfile) {
         return {
@@ -619,6 +619,10 @@ angular.module('kyle.colorPick', [])
                 scope.oldColorHandle=colorPickService.getOldColorHandle();
                 function initColorPick(){
                     var color=scope.oldColorHandle.value;
+                    var opacityLeft=0;
+                    var lineLeft=0;
+                    var selectBoxLeft=0;
+                    var selectBoxTop=0;
                     if(color.indexOf("#")!==-1){
                         //#000000颜色
                         scope.currentColor = color;
@@ -633,13 +637,13 @@ angular.module('kyle.colorPick', [])
                         scope.opacity=1;
                         //改变点的位置
 
-                        var opacityLeft = ((1 - scope.opacity) * transparencyPar.eleWidth) - transparencyPar.handleWidth / 2;
+                        opacityLeft = ((1 - scope.opacity) * transparencyPar.eleWidth) - transparencyPar.handleWidth / 2;
                         transparencyHandle.css("left", opacityLeft + "px");
-                        var lineLeft = ((1 - scope.inputColor.colorHSB.h / 360) * colorLinePar.eleWidth) - colorLinePar.handleWidth / 2;
+                        lineLeft = ((1 - scope.inputColor.colorHSB.h / 360) * colorLinePar.eleWidth) - colorLinePar.handleWidth / 2;
                         colorLineTarget.css("left", lineLeft + "px");
-                        var selectBoxLeft = ((scope.inputColor.colorHSB.s / 100) * colorSelectPar.eleWidth) - colorSelectPar.handleWidth / 2;
+                        selectBoxLeft = ((scope.inputColor.colorHSB.s / 100) * colorSelectPar.eleWidth) - colorSelectPar.handleWidth / 2;
                         colorSelectTarget.css({left: selectBoxLeft + "PX"});
-                        var selectBoxTop = ((1 - scope.inputColor.colorHSB.b / 100) * colorSelectPar.eleHeight) - colorSelectPar.handleHeight / 2;
+                        selectBoxTop = ((1 - scope.inputColor.colorHSB.b / 100) * colorSelectPar.eleHeight) - colorSelectPar.handleHeight / 2;
                         colorSelectTarget.css({top: selectBoxTop + "px"});
 
                     }else if(color.indexOf("rgba")!==-1){
@@ -661,13 +665,13 @@ angular.module('kyle.colorPick', [])
                         scope.currentColor = colorPickService.HSBtoHex(scope.inputColor.colorHSB.h / 360, scope.inputColor.colorHSB.s / 100, scope.inputColor.colorHSB.b / 100);
                         scope.inputColor.currentColorHEX = colorPickService.HSBtoHex(scope.inputColor.colorHSB.h / 360, scope.inputColor.colorHSB.s / 100, scope.inputColor.colorHSB.b / 100);
 
-                        var opacityLeft = ((1 - scope.opacity) * transparencyPar.eleWidth) - transparencyPar.handleWidth / 2;
+                        opacityLeft = ((1 - scope.opacity) * transparencyPar.eleWidth) - transparencyPar.handleWidth / 2;
                         transparencyHandle.css("left", opacityLeft + "px");
-                        var lineLeft = ((1 - scope.inputColor.colorHSB.h / 360) * colorLinePar.eleWidth) - colorLinePar.handleWidth / 2;
+                        lineLeft = ((1 - scope.inputColor.colorHSB.h / 360) * colorLinePar.eleWidth) - colorLinePar.handleWidth / 2;
                         colorLineTarget.css("left", lineLeft + "px");
-                        var selectBoxLeft = ((scope.inputColor.colorHSB.s / 100) * colorSelectPar.eleWidth) - colorSelectPar.handleWidth / 2;
+                        selectBoxLeft = ((scope.inputColor.colorHSB.s / 100) * colorSelectPar.eleWidth) - colorSelectPar.handleWidth / 2;
                         colorSelectTarget.css({left: selectBoxLeft + "PX"});
-                        var selectBoxTop = ((1 - scope.inputColor.colorHSB.b / 100) * colorSelectPar.eleHeight) - colorSelectPar.handleHeight / 2;
+                        selectBoxTop = ((1 - scope.inputColor.colorHSB.b / 100) * colorSelectPar.eleHeight) - colorSelectPar.handleHeight / 2;
                         colorSelectTarget.css({top: selectBoxTop + "px"});
 
                     }else{
@@ -688,13 +692,13 @@ angular.module('kyle.colorPick', [])
                         scope.currentColor = colorPickService.HSBtoHex(scope.inputColor.colorHSB.h / 360, scope.inputColor.colorHSB.s / 100, scope.inputColor.colorHSB.b / 100);
                         scope.inputColor.currentColorHEX = colorPickService.HSBtoHex(scope.inputColor.colorHSB.h / 360, scope.inputColor.colorHSB.s / 100, scope.inputColor.colorHSB.b / 100);
 
-                        var opacityLeft = ((1 - scope.opacity) * transparencyPar.eleWidth) - transparencyPar.handleWidth / 2;
+                        opacityLeft = ((1 - scope.opacity) * transparencyPar.eleWidth) - transparencyPar.handleWidth / 2;
                         transparencyHandle.css("left", opacityLeft + "px");
-                        var lineLeft = ((1 - scope.inputColor.colorHSB.h / 360) * colorLinePar.eleWidth) - colorLinePar.handleWidth / 2;
+                        lineLeft = ((1 - scope.inputColor.colorHSB.h / 360) * colorLinePar.eleWidth) - colorLinePar.handleWidth / 2;
                         colorLineTarget.css("left", lineLeft + "px");
-                        var selectBoxLeft = ((scope.inputColor.colorHSB.s / 100) * colorSelectPar.eleWidth) - colorSelectPar.handleWidth / 2;
+                        selectBoxLeft = ((scope.inputColor.colorHSB.s / 100) * colorSelectPar.eleWidth) - colorSelectPar.handleWidth / 2;
                         colorSelectTarget.css({left: selectBoxLeft + "PX"});
-                        var selectBoxTop = ((1 - scope.inputColor.colorHSB.b / 100) * colorSelectPar.eleHeight) - colorSelectPar.handleHeight / 2;
+                        selectBoxTop = ((1 - scope.inputColor.colorHSB.b / 100) * colorSelectPar.eleHeight) - colorSelectPar.handleHeight / 2;
                         colorSelectTarget.css({top: selectBoxTop + "px"});
                     }
                 }
@@ -773,7 +777,7 @@ angular.module('kyle.colorPick', [])
             ID: "colorPickBox", value: ""
         };
 
-        var colorPickType={ID:"colorPickType",value:"default"}
+        var colorPickType={ID:"colorPickType",value:"default"};
 
         var pickTarget="";
 
@@ -801,13 +805,13 @@ angular.module('kyle.colorPick', [])
                 return oldColor;
             },
             getOldColor:function(){
-                return oldColor.value
+                return oldColor.value;
             },
             getType:function(){
                 return colorPickType;
             },
             setType:function(type){
-                if(type==undefined){
+                if(type===undefined){
                     colorPickType.value="default";
                 }else{
                     colorPickType.value=type;
@@ -822,9 +826,9 @@ angular.module('kyle.colorPick', [])
                     textEditorService.formatText("color",color);
                 }
                 if(this.getPickTarget()==='editorBackground'){
-                    if(color=='rgba(255,255,255,1)'||color=="#ffffff"||color=="#FFFFFF"||color=="rgb(255,255,255)"){
+                    if(color==='rgba(255,255,255,1)'||color==="#ffffff"||color==="#FFFFFF"||color==="rgb(255,255,255)"){
                         //这里是一个bug 不要问为什么 问quill
-                        color="rgba(254,255,255,1)"
+                        color="rgba(254,255,255,1)";
                     }
                     textEditorService.formatText("background",color);
                 }
@@ -985,17 +989,18 @@ angular.module('kyle.colorPick', [])
             HEXtoRGB: function (hex) {
                 var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
                 var sColor = hex.toLowerCase();
+                var i=0;
                 if (sColor && reg.test(sColor)) {
                     if (sColor.length === 4) {
                         var sColorNew = "#";
-                        for (var i = 1; i < 4; i += 1) {
+                        for (i = 1; i < 4; i += 1) {
                             sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
                         }
                         sColor = sColorNew;
                     }
                     //处理六位的颜色值
                     var sColorChange = [];
-                    for (var i = 1; i < 7; i += 2) {
+                    for (i = 1; i < 7; i += 2) {
                         sColorChange.push(parseInt("0x" + sColor.slice(i, i + 2)));
                     }
                     var RGB = {r: 0, g: 0, b: 0};

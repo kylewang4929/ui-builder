@@ -18,13 +18,13 @@ angular.module('multipleChoice', [])
 
                 function listenMousedown(e) {
 
-                    if($(e.target).attr("ele-type") == 'resize'){
+                    if($(e.target).attr("ele-type") === 'resize'){
                         return;
                     }
 
                     par.shadowFlag=false;
                     if(e.buttons!==1){
-                        if($(e.target).attr("ele-type") == 'session'){
+                        if($(e.target).attr("ele-type") === 'session'){
                             multipleChoiceService.removeEle();
                         }
                         return;
@@ -64,7 +64,7 @@ angular.module('multipleChoice', [])
                         eleList.value = multipleChoiceService.updateEleInfo();
                         var activeEleList = [];
                         for (var i = 0; i < eleList.value.length; i++) {
-                            if (eleList.value[i].state == true) {
+                            if (eleList.value[i].state === true) {
                                 activeEleList.push(eleList.value[i]);
                             }
                         }
@@ -79,8 +79,12 @@ angular.module('multipleChoice', [])
                 }
 
                 function listenMousemove(e) {
+                    
+                    var evt={};
+                    var eleDom={};
+                    
                     if (flag) {
-                        var evt = e;
+                        evt = e;
                         retcLeft = (startX - evt.clientX > 0 ? evt.clientX : startX) + "px";
                         retcTop = (startY - evt.clientY > 0 ? evt.clientY : startY) + "px";
                         retcHeight = Math.abs(startY - evt.clientY) + "px";
@@ -92,7 +96,7 @@ angular.module('multipleChoice', [])
                             "height": retcHeight
                         });
 
-                        if((parseInt(retcHeight)>20 || parseInt(retcWidth)>20) && par.shadowFlag==false){
+                        if((parseInt(retcHeight)>20 || parseInt(retcWidth)>20) && par.shadowFlag === false){
                             //越过阈值，开启遮罩
                             par.shadowFlag=true;
                             var unActiveSession=$(".ele-session-box[id!="+par.activeSession+"] .over-shadow");
@@ -102,36 +106,36 @@ angular.module('multipleChoice', [])
                         //计算哪些元素被选中
                         for (var i = 0; i < eleList.value.length; i++) {
                             var eleValue = eleList.value[i].center;
+                            eleDom={};
                             if (eleValue.x > parseInt(retcLeft) && eleValue.x < parseInt(retcLeft) + parseInt(retcWidth) && eleValue.y > parseInt(retcTop) && eleValue.y < parseInt(retcTop) + parseInt(retcHeight)) {
                                 eleList.value[i].state = true;
                                 //设置成激活
-                                var eleDom = $("#" + eleList.value[i].ID + ".position-box");
+                                eleDom = $("#" + eleList.value[i].ID + ".position-box");
                                 eleDom.addClass('multiple-choice-border');
                                 eleDom.attr('multiple-choice', true);
                             } else {
-                                var eleDom = $("#" + eleList.value[i].ID + ".position-box");
+                                eleDom = $("#" + eleList.value[i].ID + ".position-box");
                                 eleDom.removeClass('multiple-choice-border');
                                 eleDom.attr('multiple-choice', false);
                                 eleList.value[i].state = false;
                             }
                         }
                     }
+                    
                     if (dragFlag) {
                         //拖动操作
-                        var evt = e;
+                        evt = e;
                         var x = evt.clientX - startX;
                         var y = evt.clientY - startY;
-                        var eleDom = null;
-                        for (var i = 0; i < eleList.value.length; i++) {
-                            if (eleList.value[i].state == true) {
+                        eleDom = null;
+                        for (var j = 0; j < eleList.value.length; j++) {
+                            if (eleList.value[j].state === true) {
                                 //移动
-                                eleDom = $("#" + eleList.value[i].ID + ".position-box");
-                                eleDom.css({left: eleList.value[i].position.left + x, top: eleList.value[i].position.top + y});
+                                eleDom = $("#" + eleList.value[j].ID + ".position-box");
+                                eleDom.css({left: eleList.value[j].position.left + x, top: eleList.value[j].position.top + y});
                             }
                         }
-
                         changeSessionToolForMultiple.moveCheck(y);
-
                     }
                 }
 
@@ -248,7 +252,7 @@ angular.module('multipleChoice', [])
 
             },
             removeMenuButton: function () {
-                if (menuDom == null) {
+                if (menuDom === null) {
                     return;
                 }
                 menuDom.remove();
@@ -312,7 +316,7 @@ angular.module('multipleChoice', [])
                 return {ID:ele.attr("id"),center: center, position: position, type: ele.attr("ele-type"), size: size};
             },
             addEle:function(id){
-                if($("#"+id).parents('.ele-session-box').attr('id')!=currentSession && currentSession!=null){
+                if($("#"+id).parents('.ele-session-box').attr('id') !== currentSession && currentSession !== null){
                     //提示不是同一个session
                     LxNotificationService.info('不可选择不是同一个模块的元素');
                     return;
@@ -320,17 +324,18 @@ angular.module('multipleChoice', [])
 
                 var flag=false;
                 var activeEleIndex=0;
+                var eleDom={};
                 for(var i=0;i<eleList.value.length;i++){
                     if(eleList.value[i].state){
                         activeEleIndex++;
                     }
-                    if(eleList.value[i].ID==id){
-                        if(eleList.value[i].state!=true){
+                    if(eleList.value[i].ID === id){
+                        if(eleList.value[i].state !== true){
                             flag=true;
                             //加入激活元素
                             eleList.value[i].state=true;
                             //更改UI
-                            var eleDom=$("#"+eleList.value[i].ID+".position-box");
+                            eleDom=$("#"+eleList.value[i].ID+".position-box");
                             eleDom.addClass('multiple-choice-border');
                             eleDom.attr('multiple-choice', true);
 
@@ -340,9 +345,9 @@ angular.module('multipleChoice', [])
                     }
                 }
 
-                if(flag==false){
+                if(flag === false){
                     //加入激活元素 设置当前session 加阴影
-                    var eleDom=$("#"+id+".position-box");
+                    eleDom=$("#"+id+".position-box");
                     currentSession=eleDom.parents('.ele-session-box').attr('id');
                     var eleData=this.getEleData(eleDom);
                     eleData.state=true;
@@ -354,15 +359,15 @@ angular.module('multipleChoice', [])
             },
             getActiveEleCenterY:function(eleList){
 
-                if(eleList.length==0){
-                    return
+                if(eleList.length === 0){
+                    return;
                 }
 
                 var centerY=0;
                 var minTop=eleList[0].position.top;
                 var maxTop=eleList[0].position.top+eleList[0].size.height;
                 for(var i=0;i<eleList.length;i++){
-                    if(eleList[i].state==true){
+                    if(eleList[i].state === true){
                         if(eleList[i].position.top<minTop){
                             minTop=eleList[i].position.top;
                         }
@@ -379,4 +384,4 @@ angular.module('multipleChoice', [])
             }
         };
         return handle;
-    })
+    });

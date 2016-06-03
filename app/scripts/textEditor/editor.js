@@ -3,7 +3,7 @@ angular.module('kyle.editor', [])
     .directive('fullText', function (textEditorService) {
         return {
             restrict: 'A',
-            link: function (scope, element,attrs) {
+            link: function (scope, element) {
                 var ele = $(element).find(".ele");
                 var quill = new Quill(ele.get(0));
 
@@ -12,7 +12,7 @@ angular.module('kyle.editor', [])
                 element.on("dblclick", function () {
                     //注入editor对象
                     var multipleChoiceState=$(element).attr("multiple-choice");
-                    if(multipleChoiceState=='true'){
+                    if(multipleChoiceState === 'true'){
                         return;
                     }
 
@@ -42,12 +42,12 @@ angular.module('kyle.editor', [])
                         align: "left",
                         lineHeight: "100",
                         space: "0"
-                    }
+                    };
 
                     var text = quill.getContents(start, end);
                     text = text.ops;
                     var htmlDom = $(quill.getHTML());
-                    if (htmlDom.css("text-align") == 'left' || htmlDom.css("text-align") == 'center' || htmlDom.css("text-align") == 'right') {
+                    if (htmlDom.css("text-align") === 'left' || htmlDom.css("text-align") === 'center' || htmlDom.css("text-align") === 'right') {
                         base.align = htmlDom.css("text-align");
                     } else {
                         base.align = "left";
@@ -59,7 +59,7 @@ angular.module('kyle.editor', [])
                         if (text[i].attributes === undefined || text[i].insert.charCodeAt() === 10) {
                             continue;
                         }
-                        if (i == 0) {
+                        if (i === 0) {
                             base.font = text[i].attributes.font || "Arial";
                             base.size = text[i].attributes.size || 0;
                             base.Bold = text[i].attributes.bold || false;
@@ -69,40 +69,40 @@ angular.module('kyle.editor', [])
                             base.color = text[i].attributes.color || "rgba(255,255,255,1)";
                             base.background = text[i].attributes.background || "rgba(255,255,255,0)";
                         } else {
-                            if (base.font != text[i].attributes.font) {
+                            if (base.font !== text[i].attributes.font) {
                                 base.font = "Arial";
                             }
-                            if (base.size != text[i].attributes.size) {
+                            if (base.size !== text[i].attributes.size) {
                                 base.size = 0;
                             }
-                            if (base.Bold != text[i].attributes.bold) {
+                            if (base.Bold !== text[i].attributes.bold) {
                                 base.Bold = false;
                             }
-                            if (base.Strikethrough != text[i].attributes.strikethrough) {
+                            if (base.Strikethrough !== text[i].attributes.strikethrough) {
                                 base.Strikethrough = false;
                             }
-                            if (base.Italic != text[i].attributes.italic) {
+                            if (base.Italic !== text[i].attributes.italic) {
                                 base.Italic = false;
                             }
-                            if (base.Underline != text[i].attributes.underline) {
+                            if (base.Underline !== text[i].attributes.underline) {
                                 base.Underline = false;
                             }
-                            if (base.color != text[i].attributes.color) {
+                            if (base.color !== text[i].attributes.color) {
                                 base.color = "rgba(255,255,255,1)";
                             }
-                            if (base.background != text[i].attributes.background) {
+                            if (base.background !== text[i].attributes.background) {
                                 base.background = "rgba(255,255,255,0)";
                             }
                         }
                     }
 
                     //转换成整形
-                    if (base.size != "") {
+                    if (base.size !== "") {
                         base.size = parseInt(base.size);
                     }
 
                     //扩展属性
-                    base.lineHeight =parseInt(ele.css("line-height"));
+                    base.lineHeight = parseInt(ele.css("line-height"));
                     base.spacing = parseInt(ele.css("letter-spacing"));
 
                     return base;
@@ -119,7 +119,7 @@ angular.module('kyle.editor', [])
                         selectionState.start = range.start;
                         selectionState.end = range.end;
 
-                        if (range.start == range.end) {
+                        if (range.start === range.end) {
                             //焦点但是没有选中
                             if (quill.getContents(range.start, range.start + 1).ops[0].attributes === undefined) {
                                 //上一个字符没有属性 继承下一个字符
@@ -146,7 +146,7 @@ angular.module('kyle.editor', [])
                 });
 
             }
-        }
+        };
     })
     .directive('editorSizeBox', function (textEditorService) {
         return {
@@ -169,13 +169,13 @@ angular.module('kyle.editor', [])
             link: function (scope, element) {
                 scope.closeSizeBox=function(){
                     textEditorService.hideSetSizeBox();
-                }
+                };
 
                 scope.setFontSize=function(size){
                     textEditorService.formatText("size",size);
-                }
+                };
             }
-        }
+        };
     })
     .directive('textEditorSlider', function ($timeout,textEditorService) {
         return {
@@ -195,7 +195,7 @@ angular.module('kyle.editor', [])
                         handle.css("left",left+"px");
                     });
 
-                    var par={}
+                    var par={};
                     var handle=$(element).find('.slide-point');
 
                     par.handleWidth=handle.width();
@@ -269,7 +269,7 @@ angular.module('kyle.editor', [])
                 });
 
             }
-        }
+        };
     })
     .directive('editorFontBox', function (textEditorService,fontList) {
         return {
@@ -295,7 +295,7 @@ angular.module('kyle.editor', [])
             link: function (scope, element) {
                 scope.closeFontBox=function(){
                     textEditorService.hideSetFontBox();
-                }
+                };
 
                 scope.activeTab=0;
 
@@ -304,10 +304,10 @@ angular.module('kyle.editor', [])
 
                 scope.setFontType=function(font){
                     textEditorService.formatText("font",font);
-                }
+                };
 
             }
-        }
+        };
     })
     .directive('editorSpacingBox', function (textEditorService) {
         return {
@@ -330,12 +330,12 @@ angular.module('kyle.editor', [])
             link: function (scope, element) {
                 scope.closeSpacingBox=function(){
                     textEditorService.hideSetSpacingBox();
-                }
+                };
                 scope.setSpacingSize=function(setSpacing){
                     textEditorService.formatText("spacing",setSpacing);
-                }
+                };
             }
-        }
+        };
     })
     .directive('editorLineHeightBox', function (textEditorService) {
         return {
@@ -358,9 +358,9 @@ angular.module('kyle.editor', [])
             link: function (scope, element) {
                 scope.closeLineHeightBox=function(){
                     textEditorService.hideSetLineHeightBox();
-                }
+                };
             }
-        }
+        };
     })
     .directive('textEditor', function (userProfile, siteConfig, colorPickService, textEditorService) {
         return {
@@ -456,38 +456,38 @@ angular.module('kyle.editor', [])
                 scope.setAlign = function (value) {
                     textEditorService.formatLine("align", value);
                     scope.textData.value.align = value;
-                }
+                };
                 scope.setBold = function () {
                     textEditorService.formatText("bold", !scope.textData.value.Bold);
                     scope.textData.value.Bold = !scope.textData.value.Bold;
-                }
+                };
                 scope.setItalic = function () {
                     textEditorService.formatText("italic", !scope.textData.value.Italic);
                     scope.textData.value.Italic = !scope.textData.value.Italic;
-                }
+                };
                 scope.setUnderline = function () {
                     textEditorService.formatText("underline", !scope.textData.value.Underline);
                     scope.textData.value.Underline = !scope.textData.value.Underline;
-                }
+                };
                 scope.setStrikethrough = function () {
                     textEditorService.formatText("strike", !scope.textData.value.Strikethrough);
                     scope.textData.value.Strikethrough = !scope.textData.value.Strikethrough;
-                }
+                };
                 scope.clearTextFormat = function () {
                     textEditorService.clearTextFormat();
-                }
+                };
                 scope.setSize = function (event) {
                     textEditorService.showSetSizeBox($(event.target).offset().left, $(event.target).offset().top);
-                }
+                };
                 scope.setFont = function (event) {
                     textEditorService.showSetFontBox($(event.target).offset().left, $(event.target).offset().top);
-                }
+                };
                 scope.setSpacing = function (event) {
                     textEditorService.showSetSpacingBox($(event.target).offset().left, $(event.target).offset().top);
-                }
+                };
                 scope.setLineHeight = function (event) {
                     textEditorService.showSetLineHeightBox($(event.target).offset().left, $(event.target).offset().top);
-                }
+                };
 
             }
         };
@@ -552,11 +552,11 @@ angular.module('kyle.editor', [])
             },
             formatText: function (index, value) {
                 if(index==='spacing'){
-                    textBoxHandle.value.find(".ele").css('letter-spacing',value)
+                    textBoxHandle.value.find(".ele").css('letter-spacing',value);
                     return;
                 }
                 if(index==='lineHeight'){
-                    textBoxHandle.value.find(".ele").css('line-height',value)
+                    textBoxHandle.value.find(".ele").css('line-height',value);
                     return;
                 }
 

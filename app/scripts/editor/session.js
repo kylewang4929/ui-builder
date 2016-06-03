@@ -18,18 +18,20 @@ angular.module('sessionEditor',[])
                     obj.ID = sessionList.eq(i).attr('id');
                     obj.height = sessionList.get(i).offsetHeight;
                     parameter.sessionHeight.push(obj);
-                    if (obj.ID == parameter.currentSession.ID) {
+                    if (obj.ID === parameter.currentSession.ID) {
                         parameter.currentSession.index = i;
                         parameter.currentSession.height = obj.height;
                     }
                 }
             },
             moveCheck: function (offsetY) {
-
+                var unActiveSession = [];
+                var sessionHeight = 0;
+                var i=0;           
                 if (offsetY < -parameter.eleCenterY) {
-                    var unActiveSession = [];
-                    var sessionHeight = 0;
-                    for (var i = parameter.currentSession.index - 1; i >= 0; i--) {
+                    unActiveSession = [];
+                    sessionHeight = 0;
+                    for (i = parameter.currentSession.index - 1; i >= 0; i--) {
                         sessionHeight += parameter.sessionHeight[i].height;
                         if (Math.abs(offsetY) < sessionHeight + parameter.eleCenterY) {
                             //重置
@@ -45,10 +47,10 @@ angular.module('sessionEditor',[])
                 }
                 if (offsetY > parameter.currentSession.height - parameter.eleCenterY) {
                     //向下
-                    var unActiveSession = [];
-                    var sessionHeight = 0;
-                    for (var i = parameter.currentSession.index; i < parameter.sessionHeight.length; i++) {
-                        if (parameter.sessionHeight[i + 1] == undefined) { return; }
+                    unActiveSession = [];
+                    sessionHeight = 0;
+                    for (i = parameter.currentSession.index; i < parameter.sessionHeight.length; i++) {
+                        if (parameter.sessionHeight[i + 1] === undefined) { return; }
                         sessionHeight += parameter.sessionHeight[i].height;
                         if (Math.abs(offsetY) > sessionHeight - parameter.eleCenterY) {
                             $(".ele-session-box .over-shadow").css("display", "none");
@@ -67,14 +69,15 @@ angular.module('sessionEditor',[])
             },
             overCheck: function (ele) {
                 $(".ele-session-box .over-shadow").css("display", "none");
+                var i=0;
                 if (parameter.changeSessionState) {
                     //切换session操作
-                    for (var i = 0; i < ele.length; i++) {
+                    for (i = 0; i < ele.length; i++) {
                         websiteData.changeSession(parameter.currentSession.ID, parameter.targetSession, builderTool.getEle(ele[i].ID, ele[i].type));
                     }
                     return parameter.targetSession;
                 } else {
-                    for (var i = 0; i < ele.length; i++) {
+                    for (i = 0; i < ele.length; i++) {
                         var eleData = builderTool.getEle(ele[i].ID, ele[i].type);
                         websiteData.updateEle(activePageService.getActivePage().value, eleData);
                     }
@@ -98,7 +101,7 @@ angular.module('sessionEditor',[])
                  * moduleType 标记是phone 还是web
                  */
                 
-                if(moduleCode==undefined){
+                if(moduleCode === undefined){
                     moduleType="web";
                 }else{
                     moduleType=moduleCode;
@@ -114,20 +117,25 @@ angular.module('sessionEditor',[])
                     obj.ID = sessionList.eq(i).attr('id');
                     obj.height = sessionList.get(i).offsetHeight;
                     parameter.sessionHeight.push(obj);
-                    if (obj.ID == parameter.currentSession.ID) {
+                    if (obj.ID === parameter.currentSession.ID) {
                         parameter.currentSession.index = i;
                         parameter.currentSession.height = obj.height;
                     }
                 }
             },
             moveCheck: function (offsetY) {
-                if(moduleType=="phone"){
+                if(moduleType==="phone"){
                     return;
                 }
+                var unActiveSession = [];
+                var sessionHeight = 0;
+                
+                var i=0;
+                
                 if (offsetY < -parameter.eleCenterY) {
-                    var unActiveSession = [];
-                    var sessionHeight = 0;
-                    for (var i = parameter.currentSession.index - 1; i >= 0; i--) {
+                    unActiveSession = [];
+                    sessionHeight = 0;
+                    for (i = parameter.currentSession.index - 1; i >= 0; i--) {
                         sessionHeight += parameter.sessionHeight[i].height;
                         if (Math.abs(offsetY) < sessionHeight + parameter.eleCenterY) {
                             //重置
@@ -143,10 +151,10 @@ angular.module('sessionEditor',[])
                 }
                 if (offsetY > parameter.currentSession.height - parameter.eleCenterY) {
                     //向下
-                    var unActiveSession = [];
-                    var sessionHeight = 0;
-                    for (var i = parameter.currentSession.index; i < parameter.sessionHeight.length; i++) {
-                        if (parameter.sessionHeight[i + 1] == undefined) { return; }
+                    unActiveSession = [];
+                    sessionHeight = 0;
+                    for (i = parameter.currentSession.index; i < parameter.sessionHeight.length; i++) {
+                        if (parameter.sessionHeight[i + 1] === undefined) { return; }
                         sessionHeight += parameter.sessionHeight[i].height;
                         if (Math.abs(offsetY) > sessionHeight - parameter.eleCenterY) {
                             $(".ele-session-box .over-shadow").css("display", "none");
@@ -165,20 +173,22 @@ angular.module('sessionEditor',[])
             },
             overCheck: function (ele) {
                 $(".ele-session-box .over-shadow").css("display", "none");
+                var i=0;
                 if (parameter.changeSessionState) {
                     //切换session操作
-                    for (var i = 0; i < ele.length; i++) {
+                    for (i = 0; i < ele.length; i++) {
                         websiteData.changeSession(parameter.currentSession.ID, parameter.targetSession, builderTool.getEle(ele[i].ID, ele[i].type));
                     }
                     return parameter.targetSession;
                 } else {
-                    for (var i = 0; i < ele.length; i++) {
-                        if(moduleType=="phone"){
-                            var eleData = phoneBuilderTool.getEle(ele[i].ID, ele[i].type);
+                    for (i = 0; i < ele.length; i++) {
+                        var eleData={};
+                        if(moduleType==="phone"){
+                            eleData = phoneBuilderTool.getEle(ele[i].ID, ele[i].type);
                             websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
                         }
-                        if(moduleType=="web"){
-                            var eleData = builderTool.getEle(ele[i].ID, ele[i].type);
+                        if(moduleType==="web"){
+                            eleData = builderTool.getEle(ele[i].ID, ele[i].type);
                             websiteData.updateEle(activePageService.getActivePage().value, eleData);                            
                         }
                     }

@@ -18,21 +18,21 @@ angular.module('eleMenu', [])
                 //监听属性 同步更改
                 scope.changeImage = function () {
                     imageLibraryService.showDom();
-                }
+                };
 
                 scope.openSettingBox = function (type, e) {
                     var activeEle=activeEleService.getEle();
-                    if (type == 'design') {
+                    if (type === 'design') {
                         type = activeEle.value.type + type;
                     }
                     var ID = activeEle.value.ID;
                     var left = e.clientX;
                     var top = e.clientY;
                     eleSettingService.showDom(left, top, type, ID);
-                }
+                };
                 scope.openCrop=function(){
                     imageCropService.openCrop(angular.copy(activeEleService.getEle().value));
-                }
+                };
 
             }
         };
@@ -75,7 +75,7 @@ angular.module('eleMenu', [])
                     handle.hideDom();
                 });
                 updateEleEvent = $rootScope.$on("updateEle", function () {
-                    if (activeEle.ID == "") {
+                    if (activeEle.ID === "") {
                         return;
                     }
                     handle.showDom(activeEle.ID, activeEle.type);
@@ -85,7 +85,7 @@ angular.module('eleMenu', [])
                     handle.hideDom();
                 });
                 dragEndOff = $rootScope.$on("eleDragEnd", function () {
-                    if (activeEle.ID == "") {
+                    if (activeEle.ID === "") {
                         return;
                     }
                     handle.showDom(activeEle.ID, activeEle.type);
@@ -95,7 +95,7 @@ angular.module('eleMenu', [])
                     handle.hideDom();
                 });
                 levelScrollEnd = $rootScope.$on("levelScrollEnd", function () {
-                    if (activeEle.ID == "") {
+                    if (activeEle.ID === "") {
                         return;
                     }
                     handle.showDom(activeEle.ID, activeEle.type);
@@ -105,7 +105,7 @@ angular.module('eleMenu', [])
                     handle.hideDom();
                 });
                 addSessionOpenEnd = $rootScope.$on("addSessionOpenEnd", function () {
-                    if (activeEle.ID == "") {
+                    if (activeEle.ID === "") {
                         return;
                     }
                     handle.showDom(activeEle.ID, activeEle.type);
@@ -158,7 +158,7 @@ angular.module('eleMenu', [])
                 var x = elePosition.getLeft(eleDom.get(0));
                 var y = elePosition.getTop(eleDom.get(0)) + eleDom.height();
 
-                if (dom == null) {
+                if (dom === null) {
                     this.createDom(eleID, type, x, y);
                 } else {
                     dom.css({ left: x, top: y + 10 });
@@ -179,13 +179,13 @@ angular.module('eleMenu', [])
                     activeEle.ID = "";
                     activeEle.type = "";
                 }
-                if (dom != null) {
+                if (dom !== null) {
                     dom.hide();
                     dom.removeClass('bounceIn');
                 }
             },
             removePlugin: function () {
-                if (dom != null) {
+                if (dom !== null) {
                     dom.remove();
                     dom = null;
                     //注销监听

@@ -30,7 +30,7 @@ angular.module('kyle.eleSetting', [])
 
                 scope.closeEleSetting = function () {
                     eleSettingService.hideDom();
-                }
+                };
             }
         };
     })

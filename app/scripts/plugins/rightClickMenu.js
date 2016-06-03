@@ -64,7 +64,7 @@ angular.module('kyle.rightClickMenu', [])
                     var eleList=multipleChoiceService.getEleList().value;
                     var index=0;
                     for(var i=0;i<eleList.length;i++){
-                        if(eleList[i].state==true){
+                        if(eleList[i].state === true){
                             index++;
                         }
                     }
@@ -102,35 +102,35 @@ angular.module('kyle.rightClickMenu', [])
 
                 scope.hideDom=function(){
                     rightClickMenuService.hideDom();
-                }
+                };
 
                 scope.deleteEle=function(){
                     websiteData.deleteEle(activePageService.getActivePage().value,scope.activeID);
-                }
+                };
 
                 scope.group=function(){
                     var eleList=multipleChoiceService.getEleList().value;
                     for(var i=0;i<eleList.length;i++){
-                        if(eleList[i].state!=true){
+                        if(eleList[i].state !== true){
                             eleList.splice(i,1);
                         }
                     }
                     websiteData.groupEle(eleList);
-                }
+                };
 
                 scope.unGroup=function(){
                     websiteData.unGroupEle(builderTool.getEle(scope.activeID,'group'));
-                }
+                };
 
                 //type 可能为cut copy
                 scope.copy=function(type){
                     var pageId=activePageService.getActivePage().value;
                     shearPlate.setData(type,pageId,websiteData.getEle(pageId,scope.activeID));
-                }
+                };
 
                 scope.paste=function(){
                     var obj=jQuery.extend(true, {}, shearPlate.getData());
-                    if(obj.value==null){
+                    if(obj.value === null){
                         return;
                     }
                     obj.value.position.top=0+"px";
@@ -144,7 +144,7 @@ angular.module('kyle.rightClickMenu', [])
                         obj.value.ID="a"+parseInt(Math.random()*100000);
                         $rootScope.$broadcast("builderAddEle",scope.activeID,obj.value);
                     }
-                }
+                };
             }
         };
     })
@@ -188,11 +188,11 @@ angular.module('kyle.rightClickMenu', [])
 
                 scope.hideDom=function(){
                     rightClickMenuService.hidePhoneDom();
-                }
+                };
 
                 scope.deleteEle=function(){
 
-                }
+                };
             }
         };
     })
@@ -294,14 +294,15 @@ angular.module('kyle.rightClickMenu', [])
             },
             //搜索父元素，确定触发事件的元素是哪个
             searchEleParent:function (obj) {
-            while (obj != undefined && obj != null && obj.tagName.toUpperCase() != 'BODY') {
-                if (obj.className.indexOf("position-box") != -1) {
-                    var obj={ID:$(obj).attr("id"),type:$(obj).attr("ele-type")}
-                    return obj;
+            var parent={};                
+            while (obj !== undefined && obj !== null && obj.tagName.toUpperCase() !== 'BODY') {
+                if (obj.className.indexOf("position-box") !== -1) {
+                    parent={ID:$(obj).attr("id"),type:$(obj).attr("ele-type")};
+                    return parent;
                 }
-                if (obj.className.indexOf("ele-session-box") != -1) {
-                    var obj={ID:$(obj).attr("id"),type:$(obj).attr("ele-type")}
-                    return obj;
+                if (obj.className.indexOf("ele-session-box") !== -1) {
+                    parent={ID:$(obj).attr("id"),type:$(obj).attr("ele-type")};
+                    return parent;
                 }
                 obj = obj.parentNode;
             }

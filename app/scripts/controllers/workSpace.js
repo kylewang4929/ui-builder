@@ -18,7 +18,7 @@ angular.module('myBuilderApp')
 
         $scope.selectEleType=function(ele){
             $scope.activeEleList=ele;
-        }
+        };
 
     })
     .controller('leftMenuCtrl', function ($scope) {
@@ -59,29 +59,29 @@ angular.module('myBuilderApp')
         $scope.selectLayers=function(ID){
             $scope.activeSession=ID;
             for(var i=0;i<$scope.websiteData.sessionList.length;i++){
-                if(ID==$scope.websiteData.sessionList[i].ID){
+                if(ID===$scope.websiteData.sessionList[i].ID){
                     $scope.eleList=$scope.websiteData.sessionList[i].eleList;
                     return;
                 }
             }
-        }
+        };
 
         //隐藏元素的方法
         $scope.toggleEle=function(ID,state){
-            if(state!=false){
+            if(state!==false){
                 websiteData.hideEle(ID);
             }else{
                 websiteData.showEle(ID);
             }
-        }
+        };
 
         $scope.toggleSession=function(ID,state){
-            if(state!=false){
+            if(state!==false){
                 websiteData.hideSession(ID);
             }else{
                 websiteData.showSession(ID);
             }
-        }
+        };
 
     })
 ;

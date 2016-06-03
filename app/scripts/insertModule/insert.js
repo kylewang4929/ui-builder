@@ -33,7 +33,7 @@ angular.module('insert.directive', [])
                     if(par.flag){
                         var x=Math.abs(e.clientX-par.cx);
                         var y=Math.abs(e.clientY-par.cy);
-                        if((x>5 || y>5) && par.moveFlag==false){
+                        if((x>5 || y>5) && par.moveFlag === false){
                             par.moveFlag=true;
                             //关闭左菜单
                             scope.$apply(function(){
@@ -89,4 +89,4 @@ angular.module('insert.directive', [])
                 
             }
         };
-    })
+    });

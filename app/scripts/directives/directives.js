@@ -39,7 +39,7 @@ angular.module('myBuilderApp')
                     if(par.flag){
                         par.flag=false;
                         //更新数组
-                        if(attrs.sessionResize=='phone'){
+                        if(attrs.sessionResize==='phone'){
                             websiteData.changePhoneSessionHeight(sessionID,parseInt(handle.css('min-height')));
                         }else{
                             websiteData.changeSessionHeight(sessionID,parseInt(handle.css('min-height')));
@@ -71,7 +71,7 @@ angular.module('myBuilderApp')
 
                 function changeID(obj){
                     obj.ID='preview'+obj.ID;
-                    if(obj.eleList!=undefined){
+                    if(obj.eleList!==undefined){
                         for(var i=0;i<obj.eleList.length;i++){
                             changeID(obj.eleList[i]);
                         }
@@ -83,19 +83,19 @@ angular.module('myBuilderApp')
                 var dom="";
                 var eleData=jQuery.extend(true, {}, scope.createThumbnail);
                 changeID(eleData);
-                if(scope.type=='phone'){
-                    if(scope.eleType=='session'){
+                if(scope.type==='phone'){
+                    if(scope.eleType==='session'){
                         dom=phoneCreatorServices.createSession(eleData);
                     }
-                    if(scope.eleType=='ele'){
+                    if(scope.eleType==='ele'){
                         dom=phoneCreatorServices.createEle(eleData);
                     }
                 }
-                if(scope.type=='web'){
-                    if(scope.eleType=='session'){
+                if(scope.type==='web'){
+                    if(scope.eleType==='session'){
                         dom=creatorServices.createSession(eleData);
                     }
-                    if(scope.eleType=='ele'){
+                    if(scope.eleType==='ele'){
                         dom=creatorServices.createEle(eleData);
                     }
                 }
@@ -123,18 +123,18 @@ angular.module('myBuilderApp')
                     ele.css('margin-top',-height/2);
                 }
 
-                if(attrs.eleType=='session'&& attrs.type=='phone'){
+                if(attrs.eleType==='session'&& attrs.type==='phone'){
                     element.css('top','50%');
                     element.css('margin-top',-(element.height()*0.35)/2);
                 }
-                if(attrs.eleType=='session'&& attrs.type=='web'){
+                if(attrs.eleType==='session'&& attrs.type==='web'){
                     element.css('top','50%');
                     element.css('margin-top',-(element.height()*0.095)/2);
                 }
-                if(attrs.eleType=='session'){
+                if(attrs.eleType==='session'){
 
                 }
-                if(attrs.eleType=='ele'){
+                if(attrs.eleType==='ele'){
                     var eleDom=$(element).find(' > .position-box');
                     var borderDom=eleDom.find(' > .ele-box');
 
@@ -156,7 +156,7 @@ angular.module('myBuilderApp')
                         percent=percentX;
                     }
 
-                    if(scope.layout=="normal"){
+                    if(scope.layout==="normal"){
                         eleDom.css('position','static');
                     }else{
                         borderDom.css({"transform":"scale("+percent+","+percent+")","-ms-transform":"scale("+percent+","+percent+")","-moz-transform":"scale("+percent+","+percent+")","-webkit-transform":"scale("+percent+","+percent+")","-o-transform":"scale("+percent+","+percent+")"});
@@ -183,7 +183,7 @@ angular.module('myBuilderApp')
                         //关闭菜单
                         $rootScope.$broadcast("closeLeftMenu");
                     }
-                }
+                };
                 $(element).find(".tool-modal").height($("body").height()*parseFloat(attrs.pageSettingToolModal));
 
                 function mousedown(e){
@@ -196,10 +196,10 @@ angular.module('myBuilderApp')
 
                 scope.$on("$destory",function(){
                     $("body").off('mousedown',mousedown);
-                })
+                });
 
             }
-        }
+        };
     })
     .directive('onGroupSizeChange', function () {
         return {
@@ -222,7 +222,7 @@ angular.module('myBuilderApp')
                 //用jquery的监听  由于scope的层级关系这里我处理的有点问题
                 var eleList=[];
                 $(element).on("groupUpdateInit",function(e,ID){
-                    if(elementID==ID){
+                    if(elementID===ID){
                         $(element).trigger("groupUpdateInit",parentGroup);
                         left=parseInt(eleDom.css('left'));
                         top=parseInt(eleDom.css('top'));
@@ -238,12 +238,13 @@ angular.module('myBuilderApp')
                     }
                 });
 
-                $(element).on("groupUpdate",function(e,obj){
-                    var obj=jQuery.extend(true, {}, obj);
+                $(element).on("groupUpdate",function(e,eleData){
+                    var obj=jQuery.extend(true, {}, eleData);
 
                     //标记宽度的增加
-                    if(elementID==obj.ID){
+                    if(elementID===obj.ID){
                         var changeFlag=false;
+                        var i=0;
                         //如果自己需要改变大小在改变之后再把这个信息往上传，如果不需要改变就终止
                         var newWidth=0;
                         if(obj.elePar.left<0){
@@ -253,8 +254,8 @@ angular.module('myBuilderApp')
                             eleDom.css("left",left+obj.elePar.left);
                             changeFlag=true;
                             //同时所有元素向右移动
-                            for(var i=0;i<eleList.length;i++){
-                                if(eleList.eq(i).attr('ele-type')=='group'){
+                            for(i=0;i<eleList.length;i++){
+                                if(eleList.eq(i).attr('ele-type')==='group'){
                                     eleList.eq(i).css("left",0);
                                 }else{
                                     eleList.eq(i).css("left",eleList.get(i).eleLeft+Math.abs(obj.elePar.left));
@@ -279,8 +280,8 @@ angular.module('myBuilderApp')
                             eleDom.css("top",top+obj.elePar.top);
                             changeFlag=true;
                             //同时所有元素向下移动
-                            for(var i=0;i<eleList.length;i++){
-                                if(eleList.eq(i).attr('ele-type')=='group'){
+                            for(i=0;i<eleList.length;i++){
+                                if(eleList.eq(i).attr('ele-type')==='group'){
                                     eleList.eq(i).css("top",0);
                                 }else{
                                     eleList.eq(i).css("top",eleList.get(i).eleTop+Math.abs(obj.elePar.top));
@@ -301,7 +302,7 @@ angular.module('myBuilderApp')
 
                         if(changeFlag){
                             //先发初始化指令
-                            if(parentGroup!=null){
+                            if(parentGroup!==null){
                                 var eleObj={width:boxDom.width(),height:boxDom.height(),left:parseInt(eleDom.css('left')),top:parseInt(eleDom.css('top'))};
                                 var parentGroupObj={ID:parentGroup,elePar:eleObj};
                                 $(element).trigger("groupUpdate",parentGroupObj);

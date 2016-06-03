@@ -6,10 +6,10 @@ angular.module('historyLog', [])
         var retreat = [];
         var handle = {
             forwardPush: function (obj, type, sessionId) {
-                if (type == undefined) {
+                if (type === undefined) {
                     type = "default";
                 }
-                if (sessionId == undefined) {
+                if (sessionId === undefined) {
                     sessionId = "default";
                 }
                 //如果数量超过多少则删除一条记录
@@ -24,15 +24,15 @@ angular.module('historyLog', [])
                 用于插入历史纪录
                 参数:
                 * */
-                if (historyType != 'retreat' && historyType != 'forward') {
+                if (historyType !== 'retreat' && historyType !== 'forward') {
                     this.retreatPush(obj, operation);
                     this.clearForward();
                 }
-                if (historyType == 'retreat') {
+                if (historyType === 'retreat') {
                     //当前状态入前进栈
                     this.forwardPush(obj, operation);
                 }
-                if (historyType == 'forward') {
+                if (historyType === 'forward') {
                     //当前状态入后退
                     this.retreatPush(obj, operation);
                 }
@@ -42,14 +42,14 @@ angular.module('historyLog', [])
                 return pop;
             },
             retreatPush: function (obj, type, sessionId) {
-                if (type == undefined) {
+                if (type === undefined) {
                     type = "default";
                 }
-                if (sessionId == undefined) {
+                if (sessionId === undefined) {
                     sessionId = "default";
                 }
 
-                var dataObj = { value: obj, type: type, sessionId: sessionId }
+                var dataObj = { value: obj, type: type, sessionId: sessionId };
                 retreat.push(dataObj);
                 if (retreat.length >= 50) {
                     retreat.splice(0, 1);
@@ -75,10 +75,10 @@ angular.module('historyLog', [])
         var retreat = [];
         var handle = {
             forwardPush: function (obj, type, sessionId) {
-                if (type == undefined) {
+                if (type === undefined) {
                     type = "default";
                 }
-                if (sessionId == undefined) {
+                if (sessionId === undefined) {
                     sessionId = "default";
                 }
                 //如果数量超过多少则删除一条记录
@@ -93,15 +93,15 @@ angular.module('historyLog', [])
                 用于插入历史纪录
                 参数:
                 * */
-                if (historyType != 'retreat' && historyType != 'forward') {
+                if (historyType !== 'retreat' && historyType !== 'forward') {
                     this.retreatPush(obj, operation);
                     this.clearForward();
                 }
-                if (historyType == 'retreat') {
+                if (historyType === 'retreat') {
                     //当前状态入前进栈
                     this.forwardPush(obj, operation);
                 }
-                if (historyType == 'forward') {
+                if (historyType === 'forward') {
                     //当前状态入后退
                     this.retreatPush(obj, operation);
                 }
@@ -111,14 +111,14 @@ angular.module('historyLog', [])
                 return pop;
             },
             retreatPush: function (obj, type, sessionId) {
-                if (type == undefined) {
+                if (type === undefined) {
                     type = "default";
                 }
-                if (sessionId == undefined) {
+                if (sessionId === undefined) {
                     sessionId = "default";
                 }
 
-                var dataObj = { value: obj, type: type, sessionId: sessionId }
+                var dataObj = { value: obj, type: type, sessionId: sessionId };
                 retreat.push(dataObj);
                 if (retreat.length >= 50) {
                     retreat.splice(0, 1);
@@ -137,4 +137,4 @@ angular.module('historyLog', [])
             }
         };
         return handle;
-    })
+    });

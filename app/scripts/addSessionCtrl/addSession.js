@@ -10,7 +10,7 @@ angular.module('addSession', [])
                     slidesPerView: "auto"
                 });
             }
-        }
+        };
     })
     .directive('addSessionHandle', function ($compile, $timeout, elePosition, levelScroll,$rootScope) {
         return {
@@ -32,9 +32,9 @@ angular.module('addSession', [])
 
                 //用来捕捉鼠标点击事件 如果不是在可触范围内 则隐藏按钮
                 var mouseDownEvent = function (e) {
-                    if (scope.showFlag == true) {
+                    if (scope.showFlag === true) {
                         var target = e.target;
-                        if (target == dom[0] || dom[0] == $(target).parents(".add-session-box")[0] || target == element[0] || $(target).parents(".add-session-box")[0] == element[0]) {
+                        if (target === dom[0] || dom[0] === $(target).parents(".add-session-box")[0] || target === element[0] || $(target).parents(".add-session-box")[0] === element[0]) {
                             //不需要隐藏
                         } else {
                             //隐藏
@@ -54,7 +54,7 @@ angular.module('addSession', [])
                         }
 
                     }
-                }
+                };
 
                 $("body").on("mousedown", mouseDownEvent);
 
@@ -62,7 +62,7 @@ angular.module('addSession', [])
                     if (!scope.showFlag) {
                         scope.showFlag = true;
                         //插入dom到session下面
-                        if (dom == "") {
+                        if (dom === "") {
                             dom = $compile(template)(scope);
                             parentSessionDom.after(dom);
                         }
@@ -98,11 +98,11 @@ angular.module('addSession', [])
 
                 scope.$on("$destroy", function () {
                     $("body").off("mousedown", mouseDownEvent);
-                    if (dom != "") {
+                    if (dom !== "") {
                         dom.remove();
                     }
-                })
+                });
 
             }
-        }
-    })
+        };
+    });
