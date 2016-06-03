@@ -96,7 +96,6 @@ angular.module('myBuilderApp')
                 return data;
             },
             setEle: function (ele) {
-                console.log(ele);
                 data.value = ele;
                 if(data.value.state=="edit"){
                     //隐藏menu

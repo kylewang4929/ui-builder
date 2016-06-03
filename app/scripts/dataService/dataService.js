@@ -295,7 +295,6 @@ angular.module('dataService', [])
                 var phoneWidth = 280;
                 for (var i = 0; i < eleList.length; i++) {
                     eleList[i].phoneStyle.scale = scale;
-                    eleList[i].phoneStyle.position.top = scale;
                 }
             },
             calculateForGroup: function (obj) {
@@ -689,8 +688,8 @@ angular.module('dataService', [])
                                     if (_.isEqual(eleData, data[i].sessionList[j].eleList[k]) != true) {
 
                                         //加入历史记录 判断是否是从历史记录控制器发过来的更新命令
-                                        phoneHistoryLog.pushHistoryLog(jQuery.extend(true, {}, data[i].sessionList[j].eleList[k]), type, 'updatePhoneEle');
-                                        this.savePhoneStyle(data[i].sessionList[j].eleList[k], eleData);
+                                        phoneHistoryLog.pushHistoryLog(angular.copy(data[i].sessionList[j].eleList[k]), type, 'updatePhoneEle');
+                                        data[i].sessionList[j].eleList[k]=this.savePhoneStyle(angular.copy(data[i].sessionList[j].eleList[k]), eleData);
                                     }
                                     return;
                                 }
@@ -701,13 +700,13 @@ angular.module('dataService', [])
             },
             savePhoneStyle: function (oldData, newData) {
                 var phoneStyle = oldData.phoneStyle;
-                phoneStyle.position.left = newData.position.left;
-                phoneStyle.position.top = newData.position.top;
-                phoneStyle.border['width'] = newData.border['width'];
-                phoneStyle.border['min-height'] = newData.border['min-height'];
-                phoneStyle.scale = newData.scale;
-                if (newData.position['transform'] != undefined) {
-                    phoneStyle.position['transform'] = newData.position['transform'];
+                phoneStyle.position.left = newData.phoneStyle.position.left;
+                phoneStyle.position.top = newData.phoneStyle.position.top;
+                phoneStyle.border['width'] = newData.phoneStyle.border['width'];
+                phoneStyle.border['min-height'] = newData.phoneStyle.border['min-height'];
+                phoneStyle.scale = newData.phoneStyle.scale;
+                if (newData.phoneStyle.position['transform'] != undefined) {
+                    phoneStyle.position['transform'] = newData.phoneStyle.position['transform'];
                 }
 
                 if (newData.type == 'group') {
@@ -718,6 +717,7 @@ angular.module('dataService', [])
                 } else {
                     oldData.phoneStyle = phoneStyle;
                 }
+                return oldData;
             },
             retainPhoneStyle: function (oldData, newData) {
                 if (newData.type == 'group') {

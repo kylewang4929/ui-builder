@@ -630,7 +630,6 @@ angular.module('myBuilderApp')
                         return;
                     }
                     if (parameter.flag) {
-                        
                         if (moveFirstFlag) {
                             //向下通知 正在移动
                             moveFirstFlag = false;
@@ -690,13 +689,16 @@ angular.module('myBuilderApp')
                         }
                         
                         if (parameter.type == 'ele') {
-
                             if (parameter.isGroupEle != true) {
                                 var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
-                                websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
+                                scope.$apply(function(){
+                                    websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);                                    
+                                });
                             } else {
                                 var eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
-                                websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
+                                scope.$apply(function(){
+                                    websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData)                                    
+                                });
                             }
 
                         }

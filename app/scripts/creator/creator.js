@@ -53,7 +53,7 @@ angular.module('creator', [])
                 }
 
                 scope.selectEle = function (even, id) {
-                    if (even.ctrlKey == true && even.buttons == 1) {
+                    if (even[shortcutsCode.ADD.ctrlKey] == true && even.buttons == shortcutsCode.ADD.keyCode) {
                         //加入
                         if (scope.activeEle != null) {
                             multipleChoiceService.addEle(scope.activeEle.ID);
@@ -432,7 +432,7 @@ angular.module('creator', [])
             }
         };
     })
-    .directive('creatorPhone', function (phoneCreatorServices, phoneBuilderTool, websiteData, phoneHistoryLog, activeEleService, activeSessionService, rightClickMenuService,shortcuts,eleMenuServices) {
+    .directive('creatorPhone', function (phoneCreatorServices, phoneBuilderTool, websiteData, phoneHistoryLog, activeEleService, activeSessionService, rightClickMenuService,shortcuts,eleMenuServices,multipleChoiceService) {
         return {
             restrict: 'A',
             scope: {
@@ -486,7 +486,25 @@ angular.module('creator', [])
 
                 scope.selectEle = function (even, id) {
 
+                    if (even[shortcutsCode.ADD.ctrlKey] == true && even.buttons == shortcutsCode.ADD.keyCode) {
+                        //加入
+                        if (scope.activeEle != null) {
+                            multipleChoiceService.addEle(scope.activeEle.ID);
+                        }
+                        multipleChoiceService.addEle(id);
+                        scope.activeEle = null;
+                        //清除激活的元素
+                        activeEleService.clear();
+                        return;
+                    }
+
+
                     rightClickMenuService.hidePhoneDom();
+                    
+                    var multipleChoiceState = $("#" + id + ".position-box").attr("multiple-choice");
+                    if (multipleChoiceState == 'true') {
+                        return;
+                    }
 
                     if (scope.activeEle === null) {
                         scope.activeEle = websiteData.getEle(scope.websiteCode.ID, id);
@@ -578,13 +596,13 @@ angular.module('creator', [])
                         }
                     }
 
-                    if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode == shortcutsCode.UNDO.keyCode) {
+                    if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode == shortcutsCode.UNDO.keyCode && !e[shortcutsCode.REDO.shiftKey]) {
                         //后退
                         var obj = phoneHistoryLog.retreatPop();
                         if (obj != undefined) {
                             //更新到数组
                             if (obj.type == "updatePhoneEle") {
-                                websiteData.changePhoneSessionHeight(scope.websiteCode.ID, obj.value, 'retreat');
+                                websiteData.updatePhoneEle(scope.websiteCode.ID, obj.value, 'retreat');
                                 phoneBuilderTool.updateEle(obj.value);
                             }
                             if (obj.type == "changeSessionHeight") {
@@ -618,7 +636,7 @@ angular.module('creator', [])
                         var obj = phoneHistoryLog.forwardPop();
                         if (obj != undefined) {
                             if (obj.type == "updatePhoneEle") {
-                                websiteData.updateEle(scope.websiteCode.ID, obj.value, 'forward');
+                                websiteData.updatePhoneEle(scope.websiteCode.ID, obj.value, 'forward');
                                 phoneBuilderTool.updateEle(obj.value);
                             }
                             if (obj.type == "changeSessionHeight") {

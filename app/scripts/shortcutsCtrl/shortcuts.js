@@ -7,6 +7,10 @@ angular.module('shortcuts', ["browserInfo"])
                 ctrlKey: "ctrlKey",
                 keyCode: 90
             },
+            ADD:{
+                ctrlKey: "ctrlKey",
+                keyCode: 1
+            },
             REDO: {
                 ctrlKey: "ctrlKey",
                 keyCode: 90,
@@ -44,6 +48,10 @@ angular.module('shortcuts', ["browserInfo"])
             UNDO: {
                 ctrlKey: "metaKey",
                 keyCode: 90
+            },
+            ADD:{
+                ctrlKey: "metaKey",
+                keyCode: 1
             },
             REDO: {
                 ctrlKey: "metaKey",

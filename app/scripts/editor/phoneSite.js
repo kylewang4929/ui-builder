@@ -102,63 +102,66 @@ angular.module('phoneSiteEditor',[])
             },
             getEleText: function(ID) {
                 var eleData = {};
+                eleData.phoneStyle={};
                 var dom = $("#" + ID + ".position-box");
 
                 eleData.ID = ID;
                 eleData.type = "text";
                 eleData.textValue = dom.find('.ele').get(0).innerHTML;
 
-                eleData.position = this.resolveStyle(dom[0]);
+                eleData.phoneStyle.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom[0]);
+                eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
                 var styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom[0]);
+                eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
 
                 //获取缩放比例
-                eleData.scale = dom.attr('scale');
+                eleData.phoneStyle.scale = dom.attr('scale');
 
                 //还原数据的大小  因为有一个缩放的操作
-                //                eleData.border.widht=parseInt(eleData.border.width)/eleData.scale;
-                //                eleData.border['min-height']=parseInt(eleData.border['min-height'])/eleData.scale;
+                //eleData.border.widht=parseInt(eleData.border.width)/eleData.scale;
+                //eleData.border['min-height']=parseInt(eleData.border['min-height'])/eleData.scale;
 
                 return eleData;
             },
             getEleImage: function(ID) {
                 var eleData = {};
+                eleData.phoneStyle={};                
                 var dom = $("#" + ID + ".position-box");
 
                 eleData.ID = ID;
                 eleData.type = "image";
 
-                eleData.position = this.resolveStyle(dom[0]);
+                eleData.phoneStyle.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom[0]);
+                eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
                 var styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom[0]);
+                eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
                 eleData.url = styleDom.css("background-image");
                 eleData.url = eleData.url.substring(5, eleData.url.length - 2);
 
                 //获取缩放比例
-                eleData.scale = dom.attr('scale');
+                eleData.phoneStyle.scale = dom.attr('scale');
 
                 //还原数据的大小  因为有一个缩放的操作
-                eleData.border.width = parseInt(eleData.border.width) / eleData.scale;
-                eleData.border['min-height'] = parseInt(eleData.border['min-height']) / eleData.scale;
+                eleData.phoneStyle.border.width = parseInt(eleData.phoneStyle.border.width) / eleData.phoneStyle.scale;
+                eleData.phoneStyle.border['min-height'] = parseInt(eleData.phoneStyle.border['min-height']) / eleData.phoneStyle.scale;
                 
                 return eleData;
             },
             getEleMenu: function(ID) {
                 var eleData = {};
+                eleData.phoneStyle={};                                
                 var dom = $("#" + ID + ".position-box");
 
                 eleData.ID = ID;
                 eleData.type = "menu";
 
-                eleData.position = this.resolveStyle(dom[0]);
+                eleData.phoneStyle.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom[0]);
+                eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
                 var styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom[0]);
+                eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
                 //读取item
                 eleData.item = [];
                 styleDom = styleDom.find(".menu-item");
@@ -167,21 +170,22 @@ angular.module('phoneSiteEditor',[])
                 }
 
                 //获取缩放比例
-                eleData.scale = dom.attr('scale');
+                eleData.phoneStyle.scale = dom.attr('scale');
 
                 return eleData;
             },
             getEleGroup: function(ID) {
                 var eleData = {};
+                eleData.phoneStyle={};                
                 var dom = $("#" + ID + ".position-box");
 
                 eleData.ID = ID;
                 eleData.type = "group";
-                eleData.position = this.resolveStyle(dom[0]);
+                eleData.phoneStyle.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom[0]);
+                eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
                 var styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom[0]);
+                eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
 
 
                 var eleList = dom.find(">.ele-box >.ele >.position-box");
@@ -193,11 +197,11 @@ angular.module('phoneSiteEditor',[])
                 eleData.eleList = eleListData;
 
                 //获取缩放比例
-                eleData.scale = dom.attr('scale');
+                eleData.phoneStyle.scale = dom.attr('scale');
 
                 //还原数据的大小  因为有一个缩放的操作
-                //                eleData.border.widht=parseInt(eleData.border.width)/eleData.scale;
-                //                eleData.border['min-height']=parseInt(eleData.border['min-height'])/eleData.scale;
+                //eleData.border.widht=parseInt(eleData.border.width)/eleData.scale;
+                //eleData.border['min-height']=parseInt(eleData.border['min-height'])/eleData.scale;
 
                 return eleData;
             },
@@ -228,11 +232,37 @@ angular.module('phoneSiteEditor',[])
                 $.each(eleData.phoneStyle.border, function(index, value) {
                     dom.css(index, value);
                 });
+                
+                //图片缩放
+                dom.css('width', parseInt(eleData.phoneStyle.border['width'])*eleData.phoneStyle.scale);
+                dom.css('min-height', parseInt(eleData.phoneStyle.border['min-height'])*eleData.phoneStyle.scale);
 
                 dom = dom.find(".ele");
                 $.each(eleData.phoneStyle.style, function(index, value) {
                     dom.css(index, value);
                 });
+                
+                var originalWidth=parseFloat(eleData.imageSize.width);
+                var originalHeight=parseFloat(eleData.imageSize.height);
+                
+                //获取元素真实大小
+                var eleActualWidth=parseFloat(eleData.phoneStyle.border['width'])*eleData.phoneStyle.scale;
+                var eleActualHeight=parseFloat(eleData.phoneStyle.border['min-height'])*eleData.phoneStyle.scale;
+                
+                var height=0;
+                var width=0;
+                
+                if(originalWidth>originalHeight){
+                    //最小的一边是高，高填充 高按比例(width/height=data.imageSize.width/data.imageSize.height)
+                    height=eleActualHeight/parseFloat(eleData.cropInfo.height);
+                    width=originalWidth/originalHeight*height;
+                }else{
+                    //最小的一边是宽，宽填充 宽按比例
+                    width=eleActualWidth/parseFloat(eleData.cropInfo.width);                        
+                    height=originalWidth/originalHeight*width;
+                }
+                dom.css('background-size',width+"px " + height + "px");
+                
             },
             updateEleMenu: function(eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");

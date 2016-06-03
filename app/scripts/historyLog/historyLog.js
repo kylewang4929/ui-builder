@@ -90,9 +90,9 @@ angular.module('historyLog', [])
             },
             pushHistoryLog: function (obj, historyType, operation) {
                 /*
-                 用于插入历史纪录
-                 参数:
-                 * */
+                用于插入历史纪录
+                参数:
+                * */
                 if (historyType != 'retreat' && historyType != 'forward') {
                     this.retreatPush(obj, operation);
                     this.clearForward();

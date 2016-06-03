@@ -84,14 +84,26 @@ angular.module('sessionEditor',[])
         };
         return handle;
     })
-    .factory('changeSessionToolForMultiple', function (builderTool, websiteData,activePageService) {
+    .factory('changeSessionToolForMultiple', function (builderTool, phoneBuilderTool,websiteData,activePageService) {
         var parameter = {};
         parameter.currentSession = {};
         parameter.sessionHeight = [];
         parameter.eleCenterY = 0;
+        var moduleType="";
 
         var handle = {
-            init: function (sessionID, centerY) {
+            init: function (sessionID, centerY,moduleCode) {
+                
+                /**
+                 * moduleType 标记是phone 还是web
+                 */
+                
+                if(moduleCode==undefined){
+                    moduleType="web";
+                }else{
+                    moduleType=moduleCode;
+                }
+                
                 parameter.eleCenterY = centerY;
                 parameter.sessionHeight = [];
                 //获取当前session和session的高度
@@ -109,6 +121,9 @@ angular.module('sessionEditor',[])
                 }
             },
             moveCheck: function (offsetY) {
+                if(moduleType=="phone"){
+                    return;
+                }
                 if (offsetY < -parameter.eleCenterY) {
                     var unActiveSession = [];
                     var sessionHeight = 0;
@@ -155,12 +170,17 @@ angular.module('sessionEditor',[])
                     for (var i = 0; i < ele.length; i++) {
                         websiteData.changeSession(parameter.currentSession.ID, parameter.targetSession, builderTool.getEle(ele[i].ID, ele[i].type));
                     }
-
                     return parameter.targetSession;
                 } else {
                     for (var i = 0; i < ele.length; i++) {
-                        var eleData = builderTool.getEle(ele[i].ID, ele[i].type);
-                        websiteData.updateEle(activePageService.getActivePage().value, eleData);
+                        if(moduleType=="phone"){
+                            var eleData = phoneBuilderTool.getEle(ele[i].ID, ele[i].type);
+                            websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
+                        }
+                        if(moduleType=="web"){
+                            var eleData = builderTool.getEle(ele[i].ID, ele[i].type);
+                            websiteData.updateEle(activePageService.getActivePage().value, eleData);                            
+                        }
                     }
                     return false;
                 }

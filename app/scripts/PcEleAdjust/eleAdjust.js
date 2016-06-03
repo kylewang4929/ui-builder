@@ -252,7 +252,6 @@ angular.module('myBuilderApp')
                     }
                 }
                 function listenMouseup(e) {
-                    //e.stopPropagation();
                     if (parameter.flag) {
                         parameter.flag = false;
                         

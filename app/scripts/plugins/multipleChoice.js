@@ -3,7 +3,7 @@ angular.module('multipleChoice', [])
     .directive('dragSelectEle', function (websiteData, builderTool, multipleChoiceService,changeSessionToolForMultiple) {
         return {
             restrict: 'A',
-            link: function (scope, element) {
+            link: function (scope, element,attrs) {
 
                 var wId = "w";
                 var index = 0;
@@ -38,7 +38,7 @@ angular.module('multipleChoice', [])
                         dragFlag = true;
                         multipleChoiceService.removeMenuButton();
                         eleList.value = multipleChoiceService.updateEleInfo();
-                        changeSessionToolForMultiple.init($(e.target).parents('.ele-session-box').attr('id'),multipleChoiceService.getActiveEleCenterY(eleList.value));
+                        changeSessionToolForMultiple.init($(e.target).parents('.ele-session-box').attr('id'),multipleChoiceService.getActiveEleCenterY(eleList.value),attrs.dragSelectEle);
 
                     } else {
                         //获取当前激活的session
