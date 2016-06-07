@@ -616,6 +616,11 @@ angular.module('dataService', [])
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].ID === pageID) {
                         for (var j = 0; j < data[i].sessionList.length; j++) {
+                            
+                            if(data[i].sessionList[j].ID==id){
+                                return data[i].sessionList[j];
+                            }
+                            
                             for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
                                 if (data[i].sessionList[j].eleList[k].ID === id) {
                                     return data[i].sessionList[j].eleList[k];

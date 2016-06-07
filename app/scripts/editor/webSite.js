@@ -85,13 +85,15 @@ angular.module('webSiteEditor',[])
                 page.append(creatorServices.createPage(data.sessionList, scope));
             },
             updateEle: function (eleData) {
+                
                 switch (eleData.type) {
                     case "text": this.updateEleText(eleData); break;
                     case "image": this.updateEleImage(eleData); break;
                     case "menu": this.updateEleMenu(eleData); break;
                     case "group": this.updateEleGroup(eleData); break;
                 }
-                $rootScope.$emit("updateEle");                
+                $rootScope.$emit("updateEle");
+                
             },
             deleteEle: function (id) {
                 $("#" + id + ".position-box").remove();
@@ -167,8 +169,8 @@ angular.module('webSiteEditor',[])
                 var imageBackgroundSize=eleData.style['background-size'].split(" ");
                 //元素尺寸 比 图片尺寸
                 eleData.cropInfo={
-                    width:parseFloat(eleData.border.width)/parseFloat(imageBackgroundSize[0]),
-                    height:parseFloat(eleData.border['min-height'])/parseFloat(imageBackgroundSize[1])
+                    width :parseFloat(eleData.border.width)/parseFloat(imageBackgroundSize[0]),
+                    height :parseFloat(eleData.border.height)/parseFloat(imageBackgroundSize[1])
                 };
                 return eleData;
             },

@@ -158,28 +158,7 @@
       top: 12px;
       color: @baseColor;
     }
-    & .slide-box {
-      position: relative;
-      padding: 20px 60px 20px 20px;
-      border-bottom: 1px solid @baseBorderColor;
-      & .slide-line {
-        padding: 4px 0px;
-        border-radius: 20px;
-        background-color: @baseColor;
-        position: relative;
-        cursor: pointer;
-        & .slide-point {
-          position: absolute;
-          width: 12px;
-          height: 12px;
-          left: -6px;
-          top: -2px;
-          background-color: #fff;
-          border-radius: 50%;
-          cursor: pointer;
-        }
-      }
-    }
+    
 
     & .item {
       padding: 14px 20px;
@@ -190,5 +169,29 @@
       }
     }
 
+  }
+}
+
+& .slide-box {
+  position: relative;
+  padding: 20px 60px 20px 20px;
+  z-index: 99;
+  border-bottom: 1px solid @baseBorderColor;
+  & .slide-line {
+    padding: 4px 0px;
+    border-radius: 20px;
+    background-color: @baseColor;
+    position: relative;
+    cursor: pointer;
+    & .slide-point {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      left: -6px;
+      top: -2px;
+      background-color: #fff;
+      border-radius: 50%;
+      cursor: pointer;
+    }
   }
 }

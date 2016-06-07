@@ -64,7 +64,7 @@ module.exports = function (grunt) {
         },
         scripts: {
 
-            files: ['./app/less/**/*.less'],
+            files: ['./app/less/**/*.less','./app/scripts/**/*.less'],
 
             tasks: ['less'],
 

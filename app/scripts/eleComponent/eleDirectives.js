@@ -38,11 +38,11 @@ angular.module('myBuilderApp')
 
                 return template;
             },
-            replace: true,
+            replace: false,
             compile:function(element, attrs){
                 var data=element.context.eleConfig;
                 //插入背景
-                var dom=$(element);
+                var dom=$(element).find(".ele-session-box");
                 dom.css("background-image", "url(" + data.background.url + ")");
                 //渲染背景样式
                 $.each(data.style, function (index, value) {
@@ -105,11 +105,13 @@ angular.module('myBuilderApp')
 
                 return template;
             },
-            replace: true,
+            replace: false,
             compile:function(element, attrs){
                 var data=element.context.eleConfig;
                 //插入背景
-                var dom=$(element);
+                
+                var dom=$(element).find(".ele-session-box");
+                
                 dom.css("background-image", "url(" + data.background.url + ")");
                 //渲染背景样式
                 $.each(data.style, function (index, value) {
@@ -182,10 +184,10 @@ angular.module('myBuilderApp')
 
                 return template;
             },
-            replace: true,
+            replace: false,
             link: function (scope, element, attrs) {
                 var data=element.context.eleConfig;
-                eleApplyService.defaultApply(element,data);
+                eleApplyService.defaultApply($(element).find(".position-box"),data);
             }
         };
     })
@@ -223,10 +225,10 @@ angular.module('myBuilderApp')
                 }
                 return template;
             },
-            replace: true,
+            replace: false,
             link: function (scope, element, attrs) {
                 var data=element.context.eleConfig;
-                eleApplyService.defaultApply(element,data);
+                eleApplyService.defaultApply($(element).find(".position-box"),data);
                 
                 var originalWidth=parseInt(data.imageSize.width);
                 var originalHeight=parseInt(data.imageSize.height);
@@ -234,7 +236,7 @@ angular.module('myBuilderApp')
                 /**
                  * 添加发生形变时的监听
                  */
-                var eleBox=element.find(" > .ele-box");
+                var eleBox=element.find(".position-box > .ele-box");
                 var ele=eleBox.find(" > .ele");
                 eleBox.on("resize",function(e){
                     var x=eleBox.width();
@@ -297,7 +299,7 @@ angular.module('myBuilderApp')
                 }
                 return template;
             },
-            replace: true,
+            replace: false,
             compile:function(element, attrs){
                 var data=element.context.eleConfig;
                 var dom=$(element);
@@ -308,7 +310,7 @@ angular.module('myBuilderApp')
 
                 return function (scope, element, attrs) {
                     var data=element.context.eleConfig;
-                    eleApplyService.defaultApply(element,data);
+                    eleApplyService.defaultApply($(element).find(".position-box"),data);
                 };
             }
         };
@@ -348,7 +350,7 @@ angular.module('myBuilderApp')
 
                 return template;
             },
-            replace: true,
+            replace: false,
             link: function (scope, element, attrs) {
                 var data=element.context.eleConfig;
 
@@ -363,7 +365,7 @@ angular.module('myBuilderApp')
                     domMenu.append(domItem);
                 }
 
-                eleApplyService.defaultApply(element,data);
+                eleApplyService.defaultApply($(element).find(".position-box"),data);
             }
         };
     })
@@ -397,11 +399,11 @@ angular.module('myBuilderApp')
 
                 return template;
             },
-            replace: true,
+            replace: false,
             compile:function(element, attrs){
                 var data=element.context.eleConfig;
                 //插入背景
-                var dom=$(element);
+                var dom=$(element).find(".ele-session-box");                
                 dom.css("background-image", "url(" + data.background.url + ")");
                 //渲染背景样式
                 $.each(data.style, function (index, value) {
@@ -460,11 +462,11 @@ angular.module('myBuilderApp')
 
                 return template;
             },
-            replace: true,
+            replace: false,
             compile:function(element, attrs){
                 var data=element.context.eleConfig;
                 //插入背景
-                var dom=$(element);
+                var dom=$(element).find(".ele-session-box");
                 dom.css("background-image", "url(" + data.background.url + ")");
                 //渲染背景样式
                 $.each(data.style, function (index, value) {
@@ -543,14 +545,14 @@ angular.module('myBuilderApp')
 
                 return template;
             },
-            replace: true,
+            replace: false,
             link: function (scope, element, attrs) {
                 var data=element.context.eleConfig;
 
-                eleApplyService.phoneDefaultApply(element,data);
+                eleApplyService.phoneDefaultApply($(element).find(".position-box"),data);
 
                 //放在后面是为了覆盖前面的样式
-                var dom=$(element);
+                var dom=$(element).find(".position-box");
                 var domBorder=dom.find(' >.ele-box');
                 domBorder.css({"transform":"scale("+data.phoneStyle.scale+","+data.phoneStyle.scale+")","-ms-transform":"scale("+data.phoneStyle.scale+","+data.phoneStyle.scale+")","-moz-transform":"scale("+data.phoneStyle.scale+","+data.phoneStyle.scale+")","-webkit-transform":"scale("+data.phoneStyle.scale+","+data.phoneStyle.scale+")","-o-transform":"scale("+data.phoneStyle.scale+","+data.phoneStyle.scale+")"});
                 domBorder.css({"transform-origin":"0% 0%","-ms-transform-origin":"0% 0%","-moz-transform-origin":"0% 0%","-webkit-transform-origin":"0% 0%","-o-transform-origin":"0% 0%"});
@@ -603,24 +605,24 @@ angular.module('myBuilderApp')
 
                 return template;
             },
-            replace: true,
+            replace: false,
             link: function (scope, element, attrs) {
                 var data=element.context.eleConfig;
 
-                eleApplyService.phoneDefaultApply(element,data);
+                eleApplyService.phoneDefaultApply($(element).find(".position-box"),data);
 
-                var dom=$(element);
+                var dom=$(element).find(".position-box");
                 var domBorder=dom.find(' >.ele-box');
                 domBorder.css('width', parseInt(data.phoneStyle.border.width)*data.phoneStyle.scale);
                 domBorder.css('min-height', parseInt(data.phoneStyle.border['min-height'])*data.phoneStyle.scale);
 
-                var originalWidth=parseInt(data.imageSize.width);
-                var originalHeight=parseInt(data.imageSize.height);
+                var originalWidth=parseInt(data.imageSize.width)*data.phoneStyle.scale;
+                var originalHeight=parseInt(data.imageSize.height)*data.phoneStyle.scale;
                 
                 /**
                  * 添加发生形变时的监听
                  */
-                var eleBox=element.find(" > .ele-box");
+                var eleBox=element.find(".position-box > .ele-box");
                 var ele=eleBox.find(" > .ele");
                 eleBox.on("resize",function(e){
                     var x=eleBox.width();
@@ -685,17 +687,17 @@ angular.module('myBuilderApp')
 
                 return template;
             },
-            replace: true,
+            replace: false,
             compile:function(element, attrs){
                 var data=element.context.eleConfig;
-                var dom=$(element);
+                var dom=$(element).find(".position-box");
                 var domStyle=dom.find(" >.ele-box >.ele");
                 for(var i=0;i<data.eleList.length;i++){
                     domStyle.append(phoneCreatorServices.createEle(data.eleList[i]));
                 }
                 return function (scope, element, attrs) {
                     var data=element.context.eleConfig;
-                    eleApplyService.phoneDefaultApply(element,data);
+                    eleApplyService.phoneDefaultApply($(element).find(".position-box"),data);
                 };
             }
         };
@@ -733,17 +735,17 @@ angular.module('myBuilderApp')
 
                 return template;
             },
-            replace: true,
+            replace: false,
             link: function (scope, element, attrs) {
                 var data=element.context.eleConfig;
 
-                var dom=$(element);
+                var dom=$(element).find(".position-box");
                 var domStyle = dom.find(" >.ele-box >.ele");
                 domStyle.find('i').css("color", data.phoneStyle.style.color);
                 domStyle.find('i').css("font-size", data.phoneStyle.style['font-size']);
 
 
-                eleApplyService.phoneDefaultApply(element,data);
+                eleApplyService.phoneDefaultApply($(element).find(".position-box"),data);
             }
         };
     })
@@ -786,7 +788,12 @@ angular.module('myBuilderApp')
                 });
 
                 $.each(data.phoneStyle.style, function (index, value) {
-                    domStyle.css(index, value);
+                    if(index='background-size'){
+                        value=value.split(" ");
+                        domStyle.css(index,parseFloat(value[0])*data.phoneStyle.scale+"px "+parseFloat(value[1])*data.phoneStyle.scale+"px");                        
+                    }else{
+                        domStyle.css(index, value);                        
+                    }
                 });
                 $.each(data.phoneStyle.position, function (index, value) {
                     dom.css(index, value);

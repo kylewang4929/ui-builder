@@ -113,6 +113,19 @@ angular.module('myBuilderApp')
                     parameter.rightRotate = parseInt(parameter.rotate / 45 + parameter.target) % 8;
 
                 });
+                
+                /**
+                 * 尺寸判断
+                 * 宽高不得小于50
+                 * 不符合条件返回false
+                 */
+                function sizeLimit(width, height) {
+                    if (width < 50 || height < 50) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                };
 
                 //定义好resize的方法
                 function leftTopResize(offsetX, offsetY, rightRotate) {
@@ -137,6 +150,11 @@ angular.module('myBuilderApp')
 
                     cHeight = parseInt(parameter.eleHeight * percent);
                     cWidth = parseInt(parameter.eleWidth * percent);
+                    
+                    if(!sizeLimit(cWidth,cHeight)){
+                        return;
+                    }
+                    
                     eleBox.css({ "min-height": cHeight + "px", width: cWidth + "px" });
                     //偏移
 
@@ -157,8 +175,8 @@ angular.module('myBuilderApp')
                     element.css({ "top": excursionY, "left": excursionX });
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
-                        eleBox.css("min-height", eleDom.height());
                     } else {
+                        eleBox.css("min-height", eleDom.height());                        
                     }
                 }
                 function leftBottomResize(offsetX, offsetY, rightRotate) {
@@ -182,6 +200,11 @@ angular.module('myBuilderApp')
                     //percent = (-offsetX + parameter.eleWidth) / parameter.eleWidth;
                     cHeight = parseInt(parameter.eleHeight * percent);
                     cWidth = parseInt(parameter.eleWidth * percent);
+                    
+                    if(!sizeLimit(cWidth,cHeight)){
+                        return;
+                    }
+                    
                     eleBox.css({ "min-height": cHeight + "px", width: cWidth + "px" });
                     //偏移
 
@@ -201,8 +224,8 @@ angular.module('myBuilderApp')
                     element.css({ "top": excursionY, "left": excursionX });
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
-                        eleBox.css("min-height", eleDom.height());
                     } else {
+                        eleBox.css("min-height", eleDom.height());                        
                     }
                 }
                 function rightTopResize(offsetX, offsetY, rightRotate) {
@@ -226,6 +249,11 @@ angular.module('myBuilderApp')
                     //percent = (offsetX + parameter.eleWidth) / parameter.eleWidth;
                     cHeight = parseInt(parameter.eleHeight * percent);
                     cWidth = parseInt(parameter.eleWidth * percent);
+                    
+                    if(!sizeLimit(cWidth,cHeight)){
+                        return;
+                    }
+                    
                     eleBox.css({ "min-height": cHeight + "px", width: cWidth + "px" });
                     //偏移
                     var excursionX = 0;
@@ -245,8 +273,8 @@ angular.module('myBuilderApp')
 
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
-                        eleBox.css("min-height", eleDom.height());
                     } else {
+                        eleBox.css("min-height", eleDom.height());            
                     }
                 }
                 function rightBottomResize(offsetX, offsetY, rightRotate) {
@@ -269,6 +297,11 @@ angular.module('myBuilderApp')
                     //percent = (offsetX + parameter.eleWidth) / parameter.eleWidth;
                     cHeight = parseInt(parameter.eleHeight * percent);
                     cWidth = parseInt(parameter.eleWidth * percent);
+                    
+                    if(!sizeLimit(cWidth,cHeight)){
+                        return;
+                    }
+                    
                     eleBox.css({ "min-height": cHeight + "px", width: cWidth + "px" });
 
                     var excursionX = 0;
@@ -289,8 +322,8 @@ angular.module('myBuilderApp')
 
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
-                        eleBox.css("min-height", eleDom.height());
                     } else {
+                        eleBox.css("min-height", eleDom.height());                        
                     }
                 }
                 function onlyLeftResize(offsetX, offsetY, rightRotate) {
@@ -315,27 +348,32 @@ angular.module('myBuilderApp')
 
                     cWidth = parameter.eleWidth + offset;
                     cHeight = parseInt(eleBox.css("min-height"));
+                    
+                    if(!sizeLimit(cWidth,cHeight)){
+                        return;
+                    }
+                    
                     eleBox.css({ "width": cWidth + "px" });
+                    
+                    var excursionX = 0;
+                    var excursionY = 0;
+                    switch (rightRotate) {
+                        case 0: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                        case 1: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
+                        case 2: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
+                        case 3: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
+                        case 4: excursionY = parameter.top; excursionX = parameter.left; break;
+                        case 5: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                        case 6: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                        case 7: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                    }
+
+
+                    element.css({ "top": excursionY, "left": excursionX });
 
                     //缩放模块
-                    if (eleBox.height() >= eleDom.height()) {
-
-                        var excursionX = 0;
-                        var excursionY = 0;
-                        switch (rightRotate) {
-                            case 0: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                            case 1: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
-                            case 2: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
-                            case 3: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
-                            case 4: excursionY = parameter.top; excursionX = parameter.left; break;
-                            case 5: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                            case 6: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                            case 7: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                        }
-
-
-                        element.css({ "top": excursionY, "left": excursionX });
-
+                    if (eleBox.height() > eleDom.height()) {
+                        
                     } else {
                         eleBox.css("min-height", eleDom.height());
                     }
@@ -360,26 +398,32 @@ angular.module('myBuilderApp')
 
                     cWidth = parameter.eleWidth + offset;
                     cHeight = eleBox.css("height");
+                    
+                    if(!sizeLimit(cWidth,cHeight)){
+                        return;
+                    }
+                    
                     eleBox.css({ "width": cWidth + "px" });
+                    
+                    
+                    var excursionX = 0;
+                    var excursionY = 0;
+                    switch (rightRotate) {
+                        case 0: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                        case 1: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
+                        case 2: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
+                        case 3: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
+                        case 4: excursionY = parameter.top; excursionX = parameter.left; break;
+                        case 5: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                        case 6: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                        case 7: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                    }
+
+
+                    element.css({ "top": excursionY, "left": excursionX });
 
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
-
-                        var excursionX = 0;
-                        var excursionY = 0;
-                        switch (rightRotate) {
-                            case 0: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                            case 1: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
-                            case 2: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
-                            case 3: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
-                            case 4: excursionY = parameter.top; excursionX = parameter.left; break;
-                            case 5: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                            case 6: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                            case 7: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                        }
-
-
-                        element.css({ "top": excursionY, "left": excursionX });
 
                     } else {
                         eleBox.css("min-height", eleDom.height());
@@ -405,26 +449,33 @@ angular.module('myBuilderApp')
 
                     cHeight = parameter.eleHeight + offset;
                     cWidth = eleBox.css("width");
+                    
+                    if(!sizeLimit(cWidth,cHeight)){
+                        return;
+                    }
+                    
                     eleBox.css({ "min-height": cHeight + "px" });
+
+                    var excursionX = 0;
+                    var excursionY = 0;
+                    switch (rightRotate) {
+                        case 0: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                        case 1: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
+                        case 2: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
+                        case 3: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
+                        case 4: excursionY = parameter.top; excursionX = parameter.left; break;
+                        case 5: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                        case 6: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                        case 7: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                    }
+
+
+                    element.css({ "top": excursionY, "left": excursionX });
 
 
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
-                        var excursionX = 0;
-                        var excursionY = 0;
-                        switch (rightRotate) {
-                            case 0: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                            case 1: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
-                            case 2: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
-                            case 3: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
-                            case 4: excursionY = parameter.top; excursionX = parameter.left; break;
-                            case 5: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                            case 6: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                            case 7: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                        }
-
-
-                        element.css({ "top": excursionY, "left": excursionX });
+                        
                     } else {
                         eleBox.css("min-height", eleDom.height());
                     }
@@ -449,26 +500,32 @@ angular.module('myBuilderApp')
 
                     cHeight = parameter.eleHeight + offset;
                     cWidth = eleBox.css("width");
+                    
+                    if(!sizeLimit(cWidth,cHeight)){
+                        return;
+                    }
+                    
                     eleBox.css({ "min-height": cHeight + "px" });
 
+                    var excursionX = 0;
+                    var excursionY = 0;
+                    switch (rightRotate) {
+                        case 0: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                        case 1: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
+                        case 2: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
+                        case 3: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
+                        case 4: excursionY = parameter.top; excursionX = parameter.left; break;
+                        case 5: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                        case 6: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                        case 7: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
+                    }
+
+
+                    element.css({ "top": excursionY, "left": excursionX });
 
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
-                        var excursionX = 0;
-                        var excursionY = 0;
-                        switch (rightRotate) {
-                            case 0: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                            case 1: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
-                            case 2: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
-                            case 3: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left; break;
-                            case 4: excursionY = parameter.top; excursionX = parameter.left; break;
-                            case 5: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                            case 6: excursionY = parameter.top; excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                            case 7: excursionY = parameter.top + (parameter.eleHeight - cHeight); excursionX = parameter.left + (parameter.eleWidth - cWidth); break;
-                        }
-
-
-                        element.css({ "top": excursionY, "left": excursionX });
+                        
                     } else {
                         eleBox.css("min-height", eleDom.height());
                     }

@@ -4,14 +4,52 @@
 
 .crop-image-box{
   position: absolute;
-  z-index: 999;
+  z-index: 900;
   background-repeat: no-repeat;
   & .cover{
     width: 100%;
     height: 100%;
     opacity: 0.5;
+    top: 0px;
+    left: 0px;
+    position: absolute;    
+    background-repeat: no-repeat;    
+  }
+  .image-cover{
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-repeat: no-repeat;
+    position: absolute;
+  }
+  .menu{
+    background-color: #fff;
+    width: 300px;
+    z-index: 98;
+    border-radius: 40px;
+    margin-top: -60px;
+    position: relative;
+    padding:0px 50px 0px 10px;
+    .slide-box{
+      border-bottom: none;
+    }
+    .confirm-button{
+      top: 9px;
+      z-index: 99;
+      position: absolute;
+      right: 14px;
+      button{
+        background-color: @baseColor;
+        border-radius: 40px;
+        width:70px;
+        line-height: 30px;
+        height: 30px;
+      }
+    }
   }
   & .crop-box{
+    background-repeat: no-repeat;    
     position: absolute;
     cursor: move;
     border: 1px solid fade(@baseColor,100%);
@@ -19,80 +57,80 @@
       background-color: @baseColor;
       position: absolute;
       &.left{
-        width: 4px;
+        width: 6px;
         height: 20px;
-        left: -2px;
+        left: -3px;
         top: 50%;
-        margin-top: -15px;
+        margin-top: -10px;
         cursor: w-resize;
       }
       &.right{
-        width: 4px;
+        width: 6px;
         height: 20px;
-        right: -2px;
+        right: -3px;
         top: 50%;
-        margin-top: -15px;
+        margin-top: -10px;
         cursor: e-resize;
       }
       &.bottom{
         width: 20px;
-        height: 4px;
-        bottom: -2px;
-        left: 50%;
-        margin-left: -15px;
+        height: 6px;
+        bottom: -3px;
+        left: 50%; 
+        margin-left: -10px;
         cursor: s-resize;
       }
       &.top{
         width: 20px;
         cursor: n-resize;
-        height: 4px;
-        top: -2px;
+        height: 6px;
+        top: -3px;
         left: 50%;
-        margin-left: -15px;        
+        margin-left: -10px;        
       }
       
       &.left-top{
-        left: -2px;
-        top: -2px;
+        left: -3px;
+        top: -3px;
         cursor: nw-resize;
       }
       &.left-bottom{
-        left: -2px;
-        bottom: 2px;
+        left: -3px;
+        bottom: 3px;
         cursor: sw-resize;                 
         & .vertical{
-          margin-top: -16px;
+          margin-top: -14px;
         }
       }
       &.right-top{
-        right: 2px;
-        top: -2px;
+        right: 3px;
+        top: -3px;
         cursor: ne-resize;     
         & .horizontal{
-          margin-left: -16px;
+          margin-left: -14px;
         }
       }
       &.right-bottom{
-        right: 2px;
-        bottom: 2px;
-        cursor: se-resize;         
+        right: 3px;
+        bottom: 3px;
+        cursor: se-resize;
         & .horizontal{
-          margin-left: -16px;
+          margin-left: -14px;
         }
         & .vertical{
-          margin-top: -16px;
+          margin-top: -14px;
         }
       }
       
       & .vertical{
-        width: 4px;
+        width: 6px;
         height: 20px;
         background-color: @baseColor;
         position: absolute;
       }
       & .horizontal{
         width: 20px;
-        height: 4px;
+        height: 6px;
         background-color: @baseColor;
         position: absolute;        
       }
