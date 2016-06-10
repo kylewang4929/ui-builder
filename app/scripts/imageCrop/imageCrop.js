@@ -1,6 +1,6 @@
 "use strict";
 angular.module('kyle.imageCrop', [])
-    .directive('imageCrop', function (imageCropService,$timeout) {
+    .directive('imageCrop', function (imageCropService, $timeout) {
         return {
             restrict: 'A',
             template: '<div class="menu z-depth-2">' +
@@ -18,69 +18,49 @@ angular.module('kyle.imageCrop', [])
             '<div class="handle left-top" direction="left-top"><div class="vertical"></div><div class="horizontal"></div></div>' +
             '<div class="handle right-top" direction="right-top"><div class="vertical"></div><div class="horizontal"></div></div>' +
             '<div class="handle left-bottom" direction="left-bottom"><div class="vertical"></div><div class="horizontal"></div></div>' +
-            '<div class="handle right-bottom" direction="left-bottom"><div class="vertical"></div><div class="horizontal"></div></div>' +
+            '<div class="handle right-bottom" direction="right-bottom"><div class="vertical"></div><div class="horizontal"></div></div>' +
             '</div>',
             link: function (scope, element, attrs) {
 
                 scope.imageSlide = {
                     value: 100
                 };
-                
-                var coverDom=$(element).find('.cover');
-                var imageCoverDom=$(element).find('.image-cover');
-                var coverBox=$(element).find('.crop-box');
-                
+
+                var coverDom = $(element).find('.cover');
+                var imageCoverDom = $(element).find('.image-cover');
+                var coverBox = $(element).find('.crop-box');
+
                 /**
                  * 裁剪元素
                  */
-                scope.crop=function(){
-                    //主要是更新 activeEle.cropInfo background-position  background-size
-                    var backgroundSize=coverDom.css('background-size');
-                    var backgroundPosition={
-                        x:coverBox.get(0).offsetLeft,
-                        y:coverBox.get(0).offsetTop
-                    };
-                    //裁剪的区域占的比例
+                scope.crop = function () {
                     
-                    var backgroundSizeValue=backgroundSize.split(" ");
-                    
-                    var cropWidth=coverBox.get(0).offsetWidth;
-                    var cropHeight=coverBox.get(0).offsetHeight;
-                    
-                    var cropInfo={
-                        height: (cropHeight/parseFloat(backgroundSizeValue[1])).toFixed(2),
-                        width : (cropWidth/parseFloat(backgroundSizeValue[0])).toFixed(2)
-                    };
-                    
-                    var updateData={
-                        backgroundSize:backgroundSize,
-                        backgroundPosition:backgroundPosition,
-                        cropInfo:cropInfo
+                    var updateData = {
                     }
-                    
+
                     imageCropService.updateCrop(updateData);
-                    
+
                 }
 
                 scope.$watch("imageSlide.value", function () {
                     //更新尺寸
                     imageWidth = parseFloat(activeEle.imageSize.width) * parseFloat(scope.imageSlide.value) / 100;
                     imageHeight = parseFloat(activeEle.imageSize.height) * parseFloat(scope.imageSlide.value / 100);
-                    
+
                     //有一种情况是缩小的时候被截取框挡住了 这个时候应该停止缩小
-                    if(imageWidth < coverBox.get(0).offsetLeft+coverBox.get(0).offsetWidth){
-                        imageWidth=coverBox.get(0).offsetLeft+coverBox.get(0).offsetWidth;
+                    if (imageWidth < coverBox.get(0).offsetLeft + coverBox.get(0).offsetWidth) {
+                        imageWidth = coverBox.get(0).offsetLeft + coverBox.get(0).offsetWidth;
                         //重新计算比例
-                        scope.imageSlide.value=imageWidth*100/parseFloat(activeEle.imageSize.width);                                          
+                        scope.imageSlide.value = imageWidth * 100 / parseFloat(activeEle.imageSize.width);
                     }
-                    if(imageHeight < coverBox.get(0).offsetTop+coverBox.get(0).offsetHeight){
-                        imageHeight=coverBox.get(0).offsetTop+coverBox.get(0).offsetHeight;   
+                    if (imageHeight < coverBox.get(0).offsetTop + coverBox.get(0).offsetHeight) {
+                        imageHeight = coverBox.get(0).offsetTop + coverBox.get(0).offsetHeight;
                         //重新计算比例
-                        scope.imageSlide.value=imageHeight*100/parseFloat(activeEle.imageSize.height);                          
+                        scope.imageSlide.value = imageHeight * 100 / parseFloat(activeEle.imageSize.height);
                     }
-                    
-                    
-                    
+
+
+
                     $(element).css({
                         'width': imageWidth,
                         'height': imageHeight
@@ -91,7 +71,7 @@ angular.module('kyle.imageCrop', [])
                     imageCoverDom.css({
                         'background-size': imageWidth + "px " + imageHeight + "px"
                     });
-                    cropImage(coverBox.get(0).offsetLeft,coverBox.get(0).offsetTop , coverBox.get(0).offsetWidth, coverBox.get(0).offsetHeight);                    
+                    cropImage(coverBox.get(0).offsetLeft, coverBox.get(0).offsetTop, coverBox.get(0).offsetWidth, coverBox.get(0).offsetHeight);
                 });
 
                 /**
@@ -100,15 +80,13 @@ angular.module('kyle.imageCrop', [])
 
                 var activeEle = imageCropService.getActiveEle();
 
-                var imageWidth = parseFloat(activeEle.border.width) / parseFloat(activeEle.cropInfo.width);
-                var imageHeight = parseFloat(activeEle.border['min-height']) / parseFloat(activeEle.cropInfo.height);
+                var imageWidth =parseFloat( activeEle.style.width );
+                var imageHeight =parseFloat( activeEle.style.height );
 
                 /**
                  * 计算图片的缩放比例
-                 * background-size 比 原图的尺寸
                  */
-                var currentImageSize=activeEle.style['background-size'].split(" ");
-                scope.imageSlide.value = parseFloat(currentImageSize[0])/parseFloat(activeEle.imageSize.width)*100;
+                scope.imageSlide.value = parseFloat(activeEle.imageSize.width) / imageWidth * 100;
 
                 //绘制相应的图片 包括
                 $(element).css({
@@ -213,11 +191,16 @@ angular.module('kyle.imageCrop', [])
                  * 宽高不得小于100
                  * 不符合条件返回false
                  */
-                function sizeLimit(width, height) {
-                    if (width < 80 || height < 80) {
+                function sizeLimit(dom,width, height,direction) {
+                    
+                    if (width < 80 && height < 80) {
                         return false;
-                    } else {
-                        return true;
+                    }else if(width < 80){
+                        return false;
+                    }else if(height < 80) {
+                        return false;                        
+                    }else{
+                        return true;                        
                     }
                 };
 
@@ -272,6 +255,41 @@ angular.module('kyle.imageCrop', [])
                     return true;
                 };
 
+                /**
+                 * 更改大小的时候的限制
+                 */
+                function resizeLimit(dom, boxWidth, boxHeight) {
+                    var eleLeft = dom.get(0).offsetLeft;
+                    var eleTop = dom.get(0).offsetTop;
+                    var eleWidth = dom.get(0).offsetWidth;
+                    var eleHeight = dom.get(0).offsetHeight;
+                    var radio = eleWidth / eleHeight;
+
+                    var flag = true;
+
+                    if (eleLeft < 0) {
+                        eleWidth = eleWidth + eleLeft;
+                        eleLeft = 0;
+                        dom.css({ "width": eleWidth, "left": eleLeft });
+                    }
+                    if (eleTop < 0) {
+                        eleHeight = eleHeight + eleTop;
+                        eleTop = 0;
+                        dom.css({ "height": eleHeight, "top": eleTop });
+                    }
+                    if (eleLeft + eleWidth > boxWidth) {
+                        eleWidth = boxWidth + eleLeft;
+                        dom.css({ "width": eleWidth });
+                    }
+                    if (eleTop + eleHeight > boxHeight) {
+                        eleHeight = boxHeight + eleTop;
+                        dom.css({ "height": eleHeight });
+                    }
+
+                    var obj = { left: eleLeft, top: eleTop, width: eleWidth, height: eleHeight };
+                    return obj;
+
+                }
 
                 /**
                  * 重新计算元素大小
@@ -284,21 +302,7 @@ angular.module('kyle.imageCrop', [])
                         var left = 0;
                         var width = 0;
 
-                        if (eleInfo.eleLeft + offsetInfo.x <= 0) {
-                            offsetInfo.x = -eleInfo.eleLeft;
-
-                            left = eleInfo.eleLeft + offsetInfo.x;
-                            width = eleInfo.eleWidth - offsetInfo.x;
-
-                            dom.css({ "width": width });
-                            dom.css({ "left": left });
-
-                            cropImage(left, eleInfo.eleTop, width, eleInfo.eleHeight);
-
-                            return;
-                        }
-
-                        if (!sizeLimit(eleInfo.eleWidth - offsetInfo.x)) {
+                        if (!sizeLimit(dom,eleInfo.eleWidth - offsetInfo.x,undefined,"left")) {
                             return false;
                         }
 
@@ -308,27 +312,16 @@ angular.module('kyle.imageCrop', [])
                         dom.css({ "width": width });
                         dom.css({ "left": left });
 
-                        cropImage(left, eleInfo.eleTop, width, eleInfo.eleHeight);
+                        var eleObj = resizeLimit(dom, imageWidth, imageHeight);
+
+                        cropImage(eleObj.left, eleObj.top, eleObj.width, eleObj.height);
 
                     };
                     function right(dom, eleInfo, offsetInfo) {
 
                         var width = 0;
 
-                        if (eleInfo.eleLeft + eleInfo.eleWidth + offsetInfo.x >= imageWidth) {
-
-                            offsetInfo.x = imageWidth - eleInfo.eleLeft - eleInfo.eleWidth;
-
-                            width = eleInfo.eleWidth + offsetInfo.x;
-
-                            dom.css({ "width": width });
-
-                            cropImage(eleInfo.eleLeft, eleInfo.eleTop, width, eleInfo.eleHeight);
-
-                            return;
-                        }
-
-                        if (!sizeLimit(eleInfo.eleWidth + offsetInfo.x)) {
+                        if (!sizeLimit(dom,eleInfo.eleWidth + offsetInfo.x,undefined,"right")) {
                             return false;
                         }
 
@@ -336,7 +329,9 @@ angular.module('kyle.imageCrop', [])
 
                         dom.css({ "width": width });
 
-                        cropImage(eleInfo.eleLeft, eleInfo.eleTop, width, eleInfo.eleHeight);
+                        var eleObj = resizeLimit(dom, imageWidth, imageHeight);
+
+                        cropImage(eleObj.left, eleObj.top, eleObj.width, eleObj.height);
 
                     };
                     function top(dom, eleInfo, offsetInfo) {
@@ -344,21 +339,7 @@ angular.module('kyle.imageCrop', [])
                         var height = 0;
                         var top = 0;
 
-                        if (eleInfo.eleTop + offsetInfo.y <= 0) {
-                            offsetInfo.y = -eleInfo.eleTop;
-
-                            height = eleInfo.eleHeight - offsetInfo.y;
-                            top = eleInfo.eleTop + offsetInfo.y;
-
-                            dom.css({ "height": height });
-                            dom.css({ "top": top });
-
-                            cropImage(eleInfo.eleLeft, top, eleInfo.eleWidth, height);
-
-                            return;
-                        }
-
-                        if (!sizeLimit(eleInfo.eleHeight - offsetInfo.y)) {
+                        if (!sizeLimit(dom,undefined,eleInfo.eleHeight - offsetInfo.y,"top")) {
                             return false;
                         }
 
@@ -368,40 +349,231 @@ angular.module('kyle.imageCrop', [])
                         dom.css({ "height": height });
                         dom.css({ "top": top });
 
-                        cropImage(eleInfo.eleLeft, top, eleInfo.eleWidth, height);
+                        var eleObj = resizeLimit(dom, imageWidth, imageHeight);
+
+                        cropImage(eleObj.left, eleObj.top, eleObj.width, eleObj.height);
 
                     };
                     function bottom(dom, eleInfo, offsetInfo) {
 
                         var height = 0;
 
-                        if (eleInfo.eleTop + eleInfo.eleHeight + offsetInfo.y >= imageHeight) {
-
-                            offsetInfo.y = imageHeight - eleInfo.eleTop - eleInfo.eleHeight;
-
-                            height = eleInfo.eleHeight + offsetInfo.y;
-
-                            dom.css({ "height": height });
-
-                            cropImage(eleInfo.eleLeft, eleInfo.eleTop, eleInfo.eleWidth, height);
-
-                            return;
-                        }
-
-                        if (!sizeLimit(eleInfo.eleHeight + offsetInfo.y)) {
+                        if (!sizeLimit(dom,undefined,eleInfo.eleHeight + offsetInfo.y,"bottom")) {
                             return false;
                         }
                         height = eleInfo.eleHeight + offsetInfo.y;
 
                         dom.css({ "height": height });
 
-                        cropImage(eleInfo.eleLeft, eleInfo.eleTop, eleInfo.eleWidth, height);
+                        var eleObj = resizeLimit(dom, imageWidth, imageHeight);
+
+                        cropImage(eleObj.left, eleObj.top, eleObj.width, eleObj.height);
 
                     };
-                    function leftTop(dom, eleInfo, offsetInfo) { };
-                    function leftBottom(dom, eleInfo, offsetInfo) { };
-                    function rightTop(dom, eleInfo, offsetInfo) { };
-                    function rightBottom(dom, eleInfo, offsetInfo) { };
+                    function leftTop(dom, eleInfo, offsetInfo) {
+                        /**
+                         * 先计算宽和高各占的比重
+                         */
+                        var weight = {
+                            x: eleInfo.eleWidth / (eleInfo.eleWidth + eleInfo.eleHeight),
+                            y: eleInfo.eleHeight / (eleInfo.eleWidth + eleInfo.eleHeight)
+                        };
+
+                        var offsetHeightForX = -(offsetInfo.x / eleInfo.eleWidth) * eleInfo.eleHeight * weight.x;
+                        var offsetWidthForX = -offsetInfo.x * weight.x;
+
+                        var offsetHeightForY = -offsetInfo.y * weight.y;
+                        var offsetWidthForY = -(offsetInfo.y / eleInfo.eleHeight) * eleInfo.eleWidth * weight.y;
+
+
+                        var resultWidth = offsetWidthForX + offsetWidthForY + eleInfo.eleWidth;
+                        var resultHeight = offsetHeightForX + offsetHeightForY + eleInfo.eleHeight;
+
+                        var resultLeft = -offsetWidthForY - offsetWidthForX + eleInfo.eleLeft;
+                        var resultTop = -offsetHeightForY - offsetHeightForX + eleInfo.eleTop;
+
+                        var radio = resultWidth / resultHeight;
+
+                        if (!sizeLimit(dom,resultWidth, resultHeight,"leftTop")) {
+                            return false;
+                        }
+
+                        if (resultLeft < 0) {
+                            resultWidth = resultWidth + resultLeft;
+                            var offsetY = resultHeight - resultWidth * (1 / radio);
+                            resultHeight = resultWidth * (1 / radio);
+                            resultTop = resultTop + offsetY;
+                            resultLeft = 0;
+                            //按比例算高度
+
+                        } else if (resultTop < 0) {
+                            resultHeight = resultHeight + resultTop;
+                            var offsetX = resultWidth - resultHeight * (radio);
+                            resultWidth = resultHeight * (radio);
+                            resultLeft = resultLeft + offsetX;
+                            resultTop = 0;
+                            //按比例算宽度                                                  
+                        }
+
+                        dom.css({ "height": resultHeight, "width": resultWidth });
+
+                        //调整位移
+                        dom.css({ "top": resultTop, "left": resultLeft });
+
+                        cropImage(resultLeft, resultTop, resultWidth, resultHeight);
+
+                    };
+                    function leftBottom(dom, eleInfo, offsetInfo) {
+                        /**
+                         * 先计算宽和高各占的比重
+                         */
+                        var weight = {
+                            x: eleInfo.eleWidth / (eleInfo.eleWidth + eleInfo.eleHeight),
+                            y: eleInfo.eleHeight / (eleInfo.eleWidth + eleInfo.eleHeight)
+                        };
+
+                        var offsetHeightForX = -(offsetInfo.x / eleInfo.eleWidth) * eleInfo.eleHeight * weight.x;
+                        var offsetWidthForX = -offsetInfo.x * weight.x;
+
+                        var offsetHeightForY = offsetInfo.y * weight.y;
+                        var offsetWidthForY = (offsetInfo.y / eleInfo.eleHeight) * eleInfo.eleWidth * weight.y;
+
+
+                        var resultWidth = offsetWidthForX + offsetWidthForY + eleInfo.eleWidth;
+                        var resultHeight = offsetHeightForX + offsetHeightForY + eleInfo.eleHeight;
+
+                        var resultLeft = -offsetWidthForY - offsetWidthForX + eleInfo.eleLeft;
+                        var resultTop = eleInfo.eleTop;
+
+                        if (!sizeLimit(dom,resultWidth, resultHeight,"leftBottom")) {
+                            return false;
+                        }
+                        
+                        if (resultLeft < 0) {
+                            resultWidth = resultWidth + resultLeft;
+                            var offsetY = resultHeight - resultWidth * (1 / radio);
+                            resultHeight = resultWidth * (1 / radio);
+                            resultTop = - resultTop + offsetY;
+                            resultLeft = 0;
+                            //按比例算高度
+
+                        } else if (resultTop < 0) {
+                            resultHeight = resultHeight - resultTop;
+                            var offsetX = resultWidth - resultHeight * (radio);
+                            resultWidth = resultHeight * (radio);
+                            resultLeft = resultLeft + offsetX;
+                            resultTop = 0;
+                            //按比例算宽度                                                  
+                        }
+                        
+
+                        dom.css({ "height": resultHeight, "width": resultWidth });
+
+                        //调整位移
+                        dom.css({ "left": resultLeft });
+
+                        cropImage(resultLeft, resultTop, resultWidth, resultHeight);
+
+
+                    };
+                    function rightTop(dom, eleInfo, offsetInfo) {
+                        /**
+                         * 先计算宽和高各占的比重
+                         */
+                        var weight = {
+                            x: eleInfo.eleWidth / (eleInfo.eleWidth + eleInfo.eleHeight),
+                            y: eleInfo.eleHeight / (eleInfo.eleWidth + eleInfo.eleHeight)
+                        };
+
+                        var offsetHeightForX = (offsetInfo.x / eleInfo.eleWidth) * eleInfo.eleHeight * weight.x;
+                        var offsetWidthForX = offsetInfo.x * weight.x;
+
+                        var offsetHeightForY = -offsetInfo.y * weight.y;
+                        var offsetWidthForY = -(offsetInfo.y / eleInfo.eleHeight) * eleInfo.eleWidth * weight.y;
+
+
+                        var resultWidth = offsetWidthForX + offsetWidthForY + eleInfo.eleWidth;
+                        var resultHeight = offsetHeightForX + offsetHeightForY + eleInfo.eleHeight;
+
+                        var resultLeft = eleInfo.eleLeft;
+                        var resultTop = -offsetHeightForY - offsetHeightForX + eleInfo.eleTop;
+
+
+
+                        if (!sizeLimit(dom,resultWidth, resultHeight,"rightTop")) {
+                            return false;
+                        }
+                        
+                        if (resultLeft + resultWidth > imageWidth) {
+                            resultWidth = imageWidth - resultLeft;
+                            var offsetY = resultHeight - resultWidth * (1 / radio);
+                            resultHeight = resultWidth * (1 / radio);
+                            resultTop = - resultTop + offsetY;
+                            //按比例算高度
+
+                        } else if (resultTop < 0) {
+                            resultHeight = resultHeight - resultTop;
+                            resultWidth = resultHeight * (radio);
+                            resultTop = 0;
+                            //按比例算宽度                                                  
+                        }
+
+                        dom.css({ "height": resultHeight, "width": resultWidth });
+
+                        //调整位移
+                        dom.css({ "top": resultTop, "left": resultLeft });
+
+                        cropImage(resultLeft, resultTop, resultWidth, resultHeight);
+
+                    };
+                    function rightBottom(dom, eleInfo, offsetInfo) {
+                        /**
+                         * 先计算宽和高各占的比重
+                         */
+                        var weight = {
+                            x: eleInfo.eleWidth / (eleInfo.eleWidth + eleInfo.eleHeight),
+                            y: eleInfo.eleHeight / (eleInfo.eleWidth + eleInfo.eleHeight)
+                        };
+
+                        var offsetHeightForX = (offsetInfo.x / eleInfo.eleWidth) * eleInfo.eleHeight * weight.x;
+                        var offsetWidthForX = offsetInfo.x * weight.x;
+
+                        var offsetHeightForY = offsetInfo.y * weight.y;
+                        var offsetWidthForY = (offsetInfo.y / eleInfo.eleHeight) * eleInfo.eleWidth * weight.y;
+
+
+                        var resultWidth = offsetWidthForX + offsetWidthForY + eleInfo.eleWidth;
+                        var resultHeight = offsetHeightForX + offsetHeightForY + eleInfo.eleHeight;
+
+                        var resultLeft = eleInfo.eleLeft;
+                        var resultTop = eleInfo.eleTop;
+
+
+
+                        if (!sizeLimit(dom,resultWidth, resultHeight,"rightBottom")) {
+                            return false;
+                        }
+                        
+                        
+                        if (resultLeft + resultWidth > imageWidth) {
+                            resultWidth = imageWidth - resultLeft;
+                            resultHeight = resultWidth * (1 / radio);
+                            //按比例算高度
+
+                        } else if (resultTop + resultHeight > imageHeight) {
+                            resultHeight = resultHeight - resultTop;
+                            resultWidth = resultHeight * (radio);
+                            //按比例算宽度                                                  
+                        }
+                        
+                        dom.css({ "height": resultHeight, "width": resultWidth });
+
+                        //调整位移
+                        dom.css({ "top": resultTop, "left": resultLeft });
+
+                        cropImage(resultLeft, resultTop, resultWidth, resultHeight);
+
+                    };
 
                     switch (direction) {
                         case "left": left(dom, eleInfo, offsetInfo); break;
@@ -479,29 +651,34 @@ angular.module('kyle.imageCrop', [])
                 $("body").on("mousemove", mousemove);
                 $("body").on("mouseup", mouseup);
 
-                $("body").on("mousedown", function (e) {
+
+                var bodyMouseDown = function (e) {
                     if ($(e.target).parents('[image-crop]').get(0) != undefined || e.target == element) {
                     } else {
                         //销毁元素
-                        scope.$apply(function(){
-                            scope.crop();                            
-                        });                  
+                        scope.$apply(function () {
+                            scope.crop();
+                        });
                     }
-                });
+                }
+                $("body").on("mousedown", bodyMouseDown);
 
-                scope.$on("$destroy", function () {
+
+                imageCropService.setRemoveCallBack(function () {
                     $("body").off("mousemove", mousemove);
                     $("body").off("mouseup", mouseup);
+                    $("body").off("mousedown", bodyMouseDown);
                 });
 
             }
         };
     })
-    .factory("imageCropService", function (eleMenuServices, $compile, $rootScope,websiteData,activePageService,builderTool) {
+    .factory("imageCropService", function (eleMenuServices, $compile, $rootScope, websiteData, activePageService, builderTool) {
         var activeEle = {};
         var activeEleDom = "";
         var menuDom = "";
 
+        var removeCallBack = {};
 
         var handle = {
             openCrop: function (ele) {
@@ -522,34 +699,83 @@ angular.module('kyle.imageCrop', [])
                 activeEleDom.show();
                 activeEleDom = {};
                 activeEle = {};
+                //注销相关方法
+                removeCallBack();
+                removeCallBack = {};
             },
-            updateCrop:function(updateData){
-                /**
-                 * 更新数据 backgroundSize backgroundPosition cropInfo
-                 */
-                var activePage=activePageService.getActivePage().value;
-                activeEle=websiteData.getEle(activePage,activeEle.ID);
-                
-                activeEle.style['background-size']=updateData.backgroundSize;
-                activeEle.style['background-position-x']=updateData.backgroundPosition.x;
-                activeEle.style['background-position-y']=updateData.backgroundPosition.y;
-                
-                activeEle.phoneStyle.style['background-size']=updateData.backgroundSize;
-                activeEle.phoneStyle.style['background-position-x']=updateData.backgroundPosition.x;
-                activeEle.phoneStyle.style['background-position-y']=updateData.backgroundPosition.y;
-                
-                activeEle.cropInfo=updateData.cropInfo;
-                
+            setRemoveCallBack: function (callback) {
+                removeCallBack = callback;
+            },
+            resetImage: function (dom, originalWidth, originalHeight, originalImageWidth, originalImageHeight) {
+
+                var activePage = activePageService.getActivePage().value;
+                var ele = websiteData.getEle(activePage, $(dom).attr("id"));
+
+                var position = $(dom);
+                var border = position.find("> .ele-box");
+                var style = border.find("> .ele");
+
+                var currentWidth = border.get(0).offsetWidth;
+                var currentHeight = border.get(0).offsetHeight;
+
+                var widthRadio = currentWidth / originalWidth;
+                var heightRadio = currentHeight / originalHeight;
+
+                //根据比例重新调整图片
+
+                function containResetForWidth(styleDom, width) {
+                    styleDom.css({ "width": width, "height": "auto" });
+                    var height = styleDom.get(0).offsetHeight;
+                    styleDom.css({ "top": "50%", "margin-top": -height / 2, "left": "auto", "margin-left": "auto" });
+                }
+                function containResetForHeight(styleDom, height) {
+                    styleDom.css({ "height": height, "width": "auto" });
+                    var width = styleDom.get(0).offsetWidth;
+                    styleDom.css({ "top": "auto", "left": "50%", "margin-left": -width / 2, "margin-top": "auto" });
+                }
+
+                if (ele.backgroundSize === "contain") {
+                    if (currentWidth < currentHeight) {
+                        //宽比较小 宽填充
+                        var width = originalImageWidth * widthRadio;
+                        var height = originalImageHeight * widthRadio;
+                        if (height <= currentHeight) {
+                            containResetForWidth(style,width);
+                        } else {
+                            height=currentHeight;          
+                            containResetForHeight(style,height);
+                        }
+
+                    } else {
+                        var height = originalImageHeight * heightRadio;
+                        var width = originalImageWidth * heightRadio;
+                        if(width <= currentWidth){                                                       
+                            containResetForHeight(style,height);                            
+                        }else{
+                            width=currentWidth;                            
+                            containResetForWidth(style,width);                            
+                        }
+                    }
+                } else {
+
+                }
+
+
+            },
+            updateCrop: function (updateData) {
+                var activePage = activePageService.getActivePage().value;
+                activeEle = websiteData.getEle(activePage, activeEle.ID);
+
                 //更新元素                
-                
-                websiteData.updateEle(activePage,activeEle);
-                
+
+                websiteData.updateEle(activePage, activeEle);
+
                 //更新元素（dom）
-                
+
                 builderTool.updateEle(activeEle);
-                
-                handle.removePlugin();                                
-                
+
+                handle.removePlugin();
+
             },
             getActiveEle: function () {
                 return activeEle;

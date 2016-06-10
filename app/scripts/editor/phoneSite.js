@@ -70,6 +70,9 @@ angular.module('phoneSiteEditor',[])
                 page.append(phoneCreatorServices.createPage(data.sessionList, scope));
             },
             updateEle: function(eleData) {
+                
+                $("#"+eleData.ID).parent().get(0).eleConfig=eleData;
+                
                 switch (eleData.type) {
                     case "text": this.updateEleText(eleData); break;
                     case "image": this.updateEleImage(eleData); break;
@@ -139,15 +142,10 @@ angular.module('phoneSiteEditor',[])
                 eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
                 styleDom = dom.find(".ele");
                 eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
-                eleData.url = styleDom.css("background-image");
-                eleData.url = eleData.url.substring(5, eleData.url.length - 2);
+                eleData.url = styleDom.attr("src");
 
                 //获取缩放比例
                 eleData.phoneStyle.scale = dom.attr('scale');
-
-                //还原数据的大小  因为有一个缩放的操作
-                eleData.phoneStyle.border.width = parseInt(eleData.phoneStyle.border.width) / eleData.phoneStyle.scale;
-                eleData.phoneStyle.border['min-height'] = parseInt(eleData.phoneStyle.border['min-height']) / eleData.phoneStyle.scale;
                 
                 return eleData;
             },
@@ -246,26 +244,8 @@ angular.module('phoneSiteEditor',[])
                     dom.css(index, value);
                 });
                 
-                var originalWidth=parseFloat(eleData.imageSize.width);
-                var originalHeight=parseFloat(eleData.imageSize.height);
-                
-                //获取元素真实大小
-                var eleActualWidth=parseFloat(eleData.phoneStyle.border.width)*eleData.phoneStyle.scale;
-                var eleActualHeight=parseFloat(eleData.phoneStyle.border['min-height'])*eleData.phoneStyle.scale;
-                
-                var height=0;
-                var width=0;
-                
-                if(originalWidth>originalHeight){
-                    //最小的一边是高，高填充 高按比例(width/height=data.imageSize.width/data.imageSize.height)
-                    height=eleActualHeight/parseFloat(eleData.cropInfo.height);
-                    width=originalWidth/originalHeight*height;
-                }else{
-                    //最小的一边是宽，宽填充 宽按比例
-                    width=eleActualWidth/parseFloat(eleData.cropInfo.width);                        
-                    height=originalWidth/originalHeight*width;
-                }
-                dom.css('background-size',width+"px " + height + "px");
+                dom.css('width', parseInt(eleData.phoneStyle.style.width)*eleData.phoneStyle.scale);
+                dom.css('height', parseInt(eleData.phoneStyle.style.height)*eleData.phoneStyle.scale);
                 
             },
             updateEleMenu: function(eleData) {

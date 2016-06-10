@@ -673,6 +673,7 @@ angular.module('dataService', [])
                                         //加入历史记录 判断是否是从历史记录控制器发过来的更新命令
                                         historyLog.pushHistoryLog(jQuery.extend(true, {}, data[i].sessionList[j].eleList[k]), type, 'updateEle');
                                         eleData = this.retainPhoneStyle(data[i].sessionList[j].eleList[k], eleData);
+                                        eleData = this.saveOtherInfo(data[i].sessionList[j].eleList[k], eleData,eleData.type);
                                         eleData.eleTemplateType = data[i].sessionList[j].eleList[k].eleTemplateType;
                                         data[i].sessionList[j].eleList[k] = eleData;
                                     }
@@ -706,6 +707,20 @@ angular.module('dataService', [])
                         }
                     }
                 }
+            },
+            saveOtherInfo:function(oldData, newData,type){
+                function image(oldObj, newObj){
+                    
+                    newObj.imageSize=oldObj.imageSize;
+                    newObj.backgroundSize=oldObj.backgroundSize;
+                    
+                    return newObj;
+                }
+                var outputData={};
+                switch(type){
+                    case "image":outputData=image(oldData, newData);break;
+                }
+                return outputData;
             },
             savePhoneStyle: function (oldData, newData) {
                 var phoneStyle = oldData.phoneStyle;

@@ -27,12 +27,8 @@
             "type": "image",
             "url": "images/website/logo.png",
             "imageSize":{
-                "width":"439px",
-                "height":"125px"
-            },
-            "cropInfo":{
-                "width":"1",
-                "height":"1"
+                "width":"170px",
+                "height":"50px"
             },
             "phoneStyle": {
                 "position": {
@@ -44,16 +40,14 @@
                     "min-height": "50px"
                 },
                 "style": {
-                    "background-size":"170px 50px",
-                    "background-position-x":"50%",                                 
-                    "background-position-y":"50%"                                 
+                    "width": "170px",
+                    "height": "50px"                               
                 },
                 "scale": 0.7
             },
             "style": {
-                "background-size":"170px 50px",
-                "background-position-x":"50%",                                 
-                "background-position-y":"50%"
+                "width": "170px",
+                "height": "50px"   
             },
             "position": {
                 "left": "91px",
@@ -184,13 +178,10 @@
                         "ID": "eleeee23",
                         "type": "image",
                         "url": "images/website/pc.png",
+                        "backgroundSize":"contain",
                         "imageSize":{
-                            "width":"680px",
-                            "height":"552px"
-                        },
-                        "cropInfo":{
-                            "width":"1",
-                            "height":"1"
+                            "width":"399px",
+                            "height":"324px"
                         },
                         "phoneStyle": {
                             "position": {
@@ -202,16 +193,14 @@
                                 "min-height": "324px"
                             },
                             "style": {
-                                "background-size":"399px 324px",
-                                "background-position-x":"50%",                                 
-                                "background-position-y":"50%"                               
+                                "width": "399px",
+                                "height": "324px"                           
                             },
                             "scale": 0.7                            
                         },
                         "style": {
-                            "background-size":"399px 324px",
-                            "background-position-x":"50%",                                 
-                            "background-position-y":"50%"                                                                               
+                            "width":"399px",                                                                    
+                            "height":"324px"                                                                  
                         },
                         "position": {
                             "left": "580px",
@@ -228,12 +217,8 @@
                         "type": "image",
                         "url": "images/website/shuangyinhao.png",
                         "imageSize":{
-                            "width":"150px",
-                            "height":"150px"
-                        },
-                        "cropInfo":{
-                            "width":"1",
-                            "height":"1"
+                            "width":"70px",
+                            "height":"70px"
                         },
                         "phoneStyle": {
                             "position": {
@@ -245,16 +230,14 @@
                                 "min-height": "70px"
                             },
                             "style": {
-                                "background-size":"70px 70px",
-                                "background-position-x":"50%",                                 
-                                "background-position-y":"50%"                                  
+                                "width": "70px",
+                                "height": "70px"                                
                             },
                             "scale": 0.7
                         },
                         "style": {
-                            "background-size":"70px 70px",
-                            "background-position-x":"50%",                                 
-                            "background-position-y":"50%"                                                      
+                            "width": "70px",
+                            "height": "70px"
                         },
                         "position": {
                             "left": "44px",

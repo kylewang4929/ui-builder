@@ -1,6 +1,6 @@
 "use strict";
 angular.module('myBuilderApp')
-    .directive('phoneResize', function ($timeout, websiteData, phoneBuilderTool, rotateEleCalculate,activePageService,$rootScope) {
+    .directive('phoneResize', function ($timeout, websiteData, phoneBuilderTool, rotateEleCalculate, activePageService, $rootScope) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -19,7 +19,7 @@ angular.module('myBuilderApp')
 
                 var eleBox = $(element).find("> .ele-box");
                 var eleDom = eleBox.find("> .ele");
-                var type = attrs.eleType;
+                var eleType = attrs.eleType;
 
                 var groupID = "";
                 var firstParentGroupID = "";
@@ -28,13 +28,6 @@ angular.module('myBuilderApp')
                     var groupEleList = $(element).parents('.position-box[ele-type=group]');
                     groupID = groupEleList.eq(0).attr('id');
                     firstParentGroupID = groupEleList.eq(groupEleList.length - 1).attr('id');
-                }
-
-                if (attrs.eleType !== 'group') {
-                    $(element).on("click", function () {
-                        var height = eleDom.height() / 2;
-                        eleDom.css("margin-top", -height + "px");
-                    });
                 }
 
                 function fixPosition() {
@@ -57,9 +50,21 @@ angular.module('myBuilderApp')
                         var height = eleDom.height() / 2;
                         eleDom.css("margin-top", -height + "px");
                     });
+
                 }
 
-                fixPosition();
+                if (eleType !== "image") {
+
+                    fixPosition();
+
+                    if (attrs.eleType !== 'group') {
+                        $(element).on("click", function () {
+                            var height = eleDom.height() / 2;
+                            eleDom.css("margin-top", -height + "px");
+                        });
+                    }
+
+                }
 
                 $(element).find(" >.resize").on("mousedown", function (e) {
 
@@ -113,7 +118,7 @@ angular.module('myBuilderApp')
                     parameter.rightRotate = parseInt(parameter.rotate / 45 + parameter.target) % 8;
 
                 });
-                
+
                 /**
                  * 尺寸判断
                  * 宽高不得小于50
@@ -150,11 +155,11 @@ angular.module('myBuilderApp')
 
                     cHeight = parseInt(parameter.eleHeight * percent);
                     cWidth = parseInt(parameter.eleWidth * percent);
-                    
-                    if(!sizeLimit(cWidth,cHeight)){
+
+                    if (!sizeLimit(cWidth, cHeight)) {
                         return;
                     }
-                    
+
                     eleBox.css({ "min-height": cHeight + "px", width: cWidth + "px" });
                     //偏移
 
@@ -176,7 +181,7 @@ angular.module('myBuilderApp')
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
                     } else {
-                        eleBox.css("min-height", eleDom.height());                        
+                        eleBox.css("min-height", eleDom.height());
                     }
                 }
                 function leftBottomResize(offsetX, offsetY, rightRotate) {
@@ -200,11 +205,11 @@ angular.module('myBuilderApp')
                     //percent = (-offsetX + parameter.eleWidth) / parameter.eleWidth;
                     cHeight = parseInt(parameter.eleHeight * percent);
                     cWidth = parseInt(parameter.eleWidth * percent);
-                    
-                    if(!sizeLimit(cWidth,cHeight)){
+
+                    if (!sizeLimit(cWidth, cHeight)) {
                         return;
                     }
-                    
+
                     eleBox.css({ "min-height": cHeight + "px", width: cWidth + "px" });
                     //偏移
 
@@ -225,7 +230,7 @@ angular.module('myBuilderApp')
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
                     } else {
-                        eleBox.css("min-height", eleDom.height());                        
+                        eleBox.css("min-height", eleDom.height());
                     }
                 }
                 function rightTopResize(offsetX, offsetY, rightRotate) {
@@ -249,11 +254,11 @@ angular.module('myBuilderApp')
                     //percent = (offsetX + parameter.eleWidth) / parameter.eleWidth;
                     cHeight = parseInt(parameter.eleHeight * percent);
                     cWidth = parseInt(parameter.eleWidth * percent);
-                    
-                    if(!sizeLimit(cWidth,cHeight)){
+
+                    if (!sizeLimit(cWidth, cHeight)) {
                         return;
                     }
-                    
+
                     eleBox.css({ "min-height": cHeight + "px", width: cWidth + "px" });
                     //偏移
                     var excursionX = 0;
@@ -274,7 +279,7 @@ angular.module('myBuilderApp')
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
                     } else {
-                        eleBox.css("min-height", eleDom.height());            
+                        eleBox.css("min-height", eleDom.height());
                     }
                 }
                 function rightBottomResize(offsetX, offsetY, rightRotate) {
@@ -297,11 +302,11 @@ angular.module('myBuilderApp')
                     //percent = (offsetX + parameter.eleWidth) / parameter.eleWidth;
                     cHeight = parseInt(parameter.eleHeight * percent);
                     cWidth = parseInt(parameter.eleWidth * percent);
-                    
-                    if(!sizeLimit(cWidth,cHeight)){
+
+                    if (!sizeLimit(cWidth, cHeight)) {
                         return;
                     }
-                    
+
                     eleBox.css({ "min-height": cHeight + "px", width: cWidth + "px" });
 
                     var excursionX = 0;
@@ -323,7 +328,7 @@ angular.module('myBuilderApp')
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
                     } else {
-                        eleBox.css("min-height", eleDom.height());                        
+                        eleBox.css("min-height", eleDom.height());
                     }
                 }
                 function onlyLeftResize(offsetX, offsetY, rightRotate) {
@@ -348,13 +353,13 @@ angular.module('myBuilderApp')
 
                     cWidth = parameter.eleWidth + offset;
                     cHeight = parseInt(eleBox.css("min-height"));
-                    
-                    if(!sizeLimit(cWidth,cHeight)){
+
+                    if (!sizeLimit(cWidth, cHeight)) {
                         return;
                     }
-                    
+
                     eleBox.css({ "width": cWidth + "px" });
-                    
+
                     var excursionX = 0;
                     var excursionY = 0;
                     switch (rightRotate) {
@@ -373,7 +378,7 @@ angular.module('myBuilderApp')
 
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
-                        
+
                     } else {
                         eleBox.css("min-height", eleDom.height());
                     }
@@ -398,14 +403,14 @@ angular.module('myBuilderApp')
 
                     cWidth = parameter.eleWidth + offset;
                     cHeight = eleBox.css("height");
-                    
-                    if(!sizeLimit(cWidth,cHeight)){
+
+                    if (!sizeLimit(cWidth, cHeight)) {
                         return;
                     }
-                    
+
                     eleBox.css({ "width": cWidth + "px" });
-                    
-                    
+
+
                     var excursionX = 0;
                     var excursionY = 0;
                     switch (rightRotate) {
@@ -449,11 +454,11 @@ angular.module('myBuilderApp')
 
                     cHeight = parameter.eleHeight + offset;
                     cWidth = eleBox.css("width");
-                    
-                    if(!sizeLimit(cWidth,cHeight)){
+
+                    if (!sizeLimit(cWidth, cHeight)) {
                         return;
                     }
-                    
+
                     eleBox.css({ "min-height": cHeight + "px" });
 
                     var excursionX = 0;
@@ -475,8 +480,9 @@ angular.module('myBuilderApp')
 
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
-                        
+
                     } else {
+                        $(element).css("top", parseInt($(element).css("top")) + offset);
                         eleBox.css("min-height", eleDom.height());
                     }
                 }
@@ -500,11 +506,11 @@ angular.module('myBuilderApp')
 
                     cHeight = parameter.eleHeight + offset;
                     cWidth = eleBox.css("width");
-                    
-                    if(!sizeLimit(cWidth,cHeight)){
+
+                    if (!sizeLimit(cWidth, cHeight)) {
                         return;
                     }
-                    
+
                     eleBox.css({ "min-height": cHeight + "px" });
 
                     var excursionX = 0;
@@ -525,24 +531,24 @@ angular.module('myBuilderApp')
 
                     //缩放模块
                     if (eleBox.height() > eleDom.height()) {
-                        
+
                     } else {
                         eleBox.css("min-height", eleDom.height());
                     }
                 }
 
-                var moveFirstFlag=true;                
+                var moveFirstFlag = true;
 
                 function listenMousemove(e) {
                     if (parameter.flag) {
-                        
+
                         if (moveFirstFlag) {
                             //向下通知 正在移动
                             moveFirstFlag = false;
                             $rootScope.$emit("eleDragStart");
                         }
-                        
-                        
+
+
                         //偏移值
                         var offsetX = e.clientX - parameter.cx;
                         var offsetY = e.clientY - parameter.cy;
@@ -582,11 +588,11 @@ angular.module('myBuilderApp')
                     if (parameter.flag) {
                         parameter.flag = false;
 
-                        if(moveFirstFlag === false){
-                            moveFirstFlag=true;                            
+                        if (moveFirstFlag === false) {
+                            moveFirstFlag = true;
                         }
 
-                        var eleData={};
+                        var eleData = {};
                         if (parameter.isGroupEle !== true) {
                             eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
                             websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
@@ -609,7 +615,7 @@ angular.module('myBuilderApp')
             }
         };
     })
-    .directive('phoneDragEle', function (activeSessionService, phoneBuilderTool, websiteData, rotateEleCalculate,activePageService,$rootScope) {
+    .directive('phoneDragEle', function (activeSessionService, phoneBuilderTool, websiteData, rotateEleCalculate, activePageService, $rootScope) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -636,7 +642,7 @@ angular.module('myBuilderApp')
                     var groupEleList = $(element).parents('.position-box[ele-type=group]');
                     groupID = groupEleList.eq(0).attr('id');
                     firstParentGroupID = groupEleList.eq(groupEleList.length - 1).attr('id');
-                } 
+                }
 
                 parameter.type = attrs.phoneDragEle;
 
@@ -681,7 +687,7 @@ angular.module('myBuilderApp')
 
                 });
 
-                var moveFirstFlag=true;                
+                var moveFirstFlag = true;
                 function listenMousemove(e) {
                     //编辑状态不可滑动
                     if (parameter.contenteditable) {
@@ -692,8 +698,8 @@ angular.module('myBuilderApp')
                             //向下通知 正在移动
                             moveFirstFlag = false;
                             $rootScope.$emit("eleDragStart");
-                        }                 
-                        
+                        }
+
                         var offsetX = e.clientX - parameter.cx;
                         var offsetY = e.clientY - parameter.cy;
 
@@ -739,24 +745,24 @@ angular.module('myBuilderApp')
                 function listenMouseup(e) {
                     if (parameter.flag) {
                         parameter.flag = false;
-                        
+
                         //标记移动结束
-                        if(moveFirstFlag === false){
-                            moveFirstFlag=true;      
-                            $rootScope.$emit("eleDragEnd");                                                  
+                        if (moveFirstFlag === false) {
+                            moveFirstFlag = true;
+                            $rootScope.$emit("eleDragEnd");
                         }
-                        
-                        var eleData={};
+
+                        var eleData = {};
                         if (parameter.type === 'ele') {
                             if (parameter.isGroupEle !== true) {
                                 eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
-                                scope.$apply(function(){
-                                    websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);                                    
+                                scope.$apply(function () {
+                                    websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
                                 });
                             } else {
                                 eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
-                                scope.$apply(function(){
-                                    websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);                                   
+                                scope.$apply(function () {
+                                    websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
                                 });
                             }
 
@@ -775,10 +781,10 @@ angular.module('myBuilderApp')
             }
         };
     })
-    .directive('phoneRotate', function(phoneBuilderTool, websiteData, builderTool, rotateEleCalculate,activePageService) {
+    .directive('phoneRotate', function (phoneBuilderTool, websiteData, builderTool, rotateEleCalculate, activePageService) {
         return {
             restrict: 'A',
-            link: function(scope, element, attrs) {
+            link: function (scope, element, attrs) {
                 var parameter = {
                     cx: 0,
                     cy: 0,
@@ -803,7 +809,7 @@ angular.module('myBuilderApp')
                 //调整光标
                 builderTool.reviseRotateCss(rotateEleCalculate.getRotate(element), attrs.id);
 
-                $(element).find(" >.rotate").on("mousedown", function(e) {
+                $(element).find(" >.rotate").on("mousedown", function (e) {
                     parameter.flag = true;
                     //获取圆心 顶点以及大小等信息
                     var centerOffset = $(element).find(".center").offset();
@@ -879,7 +885,7 @@ angular.module('myBuilderApp')
                 $(document).on("mousemove", listenMousemove);
                 $(document).on("mouseup", listenMouseup);
 
-                scope.$on('$destroy', function() {
+                scope.$on('$destroy', function () {
                     $(document).off("mousemove", listenMousemove);
                     $(document).off("mouseup", listenMouseup);
                 });

@@ -86,6 +86,8 @@ angular.module('webSiteEditor',[])
             },
             updateEle: function (eleData) {
                 
+                $("#"+eleData.ID).parent().get(0).eleConfig=eleData;
+                
                 switch (eleData.type) {
                     case "text": this.updateEleText(eleData); break;
                     case "image": this.updateEleImage(eleData); break;
@@ -153,25 +155,15 @@ angular.module('webSiteEditor',[])
                 eleData.border = this.resolveStyle(styleDom[0]);
                 styleDom = dom.find(".ele");
                 eleData.style = this.resolveStyle(styleDom[0]);
-                eleData.url = styleDom.css("background-image");
-                eleData.url = eleData.url.substring(5, eleData.url.length - 2);
+                eleData.url = styleDom.attr("src");
                 eleData.eleTemplateType = dom.attr("template-type");
                 
                 //计算图片的原始大小 以及图片的缩放比例
                 var img=document.createElement('img');
                 img.src=eleData.url;
-                eleData.imageSize={
-                    width:img.width,
-                    height:img.height
-                };
                 
-                //计算图片尺寸
-                var imageBackgroundSize=eleData.style['background-size'].split(" ");
-                //元素尺寸 比 图片尺寸
-                eleData.cropInfo={
-                    width :parseFloat(eleData.border.width)/parseFloat(imageBackgroundSize[0]),
-                    height :parseFloat(eleData.border.height)/parseFloat(imageBackgroundSize[1])
-                };
+                //获取原始大小  图片缩放策略
+                
                 return eleData;
             },
             getEleMenu: function (ID) {
@@ -261,7 +253,6 @@ angular.module('webSiteEditor',[])
                 $.each(eleData.style, function (index, value) {
                     dom.css(index, value);
                 });
-                dom.css("background-image", "url(\'" + eleData.url + "\')");
                 dom.src = eleData.url;
             },
             updateEleMenu: function (eleData) {
