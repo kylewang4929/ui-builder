@@ -152,7 +152,6 @@ angular.module('eleMenu', [])
                 //计算相对位置
                 activeEle.ID = eleID;
                 activeEle.type = type;
-
                 var eleDom = $("#" + eleID);
 
                 var x = elePosition.getLeft(eleDom.get(0));

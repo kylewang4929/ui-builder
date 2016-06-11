@@ -21,7 +21,7 @@
         <div class="session-limit" ng-show="modelState=='web'"></div>
 
         <perfect-scrollbar id="main-editor-scroll" class="scroller-page" wheel-propagation="true" wheel-speed="5" ng-if="modelState=='web'">
-            <div id="edit-space" class="edit-space" creator website-code="websiteData" right-click-menu-init drag-select-ele="web">
+            <div id="edit-space" onmousedown="event.preventDefault()" class="edit-space" creator website-code="websiteData" right-click-menu-init drag-select-ele="web">
             </div>
         </perfect-scrollbar>
 
@@ -32,7 +32,7 @@
                 </div>
                 <div class="phone-edit-space-box" style="background-image: url('images/point.png')">
                     <perfect-scrollbar class="scroller-page" wheel-propagation="false" wheel-speed="5">
-                        <div id="phone-edit-space" class="edit-space phone" creator-phone phone-right-click-menu-init drag-select-ele="phone" website-code="websiteData"></div>
+                        <div id="phone-edit-space" onmousedown="event.preventDefault()" class="edit-space phone" creator-phone phone-right-click-menu-init drag-select-ele="phone" website-code="websiteData"></div>
                     </perfect-scrollbar>
                 </div>
                 <div class="phone-bottom">

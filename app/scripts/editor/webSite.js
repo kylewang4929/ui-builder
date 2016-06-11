@@ -54,7 +54,7 @@ angular.module('webSiteEditor',[])
                 dom = $compile(dom.get(0))(createScope);
                 $("#" + sessionID + ".ele-session-box .ele-session").append(dom);
                 $timeout(function () {
-                    dom.find('>.ele-box >.group-over').trigger("mousedown");
+                    dom.find('>.position-box >.ele-box >.group-over').trigger("mousedown");
                     $(document).trigger("mouseup");
                 });
             },

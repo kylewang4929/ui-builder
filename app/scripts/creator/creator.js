@@ -158,7 +158,7 @@ angular.module('creator', [])
                         }
 
                     }
-                    if (scope.activeEle === null || $(event.target).attr('id') === scope.activeEle.ID) {
+                    if (scope.activeEle == null || $(event.target).attr('id') === scope.activeEle.ID) {
                         return;
                     }
                     scope.$apply(function () {
@@ -746,25 +746,25 @@ angular.module('creator', [])
                 return dom;
             },
             createText: function (data) {
-                var dom = "<div " + data.eleTemplateType + " template-type=\'" + data.eleTemplateType + "\'></div>";
+                var dom = "<div class='position-box-parent' " + data.eleTemplateType + " template-type=\'" + data.eleTemplateType + "\'></div>";
                 dom = $(dom);
                 dom.get(0).eleConfig=data;
                 return dom;
             },
             createGroup: function (data) {
-                var dom = "<div " + data.eleTemplateType + " template-type=\'" + data.eleTemplateType + "\'></div>";
+                var dom = "<div class='position-box-parent' " + data.eleTemplateType + " template-type=\'" + data.eleTemplateType + "\'></div>";
                 dom = $(dom);
                 dom.get(0).eleConfig=data;                
                 return dom;
             },
             createImage: function (data) {
-                var dom = "<div " + data.eleTemplateType + " template-type=\'" + data.eleTemplateType + "\'></div>";
+                var dom = "<div class='position-box-parent' " + data.eleTemplateType + " template-type=\'" + data.eleTemplateType + "\'></div>";
                 dom = $(dom);
                 dom.get(0).eleConfig=data;                
                 return dom;
             },
             createMenu: function (data) {
-                var dom = "<div " + data.eleTemplateType + " template-type=\'" + data.eleTemplateType + "\'></div>";
+                var dom = "<div class='position-box-parent' " + data.eleTemplateType + " template-type=\'" + data.eleTemplateType + "\'></div>";
                 dom = $(dom);
                 dom.get(0).eleConfig=data;                
                 return dom;
@@ -807,7 +807,7 @@ angular.module('creator', [])
             createText: function (data) {
                 var eleTemplateType = data.eleTemplateType + "-phone";
 
-                var dom = "<div " + eleTemplateType + "></div>";
+                var dom = "<div class='position-box-parent' " + eleTemplateType + " template-type='" + data.eleTemplateType +"'></div>";
                 dom = $(dom);
                 dom.get(0).eleConfig=data;
                 return dom;
@@ -830,7 +830,7 @@ angular.module('creator', [])
             createGroup: function (data) {
                 var eleTemplateType = data.eleTemplateType + "-phone";
 
-                var dom = "<div " + eleTemplateType + "></div>";
+                var dom = "<div class='position-box-parent' " + eleTemplateType + " template-type='" + data.eleTemplateType +"'></div>";
 
                 dom = $(dom);
                 dom.get(0).eleConfig=data;
@@ -839,7 +839,7 @@ angular.module('creator', [])
             createImage: function (data) {
                 var eleTemplateType = data.eleTemplateType + "-phone";
 
-                var dom = "<div " + eleTemplateType + "></div>";
+                var dom = "<div class='position-box-parent' " + eleTemplateType + " template-type='" + data.eleTemplateType +"'></div>";
 
                 dom = $(dom);
                 dom.get(0).eleConfig=data;
@@ -848,7 +848,7 @@ angular.module('creator', [])
             createMenu: function (data) {
                 var eleTemplateType = data.eleTemplateType + "-phone";
 
-                var dom = "<div " + eleTemplateType + "></div>";
+                var dom = "<div class='position-box-parent' " + eleTemplateType + " template-type='" + data.eleTemplateType +"'></div>";
                 dom = $(dom);
                 dom.get(0).eleConfig=data;
                 return dom;

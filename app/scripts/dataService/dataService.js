@@ -614,20 +614,20 @@ angular.module('dataService', [])
             },
             getEle: function (pageID, id) {
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].ID === pageID) {
+                    if (data[i].ID == pageID) {
                         for (var j = 0; j < data[i].sessionList.length; j++) {
                             
-                            if(data[i].sessionList[j].ID==id){
+                            if(data[i].sessionList[j].ID == id){
                                 return data[i].sessionList[j];
                             }
                             
                             for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
-                                if (data[i].sessionList[j].eleList[k].ID === id) {
+                                if (data[i].sessionList[j].eleList[k].ID == id) {
                                     return data[i].sessionList[j].eleList[k];
                                 }
-                                if (data[i].sessionList[j].eleList[k].type === 'group') {
+                                if (data[i].sessionList[j].eleList[k].type == 'group') {
                                     var groupEleData = this.getEleForGroup(data[i].sessionList[j].eleList[k], id);
-                                    if (groupEleData !== undefined || groupEleData !== null) {
+                                    if (groupEleData != undefined || groupEleData != null) {
                                         return groupEleData;
                                     }
                                 }
@@ -699,6 +699,14 @@ angular.module('dataService', [])
 
                                         //加入历史记录 判断是否是从历史记录控制器发过来的更新命令
                                         phoneHistoryLog.pushHistoryLog(angular.copy(data[i].sessionList[j].eleList[k]), type, 'updatePhoneEle');
+                                        
+                                        /**
+                                         * 手机元素比较特殊
+                                         * 大部分是保存相关的位置信息 并不会有太多更改
+                                         * 所以没有采用web那边的策略
+                                         * 做一个中间层用来交换新旧数据
+                                         * 但是需要的话也可以加
+                                         */
                                         data[i].sessionList[j].eleList[k]=this.savePhoneStyle(angular.copy(data[i].sessionList[j].eleList[k]), eleData);
                                     }
                                     return;
@@ -710,15 +718,26 @@ angular.module('dataService', [])
             },
             saveOtherInfo:function(oldData, newData,type){
                 function image(oldObj, newObj){
-                    
                     newObj.imageSize=oldObj.imageSize;
                     newObj.backgroundSize=oldObj.backgroundSize;
-                    
                     return newObj;
                 }
-                var outputData={};
+                function text(oldObj, newObj){
+                    return newObj;                    
+                }
+                function menu(oldObj, newObj){
+                    return newObj;                    
+                }
+                function group(oldObj, newObj){
+                    newObj.eleList=oldObj.eleList;
+                    return newObj;
+                }
+                var outputData=newData;
                 switch(type){
                     case "image":outputData=image(oldData, newData);break;
+                    case "text":outputData=text(oldData, newData);break;
+                    case "menu":outputData=menu(oldData, newData);break;
+                    case "group":outputData=group(oldData, newData);break;
                 }
                 return outputData;
             },

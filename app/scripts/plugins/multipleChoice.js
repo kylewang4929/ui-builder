@@ -259,7 +259,7 @@ angular.module('multipleChoice', [])
             },
             getEleInfo: function (sessionID) {
                 var eleObj = [];
-                var eleList = $("#"+sessionID+".ele-session-box .ele-session > .position-box");
+                var eleList = $("#"+sessionID+".ele-session-box .ele-session > .position-box-parent > .position-box");
                 for (var i = 0; i < eleList.length; i++) {
                     var ele = eleList.eq(i);
                     var eleData=this.getEleData(ele);
