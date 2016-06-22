@@ -34,8 +34,11 @@ angular.module('kyle.imageCrop', [])
                  * 裁剪元素
                  */
                 scope.crop = function () {
-                    
+                    //收集图片的大小   裁剪的大小和位置
                     var updateData = {
+                        imageSize:{},
+                        cropSize:{},
+                        cropPosition:{}
                     }
 
                     imageCropService.updateCrop(updateData);
@@ -58,7 +61,6 @@ angular.module('kyle.imageCrop', [])
                         //重新计算比例
                         scope.imageSlide.value = imageHeight * 100 / parseFloat(activeEle.imageSize.height);
                     }
-
 
 
                     $(element).css({

@@ -83,6 +83,7 @@ angular.module('myBuilderApp')
                             //var elePar={left: offsetX,top: offsetY,width:$(element).outerWidth(),height:$(element).outerHeight()};
                             var elePar = rotateEleCalculate.getSizeAndPosition(parameter.left, parameter.top, $(element).outerWidth(), $(element).outerHeight(), offsetAngle);
                             var triggerData = { ID: groupID, elePar: elePar };
+                            console.log(triggerData);
                             $(element).trigger("groupUpdate", triggerData);
                         }
 

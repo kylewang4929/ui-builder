@@ -229,7 +229,7 @@ angular.module('myBuilderApp')
                         width = eleDom.get(0).clientWidth;
                         height = eleDom.get(0).clientHeight;
 
-                        eleList = $(element).find(' >.ele-box >.ele >.position-box');
+                        eleList = $(element).find(' >.ele-box >.ele >.position-box-parent >.position-box');
                         for (var i = 0; i < eleList.length; i++) {
                             eleList.get(i).eleLeft = parseInt(eleList.eq(i).css("left"));
                             eleList.get(i).eleTop = parseInt(eleList.eq(i).css("top"));
