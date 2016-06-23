@@ -34,11 +34,14 @@ angular.module('kyle.imageCrop', [])
                  * 裁剪元素
                  */
                 scope.crop = function () {
-                    //收集图片的大小   裁剪的大小和位置
+                    /**
+                     * 需要记录的信息
+                     * 第一个：图片的尺寸 就是ele的style中的宽和高
+                     * 第二个：clip的信息 这个信息标记了图片的裁剪信息
+                     */
                     var updateData = {
                         imageSize:{},
-                        cropSize:{},
-                        cropPosition:{}
+                        clip:{}
                     }
 
                     imageCropService.updateCrop(updateData);

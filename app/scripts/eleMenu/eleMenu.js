@@ -153,6 +153,7 @@ angular.module('eleMenu', [])
                 activeEle.ID = eleID;
                 activeEle.type = type;
                 var eleDom = $("#" + eleID);
+                console.log(eleDom);
 
                 var x = elePosition.getLeft(eleDom.get(0));
                 var y = elePosition.getTop(eleDom.get(0)) + eleDom.height();

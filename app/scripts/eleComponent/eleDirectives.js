@@ -143,7 +143,7 @@ angular.module('myBuilderApp')
      * pc 上的元素
      */
 
-    .directive('eleTextDefault', function (eleApplyService, elePosition) {
+    .directive('eleTextDefault', function (eleApplyService, elePosition,$timeout) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -187,6 +187,13 @@ angular.module('myBuilderApp')
             link: function (scope, element, attrs) {
                 var data = element.context.eleConfig;
                 eleApplyService.defaultApply($(element).find(">.position-box"), data);
+
+                $timeout(function(){
+                    var ele=$(element).find(">.position-box >.ele-box >.ele");
+                    var eleHeight=ele.height();
+                    ele.css('margin-top',-eleHeight/2);
+                });
+
             }
         };
     })
@@ -200,7 +207,7 @@ angular.module('myBuilderApp')
                     template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box">',
                         '                <div class="ele-label">图片</div>',
                         '                <div class="ele-box">',
-                        '                    <div class="ele ele-image" style=background-image:url("' + data.url + '") ondragstart=event.preventDefault()></div>',
+                        '                    <img class="ele ele-image" src="' + data.url + '" onmousedown=event.preventDefault() ondragstart=event.preventDefault()/>',
                         '                </div>',
                         '            </div>'].join("");
                 } else {
@@ -285,7 +292,7 @@ angular.module('myBuilderApp')
             }
         };
     })
-    .directive('eleMenuDefault', function (eleApplyService) {
+    .directive('eleMenuDefault', function (eleApplyService,$timeout) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -334,6 +341,12 @@ angular.module('myBuilderApp')
                     domItem.css({ "width": (100 / menuLength).toFixed(2) + "%", "float": "left" });
                     domMenu.append(domItem);
                 }
+
+                $timeout(function(){
+                    var ele=$(element).find(">.position-box >.ele-box >.ele");
+                    var eleHeight=ele.height();
+                    ele.css('margin-top',-eleHeight/2);
+                });
 
                 eleApplyService.defaultApply($(element).find(">.position-box"), data);
             }
@@ -476,7 +489,7 @@ angular.module('myBuilderApp')
     /**
      * mobile 上的元素
      */
-    .directive('eleTextDefaultPhone', function (eleApplyService) {
+    .directive('eleTextDefaultPhone', function (eleApplyService,$timeout) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -537,6 +550,12 @@ angular.module('myBuilderApp')
                     domBorder.css(index, value);
                 });
 
+                $timeout(function(){
+                    var ele=$(element).find(">.position-box >.ele-box >.ele");
+                    var eleHeight=ele.height();
+                    ele.css('margin-top',-eleHeight/2);
+                });
+
             }
         };
     })
@@ -550,7 +569,7 @@ angular.module('myBuilderApp')
                     template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box">',
                         '                <div class="ele-label">图片</div>',
                         '                <div class="ele-box">',
-                        '                    <div class="ele ele-image" style=background-image:url(' + data.url + ') ondragstart=event.preventDefault()></div>',
+                        '                    <img class="ele ele-image" src="' + data.url + '" onmousedown=event.preventDefault() ondragstart=event.preventDefault()/>',
                         '                </div>',
                         '            </div>'].join("");
                 } else {
@@ -593,7 +612,7 @@ angular.module('myBuilderApp')
             }
         };
     })
-    .directive('eleGroupDefaultPhone', function (eleApplyService, phoneCreatorServices, $compile) {
+    .directive('eleGroupDefaultPhone', function (eleApplyService, phoneCreatorServices, $compile,$timeout) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -643,11 +662,18 @@ angular.module('myBuilderApp')
                 return function (scope, element, attrs) {
                     var data = element.context.eleConfig;
                     eleApplyService.phoneDefaultApply($(element).find(">.position-box"), data);
+
+                    $timeout(function(){
+                        var ele=$(element).find(">.position-box >.ele-box >.ele");
+                        var eleHeight=ele.height();
+                        ele.css('margin-top',-eleHeight/2);
+                    });
+
                 };
             }
         };
     })
-    .directive('eleMenuDefaultPhone', function (eleApplyService) {
+    .directive('eleMenuDefaultPhone', function (eleApplyService,$timeout) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -689,6 +715,12 @@ angular.module('myBuilderApp')
                 domStyle.find('i').css("color", data.phoneStyle.style.color);
                 domStyle.find('i').css("font-size", data.phoneStyle.style['font-size']);
 
+                $timeout(function(){
+                    var ele=$(element).find(">.position-box >.ele-box >.ele");
+                    var eleHeight=ele.height();
+                    ele.css('margin-top',-eleHeight/2);
+                });
+
 
                 eleApplyService.phoneDefaultApply($(element).find(">.position-box"), data);
             }
@@ -714,6 +746,7 @@ angular.module('myBuilderApp')
                 $.each(data.style, function (index, value) {
                     domStyle.css(index, value);
                 });
+
             },
             phoneDefaultApply: function (dom, data) {
                 dom = $(dom);

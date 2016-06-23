@@ -82,6 +82,7 @@ angular.module('myBuilderApp')
 
                 var dom = "";
                 var eleData = jQuery.extend(true, {}, scope.createThumbnail);
+                //更改元素的ID
                 changeID(eleData);
                 if (scope.type === 'phone') {
                     if (scope.eleType === 'session') {
@@ -117,11 +118,11 @@ angular.module('myBuilderApp')
                 element.append(dom);
 
                 var eleList = element.find('.position-box');
-                for (var i = 0; i < eleList.length; i++) {
-                    var ele = eleList.eq(i).find('.ele');
-                    var height = ele.height();
-                    ele.css('margin-top', -height / 2);
-                }
+                // for (var i = 0; i < eleList.length; i++) {
+                //     var ele = eleList.eq(i).find('.ele');
+                //     var height = ele.height();
+                //     ele.css('margin-top', -height / 2);
+                // }
 
                 if (attrs.eleType === 'session' && attrs.type === 'phone') {
                     element.css('top', '50%');
@@ -135,7 +136,7 @@ angular.module('myBuilderApp')
 
                 }
                 if (attrs.eleType === 'ele') {
-                    var eleDom = $(element).find(' > .position-box');
+                    var eleDom = $(element).find('> .position-box-parent > .position-box');
                     var borderDom = eleDom.find(' > .ele-box');
 
                     //先找出宽和高哪个比较大然后再对比
