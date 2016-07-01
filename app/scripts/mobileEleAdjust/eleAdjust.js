@@ -30,42 +30,6 @@ angular.module('myBuilderApp')
                     firstParentGroupID = groupEleList.eq(groupEleList.length - 1).attr('id');
                 }
 
-                // function fixPosition() {
-                //     var height = eleDom.height() / 2;
-                //     eleDom.css("margin-top", -height + "px");
-
-                //     $(eleDom).resize(function () {
-
-                //         //当元素被隐藏的时候不调整高度
-                //         if (eleDom.is(":hidden")) {
-                //             return;
-                //         }
-
-                //         if (eleDom.height() > parseInt(eleBox.css("min-height"))) {
-                //             eleBox.css("min-height", eleDom.height() + "px");
-                //         }
-                //     });
-
-                //     $(element).resize(function () {
-                //         var height = eleDom.height() / 2;
-                //         eleDom.css("margin-top", -height + "px");
-                //     });
-
-                // }
-
-                // if (eleType !== "image") {
-
-                //     fixPosition();
-
-                //     if (attrs.eleType !== 'group') {
-                //         $(element).on("click", function () {
-                //             var height = eleDom.height() / 2;
-                //             eleDom.css("margin-top", -height + "px");
-                //         });
-                //     }
-
-                // }
-
                 function fixPosition() {
                     /**
                          * 原因是 图片不需要自动调整高度

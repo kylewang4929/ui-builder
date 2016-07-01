@@ -41,12 +41,12 @@
                         "top": "15px"
                     },
                     "border": {
-                        "width": "170px",
-                        "min-height": "50px"
+                        "width": "119px",
+                        "min-height": "35px"
                     },
                     "style": {
-                        "width": "170px",
-                        "height": "50px"
+                        "width": "119px",
+                        "height": "35px"
                     },
                     "scale": 0.7
                 },
@@ -197,12 +197,12 @@
                                     "top": "110px"
                                 },
                                 "border": {
-                                    "width": "399px",
-                                    "min-height": "324px"
+                                    "width": "279.3px",
+                                    "min-height": "226.8px"
                                 },
                                 "style": {
-                                    "width": "399px",
-                                    "height": "324px"
+                                    "width": "279.3px",
+                                    "height": "226.8px"
                                 },
                                 "scale": 0.7
                             },
@@ -235,12 +235,12 @@
                                     "top": "23px"
                                 },
                                 "border": {
-                                    "width": "70px",
-                                    "min-height": "70px"
+                                    "width": "49px",
+                                    "min-height": "49px"
                                 },
                                 "style": {
-                                    "width": "70px",
-                                    "height": "70px"
+                                    "width": "49px",
+                                    "height": "49px"
                                 },
                                 "scale": 0.7
                             },

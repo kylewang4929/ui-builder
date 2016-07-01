@@ -867,6 +867,9 @@ angular.module('kyle.imageCrop', [])
                 activeEle.style['left'] = -clipData[3];
                 activeEle.style['top'] = -clipData[0];
 
+                //转换成phone的元素
+                websiteData.conversionForPhone(activeEle);
+
                 websiteData.updateEle(activePage, activeEle);
 
                 //更新元素（dom）

@@ -675,6 +675,7 @@ angular.module('dataService', [])
                                         eleData = this.retainPhoneStyle(data[i].sessionList[j].eleList[k], eleData);
                                         eleData = this.saveOtherInfo(data[i].sessionList[j].eleList[k], eleData,eleData.type);
                                         eleData.eleTemplateType = data[i].sessionList[j].eleList[k].eleTemplateType;
+
                                         data[i].sessionList[j].eleList[k] = eleData;
                                     }
                                     return;
@@ -703,8 +704,7 @@ angular.module('dataService', [])
                                         /**
                                          * 手机元素比较特殊
                                          * 大部分是保存相关的位置信息 并不会有太多更改
-                                         * 所以没有采用web那边的策略
-                                         * 做一个中间层用来交换新旧数据
+                                         * 所以没有采用web那边的策略做一个中间层用来交换新旧数据
                                          * 但是需要的话也可以加
                                          */
                                         data[i].sessionList[j].eleList[k]=this.savePhoneStyle(angular.copy(data[i].sessionList[j].eleList[k]), eleData);
@@ -716,7 +716,77 @@ angular.module('dataService', [])
                     }
                 }
             },
+            parsingClip: function (String, width, height) {
+                if (String == 'auto') {
+                    String = [0, width, height, 0];
+                    return String;
+                }
+                String = String.substring(5, String.length - 1);
+
+                String = String.split(' ');
+                for (var i = 0; i < String.length; i++) {
+                    String[i] = parseInt(String[i]);
+                }
+
+                return String;
+            },
+            conversionForPhone:function(data){
+
+                function image(){
+                    /**
+                     * 需要转换的元素有
+                     * border的宽高
+                     * style的宽高 left top clip
+                     */
+                    data.phoneStyle.border.width=data.border.width*data.phoneStyle.scale;
+                    data.phoneStyle.border['min-height']=data.border['min-height']*data.phoneStyle.scale;
+
+                    if(data.style.width=='auto' || data.style.width==undefined){
+                        data.phoneStyle.style.width='auto';
+                    }else{
+                        data.phoneStyle.style.width=data.style.width*data.phoneStyle.scale;                        
+                    }
+                    if(data.style.height=='auto' || data.style.width==undefined){
+                        data.phoneStyle.style.height='auto';
+                    }else{
+                        data.phoneStyle.style.height=data.style.height*data.phoneStyle.scale;                        
+                    }
+
+                    if(data.style.left=='auto' || data.style.width==undefined){
+                        data.phoneStyle.style.left='auto';
+                    }else{
+                        data.phoneStyle.style.left=data.style.left*data.phoneStyle.scale;                        
+                    }
+                    if(data.style.top=='auto' || data.style.width==undefined){
+                        data.phoneStyle.style.top='auto';
+                    }else{
+                        data.phoneStyle.style.top=data.style.top*data.phoneStyle.scale;                        
+                    }
+                    
+                    if(data.style.clip==undefined){
+                        data.style.clip='auto'
+                    }
+                    var clip=handle.parsingClip(data.style.clip,data.style.width,data.style.height);
+
+                    angular.forEach(clip,function(obj,index){
+                        clip[index]=obj*data.phoneStyle.scale;
+                    });
+                    
+                    data.phoneStyle.style.clip='rect(' + clip[0] + 'px ' + clip[1] + 'px ' + clip[2] + 'px ' + clip[3] + 'px ' + ')';
+                    
+                }
+
+                switch(data.type){
+                    case "image":image();break;
+                }
+
+                return data;
+            },
             saveOtherInfo:function(oldData, newData,type){
+                /*
+                    做一个中转
+                    保存每个元素特有的内容
+                */
                 function image(oldObj, newObj){
                     newObj.imageSize=oldObj.imageSize;
                     newObj.backgroundSize=oldObj.backgroundSize;
@@ -742,14 +812,31 @@ angular.module('dataService', [])
                 return outputData;
             },
             savePhoneStyle: function (oldData, newData) {
+                /*
+                控制只交换规定的样式
+                */
+
+                function image(){
+                    phoneStyle.style.left = newData.phoneStyle.style.left;
+                    phoneStyle.style.top = newData.phoneStyle.style.top;
+                    phoneStyle.style.width = newData.phoneStyle.style.width;
+                    phoneStyle.style.height = newData.phoneStyle.style.height;
+                    phoneStyle.style.clip = newData.phoneStyle.style.clip;
+                }
+
                 var phoneStyle = oldData.phoneStyle;
                 phoneStyle.position.left = newData.phoneStyle.position.left;
                 phoneStyle.position.top = newData.phoneStyle.position.top;
                 phoneStyle.border.width = newData.phoneStyle.border.width;
                 phoneStyle.border['min-height'] = newData.phoneStyle.border['min-height'];
+                
                 phoneStyle.scale = newData.phoneStyle.scale;
                 if (newData.phoneStyle.position.transform !== undefined) {
                     phoneStyle.position.transform = newData.phoneStyle.position.transform;
+                }
+
+                switch(newData.type){
+                    case "image":image();break;
                 }
 
                 if (newData.type === 'group') {
