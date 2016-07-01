@@ -235,17 +235,10 @@ angular.module('phoneSiteEditor',[])
                     dom.css(index, value);
                 });
                 
-                //图片缩放
-                dom.css('width', parseInt(eleData.phoneStyle.border.width)*eleData.phoneStyle.scale);
-                dom.css('min-height', parseInt(eleData.phoneStyle.border['min-height'])*eleData.phoneStyle.scale);
-
                 dom = dom.find(".ele");
                 $.each(eleData.phoneStyle.style, function(index, value) {
                     dom.css(index, value);
                 });
-                
-                dom.css('width', parseInt(eleData.phoneStyle.style.width)*eleData.phoneStyle.scale);
-                dom.css('height', parseInt(eleData.phoneStyle.style.height)*eleData.phoneStyle.scale);
                 
             },
             updateEleMenu: function(eleData) {

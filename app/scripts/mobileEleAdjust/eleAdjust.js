@@ -1,6 +1,6 @@
 "use strict";
 angular.module('myBuilderApp')
-    .directive('phoneResize', function ($timeout, websiteData, phoneBuilderTool, rotateEleCalculate, activePageService, $rootScope) {
+    .directive('phoneResize', function ($timeout, websiteData, phoneBuilderTool, rotateEleCalculate, activePageService, $rootScope,imageCropService) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -30,7 +30,47 @@ angular.module('myBuilderApp')
                     firstParentGroupID = groupEleList.eq(groupEleList.length - 1).attr('id');
                 }
 
+                // function fixPosition() {
+                //     var height = eleDom.height() / 2;
+                //     eleDom.css("margin-top", -height + "px");
+
+                //     $(eleDom).resize(function () {
+
+                //         //当元素被隐藏的时候不调整高度
+                //         if (eleDom.is(":hidden")) {
+                //             return;
+                //         }
+
+                //         if (eleDom.height() > parseInt(eleBox.css("min-height"))) {
+                //             eleBox.css("min-height", eleDom.height() + "px");
+                //         }
+                //     });
+
+                //     $(element).resize(function () {
+                //         var height = eleDom.height() / 2;
+                //         eleDom.css("margin-top", -height + "px");
+                //     });
+
+                // }
+
+                // if (eleType !== "image") {
+
+                //     fixPosition();
+
+                //     if (attrs.eleType !== 'group') {
+                //         $(element).on("click", function () {
+                //             var height = eleDom.height() / 2;
+                //             eleDom.css("margin-top", -height + "px");
+                //         });
+                //     }
+
+                // }
+
                 function fixPosition() {
+                    /**
+                         * 原因是 图片不需要自动调整高度
+                         */
+
                     var height = eleDom.height() / 2;
                     eleDom.css("margin-top", -height + "px");
 
@@ -47,6 +87,12 @@ angular.module('myBuilderApp')
                     });
 
                     $(element).resize(function () {
+
+                        //当元素被隐藏的时候不调整高度
+                        if (eleDom.is(":hidden")) {
+                            return;
+                        }
+
                         var height = eleDom.height() / 2;
                         eleDom.css("margin-top", -height + "px");
                     });
@@ -83,6 +129,12 @@ angular.module('myBuilderApp')
 
                     parameter.eleWidth = eleBox.get(0).clientWidth;
                     parameter.eleHeight = parseInt(eleBox.css("min-height"));
+
+                    //获取clip
+                    parameter.clip=eleDom.css('clip');
+                    
+                    parameter.imageWidth= eleDom.get(0).offsetWidth;
+                    parameter.imageHeight= eleDom.get(0).offsetHeight;
 
                     if (e.target.className.indexOf("left-top") !== -1) {
                         parameter.target = 0;
@@ -179,7 +231,7 @@ angular.module('myBuilderApp')
 
                     element.css({ "top": excursionY, "left": excursionX });
                     //缩放模块
-                    if (eleBox.height() > eleDom.height()) {
+                    if (eleBox.height() > eleDom.height() || eleType === "image") {
                     } else {
                         eleBox.css("min-height", eleDom.height());
                     }
@@ -228,7 +280,7 @@ angular.module('myBuilderApp')
 
                     element.css({ "top": excursionY, "left": excursionX });
                     //缩放模块
-                    if (eleBox.height() > eleDom.height()) {
+                    if (eleBox.height() > eleDom.height() || eleType === "image") {
                     } else {
                         eleBox.css("min-height", eleDom.height());
                     }
@@ -277,7 +329,7 @@ angular.module('myBuilderApp')
                     element.css({ "top": excursionY, "left": excursionX });
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height()) {
+                    if (eleBox.height() > eleDom.height() || eleType === "image") {
                     } else {
                         eleBox.css("min-height", eleDom.height());
                     }
@@ -326,7 +378,7 @@ angular.module('myBuilderApp')
 
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height()) {
+                    if (eleBox.height() > eleDom.height() || eleType === "image") {
                     } else {
                         eleBox.css("min-height", eleDom.height());
                     }
@@ -377,7 +429,7 @@ angular.module('myBuilderApp')
                     element.css({ "top": excursionY, "left": excursionX });
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height()) {
+                    if (eleBox.height() > eleDom.height() || eleType === "image") {
 
                     } else {
                         eleBox.css("min-height", eleDom.height());
@@ -428,7 +480,7 @@ angular.module('myBuilderApp')
                     element.css({ "top": excursionY, "left": excursionX });
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height()) {
+                    if (eleBox.height() > eleDom.height() || eleType === "image") {
 
                     } else {
                         eleBox.css("min-height", eleDom.height());
@@ -479,7 +531,7 @@ angular.module('myBuilderApp')
 
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height()) {
+                    if (eleBox.height() > eleDom.height() || eleType === "image") {
 
                     } else {
                         $(element).css("top", parseInt($(element).css("top")) + offset);
@@ -530,7 +582,7 @@ angular.module('myBuilderApp')
                     element.css({ "top": excursionY, "left": excursionX });
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height()) {
+                    if (eleBox.height() > eleDom.height() || eleType === "image") {
 
                     } else {
                         eleBox.css("min-height", eleDom.height());
@@ -580,6 +632,15 @@ angular.module('myBuilderApp')
                                 offsetY = (elePar.height - outerHeight) / 2;
                                 $(element).css({ top: offsetY + "px" });
                             }
+                        }
+
+
+                        /**
+                         * 图片是一个比较特殊的情况
+                         * 需要调整裁剪的位置等
+                         */
+                        if(eleType == "image"){
+                            imageCropService.resetImage($(element),parameter.eleWidth,parameter.eleHeight,parameter.imageWidth,parameter.imageHeight,parameter.clip);
                         }
 
                     }

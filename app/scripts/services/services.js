@@ -159,6 +159,11 @@ angular.module('myBuilderApp')
      * 平滑滚动
      */
     .factory('levelScroll', function ($timeout,$rootScope) {
+
+        var data={
+            delay:8
+        };
+
         var handle = {
             scrollTop: function (dom,targetPosition) {
                 
@@ -168,10 +173,10 @@ angular.module('myBuilderApp')
                 var start=dom.scrollTop();
                 
                 function levelScrollDown(scrollDom,scrollStart,scrollEnd){
-                    scrollDom.scrollTop(scrollStart+6);        
-                    if(scrollStart+6 < scrollEnd){
+                    scrollDom.scrollTop(scrollStart+data.delay);        
+                    if(scrollStart+data.delay < scrollEnd){
                         $timeout(function(){
-                            levelScrollDown(scrollDom,scrollStart+6,scrollEnd);
+                            levelScrollDown(scrollDom,scrollStart+data.delay,scrollEnd);
                         },1);          
                     }else{
                         //结束
@@ -179,10 +184,10 @@ angular.module('myBuilderApp')
                     }         
                 }
                 function levelScrollUp(scrollDom,scrollStart,scrollEnd){
-                    scrollDom.scrollTop(scrollStart-6);        
-                    if(scrollStart-6 > scrollEnd){
+                    scrollDom.scrollTop(scrollStart-data.delay);        
+                    if(scrollStart-data.delay > scrollEnd){
                         $timeout(function(){
-                            levelScrollUp(scrollDom,scrollStart-6,scrollEnd);
+                            levelScrollUp(scrollDom,scrollStart-data.delay,scrollEnd);
                         },1);                        
                     }else{
                         //结束

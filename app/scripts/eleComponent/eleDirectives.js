@@ -597,18 +597,7 @@ angular.module('myBuilderApp')
             replace: false,
             link: function (scope, element, attrs) {
                 var data = element.context.eleConfig;
-
                 eleApplyService.phoneDefaultApply($(element).find(">.position-box"), data);
-
-                var dom = $(element).find(">.position-box");
-                var domBorder = dom.find(' >.ele-box');
-                var ele = domBorder.find(' >.ele');
-                domBorder.css('width', parseInt(data.phoneStyle.border.width) * data.phoneStyle.scale);
-                domBorder.css('min-height', parseInt(data.phoneStyle.border['min-height']) * data.phoneStyle.scale);
-
-                ele.css('width', parseInt(data.phoneStyle.style.width) * data.phoneStyle.scale);
-                ele.css('height', parseInt(data.phoneStyle.style.height) * data.phoneStyle.scale);
-
             }
         };
     })

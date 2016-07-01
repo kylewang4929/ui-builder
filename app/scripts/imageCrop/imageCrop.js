@@ -40,8 +40,10 @@ angular.module('kyle.imageCrop', [])
                      * 第二个：clip的信息 这个信息标记了图片的裁剪信息
                      */
                     var updateData = {
-                        imageSize:{},
-                        clip:{}
+                        borderSize: { width: coverBox.get(0).offsetWidth, height: coverBox.get(0).offsetHeight },
+                        eleSize: { width: imageCoverDom.get(0).offsetWidth, height: imageCoverDom.get(0).offsetHeight },
+                        clip: imageCoverDom.css('clip'),
+                        position: { left: parseInt($(element).get(0).offsetLeft), top: parseInt($(element).get(0).offsetTop) }
                     }
 
                     imageCropService.updateCrop(updateData);
@@ -85,20 +87,40 @@ angular.module('kyle.imageCrop', [])
 
                 var activeEle = imageCropService.getActiveEle();
 
-                var imageWidth =parseFloat( activeEle.style.width );
-                var imageHeight =parseFloat( activeEle.style.height );
+                var imageWidth = parseFloat(activeEle.style.width);
+                var imageHeight = parseFloat(activeEle.style.height);
 
+                var borderWidth = parseFloat(activeEle.border.width);
+                var borderHeight = parseFloat(activeEle.border['min-height']);
+                if (borderWidth > imageWidth) {
+                    borderWidth = imageWidth;
+                } else {
+
+                }
+                if (borderHeight > imageHeight) {
+                    borderHeight = imageHeight;
+                } else {
+
+                }
                 /**
                  * 计算图片的缩放比例
                  */
-                scope.imageSlide.value = parseFloat(activeEle.imageSize.width) / imageWidth * 100;
-
+                scope.imageSlide.value = imageWidth / parseFloat(activeEle.imageSize.width) * 100;
                 //绘制相应的图片 包括
+
+                var eleOffsetLeft = 0;
+                var eleOffsetTop = 0;
+                if (activeEle.style.left != 'auto' && activeEle.style.left != undefined) {
+                    eleOffsetLeft = parseInt(activeEle.style.left);
+                }
+                if (activeEle.style.top != 'auto' && activeEle.style.top != undefined) {
+                    eleOffsetTop = parseInt(activeEle.style.top);
+                }
                 $(element).css({
                     'width': imageWidth,
                     'height': imageHeight,
-                    'left': activeEle.position.left,
-                    'top': activeEle.position.top
+                    'left': parseInt(activeEle.position.left) + eleOffsetLeft,
+                    'top': parseInt(activeEle.position.top) + eleOffsetTop
                 });
 
                 coverDom.css({
@@ -121,10 +143,10 @@ angular.module('kyle.imageCrop', [])
                 //设置crop－box
 
                 coverBox.css({
-                    'width': parseFloat(activeEle.border.width),
-                    'height': parseFloat(activeEle.border['min-height']),
-                    'left': "0px",
-                    'top': "0px"
+                    'width': borderWidth,
+                    'height': borderHeight,
+                    'left': -eleOffsetLeft,
+                    'top': -eleOffsetTop
                 });
 
                 var par = {
@@ -196,16 +218,16 @@ angular.module('kyle.imageCrop', [])
                  * 宽高不得小于100
                  * 不符合条件返回false
                  */
-                function sizeLimit(dom,width, height,direction) {
-                    
+                function sizeLimit(dom, width, height, direction) {
+
                     if (width < 80 && height < 80) {
                         return false;
-                    }else if(width < 80){
+                    } else if (width < 80) {
                         return false;
-                    }else if(height < 80) {
-                        return false;                        
-                    }else{
-                        return true;                        
+                    } else if (height < 80) {
+                        return false;
+                    } else {
+                        return true;
                     }
                 };
 
@@ -307,7 +329,7 @@ angular.module('kyle.imageCrop', [])
                         var left = 0;
                         var width = 0;
 
-                        if (!sizeLimit(dom,eleInfo.eleWidth - offsetInfo.x,undefined,"left")) {
+                        if (!sizeLimit(dom, eleInfo.eleWidth - offsetInfo.x, undefined, "left")) {
                             return false;
                         }
 
@@ -326,7 +348,7 @@ angular.module('kyle.imageCrop', [])
 
                         var width = 0;
 
-                        if (!sizeLimit(dom,eleInfo.eleWidth + offsetInfo.x,undefined,"right")) {
+                        if (!sizeLimit(dom, eleInfo.eleWidth + offsetInfo.x, undefined, "right")) {
                             return false;
                         }
 
@@ -344,7 +366,7 @@ angular.module('kyle.imageCrop', [])
                         var height = 0;
                         var top = 0;
 
-                        if (!sizeLimit(dom,undefined,eleInfo.eleHeight - offsetInfo.y,"top")) {
+                        if (!sizeLimit(dom, undefined, eleInfo.eleHeight - offsetInfo.y, "top")) {
                             return false;
                         }
 
@@ -363,7 +385,7 @@ angular.module('kyle.imageCrop', [])
 
                         var height = 0;
 
-                        if (!sizeLimit(dom,undefined,eleInfo.eleHeight + offsetInfo.y,"bottom")) {
+                        if (!sizeLimit(dom, undefined, eleInfo.eleHeight + offsetInfo.y, "bottom")) {
                             return false;
                         }
                         height = eleInfo.eleHeight + offsetInfo.y;
@@ -399,7 +421,7 @@ angular.module('kyle.imageCrop', [])
 
                         var radio = resultWidth / resultHeight;
 
-                        if (!sizeLimit(dom,resultWidth, resultHeight,"leftTop")) {
+                        if (!sizeLimit(dom, resultWidth, resultHeight, "leftTop")) {
                             return false;
                         }
 
@@ -450,10 +472,10 @@ angular.module('kyle.imageCrop', [])
                         var resultLeft = -offsetWidthForY - offsetWidthForX + eleInfo.eleLeft;
                         var resultTop = eleInfo.eleTop;
 
-                        if (!sizeLimit(dom,resultWidth, resultHeight,"leftBottom")) {
+                        if (!sizeLimit(dom, resultWidth, resultHeight, "leftBottom")) {
                             return false;
                         }
-                        
+
                         if (resultLeft < 0) {
                             resultWidth = resultWidth + resultLeft;
                             var offsetY = resultHeight - resultWidth * (1 / radio);
@@ -470,7 +492,7 @@ angular.module('kyle.imageCrop', [])
                             resultTop = 0;
                             //按比例算宽度                                                  
                         }
-                        
+
 
                         dom.css({ "height": resultHeight, "width": resultWidth });
 
@@ -505,10 +527,10 @@ angular.module('kyle.imageCrop', [])
 
 
 
-                        if (!sizeLimit(dom,resultWidth, resultHeight,"rightTop")) {
+                        if (!sizeLimit(dom, resultWidth, resultHeight, "rightTop")) {
                             return false;
                         }
-                        
+
                         if (resultLeft + resultWidth > imageWidth) {
                             resultWidth = imageWidth - resultLeft;
                             var offsetY = resultHeight - resultWidth * (1 / radio);
@@ -555,11 +577,11 @@ angular.module('kyle.imageCrop', [])
 
 
 
-                        if (!sizeLimit(dom,resultWidth, resultHeight,"rightBottom")) {
+                        if (!sizeLimit(dom, resultWidth, resultHeight, "rightBottom")) {
                             return false;
                         }
-                        
-                        
+
+
                         if (resultLeft + resultWidth > imageWidth) {
                             resultWidth = imageWidth - resultLeft;
                             resultHeight = resultWidth * (1 / radio);
@@ -570,7 +592,7 @@ angular.module('kyle.imageCrop', [])
                             resultWidth = resultHeight * (radio);
                             //按比例算宽度                                                  
                         }
-                        
+
                         dom.css({ "height": resultHeight, "width": resultWidth });
 
                         //调整位移
@@ -711,14 +733,19 @@ angular.module('kyle.imageCrop', [])
             setRemoveCallBack: function (callback) {
                 removeCallBack = callback;
             },
-            resetImage: function (dom, originalWidth, originalHeight, originalImageWidth, originalImageHeight) {
-
+            resetImage: function (dom, originalWidth, originalHeight, originalImageWidth, originalImageHeight, originalClip) {
                 var activePage = activePageService.getActivePage().value;
                 var ele = websiteData.getEle(activePage, $(dom).attr("id"));
 
                 var position = $(dom);
                 var border = position.find("> .ele-box");
                 var style = border.find("> .ele");
+
+                //解析clip
+                var clipData = handle.parsingClip(originalClip, originalImageWidth, originalImageHeight);
+
+                //计算宽高比
+                var aspectRatio = originalImageWidth / originalImageHeight;
 
                 var currentWidth = border.get(0).offsetWidth;
                 var currentHeight = border.get(0).offsetHeight;
@@ -728,37 +755,77 @@ angular.module('kyle.imageCrop', [])
 
                 //根据比例重新调整图片
 
-                function containResetForWidth(styleDom, width) {
-                    styleDom.css({ "width": width, "height": "auto" });
-                    var height = styleDom.get(0).offsetHeight;
-                    styleDom.css({ "top": "50%", "margin-top": -height / 2, "left": "auto", "margin-left": "auto" });
+                function containResetForWidth(styleDom, borderDom, width, originalImageWidth, clipData) {
+
+                    var clip = angular.copy(clipData);
+
+                    var visualWidth = clip[1] - clip[3];
+
+                    var imageWidth = (originalImageWidth * width) / visualWidth;
+
+                    styleDom.css({ "width": imageWidth, "height": "auto" });
+
+                    var imageWidthRadio = originalImageWidth / imageWidth;
+
+                    clip[1] = clip[1] / imageWidthRadio;
+                    clip[3] = clip[3] / imageWidthRadio;
+
+                    clip[0] = clip[0] / imageWidthRadio;
+                    clip[2] = clip[2] / imageWidthRadio;
+
+                    styleDom.css({ "clip": 'rect(' + clip[0] + 'px ' + clip[1] + 'px ' + clip[2] + 'px ' + clip[3] + 'px ' + ')' });
+
+                    var borderHeight = parseInt(borderDom.get(0).offsetHeight);
+                    var eleHeight = parseInt(styleDom.get(0).offsetHeight);
+                    styleDom.css({ "top": (borderHeight - eleHeight - clip[0]) / 2, "left": -clip[3] });
                 }
-                function containResetForHeight(styleDom, height) {
-                    styleDom.css({ "height": height, "width": "auto" });
-                    var width = styleDom.get(0).offsetWidth;
-                    styleDom.css({ "top": "auto", "left": "50%", "margin-left": -width / 2, "margin-top": "auto" });
+                function containResetForHeight(styleDom, borderDom, height, originalImageHeight, clipData) {
+
+                    var clip = angular.copy(clipData);
+
+                    var visualHeight = clip[2] - clip[0];
+
+                    var imageHeight = (originalImageHeight * height) / visualHeight;
+
+                    styleDom.css({ "height": imageHeight, "width": "auto" });
+
+                    var imageHeightRadio = originalImageHeight / imageHeight;
+
+                    clip[1] = clip[1] / imageHeightRadio;
+                    clip[3] = clip[3] / imageHeightRadio;
+
+                    clip[0] = clip[0] / imageHeightRadio;
+                    clip[2] = clip[2] / imageHeightRadio;
+
+                    styleDom.css({ "clip": 'rect(' + clip[0] + 'px ' + clip[1] + 'px ' + clip[2] + 'px ' + clip[3] + 'px ' + ')' });
+
+                    var borderWidth = parseInt(borderDom.get(0).offsetWidth);
+                    var eleWidth = parseInt(styleDom.get(0).offsetWidth);
+
+                    styleDom.css({ "top": -clip[0], "left": (borderWidth - eleWidth - clip[3]) / 2 });
                 }
 
                 if (ele.backgroundSize === "contain") {
                     if (currentWidth < currentHeight) {
                         //宽比较小 宽填充
-                        var width = originalImageWidth * widthRadio;
-                        var height = originalImageHeight * widthRadio;
+                        var width = currentWidth;
+                        var height = width / aspectRatio;
                         if (height <= currentHeight) {
-                            containResetForWidth(style,width);
+                            containResetForWidth(style, border, width, originalImageWidth, clipData);
                         } else {
-                            height=currentHeight;          
-                            containResetForHeight(style,height);
+                            height = currentHeight;
+                            containResetForHeight(style, border, height, originalImageHeight, clipData);
                         }
 
                     } else {
-                        var height = originalImageHeight * heightRadio;
-                        var width = originalImageWidth * heightRadio;
-                        if(width <= currentWidth){                                                       
-                            containResetForHeight(style,height);                            
-                        }else{
-                            width=currentWidth;                            
-                            containResetForWidth(style,width);                            
+                        //高填充 让高等于边框的高度
+                        var height = currentHeight;
+                        var width = height * aspectRatio;
+                        if (width <= currentWidth) {
+                            containResetForHeight(style, border, height, originalImageHeight, clipData);
+                        } else {
+                            width = currentWidth;
+                            containResetForWidth(style, border, width, originalImageWidth, clipData);
                         }
                     }
                 } else {
@@ -767,11 +834,38 @@ angular.module('kyle.imageCrop', [])
 
 
             },
+            parsingClip: function (String, width, height) {
+                if (String == 'auto') {
+                    String = [0, width, height, 0];
+                    return String;
+                }
+                String = String.substring(5, String.length - 1);
+
+                String = String.split(' ');
+                for (var i = 0; i < String.length; i++) {
+                    String[i] = parseInt(String[i]);
+                }
+
+                return String;
+            },
             updateCrop: function (updateData) {
                 var activePage = activePageService.getActivePage().value;
                 activeEle = websiteData.getEle(activePage, activeEle.ID);
 
-                //更新元素                
+                var clipData = handle.parsingClip(updateData.clip, updateData.eleSize.width, updateData.eleSize.height);
+                //更新元素
+                activeEle.border.width = updateData.borderSize.width;
+                 activeEle.style.width = updateData.eleSize.width;
+
+                activeEle.border['min-height'] = updateData.borderSize.height;
+                activeEle.style['height'] = updateData.eleSize.height;
+
+                activeEle.style.clip = 'rect(' + clipData[0] + 'px ' + clipData[1] + 'px ' + clipData[2] + 'px ' + clipData[3] + 'px ' + ')';
+
+                activeEle.position.left = updateData.position.left + clipData[3];
+                activeEle.position.top = updateData.position.top + clipData[0];
+                activeEle.style['left'] = -clipData[3];
+                activeEle.style['top'] = -clipData[0];
 
                 websiteData.updateEle(activePage, activeEle);
 

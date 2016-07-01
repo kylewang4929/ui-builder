@@ -83,7 +83,6 @@ angular.module('myBuilderApp')
                             //var elePar={left: offsetX,top: offsetY,width:$(element).outerWidth(),height:$(element).outerHeight()};
                             var elePar = rotateEleCalculate.getSizeAndPosition(parameter.left, parameter.top, $(element).outerWidth(), $(element).outerHeight(), offsetAngle);
                             var triggerData = { ID: groupID, elePar: elePar };
-                            console.log(triggerData);
                             $(element).trigger("groupUpdate", triggerData);
                         }
 
@@ -388,6 +387,9 @@ angular.module('myBuilderApp')
 
                     parameter.eleWidth = eleBox.get(0).clientWidth;
                     parameter.eleHeight = parseInt(eleBox.css("min-height"));
+
+                    //获取clip
+                    parameter.clip=eleDom.css('clip');
                     
                     parameter.imageWidth= eleDom.get(0).offsetWidth;
                     parameter.imageHeight= eleDom.get(0).offsetHeight;
@@ -894,7 +896,7 @@ angular.module('myBuilderApp')
                          * 需要调整裁剪的位置等
                          */
                         if(eleType == "image"){
-                            imageCropService.resetImage($(element),parameter.eleWidth,parameter.eleHeight,parameter.imageWidth,parameter.imageHeight);
+                            imageCropService.resetImage($(element),parameter.eleWidth,parameter.eleHeight,parameter.imageWidth,parameter.imageHeight,parameter.clip);
                         }
 
                     }
