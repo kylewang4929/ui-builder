@@ -744,8 +744,10 @@ angular.module('kyle.imageCrop', [])
                 //解析clip
                 var clipData = handle.parsingClip(originalClip, originalImageWidth, originalImageHeight);
 
-                //计算宽高比
-                var aspectRatio = originalImageWidth / originalImageHeight;
+                //计算宽高比 计算被截取后的图片的宽高比
+                var realImageWidth=clipData[1]-clipData[3];
+                var realImageHeight=clipData[2]-clipData[0];
+                var aspectRatio = realImageWidth / realImageHeight;
 
                 var currentWidth = border.get(0).offsetWidth;
                 var currentHeight = border.get(0).offsetHeight;
@@ -760,6 +762,7 @@ angular.module('kyle.imageCrop', [])
                     var clip = angular.copy(clipData);
 
                     var visualWidth = clip[1] - clip[3];
+                    var visualHeight = clip[2] - clip[0];
 
                     var imageWidth = (originalImageWidth * width) / visualWidth;
 
@@ -777,12 +780,16 @@ angular.module('kyle.imageCrop', [])
 
                     var borderHeight = parseInt(borderDom.get(0).offsetHeight);
                     var eleHeight = parseInt(styleDom.get(0).offsetHeight);
-                    styleDom.css({ "top": (borderHeight - eleHeight - clip[0]) / 2, "left": -clip[3] });
+
+                    var styleTop= -clip[0];
+                    styleTop=styleTop+(borderHeight-visualHeight)/2;
+
+                    styleDom.css({ "top": styleTop, "left": -clip[3] });
                 }
                 function containResetForHeight(styleDom, borderDom, height, originalImageHeight, clipData) {
-
                     var clip = angular.copy(clipData);
 
+                    var visualWidth = clip[1] - clip[3];
                     var visualHeight = clip[2] - clip[0];
 
                     var imageHeight = (originalImageHeight * height) / visualHeight;
@@ -802,7 +809,10 @@ angular.module('kyle.imageCrop', [])
                     var borderWidth = parseInt(borderDom.get(0).offsetWidth);
                     var eleWidth = parseInt(styleDom.get(0).offsetWidth);
 
-                    styleDom.css({ "top": -clip[0], "left": (borderWidth - eleWidth - clip[3]) / 2 });
+                    var styleLeft= -clip[3];
+                    styleLeft=styleLeft+(borderWidth-visualWidth)/2;
+
+                    styleDom.css({ "top": -clip[0], "left": styleLeft });
                 }
 
                 if (ele.backgroundSize === "contain") {
@@ -869,6 +879,7 @@ angular.module('kyle.imageCrop', [])
 
                 //转换成phone的元素
                 websiteData.conversionForPhone(activeEle);
+                console.log(activeEle);
 
                 websiteData.updateEle(activePage, activeEle);
 
