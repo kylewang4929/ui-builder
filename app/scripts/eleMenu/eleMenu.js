@@ -1,6 +1,6 @@
 "use strict";
 angular.module('eleMenu', [])
-    .directive('eleMenu', function ($compile, eleSettingService, eleMenuServices, imageLibraryService,imageCropService,activeEleService) {
+    .directive('eleMenu', function ($compile, eleSettingService, eleMenuServices, imageLibraryService, imageCropService, activeEleService) {
         return {
             restrict: 'A',
             template: "<div class='ele-menu' onmousedown='event.stopPropagation()'>" +
@@ -13,15 +13,15 @@ angular.module('eleMenu', [])
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 all-button' lx-ripple ng-click=openSettingBox('animate',$event)><i class='mdi mdi-auto-fix'></i><span>动画</span></button>" +
             "</div>",
             link: function (scope, element, attrs) {
-                
-                
+
+
                 //监听属性 同步更改
                 scope.changeImage = function () {
                     imageLibraryService.showDom();
                 };
 
                 scope.openSettingBox = function (type, e) {
-                    var activeEle=activeEleService.getEle();
+                    var activeEle = activeEleService.getEle();
                     if (type === 'design') {
                         type = activeEle.value.type + type;
                     }
@@ -30,7 +30,7 @@ angular.module('eleMenu', [])
                     var top = e.clientY;
                     eleSettingService.showDom(left, top, type, ID);
                 };
-                scope.openCrop=function(){
+                scope.openCrop = function () {
                     imageCropService.openCrop(angular.copy(activeEleService.getEle().value));
                 };
 
@@ -38,7 +38,7 @@ angular.module('eleMenu', [])
         };
     })
 
-    .directive('phoneEleMenu', function ($compile, eleSettingService,eleMenuServices) {
+    .directive('phoneEleMenu', function ($compile, eleSettingService, eleMenuServices) {
         return {
             restrict: 'A',
             template: "<div class='ele-menu' onmousedown='event.stopPropagation()'>" +
@@ -56,20 +56,24 @@ angular.module('eleMenu', [])
         var mode = "";
 
         //事件
-        var deleteEleEvent="";
-        var updateEleEvent="";
-        var dragStartOff="";
-        var dragEndOff="";
-        var levelScrollStart="";
-        var levelScrollEnd="";
-        var addSessionOpenStart="";
-        var addSessionOpenEnd="";
+        var deleteEleEvent = "";
+        var updateEleEvent = "";
+        var dragStartOff = "";
+        var dragEndOff = "";
+        var levelScrollStart = "";
+        var levelScrollEnd = "";
+        var addSessionOpenStart = "";
+        var addSessionOpenEnd = "";
 
 
         var menuType = { ID: "", value: "" };
 
         var handle = {
             init: function (data) {
+
+                /*
+                    特殊的情况需要隐藏
+                */
 
                 deleteEleEvent = $rootScope.$on("deleteEle", function () {
                     handle.hideDom();
@@ -122,8 +126,8 @@ angular.module('eleMenu', [])
             createDom: function (eleID, type, x, y) {
                 var template = "";
                 switch (mode) {
-                    case "web": template = "<div class='ele-menu-box animated' ele-menu='" + type + "'></div>"; break;
-                    case "phone": template = "<div class='ele-menu-box animated' phone-ele-menu='" + type + "'></div>"; break;
+                    case "web": template = "<div class='ele-menu-box' ele-menu='" + type + "'></div>"; break;
+                    case "phone": template = "<div class='ele-menu-box' phone-ele-menu='" + type + "'></div>"; break;
                 }
 
                 template = $compile(template)($rootScope);
@@ -139,10 +143,10 @@ angular.module('eleMenu', [])
                 dom.find("button").css("display", "none");
                 dom.find("." + type + "-button").css("display", "inline-block");
                 dom.find(".all-button").css("display", "inline-block");
-                dom.addClass('bounceIn');
 
                 dom.show();
 
+                dom.addClass('active');                
 
             },
             showDom: function (eleID, type) {
@@ -167,9 +171,12 @@ angular.module('eleMenu', [])
                     dom.find("button").css("display", "none");
                     dom.find("." + type + "-button").css("display", "inline-block");
                     dom.find(".all-button").css("display", "inline-block");
-                    dom.addClass('bounceIn');
 
                     dom.show();
+
+                    $timeout(function(){
+                        dom.addClass('active');                        
+                    });
 
                 }
             },
@@ -180,7 +187,7 @@ angular.module('eleMenu', [])
                 }
                 if (dom !== null) {
                     dom.hide();
-                    dom.removeClass('bounceIn');
+                    dom.removeClass('active');
                 }
             },
             removePlugin: function () {

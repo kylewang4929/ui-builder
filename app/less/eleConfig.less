@@ -232,6 +232,17 @@
 
 
 & .ele-menu-box{
+
+  &.active{
+    & .ele-menu{
+      & button{
+        opacity: 1;
+        transform:translateX(0px);       
+        pointer-events: auto; 
+      }
+    }
+  }
+
   position: absolute;
   z-index: 999;
   & .ele-menu {
@@ -239,10 +250,64 @@
       &.all-button{
         display: inline-block;
       }
-      display: none;
-      .transition(0.1s);
+      transform:translateX(-10px);
+      opacity: 0;
+      pointer-events: none;
       border-radius: 40px;
       margin-right: 8px;
+
+
+      //处理渐入
+      &:nth-child(1){
+        transform:translateX(0px);        
+        transition: all .2s cubic-bezier(.23,1,.32,1);
+        -moz-transition: all .2s cubic-bezier(.23,1,.32,1); /* Firefox 4 */
+        -webkit-transition: all .2s cubic-bezier(.23,1,.32,1); /* Safari 和 Chrome */
+        -o-transition: all .2s cubic-bezier(.23,1,.32,1); /* Opera */
+      }
+      &:nth-child(2){
+        transition: all .2s .01s cubic-bezier(.23,1,.32,1);
+        -moz-transition: all .2s .01s cubic-bezier(.23,1,.32,1); /* Firefox 4 */
+        -webkit-transition: all .2s .01s cubic-bezier(.23,1,.32,1); /* Safari 和 Chrome */
+        -o-transition: all .2s .01s cubic-bezier(.23,1,.32,1); /* Opera */
+      }
+      &:nth-child(3){
+        transition: all .2s .02s cubic-bezier(.23,1,.32,1);
+        -moz-transition: all .2s .02s cubic-bezier(.23,1,.32,1); /* Firefox 4 */
+        -webkit-transition: all .2s .02s cubic-bezier(.23,1,.32,1); /* Safari 和 Chrome */
+        -o-transition: all .2s .02s cubic-bezier(.23,1,.32,1); /* Opera */
+      }
+      &:nth-child(4){
+        transition: all .2s .04s cubic-bezier(.23,1,.32,1);
+        -moz-transition: all .2s .04s cubic-bezier(.23,1,.32,1); /* Firefox 4 */
+        -webkit-transition: all .2s .04s cubic-bezier(.23,1,.32,1); /* Safari 和 Chrome */
+        -o-transition: all .2s .04s cubic-bezier(.23,1,.32,1); /* Opera */
+      }
+      &:nth-child(5){
+        transition: all .2s .06s cubic-bezier(.23,1,.32,1);
+        -moz-transition: all .2s .06s cubic-bezier(.23,1,.32,1); /* Firefox 4 */
+        -webkit-transition: all .2s .06s cubic-bezier(.23,1,.32,1); /* Safari 和 Chrome */
+        -o-transition: all .2s .06s cubic-bezier(.23,1,.32,1); /* Opera */
+      }
+      &:nth-child(6){
+        transition: all .2s .08s cubic-bezier(.23,1,.32,1);
+        -moz-transition: all .2s .08s cubic-bezier(.23,1,.32,1); /* Firefox 4 */
+        -webkit-transition: all .2s .08s cubic-bezier(.23,1,.32,1); /* Safari 和 Chrome */
+        -o-transition: all .2s .08s cubic-bezier(.23,1,.32,1); /* Opera */
+      }
+      &:nth-child(7){
+        transition: all .2s .10s cubic-bezier(.23,1,.32,1);
+        -moz-transition: all .2s .10s cubic-bezier(.23,1,.32,1); /* Firefox 4 */
+        -webkit-transition: all .2s .10s cubic-bezier(.23,1,.32,1); /* Safari 和 Chrome */
+        -o-transition: all .2s .10s cubic-bezier(.23,1,.32,1); /* Opera */
+      }
+      &:nth-child(8){
+        transition: all .2s .12s cubic-bezier(.23,1,.32,1);
+        -moz-transition: all .2s .12s cubic-bezier(.23,1,.32,1); /* Firefox 4 */
+        -webkit-transition: all .2s .12s cubic-bezier(.23,1,.32,1); /* Safari 和 Chrome */
+        -o-transition: all .2s .12s cubic-bezier(.23,1,.32,1); /* Opera */
+      }
+
       & i {
         position: absolute;
         top: 0px;
