@@ -4,7 +4,7 @@
     <div class="main-box">
         <div class="left-menu">
             <perfect-scrollbar class="scroller-page" wheel-propagation="true" wheel-speed="5">
-                <div class="preview-item z-depth-1" lx-ripple="white" ng-class="{true:'active',false:''}[activeSession==session.ID]" ng-repeat="session in websiteData.sessionList">
+                <div class="preview-item z-depth-1" ng-class="{true:'active',false:''}[activeSession==session.ID]" ng-repeat="session in websiteData.sessionList">
                     <div class="preview-session-box" ng-click="selectLayers(session.ID)">
                         <div class="over-shadow"><i class="mdi mdi-checkbox-marked-circle"></i></div>
                         <div class="preview-session phone" create-thumbnail="session" type="phone" ele-type="session">
@@ -25,7 +25,7 @@
             </div>
             <div class="content scroll">
                 <perfect-scrollbar class="scroller-page" wheel-propagation="true" wheel-speed="5">
-                    <div class="preview-ele-item z-depth-1" lx-ripple="white" ng-repeat="ele in eleList">
+                    <div class="preview-ele-item z-depth-1" ng-repeat="ele in eleList">
                         <div class="preview-ele-item-box">
                             <div class="over-shadow"><i class="mdi mdi-checkbox-marked-circle"></i></div>
                             <div class="preview-ele" create-thumbnail="ele" type="phone" ele-type="ele"></div>

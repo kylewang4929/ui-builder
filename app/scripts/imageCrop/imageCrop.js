@@ -745,8 +745,8 @@ angular.module('kyle.imageCrop', [])
                 var clipData = handle.parsingClip(originalClip, originalImageWidth, originalImageHeight);
 
                 //计算宽高比 计算被截取后的图片的宽高比
-                var realImageWidth=clipData[1]-clipData[3];
-                var realImageHeight=clipData[2]-clipData[0];
+                var realImageWidth = clipData[1] - clipData[3];
+                var realImageHeight = clipData[2] - clipData[0];
                 var aspectRatio = realImageWidth / realImageHeight;
 
                 var currentWidth = border.get(0).offsetWidth;
@@ -776,14 +776,17 @@ angular.module('kyle.imageCrop', [])
                     clip[0] = clip[0] / imageWidthRadio;
                     clip[2] = clip[2] / imageWidthRadio;
 
+                    //重新计算裁剪后的大小
+                    visualWidth = clip[1] - clip[3];
+                    visualHeight = clip[2] - clip[0];
+
                     styleDom.css({ "clip": 'rect(' + clip[0] + 'px ' + clip[1] + 'px ' + clip[2] + 'px ' + clip[3] + 'px ' + ')' });
 
                     var borderHeight = parseInt(borderDom.get(0).offsetHeight);
                     var eleHeight = parseInt(styleDom.get(0).offsetHeight);
 
-                    var styleTop= -clip[0];
-                    styleTop=styleTop+(borderHeight-visualHeight)/2;
-
+                    var styleTop = -clip[0];
+                    styleTop = styleTop + (borderHeight - visualHeight) / 2;
                     styleDom.css({ "top": styleTop, "left": -clip[3] });
                 }
                 function containResetForHeight(styleDom, borderDom, height, originalImageHeight, clipData) {
@@ -804,13 +807,17 @@ angular.module('kyle.imageCrop', [])
                     clip[0] = clip[0] / imageHeightRadio;
                     clip[2] = clip[2] / imageHeightRadio;
 
+                    //重新计算裁剪后的大小
+                    visualWidth = clip[1] - clip[3];
+                    visualHeight = clip[2] - clip[0];
+
                     styleDom.css({ "clip": 'rect(' + clip[0] + 'px ' + clip[1] + 'px ' + clip[2] + 'px ' + clip[3] + 'px ' + ')' });
 
                     var borderWidth = parseInt(borderDom.get(0).offsetWidth);
                     var eleWidth = parseInt(styleDom.get(0).offsetWidth);
 
-                    var styleLeft= -clip[3];
-                    styleLeft=styleLeft+(borderWidth-visualWidth)/2;
+                    var styleLeft = -clip[3];
+                    styleLeft = styleLeft + (borderWidth - visualWidth) / 2;
 
                     styleDom.css({ "top": -clip[0], "left": styleLeft });
                 }
@@ -865,7 +872,7 @@ angular.module('kyle.imageCrop', [])
                 var clipData = handle.parsingClip(updateData.clip, updateData.eleSize.width, updateData.eleSize.height);
                 //更新元素
                 activeEle.border.width = updateData.borderSize.width;
-                 activeEle.style.width = updateData.eleSize.width;
+                activeEle.style.width = updateData.eleSize.width;
 
                 activeEle.border['min-height'] = updateData.borderSize.height;
                 activeEle.style['height'] = updateData.eleSize.height;
