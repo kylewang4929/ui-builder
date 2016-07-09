@@ -299,11 +299,6 @@ angular.module('webSiteEditor',[])
                 var eleDom = domBorder.find("> .ele");
                 eleDom.get(0).style = "";
 
-                //                eleDom.css('height', borderHeight);
-                //                eleDom.css('margin-top', -parseInt(borderHeight)/2+"px");
-                //                eleDom.css('width', borderWidth);
-                //                eleDom.css('margin-left', -parseInt(borderWidth)/2+"px");
-
                 $.each(eleData.style, function (index, value) {
                     eleDom.css(index, value);
                 });
@@ -311,7 +306,21 @@ angular.module('webSiteEditor',[])
                     this.updateEle(eleData.eleList[i]);
                 }
             },
-            updateSessionBackground: function () { }
+            updateSessionBackground: function () { },
+            zoomEle:function(eleData){
+                switch(eleData.type){
+                    case 'text':zoomEleText(eleData);break;
+                    case 'image':zoomEleImage(eleData);break;
+                    case 'menu':zoomEleMenu(eleData);break;
+                    case 'group':zoomEleGroup(eleData);break;
+                }
+            },
+            zoomEleText:function(eleData){},
+            zoomEleImage:function(eleData){},
+            zoomEleMenu:function(eleData){},
+            zoomEleGroup:function(eleData){
+                //从最底端的元素开始缩放，然后上层的组 在下面的元素调整完成后  组需要自检   重新调整大小
+            },
         };
 
         return handle;

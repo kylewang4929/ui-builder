@@ -356,7 +356,6 @@ angular.module('myBuilderApp')
                     isGroupEle: false,
                     rotate: 0,
                     rightRotate: 0
-
                 };
 
 
@@ -394,9 +393,12 @@ angular.module('myBuilderApp')
                             return;
                         }
 
-                        if (eleDom.height() > parseInt(eleBox.css("min-height"))) {
+                        if(eleType=='text'){
+                            eleBox.css("min-height", eleDom.height() + "px");                            
+                        }else if (eleDom.height() > parseInt(eleBox.css("min-height"))) {
                             eleBox.css("min-height", eleDom.height() + "px");
                         }
+
                     });
 
                     $(element).resize(function () {
@@ -412,6 +414,7 @@ angular.module('myBuilderApp')
 
                 }
 
+                //图片不需要调整  文字边框始终跟随元素
                 if (eleType !== "image") {
 
                     fixPosition();
@@ -478,10 +481,18 @@ angular.module('myBuilderApp')
 
                     //获取元素的旋转角度
                     parameter.rotate = rotateEleCalculate.getRotate(element);
-                    //parameter.coveringWidth=Math.abs(Math.cos(parameter.rotate*Math.PI/180))*parameter.eleWidth+Math.abs(Math.sin(parameter.rotate*Math.PI/180))*parameter.eleHeight;
-                    //parameter.coveringHeight=Math.abs(Math.sin(parameter.rotate*Math.PI/180))*parameter.eleWidth+Math.abs(Math.cos(parameter.rotate*Math.PI/180))*parameter.eleHeight;
                     parameter.physicsEle = rotateEleCalculate.getSizeAndPosition(parameter.left, parameter.top, parameter.eleWidth, parameter.eleHeight, parameter.rotate);
                     parameter.rightRotate = parseInt(parameter.rotate / 45 + parameter.target) % 8;
+
+                    //当元素是组的时候这里需要记录开始改变大小时的元素状态  方便缩放
+                    if(eleType == 'group'){
+                        if(parameter.type=='ele-web'){
+                            parameter.eleData = builderTool.getEle(attrs.id, attrs.eleType);                            
+                        }
+                        if(parameter.type=='ele-phone'){
+                            parameter.eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);                            
+                        }
+                    }
 
                 });
 
@@ -546,11 +557,11 @@ angular.module('myBuilderApp')
 
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height() || eleType === "image") {
+                    // if (eleBox.height() > eleDom.height() || eleType === "image") {
 
-                    } else {
-                        eleBox.css("min-height", eleDom.height());
-                    }
+                    // } else {
+                    //     eleBox.css("min-height", eleDom.height());
+                    // }
                 }
                 function leftBottomResize(offsetX, offsetY, rightRotate) {
                     //位置是6
@@ -596,10 +607,10 @@ angular.module('myBuilderApp')
 
                     element.css({ "top": excursionY, "left": excursionX });
                     //缩放模块
-                    if (eleBox.height() > eleDom.height() || eleType === "image") {
-                    } else {
-                        eleBox.css("min-height", eleDom.height());
-                    }
+                    // if (eleBox.height() > eleDom.height() || eleType === "image") {
+                    // } else {
+                    //     eleBox.css("min-height", eleDom.height());
+                    // }
                 }
                 function rightTopResize(offsetX, offsetY, rightRotate) {
                     var percent = 0;
@@ -645,10 +656,10 @@ angular.module('myBuilderApp')
                     element.css({ "top": excursionY, "left": excursionX });
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height() || eleType === "image") {
-                    } else {
-                        eleBox.css("min-height", eleDom.height());
-                    }
+                    // if (eleBox.height() > eleDom.height() || eleType === "image") {
+                    // } else {
+                    //     eleBox.css("min-height", eleDom.height());
+                    // }
                 }
                 function rightBottomResize(offsetX, offsetY, rightRotate) {
                     var percent = 0;
@@ -694,10 +705,10 @@ angular.module('myBuilderApp')
 
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height() || eleType === "image") {
-                    } else {
-                        eleBox.css("min-height", eleDom.height());
-                    }
+                    // if (eleBox.height() > eleDom.height() || eleType === "image") {
+                    // } else {
+                    //     eleBox.css("min-height", eleDom.height());
+                    // }
                 }
                 function onlyLeftResize(offsetX, offsetY, rightRotate) {
                     var percent = 0;
@@ -720,7 +731,7 @@ angular.module('myBuilderApp')
 
 
                     cWidth = parameter.eleWidth + offset;
-                    cHeight = parseInt(eleBox.css("min-height"));
+                    cHeight = eleBox.css("height");                    
 
                     if (!sizeLimit(cWidth, cHeight)) {
                         return;
@@ -746,11 +757,11 @@ angular.module('myBuilderApp')
                     element.css({ "top": excursionY, "left": excursionX });
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height() || eleType === "image") {
+                    // if (eleBox.height() > eleDom.height() || eleType === "image") {
 
-                    } else {
-                        eleBox.css("min-height", eleDom.height());
-                    }
+                    // } else {
+                    //     eleBox.css("min-height", eleDom.height());
+                    // }
                 }
                 function onlyRightResize(offsetX, offsetY, rightRotate) {
                     var percent = 0;
@@ -797,11 +808,11 @@ angular.module('myBuilderApp')
                     element.css({ "top": excursionY, "left": excursionX });
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height() || eleType === "image") {
+                    // if (eleBox.height() > eleDom.height() || eleType === "image") {
 
-                    } else {
-                        eleBox.css("min-height", eleDom.height());
-                    }
+                    // } else {
+                    //     eleBox.css("min-height", eleDom.height());
+                    // }
                 }
                 function onlyTopResize(offsetX, offsetY, rightRotate) {
                     var percent = 0;
@@ -847,12 +858,12 @@ angular.module('myBuilderApp')
 
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height() || eleType === "image") {
+                    // if (eleBox.height() > eleDom.height() || eleType === "image") {
 
-                    } else {
-                        $(element).css("top", parseInt($(element).css("top")) + offset);
-                        eleBox.css("min-height", eleDom.height());
-                    }
+                    // } else {
+                    //     $(element).css("top", parseInt($(element).css("top")) + offset);
+                    //     eleBox.css("min-height", eleDom.height());
+                    // }
                 }
                 function onlyBottomResize(offsetX, offsetY, rightRotate) {
                     var percent = 0;
@@ -898,11 +909,11 @@ angular.module('myBuilderApp')
                     element.css({ "top": excursionY, "left": excursionX });
 
                     //缩放模块
-                    if (eleBox.height() > eleDom.height() || eleType === "image") {
+                    // if (eleBox.height() > eleDom.height() || eleType === "image") {
 
-                    } else {
-                        eleBox.css("min-height", eleDom.height());
-                    }
+                    // } else {
+                    //     eleBox.css("min-height", eleDom.height());
+                    // }
                 }
 
 
@@ -954,6 +965,18 @@ angular.module('myBuilderApp')
                          */
                         if(eleType == "image"){
                             imageCropService.resetImage($(element),parameter.eleWidth,parameter.eleHeight,parameter.imageWidth,parameter.imageHeight,parameter.clip);
+                        }
+
+                        /**
+                         * 如果调整的是组的大小的话  要缩放元素
+                        */
+                        if(eleType == 'group'){
+                            if(parameter.type == 'ele-web'){
+                                builderTool.zoomEle(parameter.eleData);
+                            }
+                            if(parameter.type == 'ele-phone'){
+                                phoneBuilderTool.zoomEle(parameter.eleData);
+                            }
                         }
 
                     }

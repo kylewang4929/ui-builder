@@ -275,7 +275,19 @@ angular.module('phoneSiteEditor',[])
                 for (var i = 0; i < eleData.eleList.length; i++) {
                     this.updateEle(eleData.eleList[i]);
                 }
-            }
+            },
+            zoomEle:function(eleData){
+                switch(eleData.type){
+                    case 'text':zoomEleText(eleData);break;
+                    case 'image':zoomEleImage(eleData);break;
+                    case 'menu':zoomEleMenu(eleData);break;
+                    case 'group':zoomEleGroup(eleData);break;
+                }
+            },
+            zoomEleText:function(eleData){},
+            zoomEleImage:function(eleData){},
+            zoomEleMenu:function(eleData){},
+            zoomEleGroup:function(eleData){},
         };
 
         return handle;
