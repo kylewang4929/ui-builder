@@ -116,7 +116,6 @@ angular.module('webSiteEditor',[])
                     case "menu": eleData = this.getEleMenu(ID); break;
                     case "group": eleData = this.getEleGroup(ID); break;
                 }
-
                 return eleData;
             },
             resolveStyle: function (dom) {
@@ -141,7 +140,7 @@ angular.module('webSiteEditor',[])
                 eleData.border = this.resolveStyle(styleDom[0]);
                 styleDom = dom.find(".ele");
                 eleData.style = this.resolveStyle(styleDom[0]);
-                eleData.eleTemplateType = dom.attr("template-type");
+                eleData.eleTemplateType = dom.parent().attr("template-type");
                 return eleData;
             },
             getEleImage: function (ID) {
@@ -156,14 +155,11 @@ angular.module('webSiteEditor',[])
                 styleDom = dom.find(".ele");
                 eleData.style = this.resolveStyle(styleDom[0]);
                 eleData.url = styleDom.attr("src");
-                eleData.eleTemplateType = dom.attr("template-type");
+                eleData.eleTemplateType = dom.parent().attr("template-type");
                 
                 //计算图片的原始大小 以及图片的缩放比例
                 var img=document.createElement('img');
                 img.src=eleData.url;
-                
-                //获取原始大小  图片缩放策略
-                
                 return eleData;
             },
             getEleMenu: function (ID) {
@@ -184,14 +180,13 @@ angular.module('webSiteEditor',[])
                 for (var i = 0; i < styleDom.length; i++) {
                     eleData.item.push({ ID: styleDom.eq(i).attr("id"), name: styleDom.get(i).textContent });
                 }
-                eleData.eleTemplateType = dom.attr("template-type");
+                eleData.eleTemplateType = dom.parent().attr("template-type");
                 return eleData;
             },
             getEleGroup: function (ID) {
                 //按照结构来获取数据
                 var eleData = {};
                 var dom = $("#" + ID + ".position-box");
-
                 eleData.ID = ID;
                 eleData.type = "group";
                 eleData.position = this.resolveStyle(dom[0]);
@@ -200,14 +195,14 @@ angular.module('webSiteEditor',[])
                 styleDom = dom.find(".ele");
                 eleData.style = this.resolveStyle(styleDom[0]);
 
-                var eleList = dom.find(">.ele-box >.ele >.position-box");
+                var eleList = dom.find(">.ele-box >.ele >.position-box-parent >.position-box");
                 var eleListData = [];
 
                 for (var i = 0; i < eleList.length; i++) {
                     eleListData.push(this.getEle(eleList.eq(i).attr('id'), eleList.eq(i).attr('ele-type')));
                 }
                 eleData.eleList = eleListData;
-                eleData.eleTemplateType = dom.attr("template-type");
+                eleData.eleTemplateType = dom.parent().attr("template-type");
                 return eleData;
             },
             updateEleText: function (eleData) {

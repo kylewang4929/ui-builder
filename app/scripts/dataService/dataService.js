@@ -297,7 +297,6 @@ angular.module('dataService', [])
                 }
             },
             calculateForUnGroup: function (eleList, scale) {
-                //手机宽度是280px
                 var phoneWidth = 280;
                 for (var i = 0; i < eleList.length; i++) {
                     eleList[i].phoneStyle.scale = scale;
@@ -730,7 +729,7 @@ angular.module('dataService', [])
 
                 return String;
             },
-            conversionForPhone:function(data){
+            conversionScaleForPhone:function(data){
 
                 function image(){
                     /**
@@ -787,6 +786,7 @@ angular.module('dataService', [])
                     做一个中转
                     保存每个元素特有的内容
                 */
+
                 function image(oldObj, newObj){
                     newObj.imageSize=oldObj.imageSize;
                     newObj.backgroundSize=oldObj.backgroundSize;
@@ -799,7 +799,16 @@ angular.module('dataService', [])
                     return newObj;                    
                 }
                 function group(oldObj, newObj){
-                    newObj.eleList=oldObj.eleList;
+                    /**
+                     * 遍历子元素交换特有的内容
+                    */
+                    angular.forEach(oldObj.eleList,function(oldObj,oldIndex){
+                        angular.forEach(newObj.eleList,function(newObj,newIndex){
+                            if(oldObj.ID==newObj.ID){
+                                handle.saveOtherInfo(oldObj,newObj);
+                            }
+                        })
+                    });
                     return newObj;
                 }
                 var outputData=newData;
@@ -815,37 +824,36 @@ angular.module('dataService', [])
                 /*
                 控制只交换规定的样式
                 */
-
-                function image(){
-                    phoneStyle.style.left = newData.phoneStyle.style.left;
-                    phoneStyle.style.top = newData.phoneStyle.style.top;
-                    phoneStyle.style.width = newData.phoneStyle.style.width;
-                    phoneStyle.style.height = newData.phoneStyle.style.height;
-                    phoneStyle.style.clip = newData.phoneStyle.style.clip;
-                }
-
-                var phoneStyle = oldData.phoneStyle;
-                phoneStyle.position.left = newData.phoneStyle.position.left;
-                phoneStyle.position.top = newData.phoneStyle.position.top;
-                phoneStyle.border.width = newData.phoneStyle.border.width;
-                phoneStyle.border['min-height'] = newData.phoneStyle.border['min-height'];
                 
-                phoneStyle.scale = newData.phoneStyle.scale;
+                //公共的样式
+                oldData.phoneStyle.position.left = newData.phoneStyle.position.left;
+                oldData.phoneStyle.position.top = newData.phoneStyle.position.top;
+                oldData.phoneStyle.border.width = newData.phoneStyle.border.width;
+                oldData.phoneStyle.border['min-height'] = newData.phoneStyle.border['min-height'];
+                
+                oldData.phoneStyle.scale = newData.phoneStyle.scale;
                 if (newData.phoneStyle.position.transform !== undefined) {
-                    phoneStyle.position.transform = newData.phoneStyle.position.transform;
+                    oldData.phoneStyle.position.transform = newData.phoneStyle.position.transform;
                 }
+
+                function image(oldData,newData){
+                    oldData.phoneStyle.style.left = newData.phoneStyle.style.left;
+                    oldData.phoneStyle.style.top = newData.phoneStyle.style.top;
+                    oldData.phoneStyle.style.width = newData.phoneStyle.style.width;
+                    oldData.phoneStyle.style.height = newData.phoneStyle.style.height;
+                    oldData.phoneStyle.style.clip = newData.phoneStyle.style.clip;
+                }
+
+                function group(oldData,newData){
+                    for (var i = 0; i < newData.eleList.length; i++) {
+                        handle.savePhoneStyle(oldData.eleList[i], newData.eleList[i]);
+                    }
+                }
+
 
                 switch(newData.type){
-                    case "image":image();break;
-                }
-
-                if (newData.type === 'group') {
-                    oldData.phoneStyle = phoneStyle;
-                    for (var i = 0; i < newData.eleList.length; i++) {
-                        this.savePhoneStyle(oldData.eleList[i], newData.eleList[i]);
-                    }
-                } else {
-                    oldData.phoneStyle = phoneStyle;
+                    case "image":image(oldData,newData);break;
+                    case "group":group(oldData,newData);break;
                 }
                 return oldData;
             },

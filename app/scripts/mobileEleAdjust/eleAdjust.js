@@ -790,7 +790,6 @@ angular.module('myBuilderApp')
                                     websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
                                 });
                             }
-
                         }
                     }
                 }

@@ -160,8 +160,8 @@ angular.module('myBuilderApp')
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" onmousedown="event.preventDefault()" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" full-text drag-ele="ele" rotate resize ng-dblclick=editEle(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
-                        '                <div class="rotate" onmousedown="event.preventDefault()" onmousedown=event.stopPropagation();><i class="mdi mdi-refresh"></i></div>',
+                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" onmousedown="event.preventDefault()" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" full-text drag-ele="ele-web" drag-function="dragFunction" rotate="ele-web" resize="ele-web" ng-dblclick=editEle(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                        '                <div class="rotate" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line" onmousedown="event.preventDefault()"></div>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize left-top" onmousedown="event.preventDefault()"></div>',
@@ -185,6 +185,7 @@ angular.module('myBuilderApp')
             },
             replace: false,
             link: function (scope, element, attrs) {
+                
                 var data = element.context.eleConfig;
                 eleApplyService.defaultApply($(element).find(">.position-box"), data);
 
@@ -211,8 +212,8 @@ angular.module('myBuilderApp')
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele" rotate resize ng-dblclick=editImage(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
-                        '                <div class="rotate" onmousedown="event.preventDefault()" onmousedown=event.stopPropagation();><i class="mdi mdi-refresh"></i></div>',
+                    template=['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-web" rotate="ele-web" resize="ele-web" ng-dblclick=editImage(\''+data.ID+'\') ng-mousedown=selectEle($event,\''+data.ID+'\')>',
+                        '                <div class="rotate" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line" onmousedown="event.preventDefault()"></div>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize left-top" onmousedown="event.preventDefault()"></div>',
@@ -255,7 +256,7 @@ angular.module('myBuilderApp')
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" on-group-size-change class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele" resize>',
+                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" on-group-size-change class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-web" resize="ele-web">',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize left-top" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize left-bottom" onmousedown="event.preventDefault()"></div>',
@@ -306,8 +307,8 @@ angular.module('myBuilderApp')
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele" rotate resize ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
-                        '                <div class="rotate" onmousedown="event.preventDefault()" onmousedown=event.stopPropagation();><i class="mdi mdi-refresh"></i></div>',
+                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-web" rotate="ele-web" resize="ele-web" ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                        '                <div class="rotate" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line" onmousedown="event.preventDefault()"></div>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize left-top" onmousedown="event.preventDefault()"></div>',
@@ -505,8 +506,8 @@ angular.module('myBuilderApp')
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" phone-drag-ele="ele" phone-rotate phone-resize ng-dblclick=editEle(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
-                        '                <div class="rotate" onmousedown="event.preventDefault()" onmousedown=event.stopPropagation();><i class="mdi mdi-refresh"></i></div>',
+                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-phone" rotate="ele-phone" resize="ele-phone" ng-dblclick=editEle(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                        '                <div class="rotate" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line" onmousedown="event.preventDefault()"></div>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize left-top" onmousedown="event.preventDefault()"></div>',
@@ -573,8 +574,8 @@ angular.module('myBuilderApp')
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" phone-drag-ele="ele" phone-rotate phone-resize ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
-                        '                <div class="rotate" onmousedown="event.preventDefault()" onmousedown=event.stopPropagation();><i class="mdi mdi-refresh"></i></div>',
+                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-phone" rotate="ele-phone" resize="ele-phone" ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                        '                <div class="rotate" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line" onmousedown="event.preventDefault()"></div>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize left-top" onmousedown="event.preventDefault()"></div>',
@@ -618,7 +619,7 @@ angular.module('myBuilderApp')
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" on-group-size-change class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" phone-drag-ele="ele" phone-resize>',
+                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" on-group-size-change class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-phone" resize="ele-phone">',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize left-top" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize left-bottom" onmousedown="event.preventDefault()"></div>',
@@ -676,7 +677,7 @@ angular.module('myBuilderApp')
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" phone-drag-ele="ele" phone-resize ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-phone" resize="ele-phone" ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize left-top" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize left-bottom" onmousedown="event.preventDefault()"></div>',
@@ -766,5 +767,4 @@ angular.module('myBuilderApp')
             }
         };
         return handle;
-    })
-    ;
+    });

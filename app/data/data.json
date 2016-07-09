@@ -46,13 +46,15 @@
                     },
                     "style": {
                         "width": "119px",
-                        "height": "35px"
+                        "height": "35px",
+                        "clip":"rect(0px 119px 35px 0px)"
                     },
                     "scale": 0.7
                 },
                 "style": {
                     "width": "170px",
-                    "height": "50px"
+                    "height": "50px",
+                    "clip":"rect(0px 170px 50px 0px)"
                 },
                 "position": {
                     "left": "91px",
@@ -202,13 +204,15 @@
                                 },
                                 "style": {
                                     "width": "279.3px",
-                                    "height": "226.8px"
+                                    "height": "226.8px",
+                                    "clip":"rect(0px 279.3px 226.8px 0px)"                                    
                                 },
                                 "scale": 0.7
                             },
                             "style": {
                                 "width": "399px",
-                                "height": "324px"
+                                "height": "324px",
+                                "clip":"rect(0px 399px 324px 0px)"
                             },
                             "position": {
                                 "left": "580px",
@@ -240,13 +244,15 @@
                                 },
                                 "style": {
                                     "width": "49px",
-                                    "height": "49px"
+                                    "height": "49px",
+                                    "clip":"rect(0px 49px 49px 0px)"                                    
                                 },
                                 "scale": 0.7
                             },
                             "style": {
                                 "width": "70px",
-                                "height": "70px"
+                                "height": "70px",
+                                "clip":"rect(0px 70px 70px 0px)"                                
                             },
                             "position": {
                                 "left": "44px",

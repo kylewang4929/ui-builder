@@ -151,7 +151,7 @@ angular.module('kyle.editor', [])
     .directive('editorSizeBox', function (textEditorService) {
         return {
             restrict: 'A',
-            template: ['<div class="tool-modal" drag-ele handle="handle" onmousedown=event.stopPropagation()>',
+            template: ['<div class="tool-modal" drag-ele="default" handle="handle" onmousedown=event.stopPropagation()>',
                 '        <div class="title handle">',
                 '            文字大小',
                 '            <button class="btn btn--xs btn--white btn--icon right-button" lx-ripple="" ng-click="closeSizeBox()"><i class="mdi mdi-close"></i></button>',
@@ -274,7 +274,7 @@ angular.module('kyle.editor', [])
     .directive('editorFontBox', function (textEditorService,fontList) {
         return {
             restrict: 'A',
-            template: ['<div class="tool-modal" drag-ele handle="handle" onmousedown=event.stopPropagation()>',
+            template: ['<div class="tool-modal" drag-ele="default" handle="handle" onmousedown=event.stopPropagation()>',
                 '        <div class="title handle">',
                 '            字体',
                 '            <button class="btn btn--xs btn--white btn--icon right-button" lx-ripple="" ng-click="closeFontBox()"><i class="mdi mdi-close"></i></button>',
@@ -312,7 +312,7 @@ angular.module('kyle.editor', [])
     .directive('editorSpacingBox', function (textEditorService) {
         return {
             restrict: 'A',
-            template: ['<div class="tool-modal" drag-ele handle="handle" onmousedown=event.stopPropagation()>',
+            template: ['<div class="tool-modal" drag-ele="default" handle="handle" onmousedown=event.stopPropagation()>',
                 '        <div class="title handle">',
                 '            间距',
                 '            <button class="btn btn--xs btn--white btn--icon right-button" lx-ripple="" ng-click="closeSpacingBox()"><i class="mdi mdi-close"></i></button>',
@@ -340,7 +340,7 @@ angular.module('kyle.editor', [])
     .directive('editorLineHeightBox', function (textEditorService) {
         return {
             restrict: 'A',
-            template: ['<div class="tool-modal" drag-ele handle="handle" onmousedown=event.stopPropagation()>',
+            template: ['<div class="tool-modal" drag-ele="default" handle="handle" onmousedown=event.stopPropagation()>',
                 '        <div class="title handle">',
                 '            行高',
                 '            <button class="btn btn--xs btn--white btn--icon right-button" lx-ripple="" ng-click="closeLineHeightBox()"><i class="mdi mdi-close"></i></button>',
@@ -365,7 +365,7 @@ angular.module('kyle.editor', [])
     .directive('textEditor', function (userProfile, siteConfig, colorPickService, textEditorService) {
         return {
             restrict: 'A',
-            template: ['<div class="text-editor z-depth-2" drag-ele handle="handle" ng-mousedown="$event.stopPropagation();closeAllMenu();">',
+            template: ['<div class="text-editor z-depth-2" drag-ele="default" handle="handle" ng-mousedown="$event.stopPropagation();closeAllMenu();">',
                 '    <div class="handle"><i class="mdi mdi-drag-vertical"></i></div>',
                 '    <div class="content-box">',
                 '        <div class="row">',

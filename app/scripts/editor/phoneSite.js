@@ -190,7 +190,7 @@ angular.module('phoneSiteEditor',[])
                 eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
 
 
-                var eleList = dom.find(">.ele-box >.ele >.position-box");
+                var eleList = dom.find(">.ele-box >.ele >.position-box-parent >.position-box");
                 var eleListData = [];
                 for (var i = 0; i < eleList.length; i++) {
                     eleListData.push(this.getEle(eleList.eq(i).attr('id'), eleList.eq(i).attr('ele-type')));

@@ -1,6 +1,6 @@
 "use strict";
 angular.module('myBuilderApp')
-    .directive('rotate', function (builderTool, websiteData, rotateEleCalculate) {
+    .directive('rotate', function (builderTool,phoneBuilderTool, activePageService,websiteData, rotateEleCalculate) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -17,6 +17,11 @@ angular.module('myBuilderApp')
                     left: 0,
                     right: 0
                 };
+
+                /**
+                 * 组件的类型 default ele-web ele-phone
+                */
+                parameter.type = attrs.rotate;
 
                 var groupID = "";
                 var firstParentGroupID = "";
@@ -91,12 +96,24 @@ angular.module('myBuilderApp')
                 function listenMouseup(e) {
                     if (parameter.flag) {
                         parameter.flag = false;
-                        //更新 ID data
-                        var eleData = builderTool.getEle(attrs.id, attrs.eleType);
-                        websiteData.updateEle(scope.websiteCode.ID, eleData);
+                        
+                        if(parameter.type=='ele-web'){
+                            //更新 ID data
+                            var eleData = builderTool.getEle(attrs.id, attrs.eleType);
+                            websiteData.updateEle(activePageService.getActivePage().value, eleData);
 
-                        //调整光标
-                        builderTool.reviseRotateCss(rotateEleCalculate.getRotate(element), attrs.id);
+                            //调整光标
+                            builderTool.reviseRotateCss(rotateEleCalculate.getRotate(element), attrs.id);
+                        }
+
+                        if(parameter.type=='ele-phone'){
+                            //更新 ID data
+                            var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
+                            websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
+
+                            //调整光标
+                            builderTool.reviseRotateCss(rotateEleCalculate.getRotate(element), attrs.id);
+                        }                        
 
                     }
                 }
@@ -112,11 +129,18 @@ angular.module('myBuilderApp')
             }
         };
     })
-
-    .directive('dragEle', function (activeSessionService, builderTool, websiteData, changeSessionTool, rotateEleCalculate, activePageService, $rootScope) {
+    /**
+     * handle 可以指定
+     * dragEle 可能是 default ele-web ele-phone
+    */
+    .directive('dragEle', function (activeSessionService, builderTool, phoneBuilderTool,websiteData, changeSessionTool, rotateEleCalculate, activePageService, $rootScope) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
+                /**
+                 * 获取传入的方法 scope.dragFunction
+                */
+
                 var parameter = {
                     flag: false,
                     left: 0,
@@ -143,7 +167,10 @@ angular.module('myBuilderApp')
                     groupID = groupEleList.eq(0).attr('id');
                     firstParentGroupID = groupEleList.eq(groupEleList.length - 1).attr('id');
                 }
-
+                
+                /**
+                 * 组件的类型 default ele-web ele-phone
+                */
                 parameter.type = attrs.dragEle;
 
                 var handle = null;
@@ -189,9 +216,9 @@ angular.module('myBuilderApp')
                         e.stopPropagation();
                     }
 
-                    //初始化session 控制服务
-                    changeSessionTool.init($(element).parents('.ele-session-box').attr('id'), parameter.top + (parameter.eleHeight / 2));
-
+                    if (parameter.type === 'ele-web') {
+                        changeSessionTool.init($(element).parents('.ele-session-box').attr('id'), parameter.top + (parameter.eleHeight / 2));                        
+                    }
                 });
 
                 var moveFirstFlag = true;
@@ -214,10 +241,11 @@ angular.module('myBuilderApp')
 
                         offsetX += parameter.left;
                         offsetY += parameter.top;
-
-                        if (parameter.type === 'ele') {
-                            if (parameter.isGroupEle !== true) {
-                                changeSessionTool.moveCheck(e.clientY - parameter.cy);
+                        if (parameter.type.indexOf('ele') >= 0) {
+                            if(parameter.type === 'ele-web'){
+                                if (parameter.isGroupEle != true) {
+                                    changeSessionTool.moveCheck(e.clientY - parameter.cy);
+                                }
                             }
                         } else {
                             if (offsetX < 10) {
@@ -261,9 +289,12 @@ angular.module('myBuilderApp')
                             $rootScope.$emit("eleDragEnd");
                         }
 
-                        if (parameter.type === 'ele') {
+                        /**
+                         * 更新web 元素
+                        */
+                        if (parameter.type === 'ele-web') {
                             var ele = [{ ID: attrs.id, type: attrs.eleType }];
-                            if (parameter.isGroupEle !== true) {
+                            if (parameter.isGroupEle != true) {
                                 scope.$apply(function () {
                                     changeSessionTool.overCheck(ele);
                                 });
@@ -275,6 +306,25 @@ angular.module('myBuilderApp')
                                 });
                             }
                         }
+
+                        /**
+                         * 更新phone元素
+                        */
+                        if (parameter.type === 'ele-phone') {
+                            if (parameter.isGroupEle != true) {
+                                var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
+                                scope.$apply(function () {
+                                    websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
+                                });
+                            } else {
+                                var eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
+                                scope.$apply(function () {
+                                    websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
+                                });
+                            }
+                        }
+
+
                     }
                 }
 
@@ -290,7 +340,7 @@ angular.module('myBuilderApp')
         };
     })
 
-    .directive('resize', function ($timeout, builderTool, websiteData, rotateEleCalculate, activePageService, $rootScope,imageCropService) {
+    .directive('resize', function ($timeout, builderTool,phoneBuilderTool, websiteData, rotateEleCalculate, activePageService, $rootScope,imageCropService) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -308,6 +358,13 @@ angular.module('myBuilderApp')
                     rightRotate: 0
 
                 };
+
+
+                /**
+                 * 组件的类型 ele-web ele-phone
+                */
+                parameter.type = attrs.resize;
+
                 var groupID = "";
                 var firstParentGroupID = "";
                 if ($(element).parents('.position-box[ele-type=group]').length > 0) {
@@ -911,14 +968,26 @@ angular.module('myBuilderApp')
                             $rootScope.$emit("eleDragEnd");
                         }
 
-                        var eleData = {};
-                        if (parameter.isGroupEle !== true) {
-                            eleData = builderTool.getEle(attrs.id, attrs.eleType);
-                            websiteData.updateEle(scope.websiteCode.ID, eleData);
-                        } else {
-                            //更新组
-                            eleData = builderTool.getEle(firstParentGroupID, "group");
-                            websiteData.updateEle(activePageService.getActivePage().value, eleData);
+                        if(parameter.type == 'ele-web'){
+                            if (parameter.isGroupEle !== true) {
+                                var eleData = builderTool.getEle(attrs.id, attrs.eleType);
+                                websiteData.updateEle(scope.websiteCode.ID, eleData);
+                            } else {
+                                //更新组
+                                var eleData = builderTool.getEle(firstParentGroupID, "group");
+                                websiteData.updateEle(activePageService.getActivePage().value, eleData);
+                            }
+                        }
+
+                        if(parameter.type == 'ele-phone'){
+                            if (parameter.isGroupEle !== true) {
+                                eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
+                                websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
+                            } else {
+                                //更新组
+                                eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
+                                websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
+                            }
                         }
 
 

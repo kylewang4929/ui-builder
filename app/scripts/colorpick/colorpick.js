@@ -52,7 +52,7 @@ angular.module('kyle.colorPick', [])
     .directive('colorPickBox', function (userProfile,siteConfig,colorPickService) {
         return {
             restrict: 'A',
-            template: ['<div class="color-pick-box" id="color-pick-box" drag-ele handle="handle" onmousedown="event.stopPropagation()" onclick="event.stopPropagation()">',
+            template: ['<div class="color-pick-box" id="color-pick-box" drag-ele="default" handle="handle" onmousedown="event.stopPropagation()" onclick="event.stopPropagation()">',
                 '    <div class="my-color">',
                 '        <div class="title handle">',
                 '            文字颜色',

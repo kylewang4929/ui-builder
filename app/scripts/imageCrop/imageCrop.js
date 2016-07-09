@@ -845,8 +845,29 @@ angular.module('kyle.imageCrop', [])
                             containResetForWidth(style, border, width, originalImageWidth, clipData);
                         }
                     }
-                } else {
+                } else if(ele.backgroundSize === "cover") {
+                    if (currentWidth < currentHeight) {
+                        //高比较大 高填充
+                        var height = currentHeight;
+                        var width = height * aspectRatio;
+                        if (width <= currentWidth) {
+                            width = currentWidth;
+                            containResetForWidth(style, border, width, originalImageWidth, clipData);
+                        } else {
+                            containResetForHeight(style, border, height, originalImageHeight, clipData);                            
+                        }
 
+                    } else {
+                        //宽填充
+                        var width = currentWidth;
+                        var height = width / aspectRatio;
+                        if (height <= currentHeight) {
+                            height = currentHeight;
+                            containResetForHeight(style, border, height, originalImageHeight, clipData);
+                        } else {
+                            containResetForWidth(style, border, width, originalImageWidth, clipData);                            
+                        }
+                    }
                 }
 
 
@@ -884,9 +905,8 @@ angular.module('kyle.imageCrop', [])
                 activeEle.style['left'] = -clipData[3];
                 activeEle.style['top'] = -clipData[0];
 
-                //转换成phone的元素
-                websiteData.conversionForPhone(activeEle);
-                console.log(activeEle);
+                //由于裁剪彻底改变了元素  所以要转换成phone的元素
+                websiteData.conversionScaleForPhone(activeEle);
 
                 websiteData.updateEle(activePage, activeEle);
 

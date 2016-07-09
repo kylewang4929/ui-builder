@@ -4,7 +4,7 @@ angular.module('kyle.eleSetting', [])
         return {
             restrict: 'A',
             replace: true,
-            template: ['<div class="color-pick-box lager" id="color-pick-box" drag-ele handle="handle" onmousedown="event.stopPropagation()" onclick="event.stopPropagation()">',
+            template: ['<div class="color-pick-box lager" id="color-pick-box" drag-ele="default" handle="handle" onmousedown="event.stopPropagation()" onclick="event.stopPropagation()">',
                 '    <div class="my-color">',
                 '        <div class="title handle">',
                 '            {{boxInitData.title}}',
