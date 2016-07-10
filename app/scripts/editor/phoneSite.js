@@ -143,6 +143,7 @@ angular.module('phoneSiteEditor',[])
                 styleDom = dom.find(".ele");
                 eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
                 eleData.url = styleDom.attr("src");
+                eleData.backgroundSize=dom.attr('background-size');
 
                 //获取缩放比例
                 eleData.phoneStyle.scale = dom.attr('scale');

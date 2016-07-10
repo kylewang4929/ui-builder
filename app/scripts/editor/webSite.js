@@ -1,12 +1,10 @@
 "use strict";
-angular.module('webSiteEditor',[])
-    .factory('builderTool', function (creatorServices, $compile, $timeout,$rootScope) {
-
+angular.module('webSiteEditor',['creator','kyle.imageCrop'])
+    .factory('builderTool', function (creatorServices, $compile, $timeout,$rootScope,imageCropService) {
         var data = [];
         var createScope = null;
 
         var cursorList = ["nw-resize", "n-resize", "ne-resize", "e-resize", "se-resize", "s-resize", "sw-resize", "w-resize"];
-
         var handle = {
             init: function (data) {
                 createScope = data;
@@ -156,6 +154,7 @@ angular.module('webSiteEditor',[])
                 eleData.style = this.resolveStyle(styleDom[0]);
                 eleData.url = styleDom.attr("src");
                 eleData.eleTemplateType = dom.parent().attr("template-type");
+                eleData.backgroundSize=dom.attr('background-size');
                 
                 //计算图片的原始大小 以及图片的缩放比例
                 var img=document.createElement('img');
@@ -307,20 +306,72 @@ angular.module('webSiteEditor',[])
                 }
             },
             updateSessionBackground: function () { },
-            zoomEle:function(eleData){
+            /**
+             * 用于调整组的大小的时候把内部的组件也进行缩放
+            */
+            zoomEle:function(eleData,scale){
+                //调整缩放页面元素，一般只在调整组的时候用得上
                 switch(eleData.type){
-                    case 'text':zoomEleText(eleData);break;
-                    case 'image':zoomEleImage(eleData);break;
-                    case 'menu':zoomEleMenu(eleData);break;
-                    case 'group':zoomEleGroup(eleData);break;
+                    case 'text':handle.zoomEleText(eleData,scale);break;
+                    case 'image':handle.zoomEleImage(eleData,scale);break;
+                    case 'menu':handle.zoomEleMenu(eleData,scale);break;
+                    case 'group':handle.zoomEleGroup(eleData,scale);break;
                 }
             },
-            zoomEleText:function(eleData){},
-            zoomEleImage:function(eleData){},
-            zoomEleMenu:function(eleData){},
-            zoomEleGroup:function(eleData){
-                //从最底端的元素开始缩放，然后上层的组 在下面的元素调整完成后  组需要自检   重新调整大小
+            zoomEleText:function(eleData,scale){
+                var eleWidth=0;
+                var eleHeight=0;
+                var eleTop=0;
+                var eleLeft=0;
+
+                eleTop=parseInt(eleData.position.top)*scale;
+                eleLeft=parseInt(eleData.position.left)*scale;
+
+                eleWidth=parseInt(eleData.border.width)*scale;                
+
+                var eleDom=$('#'+eleData.ID);
+                eleDom.css({'left':eleLeft,'top':eleTop});                
+                eleDom.find('>.ele-box').css({'width':eleWidth});
             },
+            zoomEleImage:function(eleData,scale){
+                var eleWidth=0;
+                var eleHeight=0;
+                var eleTop=0;
+                var eleLeft=0;
+
+                eleTop=parseInt(eleData.position.top)*scale;
+                eleLeft=parseInt(eleData.position.left)*scale;
+                eleWidth=parseInt(eleData.border.width)*scale;
+                eleHeight=parseInt(eleData.border['min-height'])*scale;
+
+                var eleDom=$('#'+eleData.ID);
+                eleDom.css({'left':eleLeft,'top':eleTop});
+                eleDom.find('>.ele-box').css({'width':eleWidth,'min-height':eleHeight});
+                //eleDom.find('>.ele-box >.ele').css({'width':eleImageWidth,'height':eleImageHeight});
+
+                //reset  image
+                imageCropService.resetImage(eleDom,eleData, parseInt(eleData.border.width), parseInt(eleData.border['min-height']), parseInt(eleData.style.width), parseInt(eleData.style.height), eleData.style.clip);
+            },
+            zoomEleMenu:function(eleData,scale){},
+            zoomEleGroup:function(eleData,scale){
+                //从最底端的元素开始缩放，然后上层的组 在下面的元素调整完成后  组需要自检   重新调整大小
+                var eleWidth=0;
+                var eleHeight=0;
+                var oldWidth=parseInt(eleData.border.width);
+                var oldHeight=parseInt(eleData.border['min-height']);
+
+                eleWidth=oldWidth*scale;
+                eleHeight=oldHeight*scale;
+                $('#'+eleData.ID).find('>.ele-box').css({'width':eleWidth,'min-height':eleHeight});
+                //遍历子元素 调整大小
+                angular.forEach(eleData.eleList,function(obj,index){
+                    handle.zoomEle(obj,scale);
+                });
+
+
+                //子元素完成调整    自检 是否需要增大
+
+            }
         };
 
         return handle;

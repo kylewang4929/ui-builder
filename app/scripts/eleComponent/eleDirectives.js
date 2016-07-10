@@ -199,14 +199,14 @@ angular.module('myBuilderApp')
                 var data = element.context.eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box">',
+                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" background-size="'+data.backgroundSize+'">',
                         '                <div class="ele-label">图片</div>',
                         '                <div class="ele-box">',
                         '                    <img class="ele ele-image" src="' + data.url + '" onmousedown=event.preventDefault() onmousedown=event.preventDefault()/>',
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template=['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-web" rotate="ele-web" resize="ele-web" ng-dblclick=editImage(\''+data.ID+'\') ng-mousedown=selectEle($event,\''+data.ID+'\')>',
+                    template=['<div background-size="'+data.backgroundSize+'" id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-web" rotate="ele-web" resize="ele-web" ng-dblclick=editImage(\''+data.ID+'\') ng-mousedown=selectEle($event,\''+data.ID+'\')>',
                         '                <div class="rotate" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line" onmousedown="event.preventDefault()"></div>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
@@ -551,14 +551,14 @@ angular.module('myBuilderApp')
                 var data = element.context.eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box">',
+                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" background-size="'+data.backgroundSize+'">',
                         '                <div class="ele-label">图片</div>',
                         '                <div class="ele-box">',
                         '                    <img class="ele ele-image" src="' + data.url + '" onmousedown=event.preventDefault() onmousedown=event.preventDefault()/>',
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-phone" rotate="ele-phone" resize="ele-phone" ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                    template = ['<div background-size="'+data.backgroundSize+'" id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-phone" rotate="ele-phone" resize="ele-phone" ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
                         '                <div class="rotate" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line" onmousedown="event.preventDefault()"></div>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',

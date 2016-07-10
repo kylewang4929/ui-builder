@@ -1,5 +1,5 @@
 "use strict";
-angular.module('dataService', [])
+angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
     .factory('websiteData', function (historyLog, phoneHistoryLog, phoneBuilderTool, builderTool, $http, $q, $timeout,activePageService) {
 
         var activePage = "";

@@ -1,6 +1,6 @@
 "use strict";
-angular.module('kyle.imageCrop', [])
-    .directive('imageCrop', function (imageCropService, $timeout) {
+angular.module('kyle.imageCrop',['dataService'])
+    .directive('imageCrop', function (imageCropService, $timeout,builderTool,websiteData,activePageService) {
         return {
             restrict: 'A',
             template: '<div class="menu z-depth-2">' +
@@ -46,8 +46,15 @@ angular.module('kyle.imageCrop', [])
                         position: { left: parseInt($(element).get(0).offsetLeft), top: parseInt($(element).get(0).offsetTop) }
                     }
 
-                    imageCropService.updateCrop(updateData);
+                    var activeEle = imageCropService.updateCrop(updateData);
 
+                    var activePage = activePageService.getActivePage().value;
+
+                    websiteData.conversionScaleForPhone(activeEle);
+
+                    websiteData.updateEle(activePage, activeEle);
+
+                    builderTool.updateEle(activeEle);                    
                 }
 
                 scope.$watch("imageSlide.value", function () {
@@ -700,7 +707,7 @@ angular.module('kyle.imageCrop', [])
             }
         };
     })
-    .factory("imageCropService", function (eleMenuServices, $compile, $rootScope, websiteData, activePageService, builderTool) {
+    .factory("imageCropService", function (eleMenuServices, $compile, $rootScope, activePageService) {
         var activeEle = {};
         var activeEleDom = "";
         var menuDom = "";
@@ -733,13 +740,14 @@ angular.module('kyle.imageCrop', [])
             setRemoveCallBack: function (callback) {
                 removeCallBack = callback;
             },
-            resetImage: function (dom, originalWidth, originalHeight, originalImageWidth, originalImageHeight, originalClip) {
-                var activePage = activePageService.getActivePage().value;
-                var ele = websiteData.getEle(activePage, $(dom).attr("id"));
+            resetImage: function (dom, ele,originalWidth, originalHeight, originalImageWidth, originalImageHeight, originalClip) {
+                // var activePage = activePageService.getActivePage().value;
+                // var ele = websiteData.getEle(activePage, $(dom).attr("id"));
 
                 var position = $(dom);
                 var border = position.find("> .ele-box");
                 var style = border.find("> .ele");
+                console.log(ele);
 
                 //解析clip
                 var clipData = handle.parsingClip(originalClip, originalImageWidth, originalImageHeight);
@@ -887,8 +895,8 @@ angular.module('kyle.imageCrop', [])
                 return String;
             },
             updateCrop: function (updateData) {
-                var activePage = activePageService.getActivePage().value;
-                activeEle = websiteData.getEle(activePage, activeEle.ID);
+                // var activePage = activePageService.getActivePage().value;
+                // activeEle = websiteData.getEle(activePage, activeEle.ID);
 
                 var clipData = handle.parsingClip(updateData.clip, updateData.eleSize.width, updateData.eleSize.height);
                 //更新元素
@@ -906,15 +914,15 @@ angular.module('kyle.imageCrop', [])
                 activeEle.style['top'] = -clipData[0];
 
                 //由于裁剪彻底改变了元素  所以要转换成phone的元素
-                websiteData.conversionScaleForPhone(activeEle);
+                // websiteData.conversionScaleForPhone(activeEle);
 
-                websiteData.updateEle(activePage, activeEle);
+                // websiteData.updateEle(activePage, activeEle);
 
-                //更新元素（dom）
-
-                builderTool.updateEle(activeEle);
+                var returnData = angular.copy(activeEle);
 
                 handle.removePlugin();
+
+                return returnData;
 
             },
             getActiveEle: function () {

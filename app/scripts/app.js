@@ -35,7 +35,7 @@ angular
         "eleMenu",
         "addSession",
         "kyle.imageLibrary",
-        "kyle.imageCrop"
+        "kyle.imageCrop"   
     ])
     .config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
 
