@@ -485,13 +485,11 @@ angular.module('myBuilderApp')
                     parameter.rightRotate = parseInt(parameter.rotate / 45 + parameter.target) % 8;
 
                     //当元素是组的时候这里需要记录开始改变大小时的元素状态  方便缩放
-                    if (eleType == 'group') {
-                        if (parameter.type == 'ele-web') {
-                            parameter.eleData = builderTool.getEle(attrs.id, attrs.eleType);
-                        }
-                        if (parameter.type == 'ele-phone') {
-                            parameter.eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
-                        }
+                    if (parameter.type == 'ele-web') {
+                        parameter.eleData = builderTool.getEle(attrs.id, attrs.eleType);
+                    }
+                    if (parameter.type == 'ele-phone') {
+                        parameter.eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
                     }
 
                 });
@@ -977,7 +975,16 @@ angular.module('myBuilderApp')
                         if (eleType == "image") {
                             var activePage = activePageService.getActivePage().value;
                             var ele = websiteData.getEle(activePage, attrs.id);
-                            imageCropService.resetImage($(element), ele,parameter.eleWidth, parameter.eleHeight, parameter.imageWidth, parameter.imageHeight, parameter.clip);
+                            imageCropService.resetImage($(element), ele , parameter.eleWidth, parameter.eleHeight, parameter.imageWidth, parameter.imageHeight, parameter.clip);
+                        }
+
+                        /**
+                         * 如果是手机那边的文字 需要同步border-box 和position-box的大小
+                        */
+                        if(parameter.type == 'ele-phone' && eleType == 'text'){
+                            var borderWidth = parameter.eleData.phoneStyle.scale * parseInt($(element).find('>.ele-box').get(0).offsetWidth);
+                            var borderHeight = parameter.eleData.phoneStyle.scale * parseInt($(element).find('>.ele-box').get(0).offsetHeight);
+                            $(element).css({'width':borderWidth,'height':borderHeight});
                         }
 
                         /**

@@ -707,7 +707,7 @@ angular.module('kyle.imageCrop',['dataService'])
             }
         };
     })
-    .factory("imageCropService", function (eleMenuServices, $compile, $rootScope, activePageService) {
+    .factory("imageCropService", function (eleMenuServices, $compile, $rootScope) {
         var activeEle = {};
         var activeEleDom = "";
         var menuDom = "";
@@ -743,11 +743,9 @@ angular.module('kyle.imageCrop',['dataService'])
             resetImage: function (dom, ele,originalWidth, originalHeight, originalImageWidth, originalImageHeight, originalClip) {
                 // var activePage = activePageService.getActivePage().value;
                 // var ele = websiteData.getEle(activePage, $(dom).attr("id"));
-
                 var position = $(dom);
                 var border = position.find("> .ele-box");
                 var style = border.find("> .ele");
-                console.log(ele);
 
                 //解析clip
                 var clipData = handle.parsingClip(originalClip, originalImageWidth, originalImageHeight);

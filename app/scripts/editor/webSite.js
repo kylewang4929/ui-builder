@@ -352,7 +352,21 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 //reset  image
                 imageCropService.resetImage(eleDom,eleData, parseInt(eleData.border.width), parseInt(eleData.border['min-height']), parseInt(eleData.style.width), parseInt(eleData.style.height), eleData.style.clip);
             },
-            zoomEleMenu:function(eleData,scale){},
+            zoomEleMenu:function(eleData,scale){
+                var eleWidth=0;
+                var eleHeight=0;
+                var eleTop=0;
+                var eleLeft=0;
+
+                eleTop=parseInt(eleData.position.top)*scale;
+                eleLeft=parseInt(eleData.position.left)*scale;
+
+                eleWidth=parseInt(eleData.border.width)*scale;                
+
+                var eleDom=$('#'+eleData.ID);
+                eleDom.css({'left':eleLeft,'top':eleTop});                
+                eleDom.find('>.ele-box').css({'width':eleWidth});
+            },
             zoomEleGroup:function(eleData,scale){
                 //从最底端的元素开始缩放，然后上层的组 在下面的元素调整完成后  组需要自检   重新调整大小
                 var eleWidth=0;
@@ -362,7 +376,9 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
 
                 eleWidth=oldWidth*scale;
                 eleHeight=oldHeight*scale;
-                $('#'+eleData.ID).find('>.ele-box').css({'width':eleWidth,'min-height':eleHeight});
+                
+                var eleDom=$('#'+eleData.ID);
+                eleDom.find('>.ele-box').css({'width':eleWidth,'min-height':eleHeight});
                 //遍历子元素 调整大小
                 angular.forEach(eleData.eleList,function(obj,index){
                     handle.zoomEle(obj,scale);
@@ -370,6 +386,15 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
 
 
                 //子元素完成调整    自检 是否需要增大
+                var eleList=eleDom.find('>.ele-box >.ele >.position-box-parent >.position-box');
+                var maxHeight=eleHeight;
+                for(var i=0;i<eleList.length;i++){
+                    var height=eleList.eq(i).height()+parseInt(eleList.eq(i).css('top'));
+                    if(height > maxHeight){
+                        maxHeight = height;
+                    }
+                }
+                eleDom.find('>.ele-box').css({'min-height':maxHeight+6});
 
             }
         };

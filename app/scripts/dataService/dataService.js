@@ -1,6 +1,6 @@
 "use strict";
 angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
-    .factory('websiteData', function (historyLog, phoneHistoryLog, phoneBuilderTool, builderTool, $http, $q, $timeout,activePageService) {
+    .factory('websiteData', function (historyLog, phoneHistoryLog, phoneBuilderTool, builderTool, $http, $q, $timeout,activePageService,imageCropService) {
 
         var activePage = "";
 
@@ -317,6 +317,21 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                         if (width > phoneWidth) {
                             //需要缩放
                             obj.eleList[i].phoneStyle.scale = (phoneWidth - 20) / width;
+                            /**
+                             * 如果是图片的话直接表现到json上去
+                            */
+                            if(obj.eleList[i].type=='image'){
+                                obj.eleList[i].phoneStyle.border.width = parseInt(obj.eleList[i].phoneStyle.border.width) * obj.eleList[i].phoneStyle.scale;
+                                obj.eleList[i].phoneStyle.border['min-height'] = parseInt(obj.eleList[i].phoneStyle.border['min-height']) * obj.eleList[i].phoneStyle.scale;
+                                obj.eleList[i].phoneStyle.style.width = parseInt(obj.eleList[i].phoneStyle.style.width) * obj.eleList[i].phoneStyle.scale;
+                                obj.eleList[i].phoneStyle.style.height = parseInt(obj.eleList[i].phoneStyle.style.height) * obj.eleList[i].phoneStyle.scale;
+                                var clip = imageCropService.parsingClip(obj.eleList[i].phoneStyle.style.clip , obj.eleList[i].phoneStyle.style.width , obj.eleList[i].phoneStyle.style.height);
+                                clip[0] = clip[0] * obj.eleList[i].phoneStyle.scale;
+                                clip[1] = clip[1] * obj.eleList[i].phoneStyle.scale;
+                                clip[2] = clip[2] * obj.eleList[i].phoneStyle.scale;
+                                clip[3] = clip[3] * obj.eleList[i].phoneStyle.scale;
+                                obj.eleList[i].phoneStyle.style.clip = 'rect(' + clip[0] + 'px ' + clip[1] + 'px ' + clip[2] + 'px ' + clip[3] + 'px ' + ')';
+                            }
                         }
                         if (i === 0) {
                             maxWidth = width * obj.eleList[i].phoneStyle.scale;
@@ -350,8 +365,10 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 var left = parseInt(obj.phoneStyle.position.left);
                 var width = parseInt(obj.phoneStyle.border.width);
                 if (width * obj.phoneStyle.scale < 280) {
+                    //调整元素
                     this.calculateForPhone(obj);
                 } else {
+                    //超过了大小 调整组的大小
                     calculateEleGroup(obj);
                 }
 
@@ -371,6 +388,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                         obj.phoneStyle.position.left = 10;
                         obj.phoneStyle.scale = (phoneWidth - 20) / width;
                         if (obj.type === 'image') {
+                            console.log(obj.phoneStyle.scale);
                             obj.phoneStyle.border.width *= obj.phoneStyle.scale;
                             obj.phoneStyle.border['min-height'] *= obj.phoneStyle.scale;
                         }
@@ -380,7 +398,6 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 calculateEle(obj);
             },
             groupEle: function (eleList, historyType, originalID) {
-
                 if (historyType === undefined) {
                     historyType = "default";
                 }
@@ -425,14 +442,25 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                                     for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
                                         if (eleList[q].ID === data[i].sessionList[j].eleList[k].ID) {
                                             //找到匹配的元素
-                                            groupEle.push(data[i].sessionList[j].eleList.splice(k, 1)[0]);
+                                            var insetObj=data[i].sessionList[j].eleList.splice(k, 1)[0];
+                                            //如果是图片的话需要先将 phoneStyle的style里图片的大小先还原 clip 也要重置
+                                            if(insetObj.type == 'image'){
+                                                insetObj.phoneStyle.style.width = parseInt(insetObj.phoneStyle.style.width) / insetObj.phoneStyle.scale;
+                                                insetObj.phoneStyle.style.height = parseInt(insetObj.phoneStyle.style.height) / insetObj.phoneStyle.scale;
+                                                var clip = imageCropService.parsingClip(insetObj.phoneStyle.style.clip , insetObj.phoneStyle.style.width , insetObj.phoneStyle.style.height);
+                                                clip[0] = clip[0] / insetObj.phoneStyle.scale;
+                                                clip[1] = clip[1] / insetObj.phoneStyle.scale;
+                                                clip[2] = clip[2] / insetObj.phoneStyle.scale;
+                                                clip[3] = clip[3] / insetObj.phoneStyle.scale;
+                                                insetObj.phoneStyle.style.clip = 'rect(' + clip[0] + 'px ' + clip[1] + 'px ' + clip[2] + 'px ' + clip[3] + 'px ' + ')';
+                                            }
+                                            groupEle.push(insetObj);
                                             break;
                                         }
                                     }
 
                                     if (q + 1 >= eleList.length) {
                                         //重新计算元素的位置 以及外框的大小 组成新元素
-
                                         for (var eleListIndex = 0; eleListIndex < groupEle.length; eleListIndex++) {
                                             groupEle[eleListIndex].position.left = parseInt(groupEle[eleListIndex].position.left) - par.minLeft + "px";
                                             groupEle[eleListIndex].position.top = parseInt(groupEle[eleListIndex].position.top) - par.minTop + "px";
@@ -561,8 +589,6 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
 
                     deferred.resolve(data);
                 });
-                //deferred.notify('即将问候 ' + name + '.');
-                //deferred.reject('拒绝问候 ' + name + ' .');
 
                 return deferred.promise;
             },

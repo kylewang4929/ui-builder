@@ -1,15 +1,15 @@
 "use strict";
-angular.module('phoneSiteEditor',[])
-    .factory('phoneBuilderTool', function(phoneCreatorServices, $compile, $timeout) {
+angular.module('phoneSiteEditor', [])
+    .factory('phoneBuilderTool', function (phoneCreatorServices, $compile, $timeout, imageCropService) {
 
         var data = [];
         var createScope = null;
 
         var handle = {
-            init: function(data) {
+            init: function (data) {
                 createScope = data;
             },
-            addEle: function(sessionID, obj) {
+            addEle: function (sessionID, obj) {
                 var dom = phoneCreatorServices.createEle(obj);
                 dom = $compile(dom.get(0))(createScope);
                 if (obj.showState === false) {
@@ -17,7 +17,7 @@ angular.module('phoneSiteEditor',[])
                 }
                 $("#" + sessionID + ".ele-session-box").append(dom);
             },
-            hideEle: function(ID, type) {
+            hideEle: function (ID, type) {
                 if (type === 'session') {
                     $("#" + ID + ".ele-session-box").hide();
                 }
@@ -25,7 +25,7 @@ angular.module('phoneSiteEditor',[])
                     $("#" + ID + ".position-box").hide();
                 }
             },
-            showEle: function(ID, type) {
+            showEle: function (ID, type) {
                 if (type === 'session') {
                     $("#" + ID + ".ele-session-box").show();
                 }
@@ -33,7 +33,7 @@ angular.module('phoneSiteEditor',[])
                     $("#" + ID + ".position-box").show();
                 }
             },
-            moveEle: function(ID, direction, value) {
+            moveEle: function (ID, direction, value) {
                 var dom = $("#" + ID + ".position-box");
                 if (direction === 'top') {
                     var cTop = dom.css('top');
@@ -44,10 +44,10 @@ angular.module('phoneSiteEditor',[])
                     dom.css('left', parseInt(cLeft) + value);
                 }
             },
-            changeSessionHeight: function(sessionID, height) {
+            changeSessionHeight: function (sessionID, height) {
                 $("#" + sessionID + ".ele-session-box").css('min-height', height);
             },
-            addSession: function(obj) {
+            addSession: function (obj) {
                 var dom = phoneCreatorServices.createSession(obj);
                 dom = $compile(dom.get(0))(createScope);
                 var sessionList = $(".ele-session-box");
@@ -57,22 +57,22 @@ angular.module('phoneSiteEditor',[])
                     $(".ele-session-box").eq(sessionList.length - 1).after(dom);
                 }
             },
-            deleteSession: function(ID) {
+            deleteSession: function (ID) {
                 $("#" + ID + ".ele-session-box").remove();
                 $(".tooltip.tooltip--is-active").remove();
             },
-            createID: function() {
+            createID: function () {
                 return _.uniqueId("ele" + _.now());
             },
-            refreshPage: function(data, scope) {
+            refreshPage: function (data, scope) {
                 var page = $("#phone-edit-space");
                 page.empty();
                 page.append(phoneCreatorServices.createPage(data.sessionList, scope));
             },
-            updateEle: function(eleData) {
-                
-                $("#"+eleData.ID).parent().get(0).eleConfig=eleData;
-                
+            updateEle: function (eleData) {
+
+                $("#" + eleData.ID).parent().get(0).eleConfig = eleData;
+
                 switch (eleData.type) {
                     case "text": this.updateEleText(eleData); break;
                     case "image": this.updateEleImage(eleData); break;
@@ -80,10 +80,10 @@ angular.module('phoneSiteEditor',[])
                     case "group": this.updateEleGroup(eleData); break;
                 }
             },
-            deleteEle: function(id) {
+            deleteEle: function (id) {
                 $("#" + id + ".position-box").remove();
             },
-            getEle: function(ID, type) {
+            getEle: function (ID, type) {
                 var eleData = {};
                 switch (type) {
                     case "text": eleData = this.getEleText(ID); break;
@@ -94,19 +94,19 @@ angular.module('phoneSiteEditor',[])
 
                 return eleData;
             },
-            resolveStyle: function(dom) {
-                var style={};
-                
-                angular.forEach(dom.style,function(obj,index){
-                    style[obj]=$(dom).css(obj);
+            resolveStyle: function (dom) {
+                var style = {};
+
+                angular.forEach(dom.style, function (obj, index) {
+                    style[obj] = $(dom).css(obj);
                 });
-                
+
                 return style;
             },
-            getEleText: function(ID) {
+            getEleText: function (ID) {
                 var eleData = {};
-                var styleDom={};
-                eleData.phoneStyle={};
+                var styleDom = {};
+                eleData.phoneStyle = {};
                 var dom = $("#" + ID + ".position-box");
 
                 eleData.ID = ID;
@@ -128,10 +128,10 @@ angular.module('phoneSiteEditor',[])
 
                 return eleData;
             },
-            getEleImage: function(ID) {
+            getEleImage: function (ID) {
                 var eleData = {};
-                var styleDom={};
-                eleData.phoneStyle={};                
+                var styleDom = {};
+                eleData.phoneStyle = {};
                 var dom = $("#" + ID + ".position-box");
 
                 eleData.ID = ID;
@@ -143,17 +143,17 @@ angular.module('phoneSiteEditor',[])
                 styleDom = dom.find(".ele");
                 eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
                 eleData.url = styleDom.attr("src");
-                eleData.backgroundSize=dom.attr('background-size');
+                eleData.backgroundSize = dom.attr('background-size');
 
                 //获取缩放比例
                 eleData.phoneStyle.scale = dom.attr('scale');
-                
+
                 return eleData;
             },
-            getEleMenu: function(ID) {
+            getEleMenu: function (ID) {
                 var eleData = {};
-                var styleDom={};
-                eleData.phoneStyle={};                                
+                var styleDom = {};
+                eleData.phoneStyle = {};
                 var dom = $("#" + ID + ".position-box");
 
                 eleData.ID = ID;
@@ -176,10 +176,10 @@ angular.module('phoneSiteEditor',[])
 
                 return eleData;
             },
-            getEleGroup: function(ID) {
+            getEleGroup: function (ID) {
                 var eleData = {};
-                var styleDom={};
-                eleData.phoneStyle={};                
+                var styleDom = {};
+                eleData.phoneStyle = {};
                 var dom = $("#" + ID + ".position-box");
 
                 eleData.ID = ID;
@@ -208,87 +208,169 @@ angular.module('phoneSiteEditor',[])
 
                 return eleData;
             },
-            updateEleText: function(eleData) {
+            updateEleText: function (eleData) {
                 //更新样式
                 var dom = $("#" + eleData.ID + ".position-box");
-                $.each(eleData.phoneStyle.position, function(index, value) {
+                $.each(eleData.phoneStyle.position, function (index, value) {
                     dom.css(index, value);
                 });
 
                 dom = dom.find(".ele-box");
-                $.each(eleData.phoneStyle.border, function(index, value) {
+                $.each(eleData.phoneStyle.border, function (index, value) {
                     dom.css(index, value);
                 });
 
                 dom = dom.find(".ele");
-                $.each(eleData.phoneStyle.style, function(index, value) {
+                $.each(eleData.phoneStyle.style, function (index, value) {
                     dom.css(index, value);
                 });
             },
-            updateEleImage: function(eleData) {
+            updateEleImage: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");
-                $.each(eleData.phoneStyle.position, function(index, value) {
+                $.each(eleData.phoneStyle.position, function (index, value) {
                     dom.css(index, value);
                 });
 
                 dom = dom.find(".ele-box");
-                $.each(eleData.phoneStyle.border, function(index, value) {
+                $.each(eleData.phoneStyle.border, function (index, value) {
                     dom.css(index, value);
                 });
-                
+
                 dom = dom.find(".ele");
-                $.each(eleData.phoneStyle.style, function(index, value) {
+                $.each(eleData.phoneStyle.style, function (index, value) {
                     dom.css(index, value);
                 });
-                
+
             },
-            updateEleMenu: function(eleData) {
+            updateEleMenu: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");
-                $.each(eleData.phoneStyle.position, function(index, value) {
+                $.each(eleData.phoneStyle.position, function (index, value) {
                     dom.css(index, value);
                 });
 
                 dom = dom.find(".ele-box");
-                $.each(eleData.phoneStyle.border, function(index, value) {
+                $.each(eleData.phoneStyle.border, function (index, value) {
                     dom.css(index, value);
                 });
 
                 dom = dom.find(".ele");
-                $.each(eleData.phoneStyle.style, function(index, value) {
+                $.each(eleData.phoneStyle.style, function (index, value) {
                     dom.css(index, value);
                 });
 
             },
-            updateEleGroup: function(eleData) {
+            updateEleGroup: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");
-                $.each(eleData.phoneStyle.position, function(index, value) {
+                $.each(eleData.phoneStyle.position, function (index, value) {
                     dom.css(index, value);
                 });
 
                 var domBorder = dom.find("> .ele-box");
-                $.each(eleData.phoneStyle.border, function(index, value) {
+                $.each(eleData.phoneStyle.border, function (index, value) {
                     dom.css(index, value);
                 });
                 var eleDom = domBorder.find("> .ele");
-                $.each(eleData.phoneStyle.style, function(index, value) {
+                $.each(eleData.phoneStyle.style, function (index, value) {
                     dom.css(index, value);
                 });
                 for (var i = 0; i < eleData.eleList.length; i++) {
                     this.updateEle(eleData.eleList[i]);
                 }
             },
-            zoomEle:function(eleData){
-                switch(eleData.type){
-                    case 'text':zoomEleText(eleData);break;
-                    case 'image':zoomEleImage(eleData);break;
-                    case 'menu':zoomEleMenu(eleData);break;
-                    case 'group':zoomEleGroup(eleData);break;
+            /**
+             * 用于调整组的大小的时候把内部的组件也进行缩放
+            */
+            zoomEle: function (eleData, scale) {
+                //调整缩放页面元素，一般只在调整组的时候用得上
+                switch (eleData.type) {
+                    case 'text': handle.zoomEleText(eleData, scale); break;
+                    case 'image': handle.zoomEleImage(eleData, scale); break;
+                    case 'menu': handle.zoomEleMenu(eleData, scale); break;
+                    case 'group': handle.zoomEleGroup(eleData, scale); break;
                 }
             },
-            zoomEleText:function(eleData){},
-            zoomEleImage:function(eleData){},
-            zoomEleMenu:function(eleData){},
-            zoomEleGroup:function(eleData){},
+            zoomEleText: function (eleData, scale) {
+                var eleWidth = 0;
+                var eleHeight = 0;
+                var eleTop = 0;
+                var eleLeft = 0;
+
+                eleTop = parseInt(eleData.phoneStyle.position.top) * scale;
+                eleLeft = parseInt(eleData.phoneStyle.position.left) * scale;
+
+                eleWidth = parseInt(eleData.phoneStyle.border.width) * scale;
+
+                var eleDom = $('#' + eleData.ID);
+                eleDom.css({ 'left': eleLeft, 'top': eleTop });
+                eleDom.find('>.ele-box').css({ 'width': eleWidth });
+                var borderWidth = eleWidth * eleData.phoneStyle.scale;
+                var borderHeight = parseFloat(eleDom.find('>.ele-box').get(0).offsetHeight) * eleData.phoneStyle.scale;
+                eleDom.css({ 'width': borderWidth, 'height': borderHeight });                
+            },
+            zoomEleImage: function (eleData, scale) {
+                var eleWidth = 0;
+                var eleHeight = 0;
+                var eleTop = 0;
+                var eleLeft = 0;
+
+                eleTop = parseInt(eleData.phoneStyle.position.top) * scale;
+                eleLeft = parseInt(eleData.phoneStyle.position.left) * scale;
+                eleWidth = parseInt(eleData.phoneStyle.border.width) * scale;
+                eleHeight = parseInt(eleData.phoneStyle.border['min-height']) * scale;
+
+                var eleDom = $('#' + eleData.ID);
+                eleDom.css({ 'left': eleLeft, 'top': eleTop });
+                eleDom.find('>.ele-box').css({ 'width': eleWidth, 'min-height': eleHeight });
+                //eleDom.find('>.ele-box >.ele').css({'width':eleImageWidth,'height':eleImageHeight});
+
+                //reset  image
+                imageCropService.resetImage(eleDom, eleData, parseInt(eleData.phoneStyle.border.width), parseInt(eleData.phoneStyle.border['min-height']), parseInt(eleData.phoneStyle.style.width), parseInt(eleData.phoneStyle.style.height), eleData.phoneStyle.style.clip);
+            },
+            zoomEleMenu: function (eleData, scale) {
+                var eleWidth = 0;
+                var eleHeight = 0;
+                var eleTop = 0;
+                var eleLeft = 0;
+
+                eleTop = parseInt(eleData.phoneStyle.position.top) * scale;
+                eleLeft = parseInt(eleData.phoneStyle.position.left) * scale;
+
+                eleWidth = parseInt(eleData.phoneStyle.border.width) * scale;
+
+                var eleDom = $('#' + eleData.ID);
+                eleDom.css({ 'left': eleLeft, 'top': eleTop });
+                eleDom.find('>.ele-box').css({ 'width': eleWidth });
+            },
+            zoomEleGroup: function (eleData, scale) {
+                //从最底端的元素开始缩放，然后上层的组 在下面的元素调整完成后  组需要自检   重新调整大小
+                var eleWidth = 0;
+                var eleHeight = 0;
+                var oldWidth = parseInt(eleData.phoneStyle.border.width);
+                var oldHeight = parseInt(eleData.phoneStyle.border['min-height']);
+
+                eleWidth = oldWidth * scale;
+                eleHeight = oldHeight * scale;
+
+                var eleDom = $('#' + eleData.ID);
+                eleDom.find('>.ele-box').css({ 'width': eleWidth, 'min-height': eleHeight });
+                //遍历子元素 调整大小
+                angular.forEach(eleData.eleList, function (obj, index) {
+                    handle.zoomEle(obj, scale);
+                });
+
+
+                //子元素完成调整    自检 是否需要增大
+                var eleList = eleDom.find('>.ele-box >.ele >.position-box-parent >.position-box');
+                var maxHeight = eleHeight;
+                for (var i = 0; i < eleList.length; i++) {
+                    var height = eleList.eq(i).height() + parseInt(eleList.eq(i).css('top'));
+                    if (height > maxHeight) {
+                        maxHeight = height;
+                    }
+                }
+                eleDom.find('>.ele-box').css({ 'min-height': maxHeight+6 });
+
+            }
         };
 
         return handle;
