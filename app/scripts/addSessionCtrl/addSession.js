@@ -16,7 +16,7 @@ angular.module('addSession', [])
         return {
             restrict: 'A',
             scope: {},
-            template: '<div class="add-session-handle bottom z-depth-2" onmousedown="event.stopPropagation()" ng-class="{true:\'open\'}[showFlag]"><i class="mdi mdi-plus"></i></div>',
+            template: '<div class="add-session-handle bottom z-depth-2" ng-class="{true:\'open\'}[showFlag]"><i class="mdi mdi-plus"></i></div>',
             replace: true,
             link: function (scope, element, attrs) {
                 //记录高度 由于动画的原因无法正常获取高度                

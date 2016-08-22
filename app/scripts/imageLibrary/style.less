@@ -261,3 +261,57 @@
     }
   }
 }
+
+
+.transitionBall(@duration1,@timing1,@delay1){
+    transition: transform @duration1 @timing1 @delay1,opacity @duration1 @timing1 @delay1;
+    -moz-transition: transform @duration1 @timing1 @delay1,opacity @duration1 @timing1 @delay1; /* Firefox 4 */
+    -webkit-transition: transform @duration1 @timing1 @delay1,opacity @duration1 @timing1 @delay1; /* Safari 和 Chrome */
+    -o-transition: transform @duration1 @timing1 @delay1,opacity @duration1 @timing1 @delay1; /* Opera */
+}
+
+.image-library-image-list{
+  & ::after{
+    clear: both;
+  }
+  padding : 10px;
+  & .image-library-image-item{
+    float: left;
+    width: 20%;
+    padding: 10px;
+    & .inner{
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 140px;
+      border-radius: 6px;
+      position: relative;
+      .z-depth-1;
+      cursor: pointer;
+      &.active{
+        & .select-flag{
+          transform: scale(1,1);          
+        }
+      }
+      & .select-flag{
+        border-radius: 50%;
+        background-color: @baseColor;
+        color: #fff;
+        position: absolute;
+        overflow: hidden;
+        right: 10px;
+        top:10px;
+        text-align: center;
+        line-height: 30px;
+        width: 30px;
+        height: 30px;
+        transform: scale(0,0);
+        -moz-transform: scale(0,0);
+        -webkit-transform: scale(0,0);
+        -o-transform: scale(0,0);
+        .z-depth-1;        
+        .transitionBall(0.195s,cubic-bezier(0.4, 1, 0.2, 1),0s);
+      }
+    }
+  }
+}

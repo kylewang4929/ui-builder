@@ -72,20 +72,20 @@
         </div>
         <div class="content-box">
             <div class="list">
-                <perfect-scrollbar class="scroller-page phone" wheel-propagation="true" wheel-speed="5">
-                    <div class="item active" lx-ripple="white">所有图片</div>
-                    <div class="item" lx-ripple="white">背景图</div>
+                <perfect-scrollbar class="scroller-page" wheel-propagation="true" wheel-speed="5">
+                    <div ng-repeat="rowData in categoryList" ng-class="{true:'active'}[activeCategory==rowData]" class="item" ng-click="selectCategory(rowData)" lx-ripple="white">{{rowData.name}}</div>
                 </perfect-scrollbar>
                 <div class="item add"><i class="mdi mdi-plus-circle-outline"></i> 创建分类</div>
             </div>
             <div class="content">
-                <div class="page-state-alert-box" ng-include="'views/imageLibrary/noImage.html'"></div>
+                <image-list max-select-size='maxSelectSize' selected-list='selectedList' list-data='imageList' ng-if='imageList.length!=0'></image-list>
+                <div ng-if='imageList.length==0' class="page-state-alert-box" ng-include="'views/imageLibrary/noImage.html'"></div>
             </div>
         </div>
     </div>
     <div class="modal-foot">
         <div class="right-button">
-            <div class="radius-button un-active z-depth-1" lx-ripple="white">
+            <div class="radius-button z-depth-1" ng-class="{true:'un-active'}[selectedList.length==0]" lx-ripple="white">
                 选择
             </div>
         </div>
