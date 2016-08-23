@@ -17,7 +17,8 @@ angular.module('eleMenu', [])
 
                 //监听属性 同步更改
                 scope.changeImage = function () {
-                    imageLibraryService.showDom(1);
+                    imageLibraryService.showDom(1,function(data){
+                    });
                 };
 
                 scope.openSettingBox = function (type, e) {

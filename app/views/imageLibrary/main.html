@@ -9,14 +9,8 @@
     <div class="modal-content">
         <div class="option-box">
             <div class="option-list">
-                <div class="option-item active" lx-ripple="light-blue-500">
-                    我的图片
-                </div>
-                <div class="option-item" lx-ripple="light-blue-500">
-                    Builder图片
-                </div>
-                <div class="option-item" lx-ripple="light-blue-500">
-                    云图片
+                <div class="option-item" ng-click="selectType(rowData)" ng-class="{true:'active'}[rowData == activeType]" ng-repeat="rowData in typeList" lx-ripple="grey-300">
+                    {{rowData.name}}
                 </div>
             </div>
             <div class="right-button">
@@ -78,14 +72,15 @@
                 <div class="item add"><i class="mdi mdi-plus-circle-outline"></i> 创建分类</div>
             </div>
             <div class="content">
-                <image-list max-select-size='maxSelectSize' selected-list='selectedList' list-data='imageList' ng-if='imageList.length!=0'></image-list>
-                <div ng-if='imageList.length==0' class="page-state-alert-box" ng-include="'views/imageLibrary/noImage.html'"></div>
+                <div ng-show='imageListLoadingFlag==true' class="page-state-loading-box" ng-include="'views/imageLibrary/loading.html'"></div>
+                <image-list max-select-size='maxSelectSize' selected-list='selectedList' list-data='imageList' ng-if='imageList.length!=0 && imageListLoadingFlag!=true'></image-list>
+                <div ng-if='imageList.length==0 && imageListLoadingFlag!=true' class="page-state-alert-box" ng-include="'views/imageLibrary/noImage.html'"></div>
             </div>
         </div>
     </div>
     <div class="modal-foot">
         <div class="right-button">
-            <div class="radius-button z-depth-1" ng-class="{true:'un-active'}[selectedList.length==0]" lx-ripple="white">
+            <div class="radius-button z-depth-1" ng-click="comfirm()" ng-class="{true:'un-active'}[selectedList.length==0]" lx-ripple="white">
                 选择
             </div>
         </div>

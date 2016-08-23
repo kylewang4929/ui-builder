@@ -136,8 +136,15 @@ img{
 } 
 
 //页面状态提示
+.page-state-loading-box{
+  & .loading-image{
+    width:500px;
+    margin: auto;
+  }
+}
 .page-state-alert-box{
   padding: 20px 20px;
+  text-align: center;
   height: 100%;
   width: 100%;
   & .page-state-alert{
@@ -173,3 +180,44 @@ img{
   transform: scale(1.05, 1.05);
   -ms-transform: scale(1.05, 1.05);
 }
+
+/*loading 动画*/
+@keyframes loadingBallBox1{
+  from {
+    transform: scale(.8,.8);
+  }
+  to {
+    transform: scale(2.6,2.6);    
+  }
+}
+@keyframes loadingBallBox2{
+  from {
+    transform: scale(2.6,2.6); 
+  }
+  to {
+    transform: scale(.8,.8);    
+  }
+}
+.loading-ball-box{
+  width: 100px;
+  margin: auto;
+  position: relative;
+  & .ball{
+    border-radius: 50%;
+    width:60px;
+    height: 60px;
+    background-color: @baseColor;
+    position: absolute;
+    top: 50%;
+    margin-top: -30px;
+    &.ball-1{
+      animation:loadingBallBox1 0.8s ease-in-out infinite alternate;
+      opacity: .4;          
+    }
+    &.ball-2{
+      animation:loadingBallBox2 0.8s ease-in-out infinite alternate;
+      opacity: .2;
+    }
+  }
+}
+/*loading 动画*/

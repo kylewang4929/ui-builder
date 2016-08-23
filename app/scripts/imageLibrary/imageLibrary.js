@@ -6,6 +6,43 @@ angular.module('kyle.imageLibrary', [])
             templateUrl: 'views/imageLibrary/main.html',
             link: function (scope, element, attrs) {
 
+                scope.typeList=[
+                    {ID:'MyImage',name:'我的图片'},
+                    {ID:'BuilderImage',name:'Builder图片'},
+                    {ID:'CloundImage',name:'云图片'},
+                ];
+
+                scope.comfirm = function (){
+                    imageLibraryService.comfirm(scope.selectedList);
+                }
+
+                scope.imageListLoadingFlag=false;
+
+                scope.categoryList = [];
+                scope.activeCategory = scope.categoryList[0];                
+                scope.imageList = [];
+
+                scope.selectType = function(obj){
+                    if(scope.imageListLoadingFlag==true){
+                        return;
+                    }
+                    scope.activeType=obj;
+                    imageLibraryService.getImageCategory(scope.activeType).then(function(data){
+                        scope.categoryList=data;
+                        scope.activeCategory = data[0];
+                        scope.imageListLoadingFlag=true;                        
+                        imageLibraryService.getImageList().then(function(data){
+                            scope.imageList=data;
+                            scope.imageListLoadingFlag=false;
+                        },function(){});
+                    },function(){
+
+                    });
+                }
+
+                scope.activeType = scope.typeList[0];                
+                scope.selectType(scope.activeType);
+                
                 scope.maxSelectSize= imageLibraryService.getMaxSelectSize();
 
                 scope.cancel = function () {
@@ -15,21 +52,19 @@ angular.module('kyle.imageLibrary', [])
                     imageLibraryService.hideDowm();
                 };
 
-                scope.categoryList = [
-                    { id: '1', name: '所有图片' },
-                    { id: '2', name: '背景图' },
-                ];
-                scope.imageList = [
-                    { url: 'images/website/bg1.jpg' },
-                    { url: 'images/website/pc.png' },
-                ];
-
                 //当前选中的
                 scope.selectedList=[];
                 
-                scope.activeCategory = scope.categoryList[0];
                 scope.selectCategory = function (obj) {
+                    if(scope.imageListLoadingFlag==true){
+                        return;
+                    }
                     scope.activeCategory = obj;
+                    scope.imageListLoadingFlag=true;                    
+                    imageLibraryService.getImageList().then(function(data){
+                        scope.imageList=data;
+                        scope.imageListLoadingFlag=false;                        
+                    },function(){});
                 }
 
                 $(element).on("click", function (e) {
@@ -95,40 +130,44 @@ angular.module('kyle.imageLibrary', [])
             }
         };
     })
-    .factory('imageLibraryService', function ($rootScope, $compile, $timeout) {
+    .factory('imageLibraryService', function ($rootScope, $compile, $timeout,$q) {
         var data = {};
 
         var imageLibraryDom = "";
 
         var maxSelectSize = 1;
 
+        var callback = null;
+
         var handle = {
             createDom: function () {
                 var dom = $compile("<div class='my-modal-box' image-library></div>")($rootScope);
                 dom = $(dom);
                 $("body").append(dom);
-
                 return dom;
             },
-            showDom: function (maxSelect) {
-
+            showDom: function (maxSelect,fn) {
+                this.callback = fn;
+                //如果指定了最大值 默认是1
                 if(!!maxSelect){
                     maxSelectSize = maxSelect;                    
                 }
-
                 if (imageLibraryDom === "") {
                     imageLibraryDom = this.createDom();
-                } else {
-
                 }
-                //返回承诺
                 $timeout(function () {
                     imageLibraryDom.addClass("open");
                 }, 100);
             },
             hideDowm: function (data) {
                 imageLibraryDom.removeClass("open");
-                //把data抛回去
+            },
+            comfirm:function(data){
+                imageLibraryDom.removeClass("open");
+                if(this.callback!=null){
+                    this.callback(data);
+                    this.callback=null;
+                }                
             },
             removePlugin: function () {
                 if (imageLibraryDom !== "") {
@@ -139,9 +178,31 @@ angular.module('kyle.imageLibrary', [])
                 return maxSelectSize;
             },
             //获取图片的分类
-            getImageCategory:function(type){},
+            getImageCategory:function(type){
+                var deferred = $q.defer();
+                //deferred.reject(data);
+                $timeout(function(){
+                    var resultData = [
+                        { id: 'AllImage', name: '所有图片' },
+                        { id: 'BG', name: '背景图' },
+                    ];
+                    deferred.resolve(resultData);
+                });
+                return deferred.promise;
+            },
             //获取图片列表
-            getImageList:function(category){}
+            getImageList:function(){
+                var deferred = $q.defer();
+                //deferred.reject(data);
+                $timeout(function(){
+                    var resultData = [
+                        { url: 'images/website/bg1.jpg' },
+                        { url: 'images/website/pc.png' },
+                    ];
+                    deferred.resolve(resultData);
+                },1000);
+                return deferred.promise;
+            }
         };
 
         return handle;
