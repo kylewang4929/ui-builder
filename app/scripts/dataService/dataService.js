@@ -637,6 +637,60 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                     return null;
                 }
             },
+            /**
+             * 更换图片url
+             * 参数pageID 和 元素ID 、元素type、option
+             */
+            changeImageUrl:function(pageID,eleOpiton,option){
+
+                /**
+                 * 更换图片的步骤
+                 * 第一步：找到元素的JSON
+                 * 第二步：替换相关内容
+                 * 第三步：更新页面
+                 */
+                function imageEle(pageID,eleOpiton,option){
+                    var eleData = handle.getEle(pageID,eleOpiton.ID);
+                    eleData.url = option.url;
+                    //获取图片的宽高
+                    var img = new Image();
+                    img.src = option.url;
+                    img.onload = function(){
+                        eleData.style.width = img.width+'px';
+                        eleData.style.height = img.height+'px';
+                        eleData.style.clip="rect(0px "+img.width+"px "+img.height+"px 0px)";
+
+                        eleData.border.width = img.width+'px';                        
+                        eleData.border['min-height'] = img.height+'px';
+
+                        eleData.imageSize.width = img.width+'px';
+                        eleData.imageSize.height = img.height+'px';
+
+                        //手机部分
+                        var phoneHeight = img.height * eleData.phoneStyle.scale;
+                        var phoneWdith = img.width * eleData.phoneStyle.scale;
+                        eleData.phoneStyle.style.width = phoneWdith+'px';
+                        eleData.phoneStyle.style.height = phoneHeight+'px';
+                        eleData.phoneStyle.style.clip="rect(0px "+phoneWdith+"px "+phoneHeight+"px 0px)";
+
+                        eleData.phoneStyle.border.width = phoneWdith+'px';                        
+                        eleData.phoneStyle.border['min-height'] = phoneHeight+'px';
+
+                        //更新到JSON
+                        handle.updateEle(pageID,eleData,'default');
+                        console.log(eleData);
+                        builderTool.updateEle(eleData);
+                    }
+                }
+
+                switch (eleOpiton.type){
+                    case 'image':imageEle(pageID,eleOpiton,option);break;
+                }
+            },
+            /**
+             * 获取元素的JSON
+             * 参数pageID 和 元素ID
+             */
             getEle: function (pageID, id) {
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].ID == pageID) {

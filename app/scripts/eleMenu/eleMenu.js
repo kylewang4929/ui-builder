@@ -1,6 +1,6 @@
 "use strict";
 angular.module('eleMenu', [])
-    .directive('eleMenu', function ($compile, eleSettingService, eleMenuServices, imageLibraryService, imageCropService, activeEleService) {
+    .directive('eleMenu', function ($compile, eleSettingService, eleMenuServices, imageLibraryService, imageCropService, activeEleService,websiteData,activePageService) {
         return {
             restrict: 'A',
             template: "<div class='ele-menu' onmousedown='event.stopPropagation()'>" +
@@ -13,11 +13,14 @@ angular.module('eleMenu', [])
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 all-button' lx-ripple ng-click=openSettingBox('animate',$event)><i class='mdi mdi-auto-fix'></i><span>动画</span></button>" +
             "</div>",
             link: function (scope, element, attrs) {
-
-
                 //监听属性 同步更改
                 scope.changeImage = function () {
+                    var activeEle = angular.copy(activeEleService.getEle());
                     imageLibraryService.showDom(1,function(data){
+                        //更换url
+                        var eleOption= { ID:activeEle.value.ID , type: activeEle.value.type};
+                        var dataOption = { url : data[0].url};
+                        websiteData.changeImageUrl(activePageService.getActivePage().value, eleOption , dataOption);
                     });
                 };
 
