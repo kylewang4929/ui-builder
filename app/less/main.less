@@ -262,12 +262,22 @@ html, body {
             height: 100%;
             .z-depth-1;
             & .preview-ele-item{
-              width: 90%;
-              margin:20px auto 10px auto;
               border-radius: 6px;
+              margin: 16px 0px;
               &.normal{
                 & .preview-ele{
                   height: auto!important;
+                }
+              }
+              &.image-col{
+                padding: 0px 8px;                
+                &.col-6{
+                  width:50%;
+                  float: left;
+                  padding: 0px 8px;
+                }
+                & >.preview-ele-item-box{
+                  border-radius: 6px;
                 }
               }
               & .preview-menu {
@@ -351,7 +361,7 @@ html, body {
             &.scroll{
               padding: 0px 0px 58px 0px;
               & .scroller-page >div{
-                padding: 0px 10px;
+                padding: 0px 26px;
               }
             }
           }
@@ -879,11 +889,15 @@ html, body {
 }
 
 .resource-box{
+  & .resource-content{
+    padding: 10px 0px 0px 0px;
+    overflow: hidden;
+  }
   & .preview-ele-item{
     margin-top: 10px!important;
+    margin-bottom: 10px!important;
   }
   & .line-sub-title-box{
-    padding: 0px 16px;
     & .line-sub-title{
       color: @baseTextColor;
       padding: 20px 6px 10px 6px;

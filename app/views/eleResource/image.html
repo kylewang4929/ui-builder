@@ -1,0 +1,33 @@
+<div class="resource-box" ng-controller="imageResourceCtrl">
+
+    <div class="line-sub-title-box">
+        <div class="line-sub-title">
+            科技
+        </div>
+    </div>
+
+    <div class="resource-content">
+        <div class="preview-ele-item image-col col-6" ng-repeat="ele in activeEleList.eleList" insert-ele='ele'>
+            <div class="preview-ele-item-box z-depth-1">
+                <div class="over-shadow"><i class="mdi mdi-checkbox-marked-circle"></i></div>
+                <div class="preview-ele" create-thumbnail="ele" preview-height='120' type="web" ele-type="ele"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="line-sub-title-box">
+        <div class="line-sub-title">
+            抽象
+        </div>
+    </div>
+
+    <div class="resource-content">
+        <div class="preview-ele-item image-col" ng-repeat="ele in bgList.eleList" insert-ele='ele'>
+            <div class="preview-ele-item-box z-depth-1">
+                <div class="over-shadow"><i class="mdi mdi-checkbox-marked-circle"></i></div>
+                <div class="preview-ele" create-thumbnail="ele" preview-height='140' type="web" ele-type="ele"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

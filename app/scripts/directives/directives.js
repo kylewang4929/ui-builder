@@ -61,13 +61,18 @@ angular.module('myBuilderApp')
     .directive('createThumbnail', function (phoneCreatorServices, creatorServices, $compile) {
         return {
             restrict: 'A',
-            scope: { createThumbnail: "=", type: "@", eleType: "@", layout: "@" },
+            scope: { createThumbnail: "=", type: "@", eleType: "@", layout: "@" ,previewHeight: '@'},
             link: function (scope, element, attrs) {
 
                 var previewBox = {
                     width: $(element).width(),
                     height: 80
                 };
+                if(scope.previewHeight!=undefined){
+                    previewBox.height = parseFloat(scope.previewHeight);
+                    console.log(previewBox);
+                }
+                $(element).height(previewBox.height);
 
                 function changeID(obj) {
                     obj.ID = 'preview' + obj.ID;
@@ -151,7 +156,7 @@ angular.module('myBuilderApp')
                         percentY = previewBox.height / parseInt(borderDom.css('min-height'));
                     }
 
-                    if (percentX > percentY) {
+                    if (percentX < percentY) {
                         percent = percentY;
                     } else {
                         percent = percentX;

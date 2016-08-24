@@ -17,7 +17,7 @@ angular.module('myBuilderApp')
         $scope.activeEle=$scope.eleList[0];
 
         $scope.selectEleType=function(ele){
-            $scope.activeEleList=ele;
+            $scope.activeEle=ele;
         };
 
     })

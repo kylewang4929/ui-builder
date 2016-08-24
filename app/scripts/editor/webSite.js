@@ -247,9 +247,7 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 $.each(eleData.style, function (index, value) {
                     dom.css(index, value);
                 });
-                console.log(eleData.url);
                 dom.attr('src',eleData.url);
-                console.log(dom);
             },
             updateEleMenu: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");

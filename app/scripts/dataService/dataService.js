@@ -680,6 +680,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                         handle.updateEle(pageID,eleData,'default');
                         console.log(eleData);
                         builderTool.updateEle(eleData);
+                        console.log(JSON.stringify(eleData));
                     }
                 }
 
