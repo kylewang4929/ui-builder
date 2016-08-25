@@ -24,18 +24,29 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
             changeSessionHeight: function (sessionID, height) {
                 $("#" + sessionID + ".ele-session-box").css('min-height', height);
             },
-            addSession: function (obj) {
+            addSession: function (obj,index,option) {
+
+                if(option==undefined){
+                    option = {isShow : true};
+                }
+
                 var dom = creatorServices.createSession(obj);
                 dom = $compile(dom.get(0))(createScope);
-                var sessionList = $(".edit-space .ele-session-box");
-                if (sessionList.length > obj.deleteIndex) {
-                    sessionList.eq(obj.deleteIndex).before(dom);
+
+                if(!option.isShow){
+                    dom.height(0);
+                }
+
+                var sessionList = $(".edit-space .ele-session-box-container");
+                if (sessionList.length > index) {
+                    sessionList.eq(index).before(dom);
                 } else {
                     sessionList.eq(sessionList.length - 1).after(dom);
                 }
+                return dom;
             },
             deleteSession: function (ID) {
-                $("#" + ID + ".ele-session-box").remove();
+                $("#" + ID + ".ele-session-box").parent('.ele-session-box-container').remove();
                 $(".tooltip.tooltip--is-active").remove();
             },
             createID: function () {

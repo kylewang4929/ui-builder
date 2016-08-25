@@ -309,7 +309,7 @@ angular.module('creator', [])
                                 websiteData.groupEle(obj.value.eleList, 'retreat', obj.value.oldID);
                             }
                             if (obj.type === 'deleteSession') {
-                                websiteData.addSession(obj.value, 'retreat');
+                                websiteData.reductionSession(obj.value, 'retreat');
                             }
                             if (obj.type === 'addSession') {
                                 websiteData.deleteSession(obj.value.ID, 'retreat');
@@ -348,7 +348,7 @@ angular.module('creator', [])
                                 websiteData.groupEle(obj.value.eleList, 'retreat', obj.value.oldID);
                             }
                             if (obj.type === 'deleteSession') {
-                                websiteData.addSession(obj.value, 'forward');
+                                websiteData.reductionSession(obj.value, 'forward');
                             }
                             if (obj.type === 'addSession') {
                                 websiteData.deleteSession(obj.value.ID, 'forward');
@@ -730,7 +730,7 @@ angular.module('creator', [])
                 return dom;
             },
             createSession: function (data) {
-                var dom = "<div " + data.eleTemplateType + "></div>";
+                var dom = "<div class='ele-session-box-container' " + data.eleTemplateType + "></div>";
                 dom = $(dom);
                 dom.get(0).eleConfig=data;                
                 return dom;

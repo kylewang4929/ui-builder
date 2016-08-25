@@ -177,8 +177,42 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                     }
                 }
             },
-            addSession: function (obj, historyType) {
-                var handle = this.searchSessionHandle(activePageService.getActivePage().value, obj.ID);
+            /**
+             * 新建一个session
+             */
+            addSession:function(obj, targetId , option , historyType){
+                //targetId是目标session的Id，也就是说在这个session的后面插入新的session
+                if (historyType === undefined) {
+                    historyType = 'default';
+                }
+                //分配新的ID
+                obj.ID=builderTool.createID();
+                var handle = this.searchSessionHandle(activePageService.getActivePage().value);
+                var targetIndex = 0;
+                angular.forEach(handle,function(obj,index){
+                    if(obj.ID == targetId){
+                        targetIndex = index;
+                    }
+                });
+                //插入session
+                if (handle.length > targetIndex + 1) {
+                    handle.splice(targetIndex + 1, 0, obj);                    
+                } else {
+                    //之后
+                    handle.push(obj);
+                }
+                var dom = builderTool.addSession(obj,targetIndex + 1,option);
+                historyLog.pushHistoryLog(obj, historyType, 'addSession');
+                return dom;
+            },
+            reductionSession: function (obj, historyType) {
+                /**
+                 * 还原被删除的session
+                 */
+                if (historyType === undefined) {
+                    historyType = 'default';
+                }
+                var handle = this.searchSessionHandle(activePageService.getActivePage().value);
                 obj.ID = builderTool.createID();
 
                 if (handle.length > obj.deleteIndex) {
@@ -189,15 +223,14 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                     handle.push(obj);
                 }
 
-                builderTool.addSession(obj);
+                builderTool.addSession(obj,obj.deleteIndex);
                 historyLog.pushHistoryLog(obj, historyType, 'addSession');
-
             },
             deleteSession: function (ID, historyType) {
                 if (historyType === undefined) {
                     historyType = 'default';
                 }
-                var handle = this.searchSessionHandle(activePageService.getActivePage().value, ID);
+                var handle = this.searchSessionHandle(activePageService.getActivePage().value);
                 for (var i = 0; i < handle.length; i++) {
                     if (handle[i].ID === ID) {
                         var session = handle.splice(i, 1)[0];

@@ -1,20 +1,8 @@
 <perfect-scrollbar wheel-propagation="false" class="scroller session-preview-scroll" wheel-speed="5" use-both-wheel-axes=true>
     <div class="tc-white-1 session-preview" flex-container="row" flex-column="12" flex-gutter="24">
         <div flex-item="1"></div>        
-        <div flex-item="3">
-            <div class="session-preview-box z-depth-2" style="background-image:url('images/session/session1.png')"></div>
-        </div>
-        <div flex-item="3">
-            <div class="session-preview-box z-depth-2" style="background-image:url('images/session/session2.png')"></div>
-        </div>
-        <div flex-item="3">
-            <div class="session-preview-box z-depth-2" style="background-image:url('images/session/session3.png')"></div>
-        </div>
-        <div flex-item="3">
-            <div class="session-preview-box z-depth-2" style="background-image:url('images/session/session4.png')"></div>
-        </div>
-        <div flex-item="3">
-            <div class="session-preview-box z-depth-2" style="background-image:url('images/session/session5.png')"></div>
+        <div flex-item="3" ng-repeat="rowData in sessionList">
+            <div class="session-preview-box z-depth-2" ng-click="addSession(rowData)" ng-style='{"background-image":"url("+rowData.preview+")"}'></div>
         </div>
         <div flex-item="1"></div>
     </div>
