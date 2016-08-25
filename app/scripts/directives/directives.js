@@ -66,11 +66,10 @@ angular.module('myBuilderApp')
 
                 var previewBox = {
                     width: $(element).width(),
-                    height: 80
+                    height: 'auto'
                 };
                 if(scope.previewHeight!=undefined){
                     previewBox.height = parseFloat(scope.previewHeight);
-                    console.log(previewBox);
                 }
                 $(element).height(previewBox.height);
 
