@@ -591,7 +591,7 @@ angular.module('creator', [])
 
                         if (scope.activeEle !== null) {
                             var eleData = phoneBuilderTool.getEle(scope.activeEle.ID, scope.activeEle.type);
-                            eleData.position[moveDirection] = (parseInt(eleData.position[moveDirection]) + moveSize) + "px";
+                            eleData.phoneStyle.position[moveDirection] = (parseInt(eleData.phoneStyle.position[moveDirection]) + moveSize) + "px";
                             phoneBuilderTool.moveEle(eleData.ID, moveDirection, moveSize);
                             websiteData.updatePhoneEle(scope.websiteCode.ID, eleData);
                         }

@@ -496,11 +496,11 @@ angular.module('myBuilderApp')
 
                 /**
                  * 尺寸判断
-                 * 宽高不得小于50
+                 * 宽高不得小于20
                  * 不符合条件返回false
                  */
                 function sizeLimit(width, height) {
-                    if (width < 50 || height < 50) {
+                    if (width < 20 || height < 20) {
                         return false;
                     } else {
                         return true;

@@ -69,7 +69,7 @@ angular.module('myBuilderApp')
             setData: function (type, pageID, value) {
                 data.type = type;
                 data.pageID = pageID;
-                data.value = value;
+                data.value = angular.copy(value);
             },
             getData: function () {
                 var returnData = jQuery.extend(true, {}, data);

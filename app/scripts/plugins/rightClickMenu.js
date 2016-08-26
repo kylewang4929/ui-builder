@@ -110,12 +110,13 @@ angular.module('kyle.rightClickMenu', [])
 
                 scope.group=function(){
                     var eleList=multipleChoiceService.getEleList().value;
+                    var groupEleList = [];
                     for(var i=0;i<eleList.length;i++){
-                        if(eleList[i].state !== true){
-                            eleList.splice(i,1);
+                        if(eleList[i].state == true){
+                            groupEleList.push(angular.copy(eleList[i]));
                         }
                     }
-                    websiteData.groupEle(eleList);
+                    websiteData.groupEle(groupEleList);
                 };
 
                 scope.unGroup=function(){

@@ -9,6 +9,10 @@ angular.module('addSession', [])
             },
             templateUrl: "views/addSession/sessionList.html",
             link: function (scope, element, attrs) {
+
+                //添加session的dom的高度  本来应该参数传进来的
+                var addSessionBoxHeight = 200;                
+
                 var mainScrollHandle = $('#main-editor-scroll');
 
                 var mySwiper = $(element).find(".swiper-container").swiper({
@@ -25,7 +29,7 @@ angular.module('addSession', [])
                         "url": "images/website/bg1.jpg"
                     },
                     "style": {
-                        "min-height": "500px",
+                        "min-height": "600px",
                         "background-size": "cover",
                         "background-position-x": "center",
                         "background-position-y": "center",
@@ -67,16 +71,17 @@ angular.module('addSession', [])
                     //显示session
                     dom.height(obj.sessionData.style['min-height']);
 
+                    //调整位置 居中
+                    var y = elePosition.getTop(dom[0]);
+                    var start = mainScrollHandle.scrollTop();
+                    var scrollEnd = 0;
+                    scrollEnd = y + parseInt(obj.sessionData.style['min-height']) / 2 - addSessionBoxHeight - 50 - $("body").height() / 2;
+                    levelScroll.scrollTop(mainScrollHandle, scrollEnd);
+
                     //监听动画，结束后清除
                     dom.one("transitionend", function () {
                         dom.removeClass('base-session-show-transition');
                         dom.height('auto');
-                        //调整位置 居中
-                        var y = elePosition.getTop(dom[0]);
-                        var start = mainScrollHandle.scrollTop();
-                        var scrollEnd = 0;
-                        scrollEnd = y + parseInt(obj.sessionData.style['min-height']) / 2 - $("body").height() / 2;
-                        levelScroll.scrollTop(mainScrollHandle, scrollEnd);
                     });
                     scope.closeHandle().call(this,function(){
                         
@@ -95,6 +100,10 @@ angular.module('addSession', [])
             link: function (scope, element, attrs) {
 
                 var sessionID = $(element).parents('.ele-session-box').attr('id');
+
+                //记录高度 由于动画的原因无法正常获取高度                
+                var addSessionBoxHeight = 200;
+                var dom = "";                
 
                 scope.show = function () {
                     scope.showFlag = true;
@@ -127,7 +136,8 @@ angular.module('addSession', [])
                     }, 300);
                     //形变开始
                     $rootScope.$emit("addSessionOpenStart");
-                    dom.removeClass("in");
+                    dom.removeClass("in");                   
+
                     dom.one("transitionend", function () {
                         //形变结束
                         $rootScope.$emit("addSessionOpenEnd");
@@ -137,16 +147,12 @@ angular.module('addSession', [])
                     });
                 }
 
-                //记录高度 由于动画的原因无法正常获取高度                
-                var addSessionBoxHeight = 200;
-
                 //存储滚动条到handle
                 var mainScrollHandle = $('#main-editor-scroll');
 
                 var parentSessionDom = $(element).parent(".ele-session-box");
                 scope.showFlag = false;
                 var template = "<div class='add-session-box' add-session-box close-handle='hide' target-session='" + sessionID + "'></div>";
-                var dom = "";
 
                 //用来捕捉鼠标点击事件 如果不是在可触范围内 则隐藏按钮
                 var mouseDownEvent = function (e) {
