@@ -67,6 +67,16 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                     $(document).trigger("mouseup");
                 });
             },
+            changeEleId:function(ele){
+                console.log(ele);
+                ele.ID = handle.createID();
+                if(ele.type == 'group'){
+                    angular.forEach(ele.eleList,function(obj,index){
+                        handle.changeEleId(ele.eleList[index]);
+                    });
+                }
+                return ele;
+            },
             changeSession: function (startSession, endSession, obj) {
                 var ele = $("#" + startSession + " #" + obj.ID).detach();
                 $("#" + endSession + " .ele-session").append(ele);

@@ -243,6 +243,7 @@ angular.module('creator', [])
                     }
 
                     function paste(type, obj) {
+
                         if (obj.value.length > 0) {
                             var activeEleList = [];
                             for (var i = 0; i < obj.value.length; i++) {
@@ -251,7 +252,8 @@ angular.module('creator', [])
                                 if (type === 'cut') {
                                     websiteData.deleteEle(scope.websiteCode.ID, obj.value[i].ID);
                                 }
-                                obj.value[i].ID = "ele" + parseInt(Math.random() * 100000);
+                                //替换ID
+                                obj.value[i]=builderTool.changeEleId(obj.value[i]);
                                 websiteData.addEle(scope.websiteCode.ID, activeSessionID, obj.value[i], scope);
 
                                 var ele = $("#" + obj.value[i].ID + ".position-box");
@@ -271,7 +273,7 @@ angular.module('creator', [])
                             if (type === 'cut') {
                                 websiteData.deleteEle(scope.websiteCode.ID, obj.value.ID);
                             }
-                            obj.value.ID = "a" + parseInt(Math.random() * 100000);
+                            obj.value=builderTool.changeEleId(obj.value);
                             websiteData.addEle(scope.websiteCode.ID, activeSessionID, obj.value, scope);
                             scope.activeEle = obj.value;
                             //设置激活元素
