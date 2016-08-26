@@ -988,9 +988,11 @@ angular.module('myBuilderApp')
                         }
 
                         /**
-                         * 如果调整的是组的大小的话  要缩放元素
+                         * 如果调整的是组的大小的话
+                         * 并且拖拽的是四个角落
+                         * 要缩放元素
                         */
-                        if (eleType == 'group') {
+                        if (eleType == 'group' && (parameter.target == 0 || parameter.target == 2 || parameter.target == 4 || parameter.target == 6)) {
                             if (parameter.type == 'ele-web') {
                                 builderTool.zoomEle(parameter.eleData,resizeInfo.scale);
                             }

@@ -101,7 +101,7 @@ angular.module('kyle.colorPick', [])
             }
         };
     })
-    .directive('colorPick', function (colorPickService,userProfile) {
+    .directive('colorPick', function (colorPickService,userProfile,$timeout) {
         return {
             restrict: 'A',
             template: ['<div class="color-pick" id="color-pick-select" onmousedown="event.stopPropagation()">',
@@ -225,8 +225,10 @@ angular.module('kyle.colorPick', [])
                 var colorLineTarget = $(element).find(".color-line .color-line-handle");
                 var colorLine = $(element).find(".color-line");
 
-                colorLinePar.eleWidth = parseInt(colorLine.width());
-                colorLinePar.handleWidth = parseInt(colorLineTarget.width());
+                $timeout(function(){
+                    colorLinePar.eleWidth = parseInt(colorLine.width());
+                    colorLinePar.handleWidth = parseInt(colorLineTarget.width());
+                });
 
                 colorLine.on("mousedown", function (e) {
                     e.stopPropagation();
@@ -251,7 +253,6 @@ angular.module('kyle.colorPick', [])
                     offsetX += colorLinePar.handleWidth / 2;
 
                     scope.inputColor.colorHSB.h = parseInt((1 - offsetX / colorLinePar.eleWidth) * 360);
-
                     //选中颜色
                     scope.$apply(function () {
                         scope.hColor = colorPickService.HSBtoHex(scope.inputColor.colorHSB.h / 360, 1, 1);
@@ -316,10 +317,12 @@ angular.module('kyle.colorPick', [])
                 var colorSelect = $(element).find(".color-select-box");
                 var colorSelectTarget = $(element).find(".color-select-box .color-select-box-handle");
 
-                colorSelectPar.eleWidth = parseInt(colorSelect.width());
-                colorSelectPar.eleHeight = parseInt(colorSelect.height());
-                colorSelectPar.handleWidth = parseInt(colorSelectTarget.width());
-                colorSelectPar.handleHeight = parseInt(colorSelectTarget.height());
+                $timeout(function(){
+                    colorSelectPar.eleWidth = parseInt(colorSelect.width());
+                    colorSelectPar.eleHeight = parseInt(colorSelect.height());
+                    colorSelectPar.handleWidth = parseInt(colorSelectTarget.width());
+                    colorSelectPar.handleHeight = parseInt(colorSelectTarget.height());
+                });
 
                 colorSelect.on("mousedown", function (e) {
                     e.stopPropagation();
@@ -434,8 +437,10 @@ angular.module('kyle.colorPick', [])
                 var transparencyBox = $(element).find(".current-color-box .current-color");
                 var transparencyHandle = $(transparencyBox).find(".handle-box");
 
-                transparencyPar.eleWidth = parseInt(transparencyBox.width());
-                transparencyPar.handleWidth = parseInt(transparencyHandle.width());
+                $timeout(function(){
+                    transparencyPar.eleWidth = parseInt(transparencyBox.width());
+                    transparencyPar.handleWidth = parseInt(transparencyHandle.width());
+                });
 
                 transparencyBox.on("mousedown", function (e) {
                     e.stopPropagation();

@@ -973,12 +973,12 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
             },
             retainPhoneStyle: function (oldData, newData) {
                 if (newData.type === 'group') {
-                    newData.phoneStyle = oldData.phoneStyle;
+                    newData.phoneStyle = angular.copy(oldData.phoneStyle);
                     for (var i = 0; i < newData.eleList.length; i++) {
                         newData.eleList[i] = this.retainPhoneStyle(oldData.eleList[i], newData.eleList[i]);
                     }
                 } else {
-                    newData.phoneStyle = oldData.phoneStyle;
+                    newData.phoneStyle = angular.copy(oldData.phoneStyle);
                 }
                 return newData;
             },

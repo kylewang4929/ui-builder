@@ -227,6 +227,12 @@ angular.module('creator', [])
                     }
 
                     function copy(type) {
+
+                        //如果当前有输入框焦点的话则屏蔽（编辑模式下的快捷键冲突的问题）
+                        if($(':focus').length>0){
+                            return;
+                        }
+
                         var eleList = multipleChoiceService.getEleList();
                         if (eleList.value.length > 0) {
                             var eleGroup = [];
@@ -243,6 +249,11 @@ angular.module('creator', [])
                     }
 
                     function paste(type, obj) {
+
+                        //如果当前有输入框焦点的话则屏蔽（编辑模式下的快捷键冲突的问题）
+                        if($(':focus').length>0){
+                            return;
+                        }
 
                         if (obj.value.length > 0) {
                             var activeEleList = [];
@@ -278,7 +289,6 @@ angular.module('creator', [])
                             scope.activeEle = obj.value;
                             //设置激活元素
                             activeEleService.setEle(jQuery.extend(true, {}, scope.activeEle));                    
-                            
                         }
                     }
                     if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode === shortcutsCode.UNDO.keyCode && !e[shortcutsCode.REDO.shiftKey]) {
