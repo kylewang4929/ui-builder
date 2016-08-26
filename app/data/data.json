@@ -126,7 +126,7 @@
             {
                 "ID": "ele14721747972601",
                 "type": "text",
-                "textValue": "<div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><span style=\"font-size: 60px;\">Building bulletproof&nbsp;</span></span></span></div><div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><span style=\"font-size: 60px;\">fucking apps</span></span></span></div>",
+                "textValue": "<div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><span style=\"font-size: 60px;\">Building bulletproof&nbsp;</span></span></span></div><div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><span style=\"font-size: 60px;\">fucghea apps</span></span></span></div>",
                 "position": {
                     "left": "473px",
                     "top": "247px"
@@ -600,7 +600,7 @@
                             "type": "group",
                             "position": {
                                 "left": "359px",
-                                "top": "99px"
+                                "top": "100px"
                             },
                             "border": {
                                 "width": "341px",
@@ -637,8 +637,7 @@
                                         },
                                         "style": {},
                                         "scale": "0.7"
-                                    },
-                                    "state": "select"
+                                    }
                                 },
                                 {
                                     "ID": "ele147218312611922",
@@ -668,8 +667,7 @@
                                         "style": {
                                             "margin-top": "-48px"
                                         }
-                                    },
-                                    "state": "select"
+                                    }
                                 },
                                 {
                                     "ID": "ele147218321112532",
@@ -699,8 +697,7 @@
                                         "style": {
                                             "margin-top": "-48px"
                                         }
-                                    },
-                                    "state": "select"
+                                    }
                                 },
                                 {
                                     "ID": "ele147218331687642",
@@ -741,8 +738,7 @@
                                             "top": "0px"
                                         },
                                         "scale": "1"
-                                    },
-                                    "state": "select"
+                                    }
                                 }
                             ],
                             "eleTemplateType": "ele-group-default",
@@ -757,15 +753,14 @@
                                     "min-height": "295px"
                                 },
                                 "scale": "0.7647058823529411"
-                            },
-                            "state": "select"
+                            }
                         },
                         {
                             "ID": "a78726",
                             "type": "group",
                             "position": {
                                 "left": "785px",
-                                "top": "99px"
+                                "top": "100px"
                             },
                             "border": {
                                 "width": "341px",
@@ -802,8 +797,7 @@
                                         },
                                         "style": {},
                                         "scale": "0.7"
-                                    },
-                                    "state": "select"
+                                    }
                                 },
                                 {
                                     "ID": "ele147218312611923",
@@ -863,8 +857,7 @@
                                         "style": {
                                             "margin-top": "-48px"
                                         }
-                                    },
-                                    "state": "select"
+                                    }
                                 },
                                 {
                                     "ID": "ele147218331687643",
@@ -905,8 +898,7 @@
                                             "top": "0px"
                                         },
                                         "scale": "1"
-                                    },
-                                    "state": "select"
+                                    }
                                 }
                             ],
                             "eleTemplateType": "ele-group-default",
@@ -921,8 +913,7 @@
                                     "min-height": "288px"
                                 },
                                 "scale": "0.7647058823529411"
-                            },
-                            "state": "select"
+                            }
                         }
                     ],
                     "eleTemplateType": "session-default",

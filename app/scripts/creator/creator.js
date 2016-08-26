@@ -114,7 +114,7 @@ angular.module('creator', [])
                     colorPickService.hideDom();
                     scope.activeEle = websiteData.getEle(scope.websiteCode.ID, id);
                     scope.activeEle.state = 'edit';
-                    activeEleService.setEle(jQuery.extend(true, {}, scope.activeEle));                    
+                    activeEleService.setEle(jQuery.extend(true, {}, scope.activeEle));
                     editEleDom.addClass("editing");
                 };
                 /**
