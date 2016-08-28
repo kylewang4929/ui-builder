@@ -22,15 +22,15 @@ angular.module('phoneSiteEditor', [])
                     $("#" + ID + ".ele-session-box").hide();
                 }
                 if (type === 'ele') {
-                    $("#" + ID + ".position-box").hide();
+                    $("#" + ID + ".position-box").parent('.position-box-parent').hide();
                 }
             },
             showEle: function (ID, type) {
-                if (type === 'session') {
+                if (type == 'session') {
                     $("#" + ID + ".ele-session-box").show();
                 }
-                if (type === 'ele') {
-                    $("#" + ID + ".position-box").show();
+                if (type == 'ele') {
+                    $("#" + ID + ".position-box").parent('.position-box-parent').show();
                 }
             },
             moveEle: function (ID, direction, value) {

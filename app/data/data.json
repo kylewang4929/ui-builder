@@ -181,7 +181,9 @@
                         "width": "245px",
                         "min-height": "90px"
                     },
-                    "style": {},
+                    "style": {
+                        
+                    },
                     "scale": "0.7"
                 },
                 "state": "select",
