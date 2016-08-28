@@ -846,18 +846,6 @@ angular.module('addSession', [])
                     {
                         preview: 'images/session/session8.png',
                         sessionData: session8
-                    },
-                    {
-                        preview: 'images/session/session6.png',
-                        sessionData: session6
-                    },
-                    {
-                        preview: 'images/session/session7.png',
-                        sessionData: session7
-                    },
-                    {
-                        preview: 'images/session/session8.png',
-                        sessionData: session8
                     }
                 ];
                 scope.addSession = function (obj) {
