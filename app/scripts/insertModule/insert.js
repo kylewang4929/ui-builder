@@ -1,6 +1,6 @@
 "use strict";
 angular.module('insert.directive', [])
-    .directive('insertEle', function ($rootScope,LxNotificationService,websiteData,activeSessionService,activePageService,builderTool,$timeout) {
+    .directive('insertEle', function ($rootScope,LxNotificationService,websiteData,activeSessionService,activePageService,builderTool,$timeout,imageLibraryService) {
         return {
             restrict: 'A',
             scope:{
@@ -52,6 +52,27 @@ angular.module('insert.directive', [])
                     }
                 }
                 function mouseup(e) {
+
+                    /**
+                     * 参数为元素的对象
+                     */
+                    function addEle(eleData){
+                        //获取当前激活session 和 page
+                        var activeSession=activeSessionService.getSession().value;
+                        var activePage=activePageService.getActivePage().value;
+                        
+                        //计算和session的相对位置
+                        var offset=$("#"+activeSession+".ele-session-box .ele-session").offset();
+                        
+                        eleData.position.left=e.clientX-offset.left-width/2;
+                        eleData.position.top=e.clientY-offset.top-height/2;
+                        
+                        //拷贝对象 重新赋值ID
+                        eleData.ID=builderTool.createID();
+                        
+                        websiteData.addEle(activePage, activeSession, eleData, "");
+                    }
+
                     if(par.flag){
                         par.flag=false;
                         
@@ -59,21 +80,23 @@ angular.module('insert.directive', [])
                             //正常处理
                             par.moveFlag=false;
                             virtualDom.remove();
+
+                            /**
+                             * 如果元素是图片的话需要特殊处理
+                             */
+                            if(scope.insertEle.type == 'image'){
+                                //打开图片库
+                                imageLibraryService.showDom(1,function(data){
+                                    //更换url
+                                    websiteData.changeImageUrl(scope.insertEle,scope.insertEle.type,data[0].url).then(function(data){
+                                        scope.insertEle=data;
+                                        addEle(scope.insertEle);
+                                    });
+                                });
+                            }else{
+                                addEle(scope.insertEle);
+                            }
                             
-                            //获取当前激活session 和 page
-                            var activeSession=activeSessionService.getSession().value;
-                            var activePage=activePageService.getActivePage().value;
-                            
-                            //计算和session的相对位置
-                            var offset=$("#"+activeSession+".ele-session-box .ele-session").offset();
-                            
-                            scope.insertEle.position.left=e.clientX-offset.left-width/2;
-                            scope.insertEle.position.top=e.clientY-offset.top-height/2;
-                            
-                            //拷贝对象 重新赋值ID
-                            scope.insertEle.ID=builderTool.createID();
-                            
-                            websiteData.addEle(activePage, activeSession, scope.insertEle, "");
                             
                         }else{
                             //提示拖动到页面

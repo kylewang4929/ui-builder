@@ -674,7 +674,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
              * 更换图片url
              * 参数pageID 和 元素ID 、元素type、option
              */
-            changeImageUrl:function(pageID,eleOpiton,option){
+            updateImageUrl:function(pageID,eleOpiton,option){
 
                 /**
                  * 更换图片的步骤
@@ -682,12 +682,25 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                  * 第二步：替换相关内容
                  * 第三步：更新页面
                  */
-                function imageEle(pageID,eleOpiton,option){
-                    var eleData = handle.getEle(pageID,eleOpiton.ID);
-                    eleData.url = option.url;
+
+                var eleData = handle.getEle(pageID,eleOpiton.ID);                
+
+                handle.changeImageUrl(eleData,eleOpiton.type,option.url).then(function(data){
+                    //更新到JSON
+                    handle.updateEle(pageID,data,'default');
+                    builderTool.updateEle(data);
+                });
+            },
+            changeImageUrl:function(obj,type,url){
+
+                //异步方法
+                var d = $q.defer();
+
+                function imageEle(eleData,url){
+                    eleData.url = url;
                     //获取图片的宽高
                     var img = new Image();
-                    img.src = option.url;
+                    img.src = url;
                     img.onload = function(){
                         eleData.style.width = img.width+'px';
                         eleData.style.height = img.height+'px';
@@ -709,17 +722,16 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                         eleData.phoneStyle.border.width = phoneWdith+'px';                        
                         eleData.phoneStyle.border['min-height'] = phoneHeight+'px';
 
-                        //更新到JSON
-                        handle.updateEle(pageID,eleData,'default');
-                        console.log(eleData);
-                        builderTool.updateEle(eleData);
-                        console.log(JSON.stringify(eleData));
+                        d.resolve(eleData);
                     }
                 }
 
-                switch (eleOpiton.type){
-                    case 'image':imageEle(pageID,eleOpiton,option);break;
+                switch (type){
+                    case 'image':imageEle(obj,url);break;
                 }
+
+                return d.promise;
+
             },
             /**
              * 获取元素的JSON

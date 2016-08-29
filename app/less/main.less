@@ -158,6 +158,7 @@ html, body {
           & .left-menu {
             width: 110px;
             float: left;
+            .z-depth-1;            
 
             & .preview-item {
               .transition(0.2s);
@@ -260,7 +261,6 @@ html, body {
             float: right;
             width: 485px;
             height: 100%;
-            .z-depth-1;
             & .preview-ele-item{
               border-radius: 6px;
               margin: 16px 0px;
@@ -306,6 +306,9 @@ html, body {
                 overflow: hidden;
                 position: relative;
                 background-color: #efefef;
+                &.bg-white{
+                  background-color: #fff;
+                }
                 &.empty-bg{
                   background-color: rgba(0, 0, 0, 0);
                 }

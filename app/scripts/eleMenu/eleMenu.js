@@ -20,7 +20,7 @@ angular.module('eleMenu', [])
                         //更换url
                         var eleOption= { ID:activeEle.value.ID , type: activeEle.value.type};
                         var dataOption = { url : data[0].url};
-                        websiteData.changeImageUrl(activePageService.getActivePage().value, eleOption , dataOption);
+                        websiteData.updateImageUrl(activePageService.getActivePage().value, eleOption , dataOption);
                     });
                 };
 

@@ -801,7 +801,7 @@ angular.module('creator', [])
                 return dom;
             },
             createSession: function (data) {
-                var dom = "<div " + data.eleTemplateType + "-phone" + "></div>";
+                var dom = "<div class='ele-session-box-container' " + data.eleTemplateType + "-phone" + "></div>";
                 dom = $(dom);
                 dom.get(0).eleConfig=data;
                 return dom;
