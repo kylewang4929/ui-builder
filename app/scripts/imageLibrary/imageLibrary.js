@@ -200,7 +200,7 @@ angular.module('kyle.imageLibrary', [])
                         { url: 'images/website/pc.png' },
                     ];
                     deferred.resolve(resultData);
-                },1000);
+                },500);
                 return deferred.promise;
             }
         };

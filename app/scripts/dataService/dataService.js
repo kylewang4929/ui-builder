@@ -694,7 +694,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
             /**
              * 计算图片的大小，
              * 替换元素的旧属性，完成替换URL的操作
-             * 异步完成，因为需要计算图片的大小
+             * 异步完成，因为需要获取图片的大小
              */
             changeImageUrl:function(obj,type,url){
 
