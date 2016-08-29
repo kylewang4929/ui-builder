@@ -132,11 +132,8 @@ angular.module('kyle.imageLibrary', [])
     })
     .factory('imageLibraryService', function ($rootScope, $compile, $timeout,$q) {
         var data = {};
-
         var imageLibraryDom = "";
-
         var maxSelectSize = 1;
-
         var callback = null;
 
         var handle = {
