@@ -686,11 +686,16 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 var eleData = handle.getEle(pageID,eleOpiton.ID);                
 
                 handle.changeImageUrl(eleData,eleOpiton.type,option.url).then(function(data){
-                    //更新到JSON
+                    //更新到JSON和页面
                     handle.updateEle(pageID,data,'default');
                     builderTool.updateEle(data);
                 });
             },
+            /**
+             * 计算图片的大小，
+             * 替换元素的旧属性，完成替换URL的操作
+             * 异步完成，因为需要计算图片的大小
+             */
             changeImageUrl:function(obj,type,url){
 
                 //异步方法
