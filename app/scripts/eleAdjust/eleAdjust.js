@@ -230,6 +230,12 @@ angular.module('myBuilderApp')
                         changeSessionTool.init($(element).parents('.ele-session-box').attr('id'), parameter.top + (parameter.eleHeight / 2));
                     }
 
+                    $rootScope.$emit("eleDragStart");
+                    //添加指示器                    
+                    if (parameter.type == 'ele-web' || parameter.type == 'ele-phone') {
+                        eleIndicator.add($(element), 0, -34, 'position');
+                    }
+
                 });
 
                 var moveFirstFlag = true;
@@ -244,12 +250,6 @@ angular.module('myBuilderApp')
                         if (moveFirstFlag) {
                             //向下通知 正在移动
                             moveFirstFlag = false;
-                            $rootScope.$emit("eleDragStart");
-
-                            //添加指示器                    
-                            if (parameter.type == 'ele-web' || parameter.type == 'ele-phone') {
-                                eleIndicator.add($(element), 0, -34, 'position');
-                            }
                         }
 
                         var offsetX = e.clientX - parameter.cx;
@@ -306,9 +306,8 @@ angular.module('myBuilderApp')
                         //标记移动结束
                         if (moveFirstFlag === false) {
                             moveFirstFlag = true;
-                            $rootScope.$emit("eleDragEnd");
                         }
-
+                        $rootScope.$emit("eleDragEnd");                        
                         /**
                          * 更新web 元素
                         */
