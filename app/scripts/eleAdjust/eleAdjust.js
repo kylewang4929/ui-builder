@@ -1,6 +1,6 @@
 "use strict";
 angular.module('myBuilderApp')
-    .directive('rotate', function (builderTool, phoneBuilderTool, activePageService, websiteData, rotateEleCalculate) {
+    .directive('rotate', function (builderTool, phoneBuilderTool, activePageService, websiteData, rotateEleCalculate, eleIndicator,$rootScope) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -40,6 +40,9 @@ angular.module('myBuilderApp')
                     //获取圆心 顶点以及大小等信息
                     var centerOffset = $(element).find(" >.center").offset();
 
+                    //通知拖动开始
+                    $rootScope.$emit("eleDragStart");
+
                     parameter.eleHeight = $(element).get(0).clientHeight;
                     parameter.eleWidth = $(element).get(0).clientWidth;
 
@@ -57,6 +60,8 @@ angular.module('myBuilderApp')
                         $(element).trigger("groupUpdateInit", groupID);
                         e.stopPropagation();
                     }
+
+                    eleIndicator.add($(element), 0, -34, 'rotate');
 
                 });
 
@@ -90,12 +95,15 @@ angular.module('myBuilderApp')
                             var triggerData = { ID: groupID, elePar: elePar };
                             $(element).trigger("groupUpdate", triggerData);
                         }
+                        eleIndicator.update();
 
                     }
                 }
                 function listenMouseup(e) {
                     if (parameter.flag) {
                         parameter.flag = false;
+
+                        $rootScope.$emit("eleDragEnd");
 
                         if (parameter.type == 'ele-web') {
                             //更新 ID data
@@ -115,6 +123,8 @@ angular.module('myBuilderApp')
                             builderTool.reviseRotateCss(rotateEleCalculate.getRotate(element), attrs.id);
                         }
 
+                        eleIndicator.remove();
+
                     }
                 }
 
@@ -133,7 +143,7 @@ angular.module('myBuilderApp')
      * handle 可以指定
      * dragEle 可能是 default ele-web ele-phone
     */
-    .directive('dragEle', function (activeSessionService, builderTool, phoneBuilderTool, websiteData, changeSessionTool, rotateEleCalculate, activePageService, $rootScope) {
+    .directive('dragEle', function (activeSessionService, builderTool, phoneBuilderTool, websiteData, changeSessionTool, rotateEleCalculate, activePageService, $rootScope, eleIndicator) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -219,6 +229,7 @@ angular.module('myBuilderApp')
                     if (parameter.type === 'ele-web') {
                         changeSessionTool.init($(element).parents('.ele-session-box').attr('id'), parameter.top + (parameter.eleHeight / 2));
                     }
+
                 });
 
                 var moveFirstFlag = true;
@@ -234,6 +245,11 @@ angular.module('myBuilderApp')
                             //向下通知 正在移动
                             moveFirstFlag = false;
                             $rootScope.$emit("eleDragStart");
+
+                            //添加指示器                    
+                            if (parameter.type == 'ele-web' || parameter.type == 'ele-phone') {
+                                eleIndicator.add($(element), 0, -34, 'position');
+                            }
                         }
 
                         var offsetX = e.clientX - parameter.cx;
@@ -276,6 +292,10 @@ angular.module('myBuilderApp')
                             }
                         }
                         $(element).css({ left: offsetX + "px", top: offsetY + "px" });
+
+                        if (parameter.type == 'ele-web' || parameter.type == 'ele-phone') {
+                            eleIndicator.update();
+                        }
 
                     }
                 }
@@ -324,7 +344,9 @@ angular.module('myBuilderApp')
                             }
                         }
 
-
+                        if (parameter.type == 'ele-web' || parameter.type == 'ele-phone') {
+                            eleIndicator.remove();
+                        }
                     }
                 }
 
@@ -340,7 +362,7 @@ angular.module('myBuilderApp')
         };
     })
 
-    .directive('resize', function ($timeout, builderTool, phoneBuilderTool, websiteData, rotateEleCalculate, activePageService, $rootScope, imageCropService) {
+    .directive('resize', function ($timeout, builderTool, phoneBuilderTool, websiteData, rotateEleCalculate, activePageService, $rootScope, imageCropService, eleIndicator) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -357,7 +379,6 @@ angular.module('myBuilderApp')
                     rotate: 0,
                     rightRotate: 0
                 };
-
 
                 /**
                  * 组件的类型 ele-web ele-phone
@@ -433,6 +454,12 @@ angular.module('myBuilderApp')
                 $(element).find(" >.resize").on("mousedown", function (e) {
 
                     e.stopPropagation();
+
+                    //通知拖动开始
+                    $rootScope.$emit("eleDragStart");                    
+
+                    //添加指示器
+                    eleIndicator.add($(element), 0, -34, 'size');
 
                     if (parameter.isGroupEle) {
                         $(element).trigger("groupUpdateInit", groupID);
@@ -928,6 +955,7 @@ angular.module('myBuilderApp')
                 var moveFirstFlag = true;
                 function listenMousemove(e) {
                     if (parameter.flag) {
+
                         //偏移值
                         var offsetX = e.clientX - parameter.cx;
                         var offsetY = e.clientY - parameter.cy;
@@ -935,21 +963,19 @@ angular.module('myBuilderApp')
                         if (moveFirstFlag) {
                             //向下通知 正在移动
                             moveFirstFlag = false;
-                            $rootScope.$emit("eleDragStart");
                         }
 
-                        var resizeInfo={};
+                        var resizeInfo = {};
                         switch (parameter.target) {
-                            case 0: resizeInfo=leftTopResize(offsetX, offsetY, parameter.rightRotate); break;
-                            case 1: resizeInfo=onlyTopResize(offsetX, offsetY, parameter.rightRotate); break;
-                            case 2: resizeInfo=rightTopResize(offsetX, offsetY, parameter.rightRotate); break;
-                            case 3: resizeInfo=onlyRightResize(offsetX, offsetY, parameter.rightRotate); break;
-                            case 4: resizeInfo=rightBottomResize(offsetX, offsetY, parameter.rightRotate); break;
-                            case 5: resizeInfo=onlyBottomResize(offsetX, offsetY, parameter.rightRotate); break;
-                            case 6: resizeInfo=leftBottomResize(offsetX, offsetY, parameter.rightRotate); break;
-                            case 7: resizeInfo=onlyLeftResize(offsetX, offsetY, parameter.rightRotate); break;
+                            case 0: resizeInfo = leftTopResize(offsetX, offsetY, parameter.rightRotate); break;
+                            case 1: resizeInfo = onlyTopResize(offsetX, offsetY, parameter.rightRotate); break;
+                            case 2: resizeInfo = rightTopResize(offsetX, offsetY, parameter.rightRotate); break;
+                            case 3: resizeInfo = onlyRightResize(offsetX, offsetY, parameter.rightRotate); break;
+                            case 4: resizeInfo = rightBottomResize(offsetX, offsetY, parameter.rightRotate); break;
+                            case 5: resizeInfo = onlyBottomResize(offsetX, offsetY, parameter.rightRotate); break;
+                            case 6: resizeInfo = leftBottomResize(offsetX, offsetY, parameter.rightRotate); break;
+                            case 7: resizeInfo = onlyLeftResize(offsetX, offsetY, parameter.rightRotate); break;
                         }
-
                         if (parameter.isGroupEle) {
                             var groupEleLeft = parseInt($(element).css('left'));
                             var groupEleTop = parseInt($(element).css('top'));
@@ -975,16 +1001,16 @@ angular.module('myBuilderApp')
                         if (eleType == "image") {
                             var activePage = activePageService.getActivePage().value;
                             var ele = websiteData.getEle(activePage, attrs.id);
-                            imageCropService.resetImage($(element), ele , parameter.eleWidth, parameter.eleHeight, parameter.imageWidth, parameter.imageHeight, parameter.clip);
+                            imageCropService.resetImage($(element), ele, parameter.eleWidth, parameter.eleHeight, parameter.imageWidth, parameter.imageHeight, parameter.clip);
                         }
 
                         /**
                          * 如果是手机那边的文字 需要同步border-box 和position-box的大小
                         */
-                        if(parameter.type == 'ele-phone' && eleType == 'text'){
+                        if (parameter.type == 'ele-phone' && eleType == 'text') {
                             var borderWidth = parameter.eleData.phoneStyle.scale * parseInt($(element).find('>.ele-box').get(0).offsetWidth);
                             var borderHeight = parameter.eleData.phoneStyle.scale * parseInt($(element).find('>.ele-box').get(0).offsetHeight);
-                            $(element).css({'width':borderWidth,'height':borderHeight});
+                            $(element).css({ 'width': borderWidth, 'height': borderHeight });
                         }
 
                         /**
@@ -994,23 +1020,31 @@ angular.module('myBuilderApp')
                         */
                         if (eleType == 'group' && (parameter.target == 0 || parameter.target == 2 || parameter.target == 4 || parameter.target == 6)) {
                             if (parameter.type == 'ele-web') {
-                                builderTool.zoomEle(parameter.eleData,resizeInfo.scale);
+                                builderTool.zoomEle(parameter.eleData, resizeInfo.scale);
                             }
                             if (parameter.type == 'ele-phone') {
-                                phoneBuilderTool.zoomEle(parameter.eleData,resizeInfo.scale);
+                                phoneBuilderTool.zoomEle(parameter.eleData, resizeInfo.scale);
                             }
                         }
+
+                        //触发更新指示器
+                        eleIndicator.update();
 
                     }
                 }
                 function listenMouseup(e) {
+
                     if (parameter.flag) {
+
+                        //清除指示器
+                        eleIndicator.remove();
+
                         parameter.flag = false;
 
                         //标记移动结束
+                        $rootScope.$emit("eleDragEnd");                        
                         if (moveFirstFlag === false) {
                             moveFirstFlag = true;
-                            $rootScope.$emit("eleDragEnd");
                         }
 
                         if (parameter.type == 'ele-web') {
@@ -1048,4 +1082,87 @@ angular.module('myBuilderApp')
 
             }
         };
+    })
+    .factory('eleIndicator', function (elePosition) {
+        /**
+         * 组件需要一个显示当前元素大小的组件
+         * 这里可以封装一个
+         */
+
+        var indicatorHandle = null;
+        var eleTarget = null;
+        var template = '<div class="ele-indicator"></div>';
+        var offset = {
+            left: 0,
+            top: 0
+        }
+        var type = 'size';
+
+        var handle = {
+            add: function (target, offsetLeft, offsetTop, moduleType) {
+                if (moduleType != undefined) {
+                    type = moduleType;
+                }
+                if (offsetLeft != undefined) {
+                    offset.left = offsetLeft;
+                }
+                if (offsetTop != undefined) {
+                    offset.top = offsetTop;
+                }
+                handle.remove();
+
+                var dom = $(template);
+                $('body').append(dom);
+                indicatorHandle = dom;
+                eleTarget = target;
+
+                /**
+                 * 根据target的位置设置指示器的位置
+                 */
+                handle.update();
+            },
+            remove: function () {
+                if (indicatorHandle != null) {
+                    indicatorHandle.remove();
+                    indicatorHandle = null;
+                    eleTarget = null;
+                }
+            },
+            update: function () {
+                if (indicatorHandle != null) {
+                    switch (type) {
+                        case 'size': indicatorHandle.text('W:' + $(eleTarget).get(0).offsetWidth + ' | H:' + $(eleTarget).get(0).offsetHeight); break;
+                        case 'position': indicatorHandle.text('X:' + parseInt($(eleTarget).css('left')) + ' | Y:' + parseInt($(eleTarget).css('top'))); break;
+                        case 'rotate': indicatorHandle.text(handle.getDeg()+'deg'); break;
+                    }
+                    //同时还要更新元素的位置
+                    var x = elePosition.getLeft(eleTarget.get(0));
+                    var y = elePosition.getTop(eleTarget.get(0));
+                    indicatorHandle.css({ 'left': x + offset.left, 'top': y + offset.top });
+                }
+            },
+            getDeg:function(){
+                var deg = eval('handle.get'+eleTarget.css('transform'));
+                if(deg == undefined){
+                    deg = 0;
+                }
+                return deg;
+            },
+            getmatrix(a, b, c, d, e, f) {
+                var aa = Math.round(180 * Math.asin(a) / Math.PI);
+                var bb = Math.round(180 * Math.acos(b) / Math.PI);
+                var cc = Math.round(180 * Math.asin(c) / Math.PI);
+                var dd = Math.round(180 * Math.acos(d) / Math.PI);
+                var deg = 0;
+                if (aa == bb || -aa == bb) {
+                    deg = dd;
+                } else if (-aa + bb == 180) {
+                    deg = 180 + cc;
+                } else if (aa + bb == 180) {
+                    deg = 360 - cc || 360 - dd;
+                }
+                return deg >= 360 ? 0 : deg;
+            }
+        }
+        return handle;
     });
