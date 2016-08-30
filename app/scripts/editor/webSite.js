@@ -124,6 +124,7 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 var dom = creatorServices.createEle(obj);
                 dom = $compile(dom.get(0))(createScope);
                 $("#" + sessionID + ".ele-session-box .ele-session").append(dom);
+                return dom;
             },
             getEle: function (ID, type) {
 

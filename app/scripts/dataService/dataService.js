@@ -642,10 +642,10 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                                 data[i].sessionList[j].eleList.push(obj);
                                 //插入在dom上面
                                 
-                                builderTool.addEle(sessionID, obj, scope);
+                                var eleDom = builderTool.addEle(sessionID, obj, scope);
                                 historyLog.pushHistoryLog(obj, type, 'add');
 
-                                return;
+                                return eleDom;
                             }
                         }
                     }

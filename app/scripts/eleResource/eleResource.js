@@ -94,124 +94,139 @@ angular.module('myBuilderApp')
         $scope.activeEleList = {
             ID: "image", name: "基础图片", template: "views/eleResource/image.html", eleList: [
                 {
-                    "ID": "eleeee23",
-                    "type": "image",
-                    "url": "images/imageDesign/2.png",
-                    "backgroundSize": "contain",
-                    "imageSize": {
-                        "width": "260px",
-                        "height": "196px"
-                    },
-                    "phoneStyle": {
-                        "position": {
-                            "left": "0px",
-                            "top": "110px"
-                        },
-                        "border": {
+                    preview: "images/imageDesign/2.png",
+                    data: {
+                        "ID": "eleeee23",
+                        "type": "image",
+                        "url": "images/imageDesign/2.png",
+                        "backgroundSize": "contain",
+                        "imageSize": {
                             "width": "260px",
-                            "min-height": "196px"
+                            "height": "196px"
+                        },
+                        "phoneStyle": {
+                            "position": {
+                                "left": "0px",
+                                "top": "110px"
+                            },
+                            "border": {
+                                "width": "260px",
+                                "min-height": "196px"
+                            },
+                            "style": {
+                                "width": "260px",
+                                "height": "196px",
+                                "clip": "rect(0px 260px 196px 0px)"
+                            },
+                            "scale": 0.7
                         },
                         "style": {
                             "width": "260px",
                             "height": "196px",
                             "clip": "rect(0px 260px 196px 0px)"
                         },
-                        "scale": 0.7
-                    },
-                    "style": {
-                        "width": "260px",
-                        "height": "196px",
-                        "clip": "rect(0px 260px 196px 0px)"
-                    },
-                    "position": {
-                        "left": "580px",
-                        "top": "81px"
-                    },
-                    "border": {
-                        "width": "260px",
-                        "min-height": "196px"
-                    },
-                    "eleTemplateType": "ele-image-default"
+                        "position": {
+                            "left": "580px",
+                            "top": "81px"
+                        },
+                        "border": {
+                            "width": "260px",
+                            "min-height": "196px"
+                        },
+                        "eleTemplateType": "ele-image-default"
+                    }
                 },
                 {
-                    "ID": "eleeee23",
-                    "type": "image",
-                    "url": "images/imageDesign/1.png",
-                    "backgroundSize": "contain",
-                    "imageSize": {
-                        "width": "260px",
-                        "height": "196px"
-                    },
-                    "phoneStyle": {
-                        "position": {
-                            "left": "0px",
-                            "top": "110px"
-                        },
-                        "border": {
+                    preview: "images/imageDesign/1.png",
+                    data: {
+                        "ID": "eleeee23",
+                        "type": "image",
+                        "url": "images/imageDesign/1.png",
+                        "backgroundSize": "contain",
+                        "imageSize": {
                             "width": "260px",
-                            "min-height": "196px"
+                            "height": "196px"
+                        },
+                        "phoneStyle": {
+                            "position": {
+                                "left": "0px",
+                                "top": "110px"
+                            },
+                            "border": {
+                                "width": "260px",
+                                "min-height": "196px"
+                            },
+                            "style": {
+                                "width": "260px",
+                                "height": "196px",
+                                "clip": "rect(0px 260px 196px 0px)"
+                            },
+                            "scale": 0.7
                         },
                         "style": {
                             "width": "260px",
                             "height": "196px",
                             "clip": "rect(0px 260px 196px 0px)"
                         },
-                        "scale": 0.7
-                    },
-                    "style": {
-                        "width": "260px",
-                        "height": "196px",
-                        "clip": "rect(0px 260px 196px 0px)"
-                    },
-                    "position": {
-                        "left": "580px",
-                        "top": "81px"
-                    },
-                    "border": {
-                        "width": "260px",
-                        "min-height": "196px"
-                    },
-                    "eleTemplateType": "ele-image-default"
+                        "position": {
+                            "left": "580px",
+                            "top": "81px"
+                        },
+                        "border": {
+                            "width": "260px",
+                            "min-height": "196px",
+                            "background-color": "#fff",
+                            "box-shadow": "0px 8px 17px 0px rgba(0, 0, 0, 0.2)",
+                            "border-radius": "8px"
+                        },
+                        "eleTemplateType": "ele-image-default"
+                    }
                 },
                 {
-                    "ID": "eleeee23",
-                    "type": "image",
-                    "url": "images/imageDesign/3.png",
-                    "backgroundSize": "contain",
-                    "imageSize": {
-                        "width": "260px",
-                        "height": "196px"
-                    },
-                    "phoneStyle": {
-                        "position": {
-                            "left": "0px",
-                            "top": "110px"
-                        },
-                        "border": {
+                    preview: "images/imageDesign/3.png",
+                    data: {
+                        "ID": "eleeee23",
+                        "type": "image",
+                        "url": "images/imageDesign/3.png",
+                        "backgroundSize": "contain",
+                        "imageSize": {
                             "width": "260px",
-                            "min-height": "196px"
+                            "height": "196px"
+                        },
+                        "phoneStyle": {
+                            "position": {
+                                "left": "0px",
+                                "top": "110px"
+                            },
+                            "border": {
+                                "width": "260px",
+                                "min-height": "196px"
+                            },
+                            "style": {
+                                "width": "260px",
+                                "height": "196px",
+                                "clip": "rect(0px 260px 196px 0px)"
+                            },
+                            "scale": 0.7
                         },
                         "style": {
                             "width": "260px",
                             "height": "196px",
                             "clip": "rect(0px 260px 196px 0px)"
                         },
-                        "scale": 0.7
-                    },
-                    "style": {
-                        "width": "260px",
-                        "height": "196px",
-                        "clip": "rect(0px 260px 196px 0px)"
-                    },
-                    "position": {
-                        "left": "580px",
-                        "top": "81px"
-                    },
-                    "border": {
-                        "width": "260px",
-                        "min-height": "196px"
-                    },
-                    "eleTemplateType": "ele-image-default"
+                        "position": {
+                            "left": "580px",
+                            "top": "81px"
+                        },
+                        "border": {
+                            "width": "260px",
+                            "min-height": "196px",
+                            "background-color": "#fff",
+                            "box-shadow": "0px 8px 17px 0px rgba(0, 0, 0, 0.2)",
+                            "border-radius": "50%"
+                        },
+                        "eleTemplateType": "ele-image-default"
+                    }
                 }
             ]
         };

@@ -194,7 +194,7 @@ angular.module('kyle.imageLibrary', [])
                 $timeout(function(){
                     var resultData = [
                         { url: 'images/website/bg1.jpg' },
-                        { url: 'images/website/pc.png' },
+                        { url: 'images/website/icon.jpg' },
                     ];
                     deferred.resolve(resultData);
                 },500);
