@@ -1111,7 +1111,7 @@ angular.module('myBuilderApp')
                 handle.remove();
 
                 var dom = $(template);
-                $('body').append(dom);
+                $("#main-editor-scroll").append(dom);
                 indicatorHandle = dom;
                 eleTarget = target;
 
@@ -1140,6 +1140,10 @@ angular.module('myBuilderApp')
                     indicatorHandle.css({ 'left': x + offset.left, 'top': y + offset.top });
                 }
             },
+            /**
+             * 获取角度的封装
+             * 因为css transform 有可能是undefined
+             */
             getDeg:function(){
                 var deg = eval('handle.get'+eleTarget.css('transform'));
                 if(deg == undefined){
@@ -1147,6 +1151,9 @@ angular.module('myBuilderApp')
                 }
                 return deg;
             },
+            /**
+             * 返回角度
+             */
             getmatrix(a, b, c, d, e, f) {
                 var aa = Math.round(180 * Math.asin(a) / Math.PI);
                 var bb = Math.round(180 * Math.acos(b) / Math.PI);
