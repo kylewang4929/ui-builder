@@ -235,6 +235,7 @@ angular.module('myBuilderApp')
                 obj.left = left + (width - obj.width) / 2;
                 obj.top = top + (height - obj.height) / 2;
 
+                //原始坐标
                 obj.originalLeft = left;
                 obj.originalTop = top;
 

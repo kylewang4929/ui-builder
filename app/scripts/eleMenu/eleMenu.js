@@ -1,6 +1,6 @@
 "use strict";
 angular.module('eleMenu', [])
-    .directive('eleMenu', function ($compile, eleSettingService, eleMenuServices, imageLibraryService, imageCropService, activeEleService,websiteData,activePageService) {
+    .directive('eleMenu', function ($compile, eleSettingService, eleMenuServices, imageLibraryService, imageCropService, activeEleService, websiteData, activePageService) {
         return {
             restrict: 'A',
             template: "<div class='ele-menu' onmousedown='event.stopPropagation()'>" +
@@ -16,11 +16,11 @@ angular.module('eleMenu', [])
                 //监听属性 同步更改
                 scope.changeImage = function () {
                     var activeEle = angular.copy(activeEleService.getEle());
-                    imageLibraryService.showDom(1,function(data){
+                    imageLibraryService.showDom(1, function (data) {
                         //更换url
-                        var eleOption= { ID:activeEle.value.ID , type: activeEle.value.type};
-                        var dataOption = { url : data[0].url};
-                        websiteData.updateImageUrl(activePageService.getActivePage().value, eleOption , dataOption);
+                        var eleOption = { ID: activeEle.value.ID, type: activeEle.value.type };
+                        var dataOption = { url: data[0].url };
+                        websiteData.updateImageUrl(activePageService.getActivePage().value, eleOption, dataOption);
                     });
                 };
 
@@ -53,7 +53,7 @@ angular.module('eleMenu', [])
         };
     })
 
-    .factory("eleMenuServices", function ($rootScope, $compile, elePosition, $timeout) {
+    .factory("eleMenuServices", function ($rootScope, $compile, elePosition, $timeout, rotateEleCalculate) {
 
         var dom = null;
         var activeEle = {};
@@ -140,7 +140,7 @@ angular.module('eleMenu', [])
 
                 $("#main-editor-scroll").append(template);
 
-                dom = template;
+                var dom = template;
 
                 dom.css({ left: x, top: y + 10 });
 
@@ -150,7 +150,9 @@ angular.module('eleMenu', [])
 
                 dom.show();
 
-                dom.addClass('active');                
+                dom.addClass('active');
+                
+                return dom;
 
             },
             showDom: function (eleID, type) {
@@ -162,27 +164,36 @@ angular.module('eleMenu', [])
                 activeEle.type = type;
                 var eleDom = $("#" + eleID);
 
-                var x = elePosition.getLeft(eleDom.get(0));
-                var y = elePosition.getTop(eleDom.get(0)) + eleDom.height();
+                /**
+                 * 计算元素在视觉上的位置和大小
+                 * 然后再计算菜单的位置
+                 */
+                var handleData = {
+                    left: parseInt($(eleDom).css('left')),
+                    top: parseInt($(eleDom).css('top')),
+                    width: parseInt($(eleDom).get(0).offsetWidth),
+                    height: parseInt($(eleDom).get(0).offsetHeight),
+                };
+                var eleData = rotateEleCalculate.getSizeAndPosition(handleData.left, handleData.top, handleData.width, handleData.height, rotateEleCalculate.getRotate(eleDom));
+                var x = eleData.left + (elePosition.getLeft(eleDom.get(0)) - eleData.originalLeft);
+                var y = eleData.top + (elePosition.getTop(eleDom.get(0)) - eleData.originalTop) + eleData.height;
 
                 if (dom === null) {
-                    this.createDom(eleID, type, x, y);
-                } else {
-                    dom.css({ left: x, top: y + 10 });
-                    //更新type属性
-                    dom.attr("ele-menu", type);
-
-                    dom.find("button").css("display", "none");
-                    dom.find("." + type + "-button").css("display", "inline-block");
-                    dom.find(".all-button").css("display", "inline-block");
-
-                    dom.show();
-
-                    $timeout(function(){
-                        dom.addClass('active');                        
-                    });
-
+                    dom = this.createDom(eleID, type, x, y);
                 }
+                dom.css({ left: x, top: y + 10 });
+                //更新type属性
+                dom.attr("ele-menu", type);
+
+                dom.find("button").css("display", "none");
+                dom.find("." + type + "-button").css("display", "inline-block");
+                dom.find(".all-button").css("display", "inline-block");
+
+                dom.show();
+
+                $timeout(function () {
+                    dom.addClass('active');
+                });
             },
             hideDom: function (flag) {
                 if (flag) {

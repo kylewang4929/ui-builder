@@ -143,7 +143,7 @@ angular.module('myBuilderApp')
      * handle 可以指定
      * dragEle 可能是 default ele-web ele-phone
     */
-    .directive('dragEle', function (activeSessionService, builderTool, phoneBuilderTool, websiteData, changeSessionTool, rotateEleCalculate, activePageService, $rootScope, eleIndicator,autoAlignment) {
+    .directive('dragEle', function (activeSessionService, builderTool, phoneBuilderTool, websiteData, changeSessionTool, rotateEleCalculate, activePageService, $rootScope, eleIndicator, autoAlignment) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -231,10 +231,10 @@ angular.module('myBuilderApp')
                     }
 
                     $rootScope.$emit("eleDragStart");
-                    
+
                     if (parameter.type == 'ele-web' || parameter.type == 'ele-phone') {
                         //自动对齐初始化
-                        autoAlignment.init($(element).parents('.ele-session-box'),$(element));
+                        autoAlignment.init($(element).parents('.ele-session-box'), $(element));
                         //添加指示器
                         eleIndicator.add($(element), 0, -34, 'position');
                     }
@@ -299,14 +299,14 @@ angular.module('myBuilderApp')
                             //更新指示器
                             eleIndicator.update();
                             var calculateData = {
-                                leftStart : offsetX,
-                                leftEnd : offsetX+parameter.eleWidth,
-                                topStart : offsetY,
-                                topEnd : offsetY+parameter.eleHeight,
+                                leftStart: offsetX,
+                                leftEnd: offsetX + parameter.eleWidth,
+                                topStart: offsetY,
+                                topEnd: offsetY + parameter.eleHeight,
                             };
                             var elePosition = autoAlignment.calculatePosition(calculateData);
                             $(element).css({ left: elePosition.left + "px", top: elePosition.top + "px" });
-                        }else{
+                        } else {
                             $(element).css({ left: offsetX + "px", top: offsetY + "px" });
                         }
 
@@ -1094,7 +1094,7 @@ angular.module('myBuilderApp')
             }
         };
     })
-    .factory('eleIndicator', function (elePosition) {
+    .factory('eleIndicator', function (elePosition,rotateEleCalculate) {
         /**
          * 组件需要一个显示当前元素大小的组件
          * 这里可以封装一个
@@ -1146,9 +1146,17 @@ angular.module('myBuilderApp')
                         case 'position': indicatorHandle.text('X:' + parseInt($(eleTarget).css('left')) + ' | Y:' + parseInt($(eleTarget).css('top'))); break;
                         case 'rotate': indicatorHandle.text(handle.getDeg() + 'deg'); break;
                     }
-                    //同时还要更新元素的位置
-                    var x = elePosition.getLeft(eleTarget.get(0));
-                    var y = elePosition.getTop(eleTarget.get(0));
+                    var handleData = {
+                        left:parseInt($(eleTarget).css('left')),
+                        top:parseInt($(eleTarget).css('top')),
+                        width:parseInt($(eleTarget).get(0).offsetWidth),
+                        height:parseInt($(eleTarget).get(0).offsetHeight),
+                    };
+                    var eleData=rotateEleCalculate.getSizeAndPosition(handleData.left,handleData.top,handleData.width,handleData.height,rotateEleCalculate.getRotate(eleTarget));
+                    //计算绝对位置
+                    var x =eleData.left + (elePosition.getLeft(eleTarget.get(0)) - eleData.originalLeft);
+                    var y =eleData.top + (elePosition.getTop(eleTarget.get(0)) - eleData.originalTop);
+                    console.log(eleData);
                     indicatorHandle.css({ 'left': x + offset.left, 'top': y + offset.top });
                 }
             },
@@ -1194,10 +1202,16 @@ angular.module('myBuilderApp')
             eleList: []
         }
 
+        var lineTemplate = '<div class="auto-alignment-line"></div>';
+        var lineDom = {
+            transverse:null,
+            longitudinal:null
+        };
+
         var handle = {
             init: function (sessionDom, currentTarget) {
                 var eleList = sessionDom.find('>.ele-session >.position-box-parent >.position-box');
-                parameter.eleList=[];
+                parameter.eleList = [];
                 angular.forEach(eleList, function (obj, index) {
                     var objData = {
                         leftStart: parseInt($(obj).css('left')),
@@ -1230,7 +1244,7 @@ angular.module('myBuilderApp')
              */
             calculatePosition: function (objData) {
                 //根据当前的元素位置判断是否需要自动对齐
-                
+
                 /**
                  * 比对数据，查出需要自动对齐的地方
                  * 四条边都需要比对
@@ -1279,20 +1293,29 @@ angular.module('myBuilderApp')
                 var minLeftSubscript = handle.getMinSubscript(offsetX);
                 var minTopSubscript = handle.getMinSubscript(offsetY);
 
-                var elePosition={
-                    left:objData.leftStart,
-                    top:objData.topStart,
+                var elePosition = {
+                    left: objData.leftStart,
+                    top: objData.topStart,
                 };
 
-                if(Math.abs(offsetX[minLeftSubscript])<6){
-                    elePosition.left+=offsetX[minLeftSubscript];
+                if (Math.abs(offsetX[minLeftSubscript]) < 6) {
+                    elePosition.left += offsetX[minLeftSubscript];
+                    //生成标线
+                }else{
+                    //判断标线是否存在存在的话清除
                 }
-                if(Math.abs(offsetY[minTopSubscript])<6){
-                    elePosition.top+=offsetY[minTopSubscript];                    
+                if (Math.abs(offsetY[minTopSubscript]) < 6) {
+                    elePosition.top += offsetY[minTopSubscript];
+                    //生成标线
+                }else{
+                    //判断标线是否存在存在的话清除
                 }
 
                 return elePosition;
 
+            },
+            clean:function(){
+                //清除标线等
             }
         }
         return handle;
