@@ -1,6 +1,6 @@
 "use strict";
 angular.module('myBuilderApp')
-    .directive('rotate', function (builderTool, phoneBuilderTool, activePageService, websiteData, rotateEleCalculate, eleIndicator,$rootScope) {
+    .directive('rotate', function (builderTool, phoneBuilderTool, activePageService, websiteData, rotateEleCalculate, eleIndicator, $rootScope) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -143,7 +143,7 @@ angular.module('myBuilderApp')
      * handle 可以指定
      * dragEle 可能是 default ele-web ele-phone
     */
-    .directive('dragEle', function (activeSessionService, builderTool, phoneBuilderTool, websiteData, changeSessionTool, rotateEleCalculate, activePageService, $rootScope, eleIndicator) {
+    .directive('dragEle', function (activeSessionService, builderTool, phoneBuilderTool, websiteData, changeSessionTool, rotateEleCalculate, activePageService, $rootScope, eleIndicator,autoAlignment) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -231,8 +231,11 @@ angular.module('myBuilderApp')
                     }
 
                     $rootScope.$emit("eleDragStart");
-                    //添加指示器                    
+                    
                     if (parameter.type == 'ele-web' || parameter.type == 'ele-phone') {
+                        //自动对齐初始化
+                        autoAlignment.init($(element).parents('.ele-session-box'),$(element));
+                        //添加指示器
                         eleIndicator.add($(element), 0, -34, 'position');
                     }
 
@@ -291,10 +294,20 @@ angular.module('myBuilderApp')
                                 offsetY = (elePar.height - outerHeight) / 2;
                             }
                         }
-                        $(element).css({ left: offsetX + "px", top: offsetY + "px" });
 
                         if (parameter.type == 'ele-web' || parameter.type == 'ele-phone') {
+                            //更新指示器
                             eleIndicator.update();
+                            var calculateData = {
+                                leftStart : offsetX,
+                                leftEnd : offsetX+parameter.eleWidth,
+                                topStart : offsetY,
+                                topEnd : offsetY+parameter.eleHeight,
+                            };
+                            var elePosition = autoAlignment.calculatePosition(calculateData);
+                            $(element).css({ left: elePosition.left + "px", top: elePosition.top + "px" });
+                        }else{
+                            $(element).css({ left: offsetX + "px", top: offsetY + "px" });
                         }
 
                     }
@@ -307,7 +320,7 @@ angular.module('myBuilderApp')
                         if (moveFirstFlag === false) {
                             moveFirstFlag = true;
                         }
-                        $rootScope.$emit("eleDragEnd");                        
+                        $rootScope.$emit("eleDragEnd");
                         /**
                          * 更新web 元素
                         */
@@ -360,7 +373,6 @@ angular.module('myBuilderApp')
             }
         };
     })
-
     .directive('resize', function ($timeout, builderTool, phoneBuilderTool, websiteData, rotateEleCalculate, activePageService, $rootScope, imageCropService, eleIndicator) {
         return {
             restrict: 'A',
@@ -455,7 +467,7 @@ angular.module('myBuilderApp')
                     e.stopPropagation();
 
                     //通知拖动开始
-                    $rootScope.$emit("eleDragStart");                    
+                    $rootScope.$emit("eleDragStart");
 
                     //添加指示器
                     eleIndicator.add($(element), 0, -34, 'size');
@@ -1041,7 +1053,7 @@ angular.module('myBuilderApp')
                         parameter.flag = false;
 
                         //标记移动结束
-                        $rootScope.$emit("eleDragEnd");                        
+                        $rootScope.$emit("eleDragEnd");
                         if (moveFirstFlag === false) {
                             moveFirstFlag = true;
                         }
@@ -1132,7 +1144,7 @@ angular.module('myBuilderApp')
                     switch (type) {
                         case 'size': indicatorHandle.text('W:' + $(eleTarget).get(0).offsetWidth + ' | H:' + $(eleTarget).get(0).offsetHeight); break;
                         case 'position': indicatorHandle.text('X:' + parseInt($(eleTarget).css('left')) + ' | Y:' + parseInt($(eleTarget).css('top'))); break;
-                        case 'rotate': indicatorHandle.text(handle.getDeg()+'deg'); break;
+                        case 'rotate': indicatorHandle.text(handle.getDeg() + 'deg'); break;
                     }
                     //同时还要更新元素的位置
                     var x = elePosition.getLeft(eleTarget.get(0));
@@ -1144,9 +1156,9 @@ angular.module('myBuilderApp')
              * 获取角度的封装
              * 因为css transform 有可能是undefined
              */
-            getDeg:function(){
-                var deg = eval('handle.get'+eleTarget.css('transform'));
-                if(deg == undefined){
+            getDeg: function () {
+                var deg = eval('handle.get' + eleTarget.css('transform'));
+                if (deg == undefined) {
                     deg = 0;
                 }
                 return deg;
@@ -1168,6 +1180,119 @@ angular.module('myBuilderApp')
                     deg = 360 - cc || 360 - dd;
                 }
                 return deg >= 360 ? 0 : deg;
+            }
+        }
+        return handle;
+    })
+    /**
+     * 自动对齐辅助指令
+     */
+    .factory('autoAlignment', function ($timeout) {
+
+        var parameter = {
+            flag: false,
+            eleList: []
+        }
+
+        var handle = {
+            init: function (sessionDom, currentTarget) {
+                var eleList = sessionDom.find('>.ele-session >.position-box-parent >.position-box');
+                parameter.eleList=[];
+                angular.forEach(eleList, function (obj, index) {
+                    var objData = {
+                        leftStart: parseInt($(obj).css('left')),
+                        leftEnd: parseInt($(obj).css('left')) + parseInt(obj.offsetWidth),
+                        topStart: parseInt($(obj).css('top')),
+                        topEnd: parseInt($(obj).css('top')) + parseInt(obj.offsetHeight),
+                    }
+                    if ($(currentTarget).attr('id') == $(obj).attr('id')) {
+
+                    } else {
+                        parameter.eleList.push(objData);
+                    }
+                });
+                return eleList;
+            },
+            getMinSubscript: function (dataList) {
+                var min = Math.abs(dataList[0]);
+                var minIndex = 0;
+                angular.forEach(dataList, function (value, index) {
+                    if (Math.abs(value) < min) {
+                        min = Math.abs(value);
+                        minIndex = index;
+                    }
+                });
+                return minIndex;
+            },
+            /**
+             * 输入leftStart leftEnd topStart topEnd
+             * 返回元素调整后的left top
+             */
+            calculatePosition: function (objData) {
+                //根据当前的元素位置判断是否需要自动对齐
+                
+                /**
+                 * 比对数据，查出需要自动对齐的地方
+                 * 四条边都需要比对
+                 * 查出最接近的那一个数值，然后设置它
+                 */
+                var offsetX = [
+                    null, null, null, null
+                ];
+                var offsetY = [
+                    null, null, null, null
+                ];
+                angular.forEach(parameter.eleList, function (obj, index) {
+                    /**
+                     * 0元素列表的leftStart - 元素的leftStart
+                     * 1元素列表的leftStart - 元素的leftEnd
+                     * 2元素列表的leftEnd - 元素的leftStart
+                     * 3元素列表的leftEnd - 元素的leftEnd
+                     */
+                    if (index == 0) {
+                        offsetX = [
+                            obj.leftStart - objData.leftStart,
+                            obj.leftStart - objData.leftEnd,
+                            obj.leftEnd - objData.leftStart,
+                            obj.leftEnd - objData.leftEnd
+                        ];
+                        offsetY = [
+                            obj.topStart - objData.topStart,
+                            obj.topStart - objData.topEnd,
+                            obj.topEnd - objData.topStart,
+                            obj.topEnd - objData.topEnd
+                        ];
+                    } else {
+                        //取最小
+                        offsetX[0] = Math.abs(obj.leftStart - objData.leftStart) < Math.abs(offsetX[0]) ? obj.leftStart - objData.leftStart : offsetX[0];
+                        offsetX[1] = Math.abs(obj.leftStart - objData.leftEnd) < Math.abs(offsetX[1]) ? obj.leftStart - objData.leftEnd : offsetX[1];
+                        offsetX[2] = Math.abs(obj.leftEnd - objData.leftStart) < Math.abs(offsetX[2]) ? obj.leftEnd - objData.leftStart : offsetX[2];
+                        offsetX[3] = Math.abs(obj.leftEnd - objData.leftEnd) < Math.abs(offsetX[3]) ? obj.leftEnd - objData.leftEnd : offsetX[3];
+
+                        offsetY[0] = Math.abs(obj.topStart - objData.topStart) < Math.abs(offsetY[0]) ? obj.topStart - objData.topStart : offsetY[0];
+                        offsetY[1] = Math.abs(obj.topStart - objData.topEnd) < Math.abs(offsetY[1]) ? obj.topStart - objData.topEnd : offsetY[1];
+                        offsetY[2] = Math.abs(obj.topEnd - objData.topStart) < Math.abs(offsetY[2]) ? obj.topEnd - objData.topStart : offsetY[2];
+                        offsetY[3] = Math.abs(obj.topEnd - objData.topEnd) < Math.abs(offsetY[3]) ? obj.topEnd - objData.topEnd : offsetY[3];
+                    }
+                });
+
+                var minLeftSubscript = handle.getMinSubscript(offsetX);
+                var minTopSubscript = handle.getMinSubscript(offsetY);
+
+                var elePosition={
+                    left:objData.leftStart,
+                    top:objData.topStart,
+                };
+
+                if(Math.abs(offsetX[minLeftSubscript])<6){
+                    elePosition.left+=offsetX[minLeftSubscript];
+                }
+                if(Math.abs(offsetY[minTopSubscript])<6){
+                    elePosition.top+=offsetY[minTopSubscript];                    
+                }
+
+                return elePosition;
+
             }
         }
         return handle;
