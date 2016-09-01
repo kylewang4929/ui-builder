@@ -103,6 +103,14 @@ angular.module('phoneSiteEditor', [])
 
                 return style;
             },
+            getEleDefaultStyle : function(dom,eleData){
+                eleData.phoneStyle.position = this.resolveStyle(dom[0]);
+                var styleDom = dom.find(".ele-box");
+                eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
+                styleDom = dom.find(".ele");
+                eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
+                return eleData;
+            },
             getEleText: function (ID) {
                 var eleData = {};
                 var styleDom = {};
@@ -113,11 +121,7 @@ angular.module('phoneSiteEditor', [])
                 eleData.type = "text";
                 eleData.textValue = dom.find('.ele').get(0).innerHTML;
 
-                eleData.phoneStyle.position = this.resolveStyle(dom[0]);
-                styleDom = dom.find(".ele-box");
-                eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
-                styleDom = dom.find(".ele");
-                eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
+                this.getEleDefaultStyle(dom,eleData);
 
                 //获取缩放比例
                 eleData.phoneStyle.scale = dom.attr('scale');
@@ -130,18 +134,15 @@ angular.module('phoneSiteEditor', [])
             },
             getEleImage: function (ID) {
                 var eleData = {};
-                var styleDom = {};
                 eleData.phoneStyle = {};
                 var dom = $("#" + ID + ".position-box");
+                var styleDom = dom.find('.ele');
 
                 eleData.ID = ID;
                 eleData.type = "image";
 
-                eleData.phoneStyle.position = this.resolveStyle(dom[0]);
-                styleDom = dom.find(".ele-box");
-                eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
-                styleDom = dom.find(".ele");
-                eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
+                this.getEleDefaultStyle(dom,eleData);
+
                 eleData.url = styleDom.attr("src");
                 eleData.backgroundSize = dom.attr('background-size');
 
@@ -159,16 +160,13 @@ angular.module('phoneSiteEditor', [])
                 eleData.ID = ID;
                 eleData.type = "menu";
 
-                eleData.phoneStyle.position = this.resolveStyle(dom[0]);
-                styleDom = dom.find(".ele-box");
-                eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
-                styleDom = dom.find(".ele");
-                eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
+                this.getEleDefaultStyle(dom,eleData);
+
                 //读取item
                 eleData.item = [];
-                styleDom = styleDom.find(".menu-item");
-                for (var i = 0; i < styleDom.length; i++) {
-                    eleData.item.push({ ID: styleDom.eq(i).attr("id"), name: styleDom.get(i).textContent });
+                var itemList = dom.find(".menu-item");
+                for (var i = 0; i < itemList.length; i++) {
+                    eleData.item.push({ ID: itemList.eq(i).attr("id"), name: itemList.get(i).textContent });
                 }
 
                 //获取缩放比例
@@ -184,12 +182,8 @@ angular.module('phoneSiteEditor', [])
 
                 eleData.ID = ID;
                 eleData.type = "group";
-                eleData.phoneStyle.position = this.resolveStyle(dom[0]);
-                styleDom = dom.find(".ele-box");
-                eleData.phoneStyle.border = this.resolveStyle(styleDom[0]);
-                styleDom = dom.find(".ele");
-                eleData.phoneStyle.style = this.resolveStyle(styleDom[0]);
-
+                
+                this.getEleDefaultStyle(dom,eleData);
 
                 var eleList = dom.find(">.ele-box >.ele >.position-box-parent >.position-box");
                 var eleListData = [];
@@ -208,71 +202,39 @@ angular.module('phoneSiteEditor', [])
 
                 return eleData;
             },
+            updateEleDefaultStyle :function(dom,eleData){
+                $.each(eleData.phoneStyle.position, function (index, value) {
+                    dom.css(index, value);
+                });
+
+                var borderDom = dom.find(".ele-box");
+                $.each(eleData.phoneStyle.border, function (index, value) {
+                    borderDom.css(index, value);
+                });
+
+                var styleDom = dom.find(".ele");
+                $.each(eleData.phoneStyle.style, function (index, value) {
+                    styleDom.css(index, value);
+                });
+            },
             updateEleText: function (eleData) {
                 //更新样式
                 var dom = $("#" + eleData.ID + ".position-box");
-                $.each(eleData.phoneStyle.position, function (index, value) {
-                    dom.css(index, value);
-                });
-
-                dom = dom.find(".ele-box");
-                $.each(eleData.phoneStyle.border, function (index, value) {
-                    dom.css(index, value);
-                });
-
-                dom = dom.find(".ele");
-                $.each(eleData.phoneStyle.style, function (index, value) {
-                    dom.css(index, value);
-                });
+                this.updateEleDefaultStyle(dom,eleData);
             },
             updateEleImage: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");
-                $.each(eleData.phoneStyle.position, function (index, value) {
-                    dom.css(index, value);
-                });
-
-                dom = dom.find(".ele-box");
-                $.each(eleData.phoneStyle.border, function (index, value) {
-                    dom.css(index, value);
-                });
-
-                dom = dom.find(".ele");
-                $.each(eleData.phoneStyle.style, function (index, value) {
-                    dom.css(index, value);
-                });
+                this.updateEleDefaultStyle(dom,eleData);
 
             },
             updateEleMenu: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");
-                $.each(eleData.phoneStyle.position, function (index, value) {
-                    dom.css(index, value);
-                });
-
-                dom = dom.find(".ele-box");
-                $.each(eleData.phoneStyle.border, function (index, value) {
-                    dom.css(index, value);
-                });
-
-                dom = dom.find(".ele");
-                $.each(eleData.phoneStyle.style, function (index, value) {
-                    dom.css(index, value);
-                });
+                this.updateEleDefaultStyle(dom,eleData);
 
             },
             updateEleGroup: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");
-                $.each(eleData.phoneStyle.position, function (index, value) {
-                    dom.css(index, value);
-                });
-
-                var domBorder = dom.find("> .ele-box");
-                $.each(eleData.phoneStyle.border, function (index, value) {
-                    dom.css(index, value);
-                });
-                var eleDom = domBorder.find("> .ele");
-                $.each(eleData.phoneStyle.style, function (index, value) {
-                    dom.css(index, value);
-                });
+                this.updateEleDefaultStyle(dom,eleData);
                 for (var i = 0; i < eleData.eleList.length; i++) {
                     this.updateEle(eleData.eleList[i]);
                 }

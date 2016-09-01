@@ -147,14 +147,11 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 
                 return style;
             },
-            getEleText: function (ID) {
-                var eleData = {};
-                var dom = $("#" + ID + ".position-box");
-
-                eleData.ID = ID;
-                eleData.type = "text";
-                eleData.textValue = dom.find('.ele .ql-editor').get(0).innerHTML;
-
+            /**
+             * 获取默认的样式信息
+             * position、border、style和eleTemplateType
+             */
+            getEleDefaultStyle : function(dom,eleData){
                 eleData.position = this.resolveStyle(dom[0]);
                 var styleDom = dom.find(".ele-box");
                 eleData.border = this.resolveStyle(styleDom[0]);
@@ -163,20 +160,33 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 eleData.eleTemplateType = dom.parent().attr("template-type");
                 return eleData;
             },
+            getEleText: function (ID) {
+                var eleData = {};
+                var dom = $("#" + ID + ".position-box");
+
+                eleData.ID = ID;
+                eleData.type = "text";
+                eleData.textValue = dom.find('.ele .ql-editor').get(0).innerHTML;
+
+                //获取默认样式
+                this.getEleDefaultStyle(dom,eleData);
+
+                return eleData;
+            },
             getEleImage: function (ID) {
                 var eleData = {};
                 var dom = $("#" + ID + ".position-box");
+                var styleDom = dom.find(".ele");                
+                eleData.backgroundSize=dom.attr('background-size');
+                
                 eleData.ID = ID;
                 eleData.type = "image";
 
-                eleData.position = this.resolveStyle(dom[0]);
-                var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom[0]);
+                //获取默认样式
+                var defaultStyle = this.getEleDefaultStyle(dom,eleData);
+                
                 styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom[0]);
                 eleData.url = styleDom.attr("src");
-                eleData.eleTemplateType = dom.parent().attr("template-type");
-                eleData.backgroundSize=dom.attr('background-size');
                 
                 //计算图片的原始大小 以及图片的缩放比例
                 var img=document.createElement('img');
@@ -190,18 +200,15 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 eleData.ID = ID;
                 eleData.type = "menu";
 
-                eleData.position = this.resolveStyle(dom[0]);
-                var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom[0]);
-                styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom[0]);
+                //获取默认样式
+                var defaultStyle = this.getEleDefaultStyle(dom,eleData);
+
                 //读取item
                 eleData.item = [];
-                styleDom = styleDom.find(".menu-item");
-                for (var i = 0; i < styleDom.length; i++) {
-                    eleData.item.push({ ID: styleDom.eq(i).attr("id"), name: styleDom.get(i).textContent });
+                var itemList = dom.find(".menu-item");
+                for (var i = 0; i < itemList.length; i++) {
+                    eleData.item.push({ ID: itemList.eq(i).attr("id"), name: itemList.get(i).textContent });
                 }
-                eleData.eleTemplateType = dom.parent().attr("template-type");
                 return eleData;
             },
             getEleGroup: function (ID) {
@@ -210,11 +217,9 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 var dom = $("#" + ID + ".position-box");
                 eleData.ID = ID;
                 eleData.type = "group";
-                eleData.position = this.resolveStyle(dom[0]);
-                var styleDom = dom.find(".ele-box");
-                eleData.border = this.resolveStyle(styleDom[0]);
-                styleDom = dom.find(".ele");
-                eleData.style = this.resolveStyle(styleDom[0]);
+                
+                //获取默认样式
+                var defaultStyle = this.getEleDefaultStyle(dom,eleData);
 
                 var eleList = dom.find(">.ele-box >.ele >.position-box-parent >.position-box");
                 var eleListData = [];
@@ -223,21 +228,20 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                     eleListData.push(this.getEle(eleList.eq(i).attr('id'), eleList.eq(i).attr('ele-type')));
                 }
                 eleData.eleList = eleListData;
-                eleData.eleTemplateType = dom.parent().attr("template-type");
                 return eleData;
             },
-            updateEleText: function (eleData) {
-                //更新样式
-                var dom = $("#" + eleData.ID + ".position-box");
+            updateEleDefaultStyle :function(dom,eleData){
                 dom.get(0).style = "";
                 $.each(eleData.position, function (index, value) {
                     dom.css(index, value);
                 });
+
                 dom = dom.find(".ele-box");
                 dom.get(0).style = "";
                 $.each(eleData.border, function (index, value) {
                     dom.css(index, value);
                 });
+
                 dom = dom.find(".ele");
                 //保留margintop 属性
                 var marginTop = dom.css("margin-top");
@@ -246,6 +250,11 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 $.each(eleData.style, function (index, value) {
                     dom.css(index, value);
                 });
+            },
+            updateEleText: function (eleData) {
+                //更新样式
+                var dom = $("#" + eleData.ID + ".position-box");
+                this.updateEleDefaultStyle(dom,eleData);
                 //更新文字内容
                 if (eleData.textValue !== dom.find(".ql-editor").html()) {
                     dom.find(".ql-editor").html(eleData.textValue);
@@ -253,42 +262,15 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
             },
             updateEleImage: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");
-                dom.get(0).style = "";
-                $.each(eleData.position, function (index, value) {
-                    dom.css(index, value);
-                });
-                dom = dom.find(".ele-box");
-                dom.get(0).style = "";
-                $.each(eleData.border, function (index, value) {
-                    dom.css(index, value);
-                });
-                dom = dom.find(".ele");
-                var marginTop = dom.css("margin-top");
-                dom.get(0).style = "";
-                dom.css("margin-top", marginTop);
-                $.each(eleData.style, function (index, value) {
-                    dom.css(index, value);
-                });
+                
+                this.updateEleDefaultStyle(dom,eleData);
+                
                 dom.attr('src',eleData.url);
             },
             updateEleMenu: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");
-                dom.get(0).style = "";
-                $.each(eleData.position, function (index, value) {
-                    dom.css(index, value);
-                });
-                dom = dom.find(".ele-box");
-                dom.get(0).style = "";
-                $.each(eleData.border, function (index, value) {
-                    dom.css(index, value);
-                });
-                dom = dom.find(".ele");
-                var marginTop = dom.css("margin-top");
-                dom.get(0).style = "";
-                dom.css("margin-top", marginTop);
-                $.each(eleData.style, function (index, value) {
-                    dom.css(index, value);
-                });
+                
+                this.updateEleDefaultStyle(dom,eleData);
 
                 //更新item
                 dom.empty();
@@ -300,29 +282,8 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
             },
             updateEleGroup: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");
-                dom.get(0).style = "";
-                $.each(eleData.position, function (index, value) {
-                    dom.css(index, value);
-                });
-                var domBorder = dom.find("> .ele-box");
-                domBorder.get(0).style = "";
-                var borderWidth = 0;
-                var borderHeight = 0;
-                $.each(eleData.border, function (index, value) {
-                    if (index === 'min-height') {
-                        borderHeight = parseInt(value);
-                    }
-                    if (index === 'width') {
-                        borderWidth = parseInt(value);
-                    }
-                    domBorder.css(index, value);
-                });
-                var eleDom = domBorder.find("> .ele");
-                eleDom.get(0).style = "";
+                this.updateEleDefaultStyle(dom,eleData);
 
-                $.each(eleData.style, function (index, value) {
-                    eleDom.css(index, value);
-                });
                 for (var i = 0; i < eleData.eleList.length; i++) {
                     this.updateEle(eleData.eleList[i]);
                 }
