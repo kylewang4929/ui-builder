@@ -1,15 +1,8 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name myBuilderApp.controller:AboutCtrl
- * @description
- * # AboutCtrl
- * Controller of the myBuilderApp
- */
 angular.module('myBuilderApp')
     .controller('workSpaceCtrl', function ($scope,websiteData) {
-
+        
     })
     .controller('insertEleCtrl', function ($scope,eleResourceTemplate) {
         $scope.eleList=eleResourceTemplate.getEleList();
@@ -25,7 +18,6 @@ angular.module('myBuilderApp')
         $scope.scrollOption={height :"100%",width :"80px"};
 
         $scope.activeMenu="";
-
 
         $scope.openMenu=function(type){
             if(type===$scope.activeMenu){

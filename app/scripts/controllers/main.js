@@ -1,12 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name myBuilderApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the myBuilderApp
- */
 angular.module('myBuilderApp')
   .controller('MainCtrl', function ($scope,websiteData,historyLog,webData,activePageService) {
         $scope.allData=webData;

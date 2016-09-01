@@ -196,10 +196,6 @@ angular.module('phoneSiteEditor', [])
                 //获取缩放比例
                 eleData.phoneStyle.scale = dom.attr('scale');
 
-                //还原数据的大小  因为有一个缩放的操作
-                //eleData.border.widht=parseInt(eleData.border.width)/eleData.scale;
-                //eleData.border['min-height']=parseInt(eleData.border['min-height'])/eleData.scale;
-
                 return eleData;
             },
             updateEleDefaultStyle :function(dom,eleData){
