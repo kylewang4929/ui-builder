@@ -11,7 +11,7 @@
                         </div>
                     </div>
                     <div class="preview-menu">
-                        <i class="mdi mdi-crosshairs-gps"></i>
+                        <i ng-click="locateEleForWeb(session,'session')" class="mdi mdi-crosshairs-gps"></i>
                     </div>
                 </div>
             </perfect-scrollbar>
@@ -30,7 +30,7 @@
                             <div class="preview-ele" create-thumbnail="ele" type="web" preview-height='80' ele-type="ele"></div>
                         </div>
                         <div class="preview-menu">
-                            <i class="mdi mdi-crosshairs-gps"></i>
+                            <i ng-click="locateEleForWeb(ele,'ele')" class="mdi mdi-crosshairs-gps"></i>
                         </div>
                     </div>
                 </perfect-scrollbar>

@@ -52,21 +52,23 @@
                         "top": "15px"
                     },
                     "border": {
-                        "width": "119px",
+                        "width": "33px",
                         "min-height": "35px"
                     },
                     "style": {
-                        "width": "35px",
-                        "height": "35px",
-                        "clip": "rect(0px 35px 35px 0px)"
+                        "width": "33px",
+                        "height": "33px",
+                        "clip": "rect(0px 33px 33px 0px)",
+                        "left": "0px",
+                        "top": "1px"
                     },
-                    "scale": 0.7
+                    "scale": "0.7"
                 },
                 "imageSize": {
                     "width": "81px",
                     "height": "81px"
                 },
-                "$$hashKey": "object:219"
+                "state": "select"
             },
             {
                 "ID": "menu12",
@@ -119,21 +121,22 @@
                         "color": "#fff",
                         "font-size": "20px"
                     },
-                    "scale": 0.7
+                    "scale": "0.7"
                 },
-                "$$hashKey": "object:439"
+                "state": "select"
             },
             {
                 "ID": "ele14721747972601",
                 "type": "text",
                 "textValue": "<div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><span style=\"font-size: 60px;\">Building bulletproof&nbsp;</span></span></span></div><div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><span style=\"font-size: 60px;\">fcghea apps</span></span></span></div>",
                 "position": {
-                    "left": "473px",
-                    "top": "247px"
+                    "left": "476px",
+                    "top": "235px"
                 },
                 "border": {
                     "width": "543px",
-                    "min-height": "114px"
+                    "min-height": "114px",
+                    "padding": "10px 0px"
                 },
                 "style": {
                     "margin-top": "-57px",
@@ -142,18 +145,18 @@
                 "eleTemplateType": "ele-text-default",
                 "phoneStyle": {
                     "position": {
-                        "left": "22px",
-                        "top": "97px"
+                        "left": "15px",
+                        "top": "94px"
                     },
                     "border": {
-                        "width": "301px",
-                        "min-height": "228px"
+                        "width": "299px",
+                        "min-height": "228px",
+                        "padding": "10px 0px"
                     },
                     "style": {},
                     "scale": "0.7"
                 },
-                "state": "select",
-                "$$hashKey": "object:315"
+                "state": "select"
             },
             {
                 "ID": "ele14721748671441",
@@ -181,9 +184,7 @@
                         "width": "245px",
                         "min-height": "90px"
                     },
-                    "style": {
-                        
-                    },
+                    "style": {},
                     "scale": "0.7"
                 },
                 "state": "select",

@@ -96,7 +96,15 @@ angular.module('eleMenu', [])
                     if (activeEle.ID === "") {
                         return;
                     }
-                    handle.showDom(activeEle.ID, activeEle.type);
+                    //文字在编辑模式下是不应该显示菜单的
+                    if(activeEle.type == 'text'){
+                        var eleState = $('#'+activeEle.ID+'.position-box').find(".ele .ql-editor").attr("contenteditable");
+                        if(!eleState==true){
+                            handle.showDom(activeEle.ID, activeEle.type);                            
+                        }
+                    }else{
+                        handle.showDom(activeEle.ID, activeEle.type);                        
+                    }
                 });
 
                 levelScrollStart = $rootScope.$on("levelScrollStart", function () {
@@ -127,36 +135,19 @@ angular.module('eleMenu', [])
             setType: function (type) {
                 menuType.value = type;
             },
-            createDom: function (eleID, type, x, y) {
+            createDom: function (eleID, type) {
                 var template = "";
                 switch (mode) {
                     case "web": template = "<div class='ele-menu-box' ele-menu='" + type + "'></div>"; break;
                     case "phone": template = "<div class='ele-menu-box' phone-ele-menu='" + type + "'></div>"; break;
                 }
-
                 template = $compile(template)($rootScope);
-
                 template.hide();
-
                 $("#main-editor-scroll").append(template);
-
-                var dom = template;
-
-                dom.css({ left: x, top: y + 10 });
-
-                dom.find("button").css("display", "none");
-                dom.find("." + type + "-button").css("display", "inline-block");
-                dom.find(".all-button").css("display", "inline-block");
-
-                dom.show();
-
-                dom.addClass('active');
-                
-                return dom;
+                return template;
 
             },
             showDom: function (eleID, type) {
-
                 this.setType(type);
 
                 //计算相对位置
@@ -179,7 +170,7 @@ angular.module('eleMenu', [])
                 var y = eleData.top + (elePosition.getTop(eleDom.get(0)) - eleData.originalTop) + eleData.height;
 
                 if (dom === null) {
-                    dom = this.createDom(eleID, type, x, y);
+                    dom = this.createDom(eleID, type);
                 }
                 dom.css({ left: x, top: y + 10 });
                 //更新type属性

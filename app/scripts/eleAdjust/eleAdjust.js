@@ -32,7 +32,7 @@ angular.module('myBuilderApp')
                     groupID = groupEleList.eq(0).attr('id');
                     firstParentGroupID = groupEleList.eq(groupEleList.length - 1).attr('id');
                 }
-
+                //因为八个拖拽点元素在不同的角度有不同的功能，所以css的指示器也要相应的更改
                 builderTool.reviseRotateCss(rotateEleCalculate.getRotate(element), attrs.id);
 
                 $(element).find(" >.rotate").on("mousedown", function (e) {
@@ -61,7 +61,7 @@ angular.module('myBuilderApp')
                         e.stopPropagation();
                     }
 
-                    eleIndicator.add($(element), 0, -34, 'rotate');
+                    eleIndicator.add($(element), 0, -38, 'rotate');
 
                 });
 
@@ -150,7 +150,6 @@ angular.module('myBuilderApp')
                 /**
                  * 获取传入的方法 scope.dragFunction
                 */
-
                 var parameter = {
                     flag: false,
                     left: 0,
@@ -235,8 +234,10 @@ angular.module('myBuilderApp')
                     if (parameter.type == 'ele-web' || parameter.type == 'ele-phone') {
                         //自动对齐初始化
                         autoAlignment.init($(element).parents('.ele-session-box'), $(element));
-                        //添加指示器
-                        eleIndicator.add($(element), 0, -34, 'position');
+                        if(!parameter.contenteditable==true){
+                            //添加指示器
+                            eleIndicator.add($(element), 0, -38, 'position');
+                        }
                     }
 
                 });
@@ -470,7 +471,7 @@ angular.module('myBuilderApp')
                     $rootScope.$emit("eleDragStart");
 
                     //添加指示器
-                    eleIndicator.add($(element), 0, -34, 'size');
+                    eleIndicator.add($(element), 0, -38, 'size');
 
                     if (parameter.isGroupEle) {
                         $(element).trigger("groupUpdateInit", groupID);
@@ -1096,10 +1097,9 @@ angular.module('myBuilderApp')
     })
     .factory('eleIndicator', function (elePosition,rotateEleCalculate) {
         /**
-         * 组件需要一个显示当前元素大小的组件
+         * 组件需要一个显示当前元素状态的指示器
          * 这里可以封装一个
          */
-
         var indicatorHandle = null;
         var eleTarget = null;
         var template = '<div class="ele-indicator"></div>';
@@ -1139,6 +1139,9 @@ angular.module('myBuilderApp')
                     eleTarget = null;
                 }
             },
+            /**
+             * 更新指示器
+             */
             update: function () {
                 if (indicatorHandle != null) {
                     switch (type) {
@@ -1156,7 +1159,6 @@ angular.module('myBuilderApp')
                     //计算绝对位置
                     var x =eleData.left + (elePosition.getLeft(eleTarget.get(0)) - eleData.originalLeft);
                     var y =eleData.top + (elePosition.getTop(eleTarget.get(0)) - eleData.originalTop);
-                    console.log(eleData);
                     indicatorHandle.css({ 'left': x + offset.left, 'top': y + offset.top });
                 }
             },
@@ -1201,6 +1203,8 @@ angular.module('myBuilderApp')
             flag: false,
             eleList: []
         }
+        //自动对齐的最大值，小于这个值就磁贴上去
+        var alignmentCritical = 6;
 
         var lineTemplate = '<div class="auto-alignment-line"></div>';
         var lineDom = {
@@ -1209,6 +1213,10 @@ angular.module('myBuilderApp')
         };
 
         var handle = {
+            /**
+             * 传入sessionDom 和 currentTarget
+             * currentTarget指的是需要用来判断是否要自动对齐的元素
+             */
             init: function (sessionDom, currentTarget) {
                 var eleList = sessionDom.find('>.ele-session >.position-box-parent >.position-box');
                 parameter.eleList = [];
@@ -1227,6 +1235,9 @@ angular.module('myBuilderApp')
                 });
                 return eleList;
             },
+            /**
+             * 计算一个数组中最小的元素的下标
+             */
             getMinSubscript: function (dataList) {
                 var min = Math.abs(dataList[0]);
                 var minIndex = 0;
@@ -1298,13 +1309,13 @@ angular.module('myBuilderApp')
                     top: objData.topStart,
                 };
 
-                if (Math.abs(offsetX[minLeftSubscript]) < 6) {
+                if (Math.abs(offsetX[minLeftSubscript]) < alignmentCritical) {
                     elePosition.left += offsetX[minLeftSubscript];
                     //生成标线
                 }else{
                     //判断标线是否存在存在的话清除
                 }
-                if (Math.abs(offsetY[minTopSubscript]) < 6) {
+                if (Math.abs(offsetY[minTopSubscript]) < alignmentCritical) {
                     elePosition.top += offsetY[minTopSubscript];
                     //生成标线
                 }else{

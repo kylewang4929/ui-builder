@@ -530,12 +530,12 @@ angular.module('myBuilderApp')
                 domBorder.css({ "transform-origin": "0% 0%", "-ms-transform-origin": "0% 0%", "-moz-transform-origin": "0% 0%", "-webkit-transform-origin": "0% 0%", "-o-transform-origin": "0% 0%" });
 
                 $.each(data.phoneStyle.border, function (index, value) {
-                    if (index === 'width') {
-                        dom.css(index, parseInt(value) * data.phoneStyle.scale);
-                    }
-                    if (index === 'min-height') {
-                        dom.css('height', parseInt(value) * data.phoneStyle.scale);
-                    }
+                    // if (index === 'width') {
+                    //     dom.css(index, parseInt(value) * data.phoneStyle.scale);
+                    // }
+                    // if (index === 'min-height') {
+                    //     dom.css('height', parseInt(value) * data.phoneStyle.scale);
+                    // }
                     domBorder.css(index, value);
                 });
 
@@ -543,6 +543,9 @@ angular.module('myBuilderApp')
                     var ele=$(element).find(">.position-box >.ele-box >.ele");
                     var eleHeight=ele.height();
                     ele.css('margin-top',-eleHeight/2);
+                    //同时把限制用的外边框也调整下
+                    dom.css('height',domBorder.get(0).offsetHeight*data.phoneStyle.scale);
+                    dom.css('width',domBorder.get(0).offsetWidth*data.phoneStyle.scale);
                 });
 
             }

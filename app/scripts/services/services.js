@@ -165,18 +165,20 @@ angular.module('myBuilderApp')
         };
 
         var handle = {
-            scrollTop: function (dom,targetPosition) {
-                
+            scrollTop: function (dom,targetPosition,delay) {
+                if(delay == undefined){
+                    delay = data.delay;
+                }
                 //广播滚动开始的事件
                 $rootScope.$emit("levelScrollStart");
                 
                 var start=dom.scrollTop();
                 
                 function levelScrollDown(scrollDom,scrollStart,scrollEnd){
-                    scrollDom.scrollTop(scrollStart+data.delay);        
-                    if(scrollStart+data.delay < scrollEnd){
+                    scrollDom.scrollTop(scrollStart+delay);        
+                    if(scrollStart+delay < scrollEnd){
                         $timeout(function(){
-                            levelScrollDown(scrollDom,scrollStart+data.delay,scrollEnd);
+                            levelScrollDown(scrollDom,scrollStart+delay,scrollEnd);
                         },1);          
                     }else{
                         //结束
@@ -184,10 +186,10 @@ angular.module('myBuilderApp')
                     }         
                 }
                 function levelScrollUp(scrollDom,scrollStart,scrollEnd){
-                    scrollDom.scrollTop(scrollStart-data.delay);        
-                    if(scrollStart-data.delay > scrollEnd){
+                    scrollDom.scrollTop(scrollStart-delay);        
+                    if(scrollStart-delay > scrollEnd){
                         $timeout(function(){
-                            levelScrollUp(scrollDom,scrollStart-data.delay,scrollEnd);
+                            levelScrollUp(scrollDom,scrollStart-delay,scrollEnd);
                         },1);                        
                     }else{
                         //结束

@@ -4,14 +4,14 @@
     <div class="main-box">
         <div class="left-menu">
             <perfect-scrollbar class="scroller-page" wheel-propagation="true" wheel-speed="5">
-                <div class="preview-item z-depth-1" ng-class="{true:'active',false:''}[activeSession==session.ID]" ng-repeat="session in websiteData.sessionList">
-                    <div class="preview-session-box" ng-click="selectLayers(session.ID)">
+                <div class="preview-item z-depth-1" ng-class="{true:'active',false:''}[activeSession==session.ID]" ng-repeat="session in websiteData.sessionList" ng-click="selectLayers(session.ID)">
+                    <div class="preview-session-box">
                         <div class="over-shadow"><i class="mdi mdi-checkbox-marked-circle"></i></div>
                         <div class="preview-session phone" create-thumbnail="session" type="phone" ele-type="session">
                         </div>
                     </div>
                     <div class="preview-menu">
-                        <i class="mdi mdi-crosshairs-gps"></i>
+                        <i class="mdi mdi-crosshairs-gps" ng-click="locateEleForPhone(session,'session')"></i>
                         <i class="mdi mdi-eye" ng-class="{true:'active mdi-eye-off',false:'mdi-eye'}[session.showState==false]" ng-click="toggleSession(session.ID,session.showState)"></i>
                     </div>
                 </div>
@@ -25,13 +25,13 @@
             </div>
             <div class="content scroll">
                 <perfect-scrollbar class="scroller-page" wheel-propagation="true" wheel-speed="5">
-                    <div class="preview-ele-item z-depth-1" ng-repeat="ele in eleList track by $index">
+                    <div class="preview-ele-item z-depth-1" ng-repeat="ele in eleList track by ele.ID">
                         <div class="preview-ele-item-box">
                             <div class="over-shadow"><i class="mdi mdi-checkbox-marked-circle"></i></div>
                             <div class="preview-ele" create-thumbnail="ele" preview-height='80' type="phone" ele-type="ele"></div>
                         </div>
                         <div class="preview-menu">
-                            <i class="mdi mdi-crosshairs-gps"></i>
+                            <i class="mdi mdi-crosshairs-gps" ng-click="locateEleForPhone(ele,'ele')"></i>
                             <i class="mdi" ng-class="{true:'active mdi-eye-off',false:'mdi-eye'}[ele.showState==false]" ng-click="toggleEle(ele.ID,ele.showState)"></i>
                         </div>
                     </div>

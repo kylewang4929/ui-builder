@@ -53,7 +53,7 @@ angular.module('myBuilderApp')
         });
 
     })
-    .controller('previewBoxCtrl', function ($scope,websiteData) {
+    .controller('previewBoxCtrl', function ($scope,websiteData,elePosition,levelScroll,$timeout) {
         $scope.activeSession=$scope.websiteData.sessionList[0].ID;
         $scope.eleList=$scope.websiteData.sessionList[0].eleList;
         $scope.selectLayers=function(ID){
@@ -65,6 +65,38 @@ angular.module('myBuilderApp')
                 }
             }
         };
+
+        function locateEle(mainScrollHandle,ele,type){
+            var eleDom = $('#'+ele.ID);            
+            var y = elePosition.getTop(eleDom.get(0));
+            var start = mainScrollHandle.scrollTop();
+            var scrollEnd = 0;
+            scrollEnd = y + eleDom.height() / 2 - 50 - $("body").height() / 2;
+            levelScroll.scrollTop(mainScrollHandle, scrollEnd , Math.abs(scrollEnd - start)/30);
+            $scope.closeMenu();
+
+            if(type == 'ele'){
+                //选中元素
+                $timeout(function () {
+                    if(ele.type == 'group'){
+                        eleDom.find('>.ele-box >.group-over').trigger("mousedown");
+                    }else{
+                        eleDom.trigger("mousedown");
+                    }
+                    $(document).trigger("mouseup");
+                });
+            }
+        }
+        $scope.locateEleForWeb = function(ele,type){
+            var mainScrollHandle = $('#main-editor-scroll');            
+            locateEle(mainScrollHandle,ele,type);
+            
+        }
+        $scope.locateEleForPhone = function(ele,type){
+            var mainScrollHandle = $('#main-editor-scroll .phone-edit-space-box >.scroller-page');            
+            locateEle(mainScrollHandle,ele,type);
+            
+        }
 
         //隐藏元素的方法
         $scope.toggleEle=function(ID,state){
