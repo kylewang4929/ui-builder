@@ -147,9 +147,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                /**
-                 * 获取传入的方法 scope.dragFunction
-                */
+                
                 var parameter = {
                     flag: false,
                     left: 0,
@@ -1157,8 +1155,8 @@ angular.module('myBuilderApp')
                     };
                     var eleData=rotateEleCalculate.getSizeAndPosition(handleData.left,handleData.top,handleData.width,handleData.height,rotateEleCalculate.getRotate(eleTarget));
                     //计算绝对位置
-                    var x =eleData.left + (elePosition.getLeft(eleTarget.get(0)) - eleData.originalLeft);
-                    var y =eleData.top + (elePosition.getTop(eleTarget.get(0)) - eleData.originalTop);
+                    var x =eleData.left + (elePosition.getLeft(eleTarget.get(0),'main-editor-scroll') - eleData.originalLeft);
+                    var y =eleData.top + (elePosition.getTop(eleTarget.get(0),'main-editor-scroll') - eleData.originalTop);
                     indicatorHandle.css({ 'left': x + offset.left, 'top': y + offset.top });
                 }
             },

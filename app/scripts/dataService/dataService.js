@@ -13,6 +13,16 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
             initScope:function(scope){
                 scopeObj=scope;
             },
+            getSession:function(ID){
+                var handle = this.searchSessionHandle(activePageService.getActivePage().value);
+                var targetSession = undefined;
+                angular.forEach(handle,function(obj,index){
+                    if(obj.ID == ID){
+                        targetSession = angular.copy(obj);
+                    }
+                });  
+                return targetSession;           
+            },
             hideSession: function (ID, historyType) {
                 if (historyType === undefined) {
                     historyType = 'default';

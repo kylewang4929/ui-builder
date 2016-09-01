@@ -42,6 +42,7 @@ module.exports = function (grunt) {
                 '.tmp/styles/main.css':'./app/less/main.less',
                 '.tmp/scripts/colorpick/style.css':'./app/scripts/colorpick/style.less',
                 '.tmp/scripts/eleSetting/style.css':'./app/scripts/eleSetting/style.less',
+                '.tmp/scripts/sessionSetting/style.css':'./app/scripts/sessionSetting/style.less',
                 '.tmp/scripts/textEditor/style.css':'./app/scripts/textEditor/style.less',
                 '.tmp/scripts/addSessionCtrl/style.css':'./app/scripts/addSessionCtrl/style.less',
                 '.tmp/scripts/imageLibrary/style.css':'./app/scripts/imageLibrary/style.less',

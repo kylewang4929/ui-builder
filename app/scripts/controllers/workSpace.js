@@ -36,12 +36,13 @@ angular.module('myBuilderApp')
         });
 
     })
-    .controller('editorCtrl', function ($scope,websiteData,textEditorService,colorPickService,eleSettingService) {
+    .controller('editorCtrl', function ($scope,websiteData,textEditorService,colorPickService,eleSettingService,sessionSettingService) {
 
         $scope.$on("$destroy",function(){
             colorPickService.removePlugin();
             textEditorService.removePlugin();
             eleSettingService.removePlugin();
+            sessionSettingService.removePlugin();
         });
 
     })

@@ -8,7 +8,8 @@
         "type": "head",
         "name": "导航",
         "background": {
-            "url": "images/website/headBg.jpg"
+            "url": "images/website/headBg.jpg",
+            "type":"image"
         },
         "class": [
             "z-depth-1"
@@ -211,7 +212,9 @@
                     "type": "session",
                     "name": "Banner",
                     "background": {
-                        "url": ""
+                        "url": "",
+                        "type":"color",
+                        "color":"#835fa8"
                     },
                     "style": {
                         "min-height": "500px",
@@ -418,7 +421,9 @@
                     "type": "session",
                     "name": "Banner",
                     "background": {
-                        "url": ""
+                        "url": "",
+                        "type":"color",
+                        "color":"#f4f8fb"
                     },
                     "style": {
                         "min-height": "500px",

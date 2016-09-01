@@ -1,6 +1,6 @@
 "use strict";
 angular.module('creator', [])
-    .directive('creator', function (creatorServices, builderTool, websiteData, historyLog, textEditorService, colorPickService, shearPlate, multipleChoiceService, activeEleService, activeSessionService, rightClickMenuService, eleSettingService,shortcuts,activePageService,eleMenuServices,imageLibraryService) {
+    .directive('creator', function (creatorServices, builderTool, websiteData, historyLog, textEditorService, colorPickService, shearPlate, multipleChoiceService, activeEleService, activeSessionService, rightClickMenuService, eleSettingService,sessionSettingService,shortcuts,activePageService,eleMenuServices,imageLibraryService) {
         return {
             restrict: 'A',
             scope: {
@@ -45,7 +45,7 @@ angular.module('creator', [])
                 
                 scope.activeGroup = null;
 
-                scope.editGroup = function (id, e) {
+                scope.editEleGroup = function (e,id) {
                     scope.activeGroup = id;
                     scope.activeEle = null;
                     var target = $(e.target);
@@ -101,7 +101,7 @@ angular.module('creator', [])
                  * 编辑文字的方法
                  * 传入ID，添加相关的css，移除基本样式，进入编辑状态
                  */
-                scope.editEle = function (id) {
+                scope.editEleText = function (id) {
 
                     var editEleDom = $("#" + id + ".position-box");
                     var multipleChoiceState = editEleDom.attr("multiple-choice");
@@ -117,6 +117,9 @@ angular.module('creator', [])
                     activeEleService.setEle(jQuery.extend(true, {}, scope.activeEle));
                     editEleDom.addClass("editing");
                 };
+                scope.editEleImage= function(id){
+
+                }
                 /**
                  * 编辑图片的方法
                  *
@@ -124,6 +127,25 @@ angular.module('creator', [])
                 scope.editImage = function (id){
                     
                 };
+
+                /**
+                 * session方面的操作
+                 */
+                scope.changeBackground = function(e,ID){
+                    //获取session的资料
+                    var eleData={};
+                    eleData = websiteData.getSession(ID);
+                    var backgroundObj = {
+                        image:eleData.background.url,
+                        color:eleData.background.color,
+                        video:eleData.background.videoUrl,
+                        type:eleData.background.type
+                    }
+                    //计算left和top
+                    sessionSettingService.showDom(e.clientX-180,e.clientY+20,eleData.ID,backgroundObj,function(data){
+                        
+                    });
+                }
 
                 scope.deleteSession = function (ID) {
                     swal({
@@ -187,6 +209,7 @@ angular.module('creator', [])
                     });
                     //关闭设置菜单
                     eleSettingService.hideDom();
+                    sessionSettingService.hideDom();                    
                 });
 
                 //一系列键盘监听 快捷键
@@ -538,6 +561,7 @@ angular.module('creator', [])
                     }
                 };
 
+                
                 scope.deleteSession = function (ID) {
                     swal({
                         title: "确定要隐藏该模块吗？",

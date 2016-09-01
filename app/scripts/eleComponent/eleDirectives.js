@@ -4,7 +4,7 @@ angular.module('myBuilderApp')
     /**
      * pc 上的session
      */
-    .directive('headDefault', function (creatorServices) {
+    .directive('headDefault', function (creatorServices,sessionSettingService,elePosition) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -29,13 +29,12 @@ angular.module('myBuilderApp')
                         '</button>' +
 
                         '<div class="fab__actions fab__actions--left">' +
-                        '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="更换背景" tooltip-position="bottom"><i class="mdi mdi-image-area"></i></button>' +
+                        '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="更换背景" ng-click=changeBackground($event,"'+data.ID+'") tooltip-position="bottom"><i class="mdi mdi-image-area"></i></button>' +
                         '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="设置" tooltip-position="bottom"><i class="mdi mdi-settings"></i></button>' +
                         '</div>' +
                         '</div>' +
                         "</div>";
                 }
-
                 return template;
             },
             replace: false,
@@ -63,12 +62,12 @@ angular.module('myBuilderApp')
                 }
 
                 return function (scope, element, attrs) {
-
+                    var data = element.context.eleConfig;
                 };
             }
         };
     })
-    .directive('sessionDefault', function (creatorServices) {
+    .directive('sessionDefault', function (creatorServices,sessionSettingService,elePosition) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -91,18 +90,16 @@ angular.module('myBuilderApp')
                         '<i class="mdi mdi-dots-horizontal"></i>' +
                         '<i class="mdi mdi-close"></i>' +
                         '</button>' +
-
                         '<div class="fab__actions fab__actions--left">' +
                         '<button id="deleteSessionButton" class="btn btn--s btn--red btn--fab" lx-ripple lx-tooltip="删除" tooltip-position="bottom" ng-click=deleteSession("' + data.ID + '")><i class="mdi mdi-delete"></i></button>' +
                         '<button id="moveUpButton" class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="向上移动" tooltip-position="bottom"><i class="mdi mdi-chevron-double-up"></i></button>' +
                         '<button id="moveDownButton" class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="向下移动" tooltip-position="bottom"><i class="mdi mdi-chevron-double-down"></i></button>' +
-                        '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="更换背景" tooltip-position="bottom"><i class="mdi mdi-image-area"></i></button>' +
+                        '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="更换背景" ng-click=changeBackground($event,"'+data.ID+'") tooltip-position="bottom"><i class="mdi mdi-image-area"></i></button>' +
                         '<button class="btn btn--s btn--white btn--fab" lx-ripple lx-tooltip="设置" tooltip-position="bottom"><i class="mdi mdi-settings"></i></button>' +
                         '</div>' +
                         '</div>' +
                         "</div>";
                 }
-
                 return template;
             },
             replace: false,
@@ -132,7 +129,7 @@ angular.module('myBuilderApp')
                 }
 
                 return function (scope, element, attrs) {
-
+                    var data = element.context.eleConfig;
                 };
             }
         };
@@ -143,7 +140,7 @@ angular.module('myBuilderApp')
      * pc 上的元素
      */
 
-    .directive('eleTextDefault', function (eleApplyService, elePosition,$timeout) {
+    .directive('eleTextDefault', function (eleApplyService, elePosition, $timeout) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -160,7 +157,7 @@ angular.module('myBuilderApp')
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" full-text drag-ele="ele-web" drag-function="dragFunction" rotate="ele-web" resize="ele-web" ng-dblclick=editEle(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" full-text drag-ele="ele-web" rotate="ele-web" resize="ele-web" ng-dblclick=editEleText(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
                         '                <div class="rotate text-rotate" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line text-line" onmousedown="event.preventDefault()"></div>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
@@ -179,14 +176,14 @@ angular.module('myBuilderApp')
             },
             replace: false,
             link: function (scope, element, attrs) {
-                
+
                 var data = element.context.eleConfig;
                 eleApplyService.defaultApply($(element).find(">.position-box"), data);
 
-                $timeout(function(){
-                    var ele=$(element).find(">.position-box >.ele-box >.ele");
-                    var eleHeight=ele.height();
-                    ele.css('margin-top',-eleHeight/2);
+                $timeout(function () {
+                    var ele = $(element).find(">.position-box >.ele-box >.ele");
+                    var eleHeight = ele.height();
+                    ele.css('margin-top', -eleHeight / 2);
                 });
 
             }
@@ -199,14 +196,14 @@ angular.module('myBuilderApp')
                 var data = element.context.eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" background-size="'+data.backgroundSize+'">',
+                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" background-size="' + data.backgroundSize + '">',
                         '                <div class="ele-label">图片</div>',
                         '                <div class="ele-box">',
                         '                    <img class="ele ele-image" src="' + data.url + '" onmousedown=event.preventDefault() onmousedown=event.preventDefault()/>',
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template=['<div background-size="'+data.backgroundSize+'" id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-web" rotate="ele-web" resize="ele-web" ng-dblclick=editImage(\''+data.ID+'\') ng-mousedown=selectEle($event,\''+data.ID+'\')>',
+                    template = ['<div background-size="' + data.backgroundSize + '" id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-web" rotate="ele-web" resize="ele-web" ng-dblclick=editEleImage(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
                         '                <div class="rotate" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line" onmousedown="event.preventDefault()"></div>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
@@ -262,7 +259,7 @@ angular.module('myBuilderApp')
                         '                <div class="resize only-bottom" onmousedown="event.preventDefault()"></div>',
                         '                <div class="ele-label">组</div>',
                         '                <div class="ele-box">',
-                        '                   <div class="group-over" ng-dblclick=editGroup(\'' + data.ID + '\',$event) ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                        '                   <div class="group-over" ng-dblclick=editEleGroup(\'' + data.ID + '\',$event) ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
                         '                   </div>',
                         '                    <div class="ele ele-group">',
                         '                    </div>',
@@ -287,7 +284,7 @@ angular.module('myBuilderApp')
             }
         };
     })
-    .directive('eleMenuDefault', function (eleApplyService,$timeout) {
+    .directive('eleMenuDefault', function (eleApplyService, $timeout) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -337,10 +334,10 @@ angular.module('myBuilderApp')
                     domMenu.append(domItem);
                 }
 
-                $timeout(function(){
-                    var ele=$(element).find(">.position-box >.ele-box >.ele");
-                    var eleHeight=ele.height();
-                    ele.css('margin-top',-eleHeight/2);
+                $timeout(function () {
+                    var ele = $(element).find(">.position-box >.ele-box >.ele");
+                    var eleHeight = ele.height();
+                    ele.css('margin-top', -eleHeight / 2);
                 });
 
                 eleApplyService.defaultApply($(element).find(">.position-box"), data);
@@ -484,7 +481,7 @@ angular.module('myBuilderApp')
     /**
      * mobile 上的元素
      */
-    .directive('eleTextDefaultPhone', function (eleApplyService,$timeout) {
+    .directive('eleTextDefaultPhone', function (eleApplyService, $timeout) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -539,13 +536,13 @@ angular.module('myBuilderApp')
                     domBorder.css(index, value);
                 });
 
-                $timeout(function(){
-                    var ele=$(element).find(">.position-box >.ele-box >.ele");
-                    var eleHeight=ele.height();
-                    ele.css('margin-top',-eleHeight/2);
+                $timeout(function () {
+                    var ele = $(element).find(">.position-box >.ele-box >.ele");
+                    var eleHeight = ele.height();
+                    ele.css('margin-top', -eleHeight / 2);
                     //同时把限制用的外边框也调整下
-                    dom.css('height',domBorder.get(0).offsetHeight*data.phoneStyle.scale);
-                    dom.css('width',domBorder.get(0).offsetWidth*data.phoneStyle.scale);
+                    dom.css('height', domBorder.get(0).offsetHeight * data.phoneStyle.scale);
+                    dom.css('width', domBorder.get(0).offsetWidth * data.phoneStyle.scale);
                 });
 
             }
@@ -558,14 +555,14 @@ angular.module('myBuilderApp')
                 var data = element.context.eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
-                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" background-size="'+data.backgroundSize+'">',
+                    template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" background-size="' + data.backgroundSize + '">',
                         '                <div class="ele-label">图片</div>',
                         '                <div class="ele-box">',
                         '                    <img class="ele ele-image" src="' + data.url + '" onmousedown=event.preventDefault() onmousedown=event.preventDefault()/>',
                         '                </div>',
                         '            </div>'].join("");
                 } else {
-                    template = ['<div background-size="'+data.backgroundSize+'" id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-phone" rotate="ele-phone" resize="ele-phone" ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                    template = ['<div background-size="' + data.backgroundSize + '" id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-phone" rotate="ele-phone" resize="ele-phone" ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
                         '                <div class="rotate" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line" onmousedown="event.preventDefault()"></div>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
@@ -593,7 +590,7 @@ angular.module('myBuilderApp')
             }
         };
     })
-    .directive('eleGroupDefaultPhone', function (eleApplyService, phoneCreatorServices, $compile,$timeout) {
+    .directive('eleGroupDefaultPhone', function (eleApplyService, phoneCreatorServices, $compile, $timeout) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -622,7 +619,7 @@ angular.module('myBuilderApp')
                         '                <div class="resize only-bottom" onmousedown="event.preventDefault()"></div>',
                         '                <div class="ele-label">组</div>',
                         '                <div class="ele-box">',
-                        '                   <div class="group-over" ng-dblclick=editGroup(\'' + data.ID + '\',$event) ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
+                        '                   <div class="group-over" ng-dblclick=editEleGroup(\'' + data.ID + '\',$event) ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
                         '                   </div>',
                         '                    <div class="ele ele-group">',
                         '                    </div>',
@@ -644,17 +641,17 @@ angular.module('myBuilderApp')
                     var data = element.context.eleConfig;
                     eleApplyService.phoneDefaultApply($(element).find(">.position-box"), data);
 
-                    $timeout(function(){
-                        var ele=$(element).find(">.position-box >.ele-box >.ele");
-                        var eleHeight=ele.height();
-                        ele.css('margin-top',-eleHeight/2);
+                    $timeout(function () {
+                        var ele = $(element).find(">.position-box >.ele-box >.ele");
+                        var eleHeight = ele.height();
+                        ele.css('margin-top', -eleHeight / 2);
                     });
 
                 };
             }
         };
     })
-    .directive('eleMenuDefaultPhone', function (eleApplyService,$timeout) {
+    .directive('eleMenuDefaultPhone', function (eleApplyService, $timeout) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -696,10 +693,10 @@ angular.module('myBuilderApp')
                 domStyle.find('i').css("color", data.phoneStyle.style.color);
                 domStyle.find('i').css("font-size", data.phoneStyle.style['font-size']);
 
-                $timeout(function(){
-                    var ele=$(element).find(">.position-box >.ele-box >.ele");
-                    var eleHeight=ele.height();
-                    ele.css('margin-top',-eleHeight/2);
+                $timeout(function () {
+                    var ele = $(element).find(">.position-box >.ele-box >.ele");
+                    var eleHeight = ele.height();
+                    ele.css('margin-top', -eleHeight / 2);
                 });
 
 

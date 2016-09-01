@@ -8,7 +8,6 @@ angular.module('kyle.imageLibrary', [])
 
                 scope.typeList=[
                     {ID:'MyImage',name:'我的图片'},
-                    {ID:'BuilderImage',name:'Builder图片'},
                     {ID:'CloundImage',name:'云图片'},
                 ];
 

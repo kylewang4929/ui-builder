@@ -35,7 +35,6 @@ angular.module('kyle.eleSetting', [])
         };
     })
 
-
     .directive('eleSettingBoxDesignImage', function (eleSettingService) {
         return {
             restrict: 'A',
@@ -104,7 +103,7 @@ angular.module('kyle.eleSetting', [])
             }
         };
     })
-    
+
     .directive('eleSettingBoxDesignText', function (eleSettingService) {
         return {
             restrict: 'A',
@@ -162,7 +161,7 @@ angular.module('kyle.eleSetting', [])
                     slidesPerView: 4,
                     slidesOffsetBefore: 20,
                     slidesOffsetAfter: 20,
-                    mousewheelControl:true
+                    mousewheelControl: true
                 });
             }
         };
@@ -185,6 +184,29 @@ angular.module('kyle.eleSetting', [])
                     domData.value = '';
                 }
             },
+            updatePosition: function (data,left,top) {
+                var eleHeight = parseInt(data.value.height());
+                var eleWidth = parseInt(data.value.width());
+                var bodyHeight = parseInt($("body").height());
+                var bodyWidth = parseInt($("body").width());
+
+                //将位置调整成居中
+                top = top - eleHeight / 2;
+                left = left - eleWidth / 2;
+
+                if (top + eleHeight > bodyHeight) {
+                    top -= top + eleHeight - bodyHeight;
+                } else if (top < 50) {
+                    top = 50;
+                }
+
+                if (left + eleWidth > bodyWidth) {
+                    left -= left + eleWidth - bodyWidth;
+                } else if (top < 50) {
+                    left = 50;
+                }
+                data.value.css({ left: left, top: top });
+            },
             createDom: function (left, top) {
                 //初始化
                 var dom = $compile("<div ele-setting-box></div>")($rootScope);
@@ -195,28 +217,7 @@ angular.module('kyle.eleSetting', [])
                 //边界检查
 
                 setTimeout(function () {
-                    var eleHeight = parseInt(domData.value.height());
-                    var eleWidth = parseInt(domData.value.width());
-                    var bodyHeight = parseInt($("body").height());
-                    var bodyWidth = parseInt($("body").width());
-                    
-                    //将位置调整成居中
-                    top=top-eleHeight/2;
-                    left=left-eleWidth/2;                    
-
-                    if (top + eleHeight > bodyHeight) {
-                        top -= top + eleHeight - bodyHeight;
-                    } else if (top < 50) {
-                        top = 50;
-                    }
-                    
-                    if (left + eleWidth > bodyWidth) {
-                        left -= left + eleWidth - bodyWidth;
-                    } else if (top < 50) {
-                        left = 50;
-                    }
-                    
-                    domData.value.css({ left: left, top: top });
+                    handle.updatePosition(domData,left,top);
                 }, 100);
 
             },
@@ -231,27 +232,7 @@ angular.module('kyle.eleSetting', [])
                 } else {
                     domData.value.show();
                     //边界检查
-                    var eleHeight = parseInt(domData.value.height());
-                    var eleWidth = parseInt(domData.value.width());
-                    var bodyHeight = parseInt($("body").height());
-                    var bodyWidth = parseInt($("body").width());
-                    //将位置调整成居中
-                    top=top-eleHeight/2;
-                    left=left-eleWidth/2;
-
-                    if (top + eleHeight > bodyHeight) {
-                        top -= top + eleHeight - bodyHeight;
-                    } else if (top < 50) {
-                        top = 50;
-                    }
-                    
-                    if (left + eleWidth > bodyWidth) {
-                        left -= left + eleWidth - bodyWidth;
-                    } else if (top < 50) {
-                        left = 50;
-                    }
-                    
-                    domData.value.css({ left: left, top: top });
+                    handle.updatePosition(domData,left,top);
                 }
             },
             hideDom: function () {
@@ -259,7 +240,6 @@ angular.module('kyle.eleSetting', [])
                 if (domData.value !== '') {
                     domData.value.hide();
                 }
-
             }
         };
         return handle;

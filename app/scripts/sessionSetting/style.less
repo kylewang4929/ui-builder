@@ -1,0 +1,82 @@
+@import "./app/less/config.less";
+
+.my-color{
+    & .content-box{
+        & .preview-head{
+            height: 160px;
+            position: relative;
+            z-index: 9;
+            .z-depth-2;
+            & .button-box{
+                position: absolute;
+                width: 100%;
+                top: 50%;
+                margin-top: -40px;
+                text-align: center;
+                & .btn{
+                    border: 2px solid #fff;
+                    background-color: rgba(0, 0, 0, .4);
+                    border-radius: 20px;
+                    line-height: 30px;
+                    &:hover{
+                        border-color: @baseColor;
+                        color: @baseColor;
+                    }
+                    &:active{
+                        border-color:#fff;
+                    }
+                    &.play-button{
+                        width: 34px;
+                        border-radius: 50%;
+                        margin-left: 10px;
+                        text-align: center;
+                        padding: 0px;
+                    }
+                }
+            }
+            & .box{
+                height: 100%;
+                &.image{
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+            }
+            & .menu{
+                background-color: rgba(255, 255, 255, .3);
+                padding: 10px 20px;
+                position: absolute;
+                bottom: 0px;
+                width: 100%;
+                & .btn{
+                    background-color: @baseColor;
+                    border-radius: 20px;
+                    line-height: 28px;
+                }
+            }
+        }
+        & .preview-list{
+            padding: 0px 14px;
+            height: 320px;
+            overflow: hidden;
+            position: relative;
+            & .preview-item{
+                .z-depth-1;
+                height: 80px;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                border-radius: 6px;
+                margin: 14px 0px;
+                cursor: pointer;
+                position: relative;
+                & .flag{
+                    color: #fff;
+                    position: absolute;
+                    bottom: 4px;
+                    left: 4px;
+                }
+            }
+        }
+    }
+}

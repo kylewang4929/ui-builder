@@ -25,13 +25,13 @@
             </div>
         </perfect-scrollbar>
 
-        <perfect-scrollbar id="main-editor-scroll" class="scroller-page phone" wheel-propagation="true" wheel-speed="3" ng-if="modelState=='phone'">
+        <perfect-scrollbar class="scroller-page phone" wheel-propagation="true" wheel-speed="3" ng-if="modelState=='phone'">
             <div class="phone-box z-depth-2">
                 <div class="phone-top">
                     <img src="images/phone_top.png">
                 </div>
                 <div class="phone-edit-space-box" style="background-image: url('images/point.png')">
-                    <perfect-scrollbar class="scroller-page" wheel-propagation="false" wheel-speed="3">
+                    <perfect-scrollbar id="main-editor-scroll" class="scroller-page" wheel-propagation="false" wheel-speed="3">
                         <div id="phone-edit-space" class="edit-space phone" creator-phone phone-right-click-menu-init drag-select-ele="phone" website-code="websiteData"></div>
                     </perfect-scrollbar>
                 </div>

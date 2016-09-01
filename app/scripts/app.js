@@ -23,6 +23,7 @@ angular
         "perfect_scrollbar",
         "multipleChoice",
         "kyle.eleSetting",
+        "kyle.sessionSetting",
         "webSiteEditor",
         "phoneSiteEditor",
         "sessionEditor",
