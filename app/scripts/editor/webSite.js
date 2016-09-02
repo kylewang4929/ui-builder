@@ -288,7 +288,46 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                     this.updateEle(eleData.eleList[i]);
                 }
             },
-            updateSessionBackground: function () { },
+            updateSession: function (data) {
+                var dom = $('#'+data.ID);
+
+                //渲染背景样式
+                $.each(data.style, function (index, value) {
+                    dom.css(index, value);
+                });
+
+                if (data.class !== undefined) {
+                    for (var i = 0; i < data.class.length; i++) {
+                        dom.addClass(data.class[i]);
+                    }
+                }
+                
+                function image(dom,background){
+                    if(!!background.color){
+                        //清空颜色
+                        dom.css('background-color','');
+                    }
+                    //清除视频
+                    dom.find('.video-background').remove();
+                    dom.css('background-image','url('+background.url+')');
+                }
+
+                function video(dom,background){
+
+                }
+
+                function color(dom,background){
+
+                }
+
+                switch(data.background.type){
+                    case 'image':image(dom,data.background);break;
+                    case 'video':video(dom,data.background);break;
+                    case 'color':color(dom,data.background);break;
+                }
+
+                dom.css("background-image", "url(" + data.background.url + ")");
+            },
             /**
              * 用于调整组的大小的时候把内部的组件也进行缩放
             */

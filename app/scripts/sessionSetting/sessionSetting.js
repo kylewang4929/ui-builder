@@ -4,6 +4,7 @@ angular.module('kyle.sessionSetting', [])
         return {
             restrict: 'A',
             replace: true,
+            scope:{},
             template: [
                 '<div class="color-pick-box lager" id="color-pick-box" drag-ele="default" handle="handle" onmousedown="event.stopPropagation()" onclick="event.stopPropagation()">',
                     '<div class="my-color">',
@@ -13,8 +14,7 @@ angular.module('kyle.sessionSetting', [])
                         '</div>',
                         '<div class="content-box" style="height:480px">' +
                             '<div class="preview-head">' +
-                                '<div class="image box" ng-if="boxInitData.option.type == \'image\'" ng-style="{\'background-image\':\'url(\'+boxInitData.option.image+\')\'}"></div>' +
-                                '<div class="video box" ng-if="boxInitData.option.type == \'video\'"></div>' +
+                                '<div class="image box" ng-if="boxInitData.option.type == \'image\' || boxInitData.option.type == \'video\'" ng-style="{\'background-image\':\'url(\'+boxInitData.option.image+\')\'}"></div>' +
                                 '<div class="color box" ng-if="boxInitData.option.type == \'color\'" ng-style="{\'background-color\':boxInitData.option.color}"></div>' +
                                 '<div class="menu" flex-container="row">' +
                                     '<div flex-item="4" flex-item-order="1"><lx-button lx-color="blue"><i class="mdi mdi-invert-colors"></i> 颜色</lx-button></div>'+
@@ -27,7 +27,7 @@ angular.module('kyle.sessionSetting', [])
                                 '</div>'+
                             '</div>' +
                             '<perfect-scrollbar suppress-scroll-x="true" class="preview-list" wheel-propagation="true" wheel-speed="3">'+
-                                '<div class="preview-item" ng-repeat="rowData in previewList" ng-style="{\'background-image\':\'url(\'+rowData.image+\')\'}">'+
+                                '<div class="preview-item" ng-click="selectBackground(rowData)" lx-ripple="white" ng-repeat="rowData in previewList" ng-style="{\'background-image\':\'url(\'+rowData.image+\')\'}">'+
                                     '<i class="mdi mdi-video flag" ng-if="rowData.type == \'video\'"></i>'+
                                     '<i class="mdi mdi-image-area flag" ng-if="rowData.type == \'image\'"></i>'+
                                 '</div>'+
@@ -37,14 +37,25 @@ angular.module('kyle.sessionSetting', [])
                 '</div>'].join(""),
             link: function (scope, element) {
                 scope.boxInitData = sessionSettingService.getInitData();
-                console.log(scope.boxInitData);
                 scope.title = '更换背景';
                 scope.closeEleSetting = function () {
                     sessionSettingService.hideDom();
                 };
 
+                scope.selectBackground = function(data){
+                    if(scope.boxInitData.callback!=undefined){
+                        scope.boxInitData.callback(data);
+                    }
+                    
+                    switch(data.type){
+                        case 'image':scope.boxInitData.option.type = 'image';scope.boxInitData.option.image = data.image;break;
+                        case 'video':scope.boxInitData.option.type = 'video';scope.boxInitData.option.image = data.image;scope.boxInitData.option.url = data.url;break;
+                    }
+                }
+
                 scope.previewList=[
                     {type:'image',image:'images/website/headBg.jpg'},
+                    {type:'image',image:'images/website/bg1.jpg'},
                     {type:'video',url:'images/video/banner.mp4',image:'images/video/banner.png'},
                     {type:'image',image:'images/website/headBg.jpg'},
                     {type:'video',url:'images/video/banner.mp4',image:'images/video/banner.png'},
@@ -62,7 +73,12 @@ angular.module('kyle.sessionSetting', [])
     .factory('sessionSettingService', function ($rootScope, $compile) {
 
         var domData = {
-            ID: "colorPick", value: ""
+            ID: "colorPick", value: '',option:{
+                type:'',
+                color:'',
+                video:'',
+                image:''
+            }
         };
 
         var boxInitData = { ID: '', option: {} };
@@ -110,9 +126,13 @@ angular.module('kyle.sessionSetting', [])
                 }, 100);
 
             },
-            showDom: function (left, top, ID, option) {
+            updateOption:function(option){
+                boxInitData.option = option;
+            },
+            showDom: function (left, top, ID, option,callback) {
                 boxInitData.ID = ID;
                 boxInitData.option = option;
+                boxInitData.callback = callback;
                 //获取原始数据
                 if (domData.value === "") {
                     //初始化
@@ -124,11 +144,9 @@ angular.module('kyle.sessionSetting', [])
                 }
             },
             hideDom: function () {
-
                 if (domData.value !== '') {
                     domData.value.hide();
                 }
-
             }
         };
         return handle;

@@ -143,7 +143,7 @@ angular.module('creator', [])
                     }
                     //计算left和top
                     sessionSettingService.showDom(e.clientX-180,e.clientY+20,eleData.ID,backgroundObj,function(data){
-                        
+                        websiteData.updateSessionBackground(data,eleData.ID);
                     });
                 }
 
@@ -167,6 +167,10 @@ angular.module('creator', [])
 
                 //取消激活
                 $(document).on('mousedown', function (event) {
+
+                    //关闭sessionsetting 菜单
+                    sessionSettingService.hideDom();
+                    
                     if (scope.activeGroup !== null) {
 
                         if (event.buttons === 1) {
@@ -209,7 +213,6 @@ angular.module('creator', [])
                     });
                     //关闭设置菜单
                     eleSettingService.hideDom();
-                    sessionSettingService.hideDom();                    
                 });
 
                 //一系列键盘监听 快捷键
@@ -352,6 +355,18 @@ angular.module('creator', [])
                             if (obj.type === 'changeSessionHeight') {
                                 websiteData.changeSessionHeight(obj.value.sessionID, obj.value.height, 'retreat');
                             }
+                            if (obj.type === "updateSession") {
+                                scope.$apply(function () {
+                                    websiteData.updateSession(obj.value, 'retreat');
+                                    var backgroundObj = {
+                                        image:obj.value.background.url,
+                                        color:obj.value.background.color,
+                                        video:obj.value.background.videoUrl,
+                                        type:obj.value.background.type
+                                    }
+                                    sessionSettingService.updateOption(backgroundObj);
+                                });
+                            }
 
                         }
                     }
@@ -390,6 +405,18 @@ angular.module('creator', [])
                             }
                             if (obj.type === 'changeSessionHeight') {
                                 websiteData.changeSessionHeight(obj.value.sessionID, obj.value.height, 'forward');
+                            }
+                            if (obj.type === "updateSession") {
+                                scope.$apply(function () {
+                                    websiteData.updateSession(obj.value, 'forward');
+                                    var backgroundObj = {
+                                        image:obj.value.background.url,
+                                        color:obj.value.background.color,
+                                        video:obj.value.background.videoUrl,
+                                        type:obj.value.background.type
+                                    }
+                                    sessionSettingService.updateOption(backgroundObj);
+                                });
                             }
                         }
                     }
@@ -665,7 +692,6 @@ angular.module('creator', [])
                                     websiteData.hideEle(obj.value.ID, 'retreat');
                                 });
                             }
-
                         }
                     }
                     if (e[shortcutsCode.REDO.ctrlKey] && e.keyCode === shortcutsCode.REDO.keyCode && e[shortcutsCode.REDO.shiftKey]) {

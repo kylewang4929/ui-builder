@@ -1009,8 +1009,40 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 }
                 return newData;
             },
-            updateSessionBackground: function () {
+            updateSession:function(sessionData,historyType){
+                if(historyType == undefined){
+                    historyType = 'default';
+                }
+                var sessionList = this.searchSessionHandle(activePageService.getActivePage().value);
+                for(var i = 0; i<sessionList.length;i++){
+                    if(sessionList[i].ID == sessionData.ID){
+                        historyLog.pushHistoryLog(angular.copy(sessionList[i]), historyType, 'updateSession');                        
+                        sessionList[i] = sessionData;
+                        //加入历史记录 更新UI
+                        builderTool.updateSession(sessionList[i]);
+                        return;
+                    }
+                }
+            },
+            updateSessionBackground: function (data,ID) {
+                var sessionData = handle.getSession(ID)
+                function video(data){}
+                function image(data,sessionData){
+                    sessionData.background.url = data.image;
+                    sessionData.background.type = 'image';
+                    //置空颜色 后期可以考虑背景颜色共存的情况
+                    sessionData.background.color = '';
+                    sessionData.style['background-color']='';
 
+                    handle.updateSession(sessionData,'default');
+                }
+                function color(data){}
+
+                switch(data.type){
+                    case 'image':image(data,sessionData);break;
+                    case 'video':video(data,sessionData);break;
+                    case 'color':color(data,sessionData);break;
+                }
             },
             getPage: function (ID) {
                 for (var i = 0; i < data.length; i++) {

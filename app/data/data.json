@@ -12,7 +12,6 @@
             "type":"image"
         },
         "class": [
-            "z-depth-1"
         ],
         "style": {
             "min-height": "650px",
