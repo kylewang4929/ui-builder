@@ -8,9 +8,9 @@
         "type": "head",
         "name": "导航",
         "background": {
-            "url": "images/video/banner.mp4",
+            "url": "images/video/banner1.webm",
             "type": "video",
-            "previewImage": "images/video/banner.png",
+            "previewImage": "images/video/banner1.jpg",
             "color": ""
         },
         "class": [],

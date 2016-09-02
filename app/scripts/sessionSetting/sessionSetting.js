@@ -101,14 +101,13 @@ angular.module('kyle.sessionSetting', [])
                 scope.previewList=[
                     {type:'image',image:'images/website/headBg.jpg'},
                     {type:'image',image:'images/website/bg1.jpg'},
-                    {type:'video',url:'images/video/banner.mp4',image:'images/video/banner.png'},
+                    {type:'video',url:'images/video/banner1.webm',image:'images/video/banner1.jpg'},
+                    {type:'image',image:'images/website/headBg.jpg'},
+                    {type:'video',url:'images/video/banner1.webm',image:'images/video/banner1.jpg'},
                     {type:'image',image:'images/website/headBg.jpg'},
                     {type:'video',url:'images/video/banner.mp4',image:'images/video/banner.png'},
                     {type:'image',image:'images/website/headBg.jpg'},
                     {type:'video',url:'images/video/banner.mp4',image:'images/video/banner.png'},
-                    {type:'image',image:'images/website/headBg.jpg'},
-                    {type:'video',url:'images/video/banner.mp4',image:'images/video/banner.png'},
-                    
                 ];
 
             }

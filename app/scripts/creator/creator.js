@@ -135,7 +135,6 @@ angular.module('creator', [])
                     //获取session的资料
                     var eleData={};
                     eleData = websiteData.getSession(ID);
-                    console.log(eleData);
                     var backgroundObj = {
                         color:eleData.background.color,
                         video:eleData.background.videoUrl,
@@ -148,6 +147,7 @@ angular.module('creator', [])
                     }
                     //计算left和top
                     sessionSettingService.showDom(e.clientX-180,e.clientY+20,eleData.ID,backgroundObj,function(data){
+                        console.log(data);
                         websiteData.updateSessionBackground(data,eleData.ID);
                     });
                 }

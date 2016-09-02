@@ -307,17 +307,17 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                     //宽铺满
                     if(originalVideoData.height < sessionData.height){
                         //高填充
-                        videoDom.css({'height':sessionData.height,'left':'50%','width':'auto','margin-top':'0px','top':'0px','margin-left':-videoDom.width()/2});
+                        videoDom.css({'height':sessionData.height+1,'left':'50%','width':'auto','margin-top':'0px','top':'0px','margin-left':-videoDom.width()/2});
                     }else{
-                        videoDom.css({'width':sessionData.width,'top':'50%','height':'auto','margin-left':'0px','left':'0px','margin-top':-videoDom.height()/2});
+                        videoDom.css({'width':sessionData.width+1,'top':'50%','height':'auto','margin-left':'0px','left':'0px','margin-top':-videoDom.height()/2});
                     }
                                      
                 }else{
                     //高铺满  
                     if(originalVideoData.width < sessionData.width){
-                        videoDom.css({'width':sessionData.width,'top':'50%','height':'auto','margin-left':'0px','left':'0px','margin-top':-videoDom.height()/2});
+                        videoDom.css({'width':sessionData.width+1,'top':'50%','height':'auto','margin-left':'0px','left':'0px','margin-top':-videoDom.height()/2});
                     }else{
-                        videoDom.css({'height':sessionData.height,'left':'50%','width':'auto','margin-top':'0px','top':'0px','margin-left':-videoDom.width()/2});
+                        videoDom.css({'height':sessionData.height+1,'left':'50%','width':'auto','margin-top':'0px','top':'0px','margin-left':-videoDom.width()/2});
                     }
                 }
             },
@@ -330,7 +330,7 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 //因为这里是编辑器 所以不需要自动播放  后期再做兼容video 以及后期需要增加各种可配置的变量
                 var videoTemplate = '<div class="video-background">'+
                 '<div class="over-layer" style="background-image:url(\'images/videoPattern/v-overlay-pat-2-icon.png\')"></div>'+
-                '<video class="video" volume="0" src="'+background.url+'"></video>'+
+                '<video class="video" poster="'+background.previewImage+'" volume="0" src="'+background.url+'"></video>'+
                 '</div>';
                 
                 if(videoDom.length == 0){
@@ -339,7 +339,8 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                     dom.append(videoDom);
                 }else{
                     //更新url
-                    videoDom.attr('src',background.url);
+                    videoDom.find('video').attr('src',background.url);
+                    videoDom.find('video').attr('poster',background.previewImage);
                 }
                 videoDom.find('video').on('loadeddata',function(){
                     //调整video的位置
