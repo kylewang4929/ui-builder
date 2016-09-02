@@ -783,7 +783,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                             for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
                                 if (data[i].sessionList[j].eleList[k].ID === id) {
                                     //加入历史纪录
-                                    //                                    var obj=data[i].sessionList[j].eleList.splice(k,1);
+                                    //var obj=data[i].sessionList[j].eleList.splice(k,1);
                                     var copyObj = jQuery.extend(true, {}, data[i].sessionList[j].eleList[k]);
                                     copyObj.sessionId = data[i].sessionList[j].ID;
                                     historyLog.pushHistoryLog(copyObj, type, 'delete');
@@ -1026,15 +1026,23 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
             },
             updateSessionBackground: function (data,ID) {
                 var sessionData = handle.getSession(ID)
-                function video(data){}
+                function video(data){
+                    //清空背景和背景颜色
+                    sessionData.background.url = data.url;
+                    sessionData.background.previewImage = data.image;
+                    sessionData.background.type = 'video';
+                    //置空颜色 后期可以考虑背景颜色共存的情况
+                    sessionData.background.color = '';
+
+                    sessionData.style['background-color']='';
+                    sessionData.style['background-image']='';
+                }
                 function image(data,sessionData){
                     sessionData.background.url = data.image;
                     sessionData.background.type = 'image';
                     //置空颜色 后期可以考虑背景颜色共存的情况
                     sessionData.background.color = '';
                     sessionData.style['background-color']='';
-
-                    handle.updateSession(sessionData,'default');
                 }
                 function color(data){}
 
@@ -1043,6 +1051,8 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                     case 'video':video(data,sessionData);break;
                     case 'color':color(data,sessionData);break;
                 }
+
+                handle.updateSession(sessionData,'default');                
             },
             getPage: function (ID) {
                 for (var i = 0; i < data.length; i++) {

@@ -10,10 +10,8 @@
   -webkit-transform-origin:50% 50%;
   -moz-transform-origin:50% 50%;
   -o-transform-origin:50% 50%;
-
-  & .ele-box{
-    box-sizing: content-box;    
-  }
+  box-sizing: content-box;  
+  
 
   &.multiple-choice-border {
     border: 1px solid @baseColor !important;
@@ -98,12 +96,12 @@
     left: 50%;
     width: 16px;
     height: 16px;
-    margin-left: -8px;
+    margin-left: -9px;
     margin-top: -26px;
     background-color: #fff;
     border: 1px solid @baseColor;
     border-radius: 50%;
-    z-index: 999;
+    z-index: 1000;
     display: none;
     &.text-rotate{
       margin-top: -22px;
@@ -113,7 +111,7 @@
       left: 0px;
       top: 0px;
       font-size: 15px;
-      margin-left: -1px;
+      margin-left: 1px;
     }
   }
   & .resize {
@@ -128,52 +126,52 @@
     &.left-top {
       left: 0px;
       top: 0px;
-      margin: -5px 0px 0px -5px;
+      margin: -6px 0px 0px -6px;
       cursor: nw-resize;
     }
     &.left-bottom {
       left: 0px;
       bottom: 0px;
-      margin: 0px 0px -5px -5px;
+      margin: 0px 0px -6px -6px;
       cursor: sw-resize;
     }
     &.right-top {
       right: 0px;
       top: 0px;
-      margin: -5px -5px 0px 0px;
+      margin: -6px -6px 0px 0px;
       cursor: ne-resize;
     }
     &.right-bottom {
       right: 0px;
       bottom: 0px;
-      margin: 0px -5px -5px 0px;
+      margin: 0px -6px -6px 0px;
       cursor: se-resize;
     }
     &.only-top {
       cursor: n-resize;
       left: 50%;
-      margin-left: -5px;
+      margin-left: -6px;
       top: 0px;
-      margin-top: -5px;
+      margin-top: -6px;
     }
     &.only-bottom {
       left: 50%;
       cursor: s-resize;
       bottom: 0px;
-      margin-left: -5px;
-      margin-bottom: -5px;
+      margin-left: -6px;
+      margin-bottom: -6px;
     }
     &.only-left {
       left: 0px;
-      margin-top: -5px;
-      margin-left: -5px;
+      margin-top: -6px;
+      margin-left: -6px;
       top: 50%;
       cursor: w-resize;
     }
     &.only-right {
       right: 0px;
-      margin-top: -5px;
-      margin-right: -5px;
+      margin-top: -6px;
+      margin-right: -6px;
       top: 50%;
       cursor: e-resize;
     }

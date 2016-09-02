@@ -288,6 +288,44 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                     this.updateEle(eleData.eleList[i]);
                 }
             },
+            fixVideoPosition:function(sessionDom,videoDom,originalVideoData){
+                if(originalVideoData == undefined){
+                    originalVideoData = {
+                        'width':videoDom.width(),
+                        'height':videoDom.height()
+                    }
+                }
+                //先计算session哪边比较大
+                var sessionData={
+                    'width':sessionDom.width(),
+                    'height':sessionDom.height()
+                };
+                var videoData = {
+                    'width':videoDom.width(),
+                    'height':videoDom.height()
+                }
+                if(sessionData.width > sessionData.height){
+                    //宽铺满
+                    if(originalVideoData.height < sessionData.height){
+                        //高填充
+                        console.log('a');
+                        videoDom.css({'height':sessionData.height,'left':'50%','width':'auto','margin-top':'0px','top':'0px','margin-left':-videoDom.width()/2});
+                    }else{
+                        console.log('b');                        
+                        videoDom.css({'width':sessionData.width,'top':'50%','height':'auto','margin-left':'0px','left':'0px','margin-top':-videoDom.height()/2});
+                    }
+                                     
+                }else{
+                    //高铺满  
+                    if(originalVideoData.width < sessionData.width){
+                        console.log('c');                        
+                        videoDom.css({'width':sessionData.width,'top':'50%','height':'auto','margin-left':'0px','left':'0px','margin-top':-videoDom.height()/2});
+                    }else{
+                        console.log('d');                        
+                        videoDom.css({'height':sessionData.height,'left':'50%','width':'auto','margin-top':'0px','top':'0px','margin-left':-videoDom.width()/2});
+                    }
+                }
+            },
             updateSession: function (data) {
                 var dom = $('#'+data.ID);
 
@@ -313,7 +351,30 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 }
 
                 function video(dom,background){
+                    //清空颜色 和 背景
+                    dom.css('background-color','');
+                    dom.css('background-image','');
 
+                    var videoDom = dom.find('.video-background');
+                    //因为这里是编辑器 所以不需要自动播放  后期再做兼容video
+                    var videoTemplate = '<div class="video-background">'+
+                    '<div class="over-layer"></div>'+
+                    '<video class="video" src="'+background.url+'"></video>'+
+                    '</div>';
+                    
+                    if(videoDom.length == 0){
+                        //新建dom
+                        videoDom = $(videoTemplate);
+                        dom.append(videoDom);
+                    }else{
+                        //更新url
+                        videoDom.attr('src',background.url);
+                    }
+                    videoDom.find('video').on('loadeddata',function(){
+                        //调整video的位置
+                        handle.fixVideoPosition(dom,videoDom.find('video'));
+                    })
+                    
                 }
 
                 function color(dom,background){
@@ -326,7 +387,6 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                     case 'color':color(dom,data.background);break;
                 }
 
-                dom.css("background-image", "url(" + data.background.url + ")");
             },
             /**
              * 用于调整组的大小的时候把内部的组件也进行缩放

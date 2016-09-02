@@ -1,6 +1,6 @@
 "use strict";
 angular.module('myBuilderApp')
-    .directive('sessionResize', function ($timeout, websiteData) {
+    .directive('sessionResize', function ($timeout, websiteData,builderTool) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -12,6 +12,10 @@ angular.module('myBuilderApp')
 
                 var sessionID = $(element).attr('id');
 
+                var videoDom = $(element).find('.video-background video');
+                var originalVideoData = {
+                }
+
                 var handle = $(element);
                 $(element).find('> .session-resize').on('mousedown', function (e) {
                     e.preventDefault();
@@ -19,6 +23,12 @@ angular.module('myBuilderApp')
                     par.startY = e.pageY;
                     par.flag = true;
                     par.minHeight = websiteData.getSessionMinHeight(sessionID);
+
+                    videoDom = $(element).find('.video-background video');
+                    originalVideoData = {
+                        width:videoDom.width(),
+                        height:videoDom.height()
+                    }
                 });
 
                 function listenMousemove(e) {
@@ -32,7 +42,16 @@ angular.module('myBuilderApp')
                         } else {
                             return;
                         }
+                        /**
+                         * 同时调整session 其他需要调整的元素
+                         * 暂时只有视频需要调整
+                         */
+                        
                         $(element).css('min-height', offsetY + 'px');
+                        
+                        if(videoDom.length != 0){
+                            builderTool.fixVideoPosition($(element),videoDom,originalVideoData);        
+                        }
                     }
                 }
                 function listenMouseup(e) {

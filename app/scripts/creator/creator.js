@@ -536,7 +536,7 @@ angular.module('creator', [])
                 
                 scope.activeGroup = null;
 
-                scope.editGroup = function (id, e) {
+                scope.editGroupEle = function (e,id) {
                     scope.activeGroup = id;
                     
                     //清除激活元素
