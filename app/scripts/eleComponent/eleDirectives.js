@@ -4,7 +4,7 @@ angular.module('myBuilderApp')
     /**
      * pc 上的session
      */
-    .directive('headDefault', function (creatorServices,sessionSettingService,elePosition) {
+    .directive('headDefault', function (creatorServices,sessionSettingService,elePosition,builderTool) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -54,6 +54,14 @@ angular.module('myBuilderApp')
                     }
                 }
 
+                if(data.background.type == 'video'){
+                    var videoOption={
+                        url:data.background.url,
+                        previewImage:data.background.previewImage
+                    };
+                    builderTool.createSessionVideo($(element).find('.ele-session-box'),videoOption,true);
+                }
+
                 //插入元素
                 var sessionDom = dom.find(".ele-session");
 
@@ -67,7 +75,7 @@ angular.module('myBuilderApp')
             }
         };
     })
-    .directive('sessionDefault', function (creatorServices,sessionSettingService,elePosition) {
+    .directive('sessionDefault', function (creatorServices,sessionSettingService,elePosition,builderTool) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -119,6 +127,14 @@ angular.module('myBuilderApp')
                     for (var i = 0; i < data.class.length; i++) {
                         dom.addClass(data.class[i]);
                     }
+                }
+
+                if(data.background.type == 'video'){
+                    var videoOption={
+                        url:data.background.url,
+                        previewImage:data.background.previewImage
+                    };
+                    builderTool.createSessionVideo($(element).find('.ele-session-box'),videoOption,true);
                 }
 
                 //插入元素
@@ -350,7 +366,7 @@ angular.module('myBuilderApp')
      * mobile 上的session
      */
 
-    .directive('headDefaultPhone', function (phoneCreatorServices) {
+    .directive('headDefaultPhone', function (phoneCreatorServices,builderTool) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -396,6 +412,14 @@ angular.module('myBuilderApp')
                     }
                 }
 
+                if(data.background.type == 'video'){
+                    var videoOption={
+                        url:data.background.url,
+                        previewImage:data.background.previewImage
+                    };
+                    builderTool.createSessionVideo($(element).find('.ele-session-box'),videoOption,true);
+                }
+
                 //插入元素
                 var sessionDom = dom.find(".ele-session");
 
@@ -413,7 +437,7 @@ angular.module('myBuilderApp')
             }
         };
     })
-    .directive('sessionDefaultPhone', function (phoneCreatorServices) {
+    .directive('sessionDefaultPhone', function (phoneCreatorServices,builderTool) {
         return {
             restrict: 'AE',
             template: function (element, attrs) {
@@ -457,6 +481,14 @@ angular.module('myBuilderApp')
                     for (var i = 0; i < data.class.length; i++) {
                         dom.addClass(data.class[i]);
                     }
+                }
+
+                if(data.background.type == 'video'){
+                    var videoOption={
+                        url:data.background.url,
+                        previewImage:data.background.previewImage
+                    };
+                    builderTool.createSessionVideo($(element).find('.ele-session-box'),videoOption,true);
                 }
 
                 //插入元素

@@ -1009,6 +1009,12 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 }
                 return newData;
             },
+            //用来覆盖数据
+            coverData:function(original,target){
+                angular.forEach(target,function(obj,index){
+                    original[index] = obj;
+                });
+            },
             updateSession:function(sessionData,historyType){
                 if(historyType == undefined){
                     historyType = 'default';
@@ -1016,8 +1022,8 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 var sessionList = this.searchSessionHandle(activePageService.getActivePage().value);
                 for(var i = 0; i<sessionList.length;i++){
                     if(sessionList[i].ID == sessionData.ID){
-                        historyLog.pushHistoryLog(angular.copy(sessionList[i]), historyType, 'updateSession');                        
-                        sessionList[i] = sessionData;
+                        historyLog.pushHistoryLog(angular.copy(sessionList[i]), historyType, 'updateSession');       
+                        handle.coverData(sessionList[i],sessionData);                 
                         //加入历史记录 更新UI
                         builderTool.updateSession(sessionList[i]);
                         return;

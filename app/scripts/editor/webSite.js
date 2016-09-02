@@ -326,6 +326,35 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                     }
                 }
             },
+            createSessionVideo:function(dom,background,isPlay){
+                //清空颜色 和 背景
+                dom.css('background-color','');
+                dom.css('background-image','');
+
+                var videoDom = dom.find('.video-background');
+                //因为这里是编辑器 所以不需要自动播放  后期再做兼容video 以及后期需要增加各种可配置的变量
+                var videoTemplate = '<div class="video-background">'+
+                '<div class="over-layer" style="background-image:url(\'images/videoPattern/v-overlay-pat-2-icon.png\')"></div>'+
+                '<video class="video" loop="loop" volume="0" src="'+background.url+'"></video>'+
+                '</div>';
+                
+                if(videoDom.length == 0){
+                    //新建dom
+                    videoDom = $(videoTemplate);
+                    if(isPlay == true){
+                        videoDom.find('video').attr('autoplay','');
+                    }
+                    dom.append(videoDom);
+                }else{
+                    //更新url
+                    videoDom.attr('src',background.url);
+                }
+                videoDom.find('video').on('loadeddata',function(){
+                    //调整video的位置
+                    handle.fixVideoPosition(dom,videoDom.find('video'));
+                });
+                return videoDom;
+            },
             updateSession: function (data) {
                 var dom = $('#'+data.ID);
 
@@ -351,30 +380,7 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 }
 
                 function video(dom,background){
-                    //清空颜色 和 背景
-                    dom.css('background-color','');
-                    dom.css('background-image','');
-
-                    var videoDom = dom.find('.video-background');
-                    //因为这里是编辑器 所以不需要自动播放  后期再做兼容video
-                    var videoTemplate = '<div class="video-background">'+
-                    '<div class="over-layer"></div>'+
-                    '<video class="video" src="'+background.url+'"></video>'+
-                    '</div>';
-                    
-                    if(videoDom.length == 0){
-                        //新建dom
-                        videoDom = $(videoTemplate);
-                        dom.append(videoDom);
-                    }else{
-                        //更新url
-                        videoDom.attr('src',background.url);
-                    }
-                    videoDom.find('video').on('loadeddata',function(){
-                        //调整video的位置
-                        handle.fixVideoPosition(dom,videoDom.find('video'));
-                    })
-                    
+                    var videoDom = handle.createSessionVideo(dom,background);
                 }
 
                 function color(dom,background){

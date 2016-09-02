@@ -8,25 +8,28 @@
         "type": "head",
         "name": "导航",
         "background": {
-            "url": "images/website/headBg.jpg",
-            "type":"image"
+            "url": "images/video/banner.mp4",
+            "type": "video",
+            "previewImage": "images/video/banner.png",
+            "color": ""
         },
-        "class": [
-        ],
+        "class": [],
         "style": {
             "min-height": "650px",
             "background-size": "cover",
             "background-position-x": "center",
             "background-position-y": "center",
             "background-repeat": "no-repeat",
-            "background-color": "#fff",
-            "position": "relative"
+            "background-color": "",
+            "position": "relative",
+            "background-image": ""
         },
         "phoneStyle": {
             "min-height": "300px"
         },
         "eleList": [
             {
+                "backgroundSize": "contain",
                 "ID": "ele1234",
                 "type": "image",
                 "position": {
@@ -43,9 +46,8 @@
                     "height": "50px",
                     "clip": "rect(0px 50px 50px 0px)"
                 },
-                "url": "images/website/logo.png",
                 "eleTemplateType": "ele-image-default",
-                "backgroundSize": "contain",
+                "url": "images/website/logo.png",
                 "phoneStyle": {
                     "position": {
                         "left": "15px",
@@ -67,8 +69,7 @@
                 "imageSize": {
                     "width": "81px",
                     "height": "81px"
-                },
-                "state": "select"
+                }
             },
             {
                 "ID": "menu12",
@@ -188,7 +189,6 @@
                     "scale": "0.7"
                 },
                 "state": "select",
-                "$$hashKey": "object:309",
                 "showState": false
             }
         ],
@@ -212,8 +212,8 @@
                     "name": "Banner",
                     "background": {
                         "url": "",
-                        "type":"color",
-                        "color":"#835fa8"
+                        "type": "color",
+                        "color": "#835fa8"
                     },
                     "style": {
                         "min-height": "500px",
@@ -421,8 +421,8 @@
                     "name": "Banner",
                     "background": {
                         "url": "",
-                        "type":"color",
-                        "color":"#f4f8fb"
+                        "type": "color",
+                        "color": "#f4f8fb"
                     },
                     "style": {
                         "min-height": "500px",
