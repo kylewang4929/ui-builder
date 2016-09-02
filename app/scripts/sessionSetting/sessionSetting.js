@@ -4,7 +4,9 @@ angular.module('kyle.sessionSetting', [])
         return {
             restrict: 'A',
             replace: true,
-            scope:{},
+            scope:{
+
+            },
             template: [
                 '<div class="color-pick-box lager" id="color-pick-box" drag-ele="default" handle="handle" onmousedown="event.stopPropagation()" onclick="event.stopPropagation()">',
                     '<div class="my-color">',
@@ -22,8 +24,11 @@ angular.module('kyle.sessionSetting', [])
                                     '<div flex-item="4" flex-item-order="1"><lx-button lx-color="blue"><i class="mdi mdi-video"></i> 视频</lx-button></div>'+
                                 '</div>' +
                                 '<div class="button-box">'+
-                                    '<lx-button lx-color="blue"><i class="mdi mdi-settings"></i> 设置</lx-button>'+
-                                    '<lx-button lx-color="blue" class="play-button" ng-if="boxInitData.option.type == \'video\'"><i class="mdi mdi-play"></i></lx-button>'+
+                                    '<lx-button><i class="mdi mdi-settings"></i> 设置</lx-button>'+
+                                    '<lx-button class="play-button" ng-if="boxInitData.option.type == \'video\'" ng-click="toggleVideo()">'+
+                                        '<i class="mdi mdi-play" ng-show="videoState.state == \'pause\'"></i>'+
+                                        '<i class="mdi mdi-pause" ng-show="videoState.state == \'play\'"></i>'+
+                                    '</lx-button>'+
                                 '</div>'+
                             '</div>' +
                             '<perfect-scrollbar suppress-scroll-x="true" class="preview-list" wheel-propagation="true" wheel-speed="3">'+
@@ -41,6 +46,46 @@ angular.module('kyle.sessionSetting', [])
                 scope.closeEleSetting = function () {
                     sessionSettingService.hideDom();
                 };
+
+                scope.videoState = {
+                    state : 'pause',
+                    handle : null,
+                }
+
+                scope.toggleVideo=function(){
+                    if(scope.videoState.state == 'pause'){
+                        //播放
+                        scope.videoState.handle.play();
+                    }else{
+                        //暂停
+                        scope.videoState.handle.pause();   
+                    }
+                }
+
+                scope.$watch('boxInitData.option.type',function(){
+                    if(scope.boxInitData.option.type == 'video'){
+                        //获取视频的dom
+                        scope.videoState.handle = $('#'+scope.boxInitData.ID+'.ele-session-box .video-background video').get(0);
+                        //监听播放完成
+                        scope.videoState.handle.onended = function(){
+                            scope.$apply(function(){
+                                scope.videoState.state='pause';
+                            });
+                        }
+                        scope.videoState.handle.onpause = function(){
+                            scope.$apply(function(){
+                                scope.videoState.state='pause';
+                            });
+                        }
+                        scope.videoState.handle.onplaying = function(){
+                            scope.$apply(function(){
+                                scope.videoState.state='play';
+                            });
+                        }
+                        scope.videoState.handle.pause();
+                        scope.videoState.state = 'pause';
+                    }
+                });
 
                 scope.selectBackground = function(data){
                     if(scope.boxInitData.callback!=undefined){
@@ -89,6 +134,7 @@ angular.module('kyle.sessionSetting', [])
             },
             removePlugin: function () {
                 if (domData.value !== '') {
+                    handle.stopVideo(boxInitData.ID);
                     domData.value.remove();
                     domData.value = '';
                 }
@@ -143,9 +189,17 @@ angular.module('kyle.sessionSetting', [])
                     handle.updatePosition(domData, left, top);
                 }
             },
+            stopVideo:function(sessionID){
+                var video = $('#'+sessionID+'.ele-session-box .video-background video');
+                if(video.length != 0){
+                    video.get(0).pause();
+                }
+            },
             hideDom: function () {
                 if (domData.value !== '') {
                     domData.value.hide();
+                    //如果有视频 则暂停它
+                    handle.stopVideo(boxInitData.ID);
                 }
             }
         };

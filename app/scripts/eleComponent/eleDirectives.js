@@ -42,7 +42,6 @@ angular.module('myBuilderApp')
                 var data = element.context.eleConfig;
                 //插入背景
                 var dom = $(element).find(".ele-session-box");
-                dom.css("background-image", "url(" + data.background.url + ")");
                 //渲染背景样式
                 $.each(data.style, function (index, value) {
                     dom.css(index, value);
@@ -59,7 +58,10 @@ angular.module('myBuilderApp')
                         url:data.background.url,
                         previewImage:data.background.previewImage
                     };
-                    builderTool.createSessionVideo($(element).find('.ele-session-box'),videoOption,true);
+                    builderTool.createSessionVideo($(element).find('.ele-session-box'),videoOption);
+                }
+                if(data.background.type=='image'){
+                    dom.css("background-image", "url(" + data.background.url + ")");                    
                 }
 
                 //插入元素
@@ -117,7 +119,6 @@ angular.module('myBuilderApp')
 
                 var dom = $(element).find(".ele-session-box");
 
-                dom.css("background-image", "url(" + data.background.url + ")");
                 //渲染背景样式
                 $.each(data.style, function (index, value) {
                     dom.css(index, value);
@@ -134,7 +135,10 @@ angular.module('myBuilderApp')
                         url:data.background.url,
                         previewImage:data.background.previewImage
                     };
-                    builderTool.createSessionVideo($(element).find('.ele-session-box'),videoOption,true);
+                    builderTool.createSessionVideo($(element).find('.ele-session-box'),videoOption);
+                }
+                if(data.background.type=='image'){
+                    dom.css("background-image", "url(" + data.background.url + ")");                    
                 }
 
                 //插入元素
@@ -395,7 +399,6 @@ angular.module('myBuilderApp')
                 var data = element.context.eleConfig;
                 //插入背景
                 var dom = $(element).find(".ele-session-box");
-                dom.css("background-image", "url(" + data.background.url + ")");
                 //渲染背景样式
                 $.each(data.style, function (index, value) {
                     dom.css(index, value);
@@ -417,7 +420,10 @@ angular.module('myBuilderApp')
                         url:data.background.url,
                         previewImage:data.background.previewImage
                     };
-                    builderTool.createSessionVideo($(element).find('.ele-session-box'),videoOption,true);
+                    builderTool.createSessionVideo($(element).find('.ele-session-box'),videoOption);
+                }
+                if(data.background.type=='image'){
+                    dom.css("background-image", "url(" + data.background.url + ")");                    
                 }
 
                 //插入元素
@@ -466,7 +472,6 @@ angular.module('myBuilderApp')
                 var data = element.context.eleConfig;
                 //插入背景
                 var dom = $(element).find(".ele-session-box");
-                dom.css("background-image", "url(" + data.background.url + ")");
                 //渲染背景样式
                 $.each(data.style, function (index, value) {
                     dom.css(index, value);
@@ -488,7 +493,10 @@ angular.module('myBuilderApp')
                         url:data.background.url,
                         previewImage:data.background.previewImage
                     };
-                    builderTool.createSessionVideo($(element).find('.ele-session-box'),videoOption,true);
+                    builderTool.createSessionVideo($(element).find('.ele-session-box'),videoOption);
+                }
+                if(data.background.type=='image'){
+                    dom.css("background-image", "url(" + data.background.url + ")");                    
                 }
 
                 //插入元素

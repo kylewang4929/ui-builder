@@ -135,11 +135,16 @@ angular.module('creator', [])
                     //获取session的资料
                     var eleData={};
                     eleData = websiteData.getSession(ID);
+                    console.log(eleData);
                     var backgroundObj = {
-                        image:eleData.background.url,
                         color:eleData.background.color,
                         video:eleData.background.videoUrl,
                         type:eleData.background.type
+                    }
+                    //根据不同的类型从不同的地方获取预览图
+                    switch(eleData.background.type){
+                        case 'image':backgroundObj.image = eleData.background.url;break;
+                        case 'video':backgroundObj.image = eleData.background.previewImage;break;
                     }
                     //计算left和top
                     sessionSettingService.showDom(e.clientX-180,e.clientY+20,eleData.ID,backgroundObj,function(data){

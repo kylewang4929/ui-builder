@@ -68,7 +68,6 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 });
             },
             changeEleId:function(ele){
-                console.log(ele);
                 ele.ID = handle.createID();
                 if(ele.type == 'group'){
                     angular.forEach(ele.eleList,function(obj,index){
@@ -308,25 +307,21 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                     //宽铺满
                     if(originalVideoData.height < sessionData.height){
                         //高填充
-                        console.log('a');
                         videoDom.css({'height':sessionData.height,'left':'50%','width':'auto','margin-top':'0px','top':'0px','margin-left':-videoDom.width()/2});
                     }else{
-                        console.log('b');                        
                         videoDom.css({'width':sessionData.width,'top':'50%','height':'auto','margin-left':'0px','left':'0px','margin-top':-videoDom.height()/2});
                     }
                                      
                 }else{
                     //高铺满  
                     if(originalVideoData.width < sessionData.width){
-                        console.log('c');                        
                         videoDom.css({'width':sessionData.width,'top':'50%','height':'auto','margin-left':'0px','left':'0px','margin-top':-videoDom.height()/2});
                     }else{
-                        console.log('d');                        
                         videoDom.css({'height':sessionData.height,'left':'50%','width':'auto','margin-top':'0px','top':'0px','margin-left':-videoDom.width()/2});
                     }
                 }
             },
-            createSessionVideo:function(dom,background,isPlay){
+            createSessionVideo:function(dom,background){
                 //清空颜色 和 背景
                 dom.css('background-color','');
                 dom.css('background-image','');
@@ -335,15 +330,12 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 //因为这里是编辑器 所以不需要自动播放  后期再做兼容video 以及后期需要增加各种可配置的变量
                 var videoTemplate = '<div class="video-background">'+
                 '<div class="over-layer" style="background-image:url(\'images/videoPattern/v-overlay-pat-2-icon.png\')"></div>'+
-                '<video class="video" loop="loop" volume="0" src="'+background.url+'"></video>'+
+                '<video class="video" volume="0" src="'+background.url+'"></video>'+
                 '</div>';
                 
                 if(videoDom.length == 0){
                     //新建dom
                     videoDom = $(videoTemplate);
-                    if(isPlay == true){
-                        videoDom.find('video').attr('autoplay','');
-                    }
                     dom.append(videoDom);
                 }else{
                     //更新url
