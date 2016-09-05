@@ -87,6 +87,7 @@
                     "text-align": "center",
                     "color": "rgb(255, 255, 255)"
                 },
+                "eleTemplateType": "ele-menu-default",
                 "item": [
                     {
                         "ID": "123",
@@ -105,7 +106,6 @@
                         "name": "About"
                     }
                 ],
-                "eleTemplateType": "ele-menu-default",
                 "phoneStyle": {
                     "position": {
                         "left": "223px",
@@ -123,8 +123,7 @@
                         "font-size": "20px"
                     },
                     "scale": "0.7"
-                },
-                "state": "select"
+                }
             },
             {
                 "ID": "ele14721747972601",
@@ -189,7 +188,8 @@
                     },
                     "style": {},
                     "scale": "0.7"
-                }
+                },
+                "showState": false
             },
             {
                 "backgroundSize": "contain",
@@ -232,7 +232,8 @@
                 "imageSize": {
                     "width": "200px",
                     "height": "200px"
-                }
+                },
+                "showState": false
             }
         ],
         "eleTemplateType": "head-default",

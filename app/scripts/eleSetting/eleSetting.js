@@ -181,15 +181,13 @@ angular.module('kyle.eleSetting', [])
                 scope.filterData = [
                     {name:'灰度',style:{'-webkit-filter':'grayscale(1)'}},
                     {name:'褐色',style:{'-webkit-filter':'sepia(1)'}},
-                    {name:'饱和度',style:{'-webkit-filter':'saturate(1)'}},
+                    {name:'饱和度',style:{'-webkit-filter':'saturate(.5)'}},
                     {name:'色相旋转',style:{'-webkit-filter':'hue-rotate(90deg)'}},
                     {name:'反色',style:{'-webkit-filter':'invert(1)'}},
                     {name:'亮度',style:{'-webkit-filter':'brightness(.5)'}},
-                    {name:'对比度',style:{'-webkit-filter':'contrast(1.5)'}},
+                    {name:'对比度',style:{'-webkit-filter':'contrast(2)'}},
                     {name:'模糊',style:{'-webkit-filter':'blur(2px)'}},
                 ];
-
-                
 
             }
         };
