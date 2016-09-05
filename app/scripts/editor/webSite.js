@@ -264,7 +264,7 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 
                 this.updateEleDefaultStyle(dom,eleData);
                 
-                dom.attr('src',eleData.url);
+                dom.find('.ele').attr('src',eleData.url);
             },
             updateEleMenu: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");

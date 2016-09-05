@@ -1,19 +1,28 @@
 "use strict";
 angular.module('eleMenu', [])
-    .directive('eleMenu', function ($compile, eleSettingService, eleMenuServices, imageLibraryService, imageCropService, activeEleService, websiteData, activePageService) {
+    .directive('eleMenu', function ($compile, eleSettingService, eleMenuServices, imageLibraryService, imageCropService, activeEleService, websiteData, activePageService,$timeout) {
         return {
             restrict: 'A',
             template: "<div class='ele-menu' onmousedown='event.stopPropagation()'>" +
-            "<button class='btn btn--l btn--blue btn--fab z-depth-1 image-button' lx-ripple ng-click='changeImage()'><i class='mdi mdi-repeat'></i><span>更换</span></button>" +
-            "<button class='btn btn--l btn--blue btn--fab z-depth-1 image-button' lx-ripple ng-click='openCrop()'><i class='mdi mdi-crop'></i><span>裁剪</span></button>" +
-            "<button class='btn btn--l btn--blue btn--fab z-depth-1 text-button' lx-ripple><i class='mdi mdi-pencil'></i><span>编辑</span></button>" +
-            "<button class='btn btn--l btn--blue btn--fab z-depth-1 group-button' lx-ripple><i class='mdi mdi-pencil'></i><span>编辑</span></button>" +
+            "<button class='btn btn--l btn--blue btn--fab z-depth-1 image-button' lx-ripple ng-click='changeImage();hitDocumenut();'><i class='mdi mdi-repeat'></i><span>更换</span></button>" +
+            "<button class='btn btn--l btn--blue btn--fab z-depth-1 image-button' lx-ripple ng-click='openCrop();hitDocumenut();'><i class='mdi mdi-crop'></i><span>裁剪</span></button>" +
+            "<button class='btn btn--l btn--blue btn--fab z-depth-1 text-button' lx-ripple ng-click='hitDocumenut();'><i class='mdi mdi-pencil'></i><span>编辑</span></button>" +
+            "<button class='btn btn--l btn--blue btn--fab z-depth-1 group-button' lx-ripple ng-click='hitDocumenut();'><i class='mdi mdi-pencil'></i><span>编辑</span></button>" +
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 all-button' lx-ripple ng-click=openSettingBox('design',$event)><i class='mdi mdi-checkerboard'></i><span>设计</span></button>" +
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 all-button' lx-ripple ng-click=openSettingBox('layers',$event)><i class='mdi mdi-layers'></i><span>布局</span></button>" +
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 all-button' lx-ripple ng-click=openSettingBox('animate',$event)><i class='mdi mdi-auto-fix'></i><span>动画</span></button>" +
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 image-button' lx-ripple ng-click=openSettingBox('filter',$event)><i class='mdi mdi-image-multiple'></i><span>滤镜</span></button>" +            
             "</div>",
             link: function (scope, element, attrs) {
+
+                //需要触发一次document的点击  为了隐藏其他不应该显示的内容                
+                scope.hitDocumenut = function () {
+                    $timeout(function(){
+                        $(document).trigger('mousedown');
+                        $(document).trigger('mouseup');
+                    });
+                }
+
                 //监听属性 同步更改
                 scope.changeImage = function () {
                     var activeEle = angular.copy(activeEleService.getEle());

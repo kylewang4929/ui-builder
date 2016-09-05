@@ -221,12 +221,10 @@ angular.module('phoneSiteEditor', [])
             updateEleImage: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");
                 this.updateEleDefaultStyle(dom,eleData);
-
             },
             updateEleMenu: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");
                 this.updateEleDefaultStyle(dom,eleData);
-
             },
             updateEleGroup: function (eleData) {
                 var dom = $("#" + eleData.ID + ".position-box");

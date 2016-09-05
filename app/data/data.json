@@ -131,13 +131,16 @@
                 "type": "text",
                 "textValue": "<div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><span style=\"font-size: 60px;\">Building bulletproof&nbsp;</span></span></span></div><div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><span style=\"font-size: 60px;\">fcghea apps</span></span></span></div>",
                 "position": {
-                    "left": "476px",
-                    "top": "235px"
+                    "left": "442px",
+                    "top": "236px"
                 },
                 "border": {
                     "width": "543px",
                     "min-height": "114px",
-                    "padding": "10px 0px"
+                    "padding-top": "10px",
+                    "padding-right": "0px",
+                    "padding-bottom": "10px",
+                    "padding-left": "0px"
                 },
                 "style": {
                     "margin-top": "-57px",
@@ -156,16 +159,15 @@
                     },
                     "style": {},
                     "scale": "0.7"
-                },
-                "state": "select"
+                }
             },
             {
                 "ID": "ele14721748671441",
                 "type": "text",
                 "textValue": "<div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 14px;\">Kickstarter umami Intelligentsia kogi. Try-hard flannel literally, chambray blog crucifix put a bird on it four dollar toast cardigan scenester aesthetic</span></span></div>",
                 "position": {
-                    "left": "476px",
-                    "top": "371px"
+                    "left": "442px",
+                    "top": "372px"
                 },
                 "border": {
                     "width": "514px",
@@ -187,9 +189,50 @@
                     },
                     "style": {},
                     "scale": "0.7"
+                }
+            },
+            {
+                "backgroundSize": "contain",
+                "ID": "ele14730551649031",
+                "type": "image",
+                "position": {
+                    "left": "93px",
+                    "top": "243px"
                 },
-                "state": "select",
-                "showState": false
+                "border": {
+                    "width": "160px",
+                    "min-height": "160px"
+                },
+                "style": {
+                    "margin-top": "0px",
+                    "width": "160px",
+                    "height": "160px",
+                    "clip": "rect(0px 160px 160px 0px)",
+                    "top": "0px",
+                    "left": "0px"
+                },
+                "eleTemplateType": "ele-image-default",
+                "url": "images/website/icon.png",
+                "phoneStyle": {
+                    "position": {
+                        "left": "0px",
+                        "top": "110px"
+                    },
+                    "border": {
+                        "width": "140px",
+                        "min-height": "140px"
+                    },
+                    "style": {
+                        "width": "140px",
+                        "height": "140px",
+                        "clip": "rect(0px 140px 140px 0px)"
+                    },
+                    "scale": 0.7
+                },
+                "imageSize": {
+                    "width": "200px",
+                    "height": "200px"
+                }
             }
         ],
         "eleTemplateType": "head-default",
