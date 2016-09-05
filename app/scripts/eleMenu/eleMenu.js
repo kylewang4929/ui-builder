@@ -11,6 +11,7 @@ angular.module('eleMenu', [])
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 all-button' lx-ripple ng-click=openSettingBox('design',$event)><i class='mdi mdi-checkerboard'></i><span>设计</span></button>" +
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 all-button' lx-ripple ng-click=openSettingBox('layers',$event)><i class='mdi mdi-layers'></i><span>布局</span></button>" +
             "<button class='btn btn--l btn--blue btn--fab z-depth-1 all-button' lx-ripple ng-click=openSettingBox('animate',$event)><i class='mdi mdi-auto-fix'></i><span>动画</span></button>" +
+            "<button class='btn btn--l btn--blue btn--fab z-depth-1 image-button' lx-ripple ng-click=openSettingBox('filter',$event)><i class='mdi mdi-image-multiple'></i><span>滤镜</span></button>" +            
             "</div>",
             link: function (scope, element, attrs) {
                 //监听属性 同步更改
@@ -32,7 +33,7 @@ angular.module('eleMenu', [])
                     var ID = activeEle.value.ID;
                     var left = e.clientX;
                     var top = e.clientY;
-                    eleSettingService.showDom(left, top, type, ID);
+                    eleSettingService.showDom(left, top, type, ID,activeEle.value);
                 };
                 scope.openCrop = function () {
                     imageCropService.openCrop(angular.copy(activeEleService.getEle().value));

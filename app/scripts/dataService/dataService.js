@@ -1009,7 +1009,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 }
                 return newData;
             },
-            //用来覆盖数据
+            //用来覆盖数据 存在的覆盖，不存在的新建
             coverData:function(original,target){
                 angular.forEach(target,function(obj,index){
                     original[index] = obj;
@@ -1023,7 +1023,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 for(var i = 0; i<sessionList.length;i++){
                     if(sessionList[i].ID == sessionData.ID){
                         historyLog.pushHistoryLog(angular.copy(sessionList[i]), historyType, 'updateSession');       
-                        handle.coverData(sessionList[i],sessionData);                 
+                        handle.coverData(sessionList[i],sessionData);
                         //加入历史记录 更新UI
                         builderTool.updateSession(sessionList[i]);
                         return;

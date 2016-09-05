@@ -1,6 +1,6 @@
 "use strict";
 angular.module('kyle.sessionSetting', [])
-    .directive('sessionBackgroundSettingBox', function (sessionSettingService) {
+    .directive('sessionBackgroundSettingBox', function (sessionSettingService,websiteData) {
         return {
             restrict: 'A',
             replace: true,
@@ -25,13 +25,13 @@ angular.module('kyle.sessionSetting', [])
                                 '</div>' +
                                 '<div class="button-box">'+
                                     '<lx-button><i class="mdi mdi-settings"></i> 设置</lx-button>'+
-                                    '<lx-button class="play-button" ng-if="boxInitData.option.type == \'video\'" ng-click="toggleVideo()">'+
+                                    '<lx-button class="play-button" ng-class="{true:\'show\',false:\'hide\'}[boxInitData.option.type == \'video\']" ng-click="toggleVideo()">'+
                                         '<i class="mdi mdi-play" ng-show="videoState.state == \'pause\'"></i>'+
                                         '<i class="mdi mdi-pause" ng-show="videoState.state == \'play\'"></i>'+
                                     '</lx-button>'+
                                 '</div>'+
                             '</div>' +
-                            '<perfect-scrollbar suppress-scroll-x="true" class="preview-list" wheel-propagation="true" wheel-speed="3">'+
+                            '<perfect-scrollbar suppress-scroll-x="true" class="preview-list scroll-page small-bar" wheel-propagation="true" wheel-speed="3">'+
                                 '<div class="preview-item" ng-click="selectBackground(rowData)" lx-ripple="white" ng-repeat="rowData in previewList" ng-style="{\'background-image\':\'url(\'+rowData.image+\')\'}">'+
                                     '<i class="mdi mdi-video flag" ng-if="rowData.type == \'video\'"></i>'+
                                     '<i class="mdi mdi-image-area flag" ng-if="rowData.type == \'image\'"></i>'+
@@ -91,11 +91,12 @@ angular.module('kyle.sessionSetting', [])
                     if(scope.boxInitData.callback!=undefined){
                         scope.boxInitData.callback(data);
                     }
-                    
+                    scope.videoState.state = 'pause';
                     switch(data.type){
                         case 'image':scope.boxInitData.option.type = 'image';scope.boxInitData.option.image = data.image;break;
                         case 'video':scope.boxInitData.option.type = 'video';scope.boxInitData.option.image = data.image;scope.boxInitData.option.url = data.url;break;
                     }
+                    websiteData.updateSessionBackground(data,scope.boxInitData.ID);
                 }
 
                 scope.previewList=[

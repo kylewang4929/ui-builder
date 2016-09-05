@@ -147,8 +147,6 @@ angular.module('creator', [])
                     }
                     //计算left和top
                     sessionSettingService.showDom(e.clientX-180,e.clientY+20,eleData.ID,backgroundObj,function(data){
-                        console.log(data);
-                        websiteData.updateSessionBackground(data,eleData.ID);
                     });
                 }
 
@@ -322,8 +320,8 @@ angular.module('creator', [])
                             activeEleService.setEle(jQuery.extend(true, {}, scope.activeEle));                    
                         }
                     }
+                    //后退                    
                     if (e[shortcutsCode.UNDO.ctrlKey] && e.keyCode === shortcutsCode.UNDO.keyCode && !e[shortcutsCode.REDO.shiftKey]) {
-                        //后退
                         var obj = historyLog.retreatPop();
                         if (obj !== undefined) {
                             //更新到数组
@@ -363,11 +361,24 @@ angular.module('creator', [])
                             if (obj.type === "updateSession") {
                                 scope.$apply(function () {
                                     websiteData.updateSession(obj.value, 'retreat');
-                                    var backgroundObj = {
-                                        image:obj.value.background.url,
-                                        color:obj.value.background.color,
-                                        video:obj.value.background.videoUrl,
-                                        type:obj.value.background.type
+                                    var backgroundObj={};                                    
+                                    switch (obj.value.background.type){
+                                        case "image":
+                                        backgroundObj = {
+                                            image:obj.value.background.url,
+                                            color:obj.value.background.color,
+                                            video:'',
+                                            type:obj.value.background.type
+                                        }
+                                        break;
+                                        case "video":
+                                        backgroundObj = {
+                                            image:obj.value.background.previewImage,
+                                            color:obj.value.background.color,
+                                            video:obj.value.background.url,
+                                            type:obj.value.background.type
+                                        }
+                                        break;
                                     }
                                     sessionSettingService.updateOption(backgroundObj);
                                 });
@@ -375,8 +386,8 @@ angular.module('creator', [])
 
                         }
                     }
+                    //前进                    
                     if (e[shortcutsCode.REDO.ctrlKey] && e.keyCode === shortcutsCode.REDO.keyCode && e[shortcutsCode.REDO.shiftKey]) {
-                        //前进
                         var obj = historyLog.forwardPop();
                         if (obj !== undefined) {
                             //更新到数组
@@ -414,11 +425,24 @@ angular.module('creator', [])
                             if (obj.type === "updateSession") {
                                 scope.$apply(function () {
                                     websiteData.updateSession(obj.value, 'forward');
-                                    var backgroundObj = {
-                                        image:obj.value.background.url,
-                                        color:obj.value.background.color,
-                                        video:obj.value.background.videoUrl,
-                                        type:obj.value.background.type
+                                    var backgroundObj={};
+                                    switch (obj.value.background.type){
+                                        case "image":
+                                        backgroundObj = {
+                                            image:obj.value.background.url,
+                                            color:obj.value.background.color,
+                                            video:'',
+                                            type:obj.value.background.type
+                                        }
+                                        break;
+                                        case "video":
+                                        backgroundObj = {
+                                            image:obj.value.background.previewImage,
+                                            color:obj.value.background.color,
+                                            video:obj.value.background.url,
+                                            type:obj.value.background.type
+                                        }
+                                        break;
                                     }
                                     sessionSettingService.updateOption(backgroundObj);
                                 });
