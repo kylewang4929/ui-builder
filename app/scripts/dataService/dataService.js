@@ -842,9 +842,32 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                                     builderTool.deleteEle(id);
 
                                     return obj;
+
+                                }else if(data[i].sessionList[j].eleList[k].type == 'group'){
+                                    var obj = handle.deleteEleForGroup(data[i].sessionList[j].eleList[k],id);
+                                    if(!!obj){
+                                        historyLog.pushHistoryLog(angular.copy(obj), type, 'delete');
+                                        builderTool.deleteEle(obj.ID);
+                                        return obj;
+                                    }
                                 }
                             }
                         }
+                    }
+                }
+            },
+            /**
+             * 有一种情况是删除组内元素
+             * 返回被删除的元素
+             */
+            deleteEleForGroup:function(groupData,targetId){
+                for(var i = 0;i<groupData.eleList.length;i++){
+                    var obj = groupData.eleList[i];
+                    if(obj.ID == targetId){
+                        //清除元数据
+                        return groupData.eleList.splice(i,1)[0];
+                    }else if(obj.type == 'group'){
+                        return handle.deleteEleForGroup(obj);
                     }
                 }
             },
