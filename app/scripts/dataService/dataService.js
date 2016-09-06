@@ -339,12 +339,18 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                     }
                 }
             },
+            /**
+             * 解散分组的时候做的调整
+             */
             calculateForUnGroup: function (eleList, scale) {
                 var phoneWidth = 280;
                 for (var i = 0; i < eleList.length; i++) {
                     eleList[i].phoneStyle.scale = scale;
                 }
             },
+            /**
+             * 调整手机方面的元素大小和位置 和 calculateForPhone有点混乱这一块，当初没规划好，有问题需要更改
+             */
             calculateForGroup: function (obj) {
                 //手机宽度是280px
                 var phoneWidth = 280;
@@ -423,6 +429,9 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 }
 
             },
+            /**
+             * 调整手机方面的元素大小和位置有问题需要更改
+             */
             calculateForPhone: function (obj) {
                 //手机宽度是280px
                 var phoneWidth = 280;
@@ -437,8 +446,8 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                         //缩放并居中 缩到260px
                         obj.phoneStyle.position.left = 10;
                         obj.phoneStyle.scale = (phoneWidth - 20) / width;
+                        //图片的缩放需要表现在json上
                         if (obj.type === 'image') {
-                            console.log(obj.phoneStyle.scale);
                             obj.phoneStyle.border.width *= obj.phoneStyle.scale;
                             obj.phoneStyle.border['min-height'] *= obj.phoneStyle.scale;
                         }

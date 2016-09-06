@@ -28,7 +28,8 @@ angular.module('addSession', [])
                     "type": "session",
                     "name": "导航",
                     "background": {
-                        "url": "images/website/headBg.jpg"
+                        "url": "images/website/headBg.jpg",
+                        "type":"image"
                     },
                     "class": [
                     ],
@@ -119,7 +120,9 @@ angular.module('addSession', [])
                     "type": "session",
                     "name": "Banner",
                     "background": {
-                        "url": ""
+                        "url": "",
+                        "type":"color",
+                        "color":"#835fa8"
                     },
                     "style": {
                         "min-height": "500px",
@@ -326,7 +329,9 @@ angular.module('addSession', [])
                     "type": "session",
                     "name": "Banner",
                     "background": {
-                        "url": ""
+                        "url": "",
+                        "type":"color",
+                        "color":"#f4f8fb"
                     },
                     "style": {
                         "min-height": "500px",

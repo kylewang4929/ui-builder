@@ -227,10 +227,9 @@ angular.module('myBuilderApp')
                         changeSessionTool.init($(element).parents('.ele-session-box').attr('id'), parameter.top + (parameter.eleHeight / 2));
                     }
 
-                    $rootScope.$emit("eleDragStart");
-
                     if (parameter.type == 'ele-web' || parameter.type == 'ele-phone') {
                         //自动对齐初始化
+                        $rootScope.$emit("eleDragStart");                        
                         autoAlignment.init($(element).parents('.ele-session-box'), $(element));
                         if(!parameter.contenteditable==true){
                             //添加指示器
@@ -319,7 +318,7 @@ angular.module('myBuilderApp')
                         if (moveFirstFlag === false) {
                             moveFirstFlag = true;
                         }
-                        $rootScope.$emit("eleDragEnd");
+                        
                         /**
                          * 更新web 元素
                         */
@@ -357,6 +356,7 @@ angular.module('myBuilderApp')
 
                         if (parameter.type == 'ele-web' || parameter.type == 'ele-phone') {
                             eleIndicator.remove();
+                            $rootScope.$emit("eleDragEnd");
                         }
                     }
                 }
