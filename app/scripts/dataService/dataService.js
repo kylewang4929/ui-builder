@@ -1035,6 +1035,11 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                     return newObj;
                 }
                 var outputData=newData;
+
+                if(oldData.showState!=undefined){
+                    outputData.showState = oldData.showState;
+                }
+
                 switch(type){
                     case "image":outputData=image(oldData, newData);break;
                     case "text":outputData=text(oldData, newData);break;
