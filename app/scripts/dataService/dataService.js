@@ -400,9 +400,16 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
 
                 }
 
+                /**
+                 * 为手机元素赋予web元素的宽高
+                 */
                 for (var i = 0; i < obj.eleList.length; i++) {
                     obj.eleList[i].phoneStyle.border.width = obj.eleList[i].border.width;
                     obj.eleList[i].phoneStyle.border['min-height'] = obj.eleList[i].border['min-height'];
+                    if(obj.eleList[i].type == 'image'){
+                        obj.eleList[i].phoneStyle.style.width = obj.eleList[i].style.width;
+                        obj.eleList[i].phoneStyle.style.height = obj.eleList[i].style.height;
+                    }
                 }
 
                 var left = parseInt(obj.phoneStyle.position.left);
@@ -452,6 +459,11 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 par.maxLeft = 0;
                 par.maxLeft = 0;
 
+                par.phoneMinTop = 0;
+                par.phoneMaxTop = 0;
+                par.phoneMinLeft = 0;
+                par.phoneMaxLeft = 0;
+
                 //计算sessionID
                 var sessionID = $("#" + eleList[0].ID + ".position-box").parents('.ele-session-box').attr('id');
 
@@ -467,7 +479,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                                         par.maxLeft = eleList[q].position.left + eleList[q].size.width;
                                     }
 
-                                    //计算最大和最小值
+                                    //计算web方面的left top 最大和最小
                                     if (eleList[q].position.top < par.minTop) {
                                         par.minTop = eleList[q].position.top;
                                     }
@@ -481,11 +493,13 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                                         par.maxLeft = eleList[q].position.left + eleList[q].size.width;
                                     }
 
-
                                     for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
                                         if (eleList[q].ID === data[i].sessionList[j].eleList[k].ID) {
+
                                             //找到匹配的元素
-                                            var insetObj=data[i].sessionList[j].eleList.splice(k, 1)[0];
+                                            //var insetObj=data[i].sessionList[j].eleList.splice(k, 1)[0];
+                                            var insetObj=angular.copy(data[i].sessionList[j].eleList[k]);
+
                                             //如果是图片的话需要先将 phoneStyle的style里图片的大小先还原 clip 也要重置
                                             if(insetObj.type == 'image'){
                                                 insetObj.phoneStyle.style.width = parseInt(insetObj.phoneStyle.style.width) / insetObj.phoneStyle.scale;
@@ -498,9 +512,45 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                                                 insetObj.phoneStyle.style.clip = 'rect(' + clip[0] + 'px ' + clip[1] + 'px ' + clip[2] + 'px ' + clip[3] + 'px ' + ')';
                                             }
                                             groupEle.push(insetObj);
+
+                                            //计算phone方面的left top 最大和最小 这里没处理好 写的有问题 太乱
+                                            var activeEleData = data[i].sessionList[j].eleList[k];
+
+                                            var phoneLeft = parseInt(activeEleData.phoneStyle.position.left);
+                                            var phoneTop = parseInt(activeEleData.phoneStyle.position.top);
+                                            var phoneWdith = parseInt(activeEleData.phoneStyle.border.width);
+                                            var phoneHeight = parseInt(activeEleData.phoneStyle.border['min-height']);
+
+                                            if (q === 0) {
+                                                par.phoneMinTop = phoneTop;
+                                                par.phoneMaxTop = phoneTop + phoneHeight;
+                                                par.phoneMinLeft = phoneLeft;
+                                                par.phoneMaxLeft = phoneLeft + phoneWdith;
+                                            }
+
+                                            if (phoneTop < par.phoneMinTop) {
+                                                par.phoneMinTop = phoneTop;
+                                            }
+                                            if (phoneTop + phoneHeight > par.phoneMaxTop) {
+                                                par.phoneMaxTop = phoneTop + phoneHeight;
+                                            }
+                                            if (phoneLeft < par.phoneMinLeft) {
+                                                par.phoneMinLeft = phoneLeft;
+                                            }
+                                            if (phoneLeft + phoneWdith > par.phoneMaxLeft) {
+                                                par.phoneMaxLeft = phoneLeft + phoneWdith;
+                                            }
+
+                                            //数据处理完毕 可以删除
+                                            data[i].sessionList[j].eleList.splice(k, 1)[0];
                                             break;
                                         }
                                     }
+                                    console.log(par);
+                                    /**
+                                     * 删除合并成组的元素在json里的元数据
+                                     */
+
 
                                     if (q + 1 >= eleList.length) {
                                         //重新计算元素的位置 以及外框的大小 组成新元素
@@ -530,8 +580,8 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                                             "phoneStyle": {
                                                 "style": {},
                                                 "position": {
-                                                    "left": par.minLeft + "px",
-                                                    "top": par.minTop + "px"
+                                                    "left": par.phoneMinLeft + "px",
+                                                    "top": par.phoneMinTop + "px"
                                                 },
                                                 "border": {
                                                     "width": (par.maxLeft - par.minLeft) + "px",
