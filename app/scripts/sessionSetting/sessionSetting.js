@@ -204,5 +204,4 @@ angular.module('kyle.sessionSetting', [])
             }
         };
         return handle;
-    })
-    ;
+    });

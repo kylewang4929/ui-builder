@@ -1070,11 +1070,11 @@ angular.module('myBuilderApp')
 
                         if (parameter.type == 'ele-phone') {
                             if (parameter.isGroupEle !== true) {
-                                eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
+                                var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
                                 websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
                             } else {
                                 //更新组
-                                eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
+                                var eleData = phoneBuilderTool.getEle(firstParentGroupID, "group");
                                 websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
                             }
                         }
@@ -1145,7 +1145,7 @@ angular.module('myBuilderApp')
                     switch (type) {
                         case 'size': indicatorHandle.text('W:' + $(eleTarget).get(0).offsetWidth + ' | H:' + $(eleTarget).get(0).offsetHeight); break;
                         case 'position': indicatorHandle.text('X:' + parseInt($(eleTarget).css('left')) + ' | Y:' + parseInt($(eleTarget).css('top'))); break;
-                        case 'rotate': indicatorHandle.text(handle.getDeg() + 'deg'); break;
+                        case 'rotate': indicatorHandle.text(handle.getDeg(eleTarget.css('transform')) + 'deg'); break;
                     }
                     var handleData = {
                         left:parseInt($(eleTarget).css('left')),
@@ -1164,17 +1164,22 @@ angular.module('myBuilderApp')
              * 获取角度的封装
              * 因为css transform 有可能是undefined
              */
-            getDeg: function () {
-                var deg = eval('handle.get' + eleTarget.css('transform'));
-                if (deg === undefined) {
-                    deg = 0;
+            getDeg: function (string) {
+                if(string == 'none'){
+                    return 0;
                 }
+                var ms = string.substring(7,string.length-1);
+                ms = ms.split(',');
+                angular.forEach(ms,function(obj,index){
+                    ms[index] = parseFloat(obj);
+                });
+                var deg = handle.getDegFormatrix(ms[0],ms[1],ms[2],ms[3],ms[4],ms[5]);
                 return deg;
             },
             /**
              * 返回角度
              */
-            getmatrix(a, b, c, d, e, f) {
+            getDegFormatrix(a, b, c, d, e, f) {
                 var aa = Math.round(180 * Math.asin(a) / Math.PI);
                 var bb = Math.round(180 * Math.acos(b) / Math.PI);
                 var cc = Math.round(180 * Math.asin(c) / Math.PI);
