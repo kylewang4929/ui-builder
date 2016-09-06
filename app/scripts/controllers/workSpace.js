@@ -49,6 +49,7 @@ angular.module('myBuilderApp')
     .controller('previewBoxCtrl', function ($scope,websiteData,elePosition,levelScroll,$timeout) {
         $scope.activeSession=$scope.websiteData.sessionList[0].ID;
         $scope.eleList=$scope.websiteData.sessionList[0].eleList;
+
         $scope.selectLayers=function(ID){
             $scope.activeSession=ID;
             for(var i=0;i<$scope.websiteData.sessionList.length;i++){
@@ -86,7 +87,7 @@ angular.module('myBuilderApp')
             
         }
         $scope.locateEleForPhone = function(ele,type){
-            var mainScrollHandle = $('#main-editor-scroll .phone-edit-space-box >.scroller-page');            
+            var mainScrollHandle = $('#main-editor-scroll');            
             locateEle(mainScrollHandle,ele,type);
             
         }
