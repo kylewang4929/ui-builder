@@ -140,7 +140,7 @@ angular.module('myBuilderApp')
         var handle = {
             getLeft: function (e,targetId) {
                 //如果指定了顶层的target 那么采用它
-                if(targetId != undefined && $(e).attr('id') == targetId){
+                if(targetId !== undefined && $(e).attr('id') == targetId){
                     return 0;
                 }
                 var offset = e.offsetLeft;
@@ -152,7 +152,7 @@ angular.module('myBuilderApp')
             },
             getTop: function (e,targetId) {
                 //如果指定了顶层的target 那么采用它
-                if(targetId != undefined && $(e).attr('id') == targetId){
+                if(targetId !== undefined && $(e).attr('id') == targetId){
                     return 0;
                 }
                 var offset = e.offsetTop;
@@ -176,7 +176,7 @@ angular.module('myBuilderApp')
 
         var handle = {
             scrollTop: function (dom,targetPosition,delay) {
-                if(delay == undefined){
+                if(delay === undefined){
                     delay = data.delay;
                 }
                 //广播滚动开始的事件

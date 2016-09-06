@@ -26,7 +26,7 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
             },
             addSession: function (obj,index,option) {
 
-                if(option==undefined){
+                if(option===undefined){
                     option = {isShow : true};
                 }
 
@@ -288,11 +288,11 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 }
             },
             fixVideoPosition:function(sessionDom,videoDom,originalVideoData){
-                if(originalVideoData == undefined){
+                if(originalVideoData === undefined){
                     originalVideoData = {
                         'width':videoDom.width(),
                         'height':videoDom.height()
-                    }
+                    };
                 }
                 //先计算session哪边比较大
                 var sessionData={
@@ -302,7 +302,7 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 var videoData = {
                     'width':videoDom.width(),
                     'height':videoDom.height()
-                }
+                };
                 if(sessionData.width > sessionData.height){
                     //宽铺满
                     if(originalVideoData.height < sessionData.height){
@@ -333,7 +333,7 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                 '<video class="video" poster="'+background.previewImage+'" volume="0" src="'+background.url+'"></video>'+
                 '</div>';
                 
-                if(videoDom.length == 0){
+                if(videoDom.length === 0){
                     //新建dom
                     videoDom = $(videoTemplate);
                     dom.append(videoDom);

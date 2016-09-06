@@ -871,10 +871,11 @@ angular.module('addSession', [])
                         dom.removeClass('base-session-show-transition');
                         dom.height('auto');
                     });
+                    //调用回调方法
                     scope.closeHandle().call(this, function () {
 
                     });
-                }
+                };
 
             }
         };
@@ -915,7 +916,7 @@ angular.module('addSession', [])
                         dom.addClass("in");
 
                     });
-                }
+                };
 
                 scope.hide = function (callback) {
                     //隐藏
@@ -929,11 +930,11 @@ angular.module('addSession', [])
                     dom.one("transitionend", function () {
                         //形变结束
                         $rootScope.$emit("addSessionOpenEnd");
-                        if (callback != undefined) {
+                        if (callback !== undefined) {
                             callback();
                         }
                     });
-                }
+                };
 
                 //存储滚动条到handle
                 var mainScrollHandle = $('#main-editor-scroll');

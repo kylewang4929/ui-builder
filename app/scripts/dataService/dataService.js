@@ -15,7 +15,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
             },
             getSession:function(ID){
                 var handle = this.searchSessionHandle(activePageService.getActivePage().value);
-                var targetSession = undefined;
+                var targetSession = null;
                 angular.forEach(handle,function(obj,index){
                     if(obj.ID == ID){
                         targetSession = angular.copy(obj);
@@ -551,11 +551,10 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                                             }
 
                                             //数据处理完毕 可以删除
-                                            data[i].sessionList[j].eleList.splice(k, 1)[0];
+                                            data[i].sessionList[j].eleList.splice(k, 1);
                                             break;
                                         }
                                     }
-                                    console.log(par);
                                     /**
                                      * 删除合并成组的元素在json里的元数据
                                      */
@@ -633,7 +632,10 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                                         //清除组
                                         data[i].sessionList[j].eleList.splice(k, 1);
                                         //从页面删除元素
-                                        $timeout(function () {builderTool.deleteEle(group.ID);});
+                                        // $timeout(function () {
+                                        //     builderTool.deleteEle(group.ID);                                            
+                                        // });
+                                        builderTool.deleteEle(group.ID);                                        
 
                                         //把元素重新计算和加入原始数组
                                         this.calculateForUnGroup(eleList, groupScale);
@@ -797,7 +799,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                         eleData.phoneStyle.border['min-height'] = phoneHeight+'px';
 
                         d.resolve(eleData);
-                    }
+                    };
                 }
 
                 switch (type){
@@ -826,7 +828,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                                 }
                                 if (data[i].sessionList[j].eleList[k].type == 'group') {
                                     var groupEleData = this.getEleForGroup(data[i].sessionList[j].eleList[k], id);
-                                    if (groupEleData != undefined || groupEleData != null) {
+                                    if (groupEleData !== undefined || groupEleData !== null) {
                                         return groupEleData;
                                     }
                                 }
@@ -963,30 +965,30 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                     data.phoneStyle.border.width=data.border.width*data.phoneStyle.scale;
                     data.phoneStyle.border['min-height']=data.border['min-height']*data.phoneStyle.scale;
 
-                    if(data.style.width=='auto' || data.style.width==undefined){
+                    if(data.style.width=='auto' || data.style.width===undefined){
                         data.phoneStyle.style.width='auto';
                     }else{
                         data.phoneStyle.style.width=data.style.width*data.phoneStyle.scale;                        
                     }
-                    if(data.style.height=='auto' || data.style.width==undefined){
+                    if(data.style.height=='auto' || data.style.width===undefined){
                         data.phoneStyle.style.height='auto';
                     }else{
                         data.phoneStyle.style.height=data.style.height*data.phoneStyle.scale;                        
                     }
 
-                    if(data.style.left=='auto' || data.style.width==undefined){
+                    if(data.style.left=='auto' || data.style.width===undefined){
                         data.phoneStyle.style.left='auto';
                     }else{
                         data.phoneStyle.style.left=data.style.left*data.phoneStyle.scale;                        
                     }
-                    if(data.style.top=='auto' || data.style.width==undefined){
+                    if(data.style.top=='auto' || data.style.width===undefined){
                         data.phoneStyle.style.top='auto';
                     }else{
                         data.phoneStyle.style.top=data.style.top*data.phoneStyle.scale;                        
                     }
                     
-                    if(data.style.clip==undefined){
-                        data.style.clip='auto'
+                    if(data.style.clip===undefined){
+                        data.style.clip='auto';
                     }
                     var clip=handle.parsingClip(data.style.clip,data.style.width,data.style.height);
 
@@ -1030,13 +1032,13 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                             if(oldObj.ID==newObj.ID){
                                 handle.saveOtherInfo(oldObj,newObj);
                             }
-                        })
+                        });
                     });
                     return newObj;
                 }
                 var outputData=newData;
 
-                if(oldData.showState!=undefined){
+                if(oldData.showState!==undefined){
                     outputData.showState = oldData.showState;
                 }
 
@@ -1103,7 +1105,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 });
             },
             updateSession:function(sessionData,historyType){
-                if(historyType == undefined){
+                if(historyType === undefined){
                     historyType = 'default';
                 }
                 var sessionList = this.searchSessionHandle(activePageService.getActivePage().value);
@@ -1118,7 +1120,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 }
             },
             updateSessionBackground: function (data,ID) {
-                var sessionData = handle.getSession(ID)
+                var sessionData = handle.getSession(ID);
                 function video(data){
                     //清空背景和背景颜色
                     sessionData.background.url = data.url;

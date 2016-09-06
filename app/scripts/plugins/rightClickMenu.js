@@ -112,7 +112,7 @@ angular.module('kyle.rightClickMenu', [])
                     var eleList=multipleChoiceService.getEleList().value;
                     var groupEleList = [];
                     for(var i=0;i<eleList.length;i++){
-                        if(eleList[i].state == true){
+                        if(eleList[i].state === true){
                             groupEleList.push(angular.copy(eleList[i]));
                         }
                     }

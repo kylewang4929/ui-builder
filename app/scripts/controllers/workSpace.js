@@ -84,13 +84,11 @@ angular.module('myBuilderApp')
         $scope.locateEleForWeb = function(ele,type){
             var mainScrollHandle = $('#main-editor-scroll');            
             locateEle(mainScrollHandle,ele,type);
-            
-        }
+        };
         $scope.locateEleForPhone = function(ele,type){
             var mainScrollHandle = $('#main-editor-scroll');            
             locateEle(mainScrollHandle,ele,type);
-            
-        }
+        };
 
         //隐藏元素的方法
         $scope.toggleEle=function(ID,state){

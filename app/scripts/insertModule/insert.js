@@ -12,7 +12,7 @@ angular.module('insert.directive', [])
                  * config中暂时只接受
                  * {imageModel:'round'}
                  */
-                if (scope.insertConfig == undefined) {
+                if (scope.insertConfig === undefined) {
                     scope.insertConfig = {};
                 }
 
@@ -95,7 +95,7 @@ angular.module('insert.directive', [])
                                     //更换url
                                     websiteData.changeImageUrl(scope.insertEle, scope.insertEle.type, data[0].url).then(function (data) {
                                         scope.insertEle = data;
-                                        var eleDom = eleDom = addEle(scope.insertEle);
+                                        addEle(scope.insertEle);
                                     });
                                 });
                             } else {

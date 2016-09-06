@@ -119,7 +119,7 @@ angular.module('creator', [])
                 };
                 scope.editEleImage= function(id){
 
-                }
+                };
                 /**
                  * 编辑图片的方法
                  *
@@ -139,7 +139,7 @@ angular.module('creator', [])
                         color:eleData.background.color,
                         video:eleData.background.videoUrl,
                         type:eleData.background.type
-                    }
+                    };
                     //根据不同的类型从不同的地方获取预览图
                     switch(eleData.background.type){
                         case 'image':backgroundObj.image = eleData.background.url;break;
@@ -148,7 +148,7 @@ angular.module('creator', [])
                     //计算left和top
                     sessionSettingService.showDom(e.clientX-180,e.clientY+20,eleData.ID,backgroundObj,function(data){
                     });
-                }
+                };
 
                 scope.deleteSession = function (ID) {
                     swal({
@@ -187,7 +187,7 @@ angular.module('creator', [])
                         }
 
                     }
-                    if (scope.activeEle == null || $(event.target).attr('id') === scope.activeEle.ID) {
+                    if (scope.activeEle === null || $(event.target).attr('id') === scope.activeEle.ID) {
                         return;
                     }
                     scope.$apply(function () {
@@ -369,7 +369,7 @@ angular.module('creator', [])
                                             color:obj.value.background.color,
                                             video:'',
                                             type:obj.value.background.type
-                                        }
+                                        };
                                         break;
                                         case "video":
                                         backgroundObj = {
@@ -377,7 +377,7 @@ angular.module('creator', [])
                                             color:obj.value.background.color,
                                             video:obj.value.background.url,
                                             type:obj.value.background.type
-                                        }
+                                        };
                                         break;
                                     }
                                     sessionSettingService.updateOption(backgroundObj);
@@ -433,7 +433,7 @@ angular.module('creator', [])
                                             color:obj.value.background.color,
                                             video:'',
                                             type:obj.value.background.type
-                                        }
+                                        };
                                         break;
                                         case "video":
                                         backgroundObj = {
@@ -441,7 +441,7 @@ angular.module('creator', [])
                                             color:obj.value.background.color,
                                             video:obj.value.background.url,
                                             type:obj.value.background.type
-                                        }
+                                        };
                                         break;
                                     }
                                     sessionSettingService.updateOption(backgroundObj);

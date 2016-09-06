@@ -231,7 +231,7 @@ angular.module('myBuilderApp')
                         //自动对齐初始化
                         $rootScope.$emit("eleDragStart");                        
                         autoAlignment.init($(element).parents('.ele-session-box'), $(element));
-                        if(!parameter.contenteditable==true){
+                        if(!parameter.contenteditable === true){
                             //添加指示器
                             eleIndicator.add($(element), 0, -38, 'position');
                         }
@@ -260,7 +260,7 @@ angular.module('myBuilderApp')
                         offsetY += parameter.top;
                         if (parameter.type.indexOf('ele') >= 0) {
                             if (parameter.type === 'ele-web') {
-                                if (parameter.isGroupEle != true) {
+                                if (parameter.isGroupEle !== true) {
                                     changeSessionTool.moveCheck(e.clientY - parameter.cy);
                                 }
                             }
@@ -324,7 +324,7 @@ angular.module('myBuilderApp')
                         */
                         if (parameter.type === 'ele-web') {
                             var ele = [{ ID: attrs.id, type: attrs.eleType }];
-                            if (parameter.isGroupEle != true) {
+                            if (parameter.isGroupEle !== true) {
                                 scope.$apply(function () {
                                     changeSessionTool.overCheck(ele);
                                 });
@@ -341,7 +341,7 @@ angular.module('myBuilderApp')
                          * 更新phone元素
                         */
                         if (parameter.type === 'ele-phone') {
-                            if (parameter.isGroupEle != true) {
+                            if (parameter.isGroupEle !== true) {
                                 var eleData = phoneBuilderTool.getEle(attrs.id, attrs.eleType);
                                 scope.$apply(function () {
                                     websiteData.updatePhoneEle(activePageService.getActivePage().value, eleData);
@@ -542,7 +542,7 @@ angular.module('myBuilderApp')
                     } else {
                         return true;
                     }
-                };
+                }
 
 
                 //定义好resize的方法
@@ -1028,7 +1028,7 @@ angular.module('myBuilderApp')
                          * 并且拖拽的是四个角落
                          * 要缩放元素
                         */
-                        if (eleType == 'group' && (parameter.target == 0 || parameter.target == 2 || parameter.target == 4 || parameter.target == 6)) {
+                        if (eleType == 'group' && (parameter.target === 0 || parameter.target === 2 || parameter.target === 4 || parameter.target === 6)) {
                             if (parameter.type == 'ele-web') {
                                 builderTool.zoomEle(parameter.eleData, resizeInfo.scale);
                             }
@@ -1104,18 +1104,18 @@ angular.module('myBuilderApp')
         var offset = {
             left: 0,
             top: 0
-        }
+        };
         var type = 'size';
 
         var handle = {
             add: function (target, offsetLeft, offsetTop, moduleType) {
-                if (moduleType != undefined) {
+                if (moduleType !== undefined) {
                     type = moduleType;
                 }
-                if (offsetLeft != undefined) {
+                if (offsetLeft !== undefined) {
                     offset.left = offsetLeft;
                 }
-                if (offsetTop != undefined) {
+                if (offsetTop !== undefined) {
                     offset.top = offsetTop;
                 }
                 handle.remove();
@@ -1131,7 +1131,7 @@ angular.module('myBuilderApp')
                 handle.update();
             },
             remove: function () {
-                if (indicatorHandle != null) {
+                if (indicatorHandle !== null) {
                     indicatorHandle.remove();
                     indicatorHandle = null;
                     eleTarget = null;
@@ -1141,7 +1141,7 @@ angular.module('myBuilderApp')
              * 更新指示器
              */
             update: function () {
-                if (indicatorHandle != null) {
+                if (indicatorHandle !== null) {
                     switch (type) {
                         case 'size': indicatorHandle.text('W:' + $(eleTarget).get(0).offsetWidth + ' | H:' + $(eleTarget).get(0).offsetHeight); break;
                         case 'position': indicatorHandle.text('X:' + parseInt($(eleTarget).css('left')) + ' | Y:' + parseInt($(eleTarget).css('top'))); break;
@@ -1166,7 +1166,7 @@ angular.module('myBuilderApp')
              */
             getDeg: function () {
                 var deg = eval('handle.get' + eleTarget.css('transform'));
-                if (deg == undefined) {
+                if (deg === undefined) {
                     deg = 0;
                 }
                 return deg;
@@ -1189,7 +1189,7 @@ angular.module('myBuilderApp')
                 }
                 return deg >= 360 ? 0 : deg;
             }
-        }
+        };
         return handle;
     })
     /**
@@ -1200,7 +1200,7 @@ angular.module('myBuilderApp')
         var parameter = {
             flag: false,
             eleList: []
-        }
+        };
         //自动对齐的最大值，小于这个值就磁贴上去
         var alignmentCritical = 6;
 
@@ -1224,7 +1224,7 @@ angular.module('myBuilderApp')
                         leftEnd: parseInt($(obj).css('left')) + parseInt(obj.offsetWidth),
                         topStart: parseInt($(obj).css('top')),
                         topEnd: parseInt($(obj).css('top')) + parseInt(obj.offsetHeight),
-                    }
+                    };
                     if ($(currentTarget).attr('id') == $(obj).attr('id')) {
 
                     } else {
@@ -1272,7 +1272,7 @@ angular.module('myBuilderApp')
                      * 2元素列表的leftEnd - 元素的leftStart
                      * 3元素列表的leftEnd - 元素的leftEnd
                      */
-                    if (index == 0) {
+                    if (index === 0) {
                         offsetX = [
                             obj.leftStart - objData.leftStart,
                             obj.leftStart - objData.leftEnd,
@@ -1326,6 +1326,6 @@ angular.module('myBuilderApp')
             clean:function(){
                 //清除标线等
             }
-        }
+        };
         return handle;
     });

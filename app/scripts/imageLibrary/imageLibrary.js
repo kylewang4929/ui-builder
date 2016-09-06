@@ -13,7 +13,7 @@ angular.module('kyle.imageLibrary', [])
 
                 scope.comfirm = function (){
                     imageLibraryService.comfirm(scope.selectedList);
-                }
+                };
 
                 scope.imageListLoadingFlag=false;
 
@@ -22,7 +22,7 @@ angular.module('kyle.imageLibrary', [])
                 scope.imageList = [];
 
                 scope.selectType = function(obj){
-                    if(scope.imageListLoadingFlag==true){
+                    if(scope.imageListLoadingFlag===true){
                         return;
                     }
                     scope.activeType=obj;
@@ -37,7 +37,7 @@ angular.module('kyle.imageLibrary', [])
                     },function(){
 
                     });
-                }
+                };
 
                 scope.activeType = scope.typeList[0];                
                 scope.selectType(scope.activeType);
@@ -55,7 +55,7 @@ angular.module('kyle.imageLibrary', [])
                 scope.selectedList=[];
                 
                 scope.selectCategory = function (obj) {
-                    if(scope.imageListLoadingFlag==true){
+                    if(scope.imageListLoadingFlag===true){
                         return;
                     }
                     scope.activeCategory = obj;
@@ -64,7 +64,7 @@ angular.module('kyle.imageLibrary', [])
                         scope.imageList=data;
                         scope.imageListLoadingFlag=false;                        
                     },function(){});
-                }
+                };
 
                 $(element).on("click", function (e) {
                     if (element[0] === e.target) {
@@ -93,7 +93,7 @@ angular.module('kyle.imageLibrary', [])
             },
             link: function (scope, element, attrs) {
 
-                if (scope.selectedList == undefined) {
+                if (scope.selectedList === undefined) {
                     scope.selectedList = [];
                 }
 
@@ -124,7 +124,7 @@ angular.module('kyle.imageLibrary', [])
                             var removeImage = scope.selectedList.splice(0,1);
                         }
                     }
-                }
+                };
 
             }
         };
@@ -160,7 +160,7 @@ angular.module('kyle.imageLibrary', [])
             },
             comfirm:function(data){
                 imageLibraryDom.removeClass("open");
-                if(this.callback!=null){
+                if(this.callback!==null){
                     this.callback(data);
                     this.callback=null;
                 }                

@@ -14,7 +14,7 @@ angular.module('myBuilderApp')
 
                 var videoDom = $(element).find('.video-background video');
                 var originalVideoData = {
-                }
+                };
 
                 var handle = $(element);
                 $(element).find('> .session-resize').on('mousedown', function (e) {
@@ -28,7 +28,7 @@ angular.module('myBuilderApp')
                     originalVideoData = {
                         width:videoDom.width(),
                         height:videoDom.height()
-                    }
+                    };
                 });
 
                 function listenMousemove(e) {
@@ -49,7 +49,7 @@ angular.module('myBuilderApp')
                         
                         $(element).css('min-height', offsetY + 'px');
                         
-                        if(videoDom.length != 0){
+                        if(videoDom.length !== 0){
                             builderTool.fixVideoPosition($(element),videoDom,originalVideoData);        
                         }
                     }
@@ -87,7 +87,7 @@ angular.module('myBuilderApp')
                     width: $(element).width(),
                     height: 'auto'
                 };
-                if(scope.previewHeight!=undefined){
+                if(scope.previewHeight!==undefined){
                     previewBox.height = parseFloat(scope.previewHeight);
                 }
                 $(element).height(previewBox.height);

@@ -50,7 +50,7 @@ angular.module('kyle.sessionSetting', [])
                 scope.videoState = {
                     state : 'pause',
                     handle : null,
-                }
+                };
 
                 scope.toggleVideo=function(){
                     if(scope.videoState.state == 'pause'){
@@ -60,7 +60,7 @@ angular.module('kyle.sessionSetting', [])
                         //暂停
                         scope.videoState.handle.pause();   
                     }
-                }
+                };
 
                 scope.$watch('boxInitData.option.type',function(){
                     if(scope.boxInitData.option.type == 'video'){
@@ -71,24 +71,24 @@ angular.module('kyle.sessionSetting', [])
                             scope.$apply(function(){
                                 scope.videoState.state='pause';
                             });
-                        }
+                        };
                         scope.videoState.handle.onpause = function(){
                             scope.$apply(function(){
                                 scope.videoState.state='pause';
                             });
-                        }
+                        };
                         scope.videoState.handle.onplaying = function(){
                             scope.$apply(function(){
                                 scope.videoState.state='play';
                             });
-                        }
+                        };
                         scope.videoState.handle.pause();
                         scope.videoState.state = 'pause';
                     }
                 });
 
                 scope.selectBackground = function(data){
-                    if(scope.boxInitData.callback!=undefined){
+                    if(scope.boxInitData.callback!==undefined){
                         scope.boxInitData.callback(data);
                     }
                     scope.videoState.state = 'pause';
@@ -97,7 +97,7 @@ angular.module('kyle.sessionSetting', [])
                         case 'video':scope.boxInitData.option.type = 'video';scope.boxInitData.option.image = data.image;scope.boxInitData.option.url = data.url;break;
                     }
                     websiteData.updateSessionBackground(data,scope.boxInitData.ID);
-                }
+                };
 
                 scope.previewList=[
                     {type:'image',image:'images/website/headBg.jpg'},
@@ -191,7 +191,7 @@ angular.module('kyle.sessionSetting', [])
             },
             stopVideo:function(sessionID){
                 var video = $('#'+sessionID+'.ele-session-box .video-background video');
-                if(video.length != 0){
+                if(video.length !== 0){
                     video.get(0).pause();
                 }
             },
