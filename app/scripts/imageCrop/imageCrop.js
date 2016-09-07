@@ -3,22 +3,33 @@ angular.module('kyle.imageCrop',['dataService'])
     .directive('imageCrop', function (imageCropService, $timeout,builderTool,websiteData,activePageService,elePosition) {
         return {
             restrict: 'A',
-            template: '<div class="menu z-depth-2">' +
-            '<div class="slide-box" ng-model="imageSlide.value" text-editor-slider slide-type="size" max-value="400"><div class="slide-value">{{textData.value.size}}</div><div class="slide-line z-depth-1"><div class="slide-point z-depth-1"></div></div></div>' +
-            '<div class="confirm-button" ng-click="crop()"><lx-button lx-color="blue">裁 剪</lx-button></div>' +
+            template: 
+            '<div class="menu z-depth-2" onmousedown="event.stopPropagation()">' +
+                '<div class="slide-box" ng-model="imageSlide.value" text-editor-slider slide-type="size" max-value="400">'+
+                    '<div class="slide-value">'+
+                        '{{textData.value.size}}'+
+                    '</div>'+
+                    '<div class="slide-line z-depth-1">'+
+                        '<div class="slide-point z-depth-1">'+
+                        '</div>'+
+                    '</div>'+
+                '</div>' +
+                '<div class="confirm-button" ng-click="crop()">'+
+                    '<lx-button lx-color="blue">裁 剪</lx-button>'+
+                '</div>' +
             '</div>' +
-            '<div class="cover">' +
+            '<div class="cover" onmousedown="event.stopPropagation()">' +
             '</div>' +
-            '<div class="image-cover"></div>' +
-            '<div class="crop-box" onmousedown="event.preventDefault()">' +
-            '<div class="handle left" direction="left"></div>' +
-            '<div class="handle right" direction="right"></div>' +
-            '<div class="handle top" direction="top"></div>' +
-            '<div class="handle bottom" direction="bottom"></div>' +
-            '<div class="handle left-top" direction="left-top"><div class="vertical"></div><div class="horizontal"></div></div>' +
-            '<div class="handle right-top" direction="right-top"><div class="vertical"></div><div class="horizontal"></div></div>' +
-            '<div class="handle left-bottom" direction="left-bottom"><div class="vertical"></div><div class="horizontal"></div></div>' +
-            '<div class="handle right-bottom" direction="right-bottom"><div class="vertical"></div><div class="horizontal"></div></div>' +
+            '<div class="image-cover" onmousedown="event.stopPropagation()"></div>' +
+            '<div class="crop-box" onmousedown="event.stopPropagation()">' +
+                '<div class="handle left" direction="left"></div>' +
+                '<div class="handle right" direction="right"></div>' +
+                '<div class="handle top" direction="top"></div>' +
+                '<div class="handle bottom" direction="bottom"></div>' +
+                '<div class="handle left-top" direction="left-top"><div class="vertical"></div><div class="horizontal"></div></div>' +
+                '<div class="handle right-top" direction="right-top"><div class="vertical"></div><div class="horizontal"></div></div>' +
+                '<div class="handle left-bottom" direction="left-bottom"><div class="vertical"></div><div class="horizontal"></div></div>' +
+                '<div class="handle right-bottom" direction="right-bottom"><div class="vertical"></div><div class="horizontal"></div></div>' +
             '</div>',
             link: function (scope, element, attrs) {
 
