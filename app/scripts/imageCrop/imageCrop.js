@@ -1,6 +1,6 @@
 "use strict";
 angular.module('kyle.imageCrop',['dataService'])
-    .directive('imageCrop', function (imageCropService, $timeout,builderTool,websiteData,activePageService) {
+    .directive('imageCrop', function (imageCropService, $timeout,builderTool,websiteData,activePageService,elePosition) {
         return {
             restrict: 'A',
             template: '<div class="menu z-depth-2">' +
@@ -29,33 +29,6 @@ angular.module('kyle.imageCrop',['dataService'])
                 var coverDom = $(element).find('.cover');
                 var imageCoverDom = $(element).find('.image-cover');
                 var coverBox = $(element).find('.crop-box');
-
-                /**
-                 * 裁剪元素
-                 */
-                scope.crop = function () {
-                    /**
-                     * 需要记录的信息
-                     * 第一个：图片的尺寸 就是ele的style中的宽和高
-                     * 第二个：clip的信息 这个信息标记了图片的裁剪信息
-                     */
-                    var updateData = {
-                        borderSize: { width: coverBox.get(0).offsetWidth, height: coverBox.get(0).offsetHeight },
-                        eleSize: { width: imageCoverDom.get(0).offsetWidth, height: imageCoverDom.get(0).offsetHeight },
-                        clip: imageCoverDom.css('clip'),
-                        position: { left: parseInt($(element).get(0).offsetLeft), top: parseInt($(element).get(0).offsetTop) }
-                    };
-
-                    var activeEle = imageCropService.updateCrop(updateData);
-
-                    var activePage = activePageService.getActivePage().value;
-
-                    websiteData.conversionScaleForPhone(activeEle);
-
-                    websiteData.updateEle(activePage, activeEle);
-
-                    builderTool.updateEle(activeEle);                    
-                };
 
                 scope.$watch("imageSlide.value", function () {
                     //更新尺寸
@@ -123,11 +96,19 @@ angular.module('kyle.imageCrop',['dataService'])
                 if (activeEle.style.top != 'auto' && activeEle.style.top !== undefined) {
                     eleOffsetTop = parseInt(activeEle.style.top);
                 }
+
+                /**
+                 * 这里元素的坐标没有那么简单，值应该是相对于session的
+                 */
+                var targetEleDom = $('#'+activeEle.ID);
+                var sessionDom = targetEleDom.parents('.ele-session').get(0);
+                var componentLeft = elePosition.getLeft(targetEleDom.get(0),sessionDom);
+                var componentTop = elePosition.getTop(targetEleDom.get(0),sessionDom);
                 $(element).css({
                     'width': imageWidth,
                     'height': imageHeight,
-                    'left': parseInt(activeEle.position.left) + eleOffsetLeft,
-                    'top': parseInt(activeEle.position.top) + eleOffsetTop
+                    'left': parseInt(componentLeft) + eleOffsetLeft,
+                    'top': parseInt(componentTop) + eleOffsetTop
                 });
 
                 coverDom.css({
@@ -685,6 +666,34 @@ angular.module('kyle.imageCrop',['dataService'])
                     }
                 }
 
+
+                /**
+                 * 裁剪元素
+                 */
+                scope.crop = function () {
+                    /**
+                     * 需要记录的信息
+                     * 第一个：图片的尺寸 就是ele的style中的宽和高
+                     * 第二个：clip的信息 这个信息标记了图片的裁剪信息
+                     */
+                    var updateData = {
+                        borderSize: { width: coverBox.get(0).offsetWidth, height: coverBox.get(0).offsetHeight },
+                        eleSize: { width: imageCoverDom.get(0).offsetWidth, height: imageCoverDom.get(0).offsetHeight },
+                        clip: imageCoverDom.css('clip'),
+                        position: { left: parseInt(targetEleDom.get(0).offsetLeft), top: parseInt(targetEleDom.get(0).offsetTop) }
+                    };
+
+                    var activeEle = imageCropService.updateCrop(updateData);
+
+                    var activePage = activePageService.getActivePage().value;
+
+                    websiteData.conversionScaleForPhone(activeEle);
+
+                    websiteData.updateEle(activePage, activeEle);
+
+                    builderTool.updateEle(activeEle);                    
+                };
+
                 $("body").on("mousemove", mousemove);
                 $("body").on("mouseup", mouseup);
 
@@ -722,19 +731,18 @@ angular.module('kyle.imageCrop',['dataService'])
             openCrop: function (ele) {
                 activeEle = ele;
                 //先隐藏原元素
-                activeEleDom = $("#" + activeEle.ID).hide();
+                activeEleDom = $("#" + activeEle.ID).css({'opacity':0,'pointer-events':'none'});
                 eleMenuServices.hideDom();
                 //插入新的元素 用来裁剪
                 menuDom = '<div image-crop class="crop-image-box"></div>';
                 menuDom = $compile(menuDom)($rootScope);
 
-                //找到当前元素的上一个session
                 activeEleDom.parents(".ele-session").eq(0).append(menuDom);
             },
             removePlugin: function () {
                 menuDom.remove();
                 menuDom = {};
-                activeEleDom.show();
+                activeEleDom.css({'opacity':1,'pointer-events':'auto'});
                 activeEleDom = {};
                 activeEle = {};
                 //注销相关方法

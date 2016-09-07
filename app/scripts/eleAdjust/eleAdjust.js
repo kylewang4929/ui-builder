@@ -1155,8 +1155,8 @@ angular.module('myBuilderApp')
                     };
                     var eleData=rotateEleCalculate.getSizeAndPosition(handleData.left,handleData.top,handleData.width,handleData.height,rotateEleCalculate.getRotate(eleTarget));
                     //计算绝对位置
-                    var x =eleData.left + (elePosition.getLeft(eleTarget.get(0),'main-editor-scroll') - eleData.originalLeft);
-                    var y =eleData.top + (elePosition.getTop(eleTarget.get(0),'main-editor-scroll') - eleData.originalTop);
+                    var x =eleData.left + (elePosition.getLeft(eleTarget.get(0),$('#main-editor-scroll').get(0)) - eleData.originalLeft);
+                    var y =eleData.top + (elePosition.getTop(eleTarget.get(0),$('#main-editor-scroll').get(0)) - eleData.originalTop);
                     indicatorHandle.css({ 'left': x + offset.left, 'top': y + offset.top });
                 }
             },

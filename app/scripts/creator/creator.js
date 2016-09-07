@@ -122,6 +122,7 @@ angular.module('creator', [])
                 };
                 scope.editEleImage= function(id){
                     //调用打开编辑图片
+                    scope.activeEle = websiteData.getEle(scope.websiteCode.ID, id);
                     activeEleService.setEle(jQuery.extend(true, {}, scope.activeEle));
                     imageCropService.openCrop(angular.copy(scope.activeEle));
                 };

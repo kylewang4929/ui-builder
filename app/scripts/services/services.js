@@ -138,27 +138,27 @@ angular.module('myBuilderApp')
      */
     .factory('elePosition', function () {
         var handle = {
-            getLeft: function (e,targetId) {
+            getLeft: function (e,targetDom) {
                 //如果指定了顶层的target 那么采用它
-                if(targetId !== undefined && $(e).attr('id') == targetId){
+                if(targetDom !== undefined && $(e).get(0) == targetDom){
                     return 0;
                 }
                 var offset = e.offsetLeft;
 
                 if (e.offsetParent !== null){
-                    offset += this.getLeft(e.offsetParent,targetId);
+                    offset += this.getLeft(e.offsetParent,targetDom);
                 }
                 return offset;
             },
-            getTop: function (e,targetId) {
+            getTop: function (e,targetDom) {
                 //如果指定了顶层的target 那么采用它
-                if(targetId !== undefined && $(e).attr('id') == targetId){
+                if(targetDom !== undefined && $(e).get(0) == targetDom){
                     return 0;
                 }
                 var offset = e.offsetTop;
 
                 if (e.offsetParent !== null){
-                    offset += this.getTop(e.offsetParent,targetId);
+                    offset += this.getTop(e.offsetParent,targetDom);
                 }
                 return offset;
             }

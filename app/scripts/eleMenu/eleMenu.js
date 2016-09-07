@@ -45,7 +45,8 @@ angular.module('eleMenu', [])
                     eleSettingService.showDom(left, top, type, ID,activeEle.value);
                 };
                 scope.openCrop = function () {
-                    imageCropService.openCrop(angular.copy(activeEleService.getEle().value));
+                    var eleID = activeEleService.getEle().value.ID;
+                    imageCropService.openCrop(angular.copy(websiteData.getEle(activePageService.getActivePage().value,eleID)));
                 };
 
             }

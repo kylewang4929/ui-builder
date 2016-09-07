@@ -898,8 +898,6 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                                         historyLog.pushHistoryLog(jQuery.extend(true, {}, data[i].sessionList[j].eleList[k]), type, 'updateEle');
                                         eleData = this.retainPhoneStyle(data[i].sessionList[j].eleList[k], eleData);
                                         eleData = this.saveOtherInfo(data[i].sessionList[j].eleList[k], eleData,eleData.type);
-                                        eleData.eleTemplateType = data[i].sessionList[j].eleList[k].eleTemplateType;
-
                                         data[i].sessionList[j].eleList[k] = eleData;
                                     }
                                     return;
@@ -1030,7 +1028,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                     angular.forEach(oldObj.eleList,function(oldObj,oldIndex){
                         angular.forEach(newObj.eleList,function(newObj,newIndex){
                             if(oldObj.ID==newObj.ID){
-                                handle.saveOtherInfo(oldObj,newObj);
+                                handle.saveOtherInfo(oldObj,newObj,oldObj.type);
                             }
                         });
                     });
@@ -1048,6 +1046,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                     case "menu":outputData=menu(oldData, newData);break;
                     case "group":outputData=group(oldData, newData);break;
                 }
+                outputData.eleTemplateType = oldData.eleTemplateType;
                 return outputData;
             },
             savePhoneStyle: function (oldData, newData) {
