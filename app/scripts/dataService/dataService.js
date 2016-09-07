@@ -891,7 +891,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                         for (var j = 0; j < data[i].sessionList.length; j++) {
                             for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
 
-                                var dataHandle = handle.depthSearchEle(data[i].sessionList[j].eleList[k],eleData);
+                                var dataHandle = handle.depthSearchEleGroup(data[i].sessionList[j].eleList[k],eleData);
                                 if(dataHandle !== undefined && dataHandle !== null && _.isEqual(eleData, dataHandle) !== true){
                                     historyLog.pushHistoryLog(jQuery.extend(true, {}, dataHandle), type, 'updateEle');
                                     eleData = this.retainPhoneStyle(data[i].sessionList[j].eleList[k], eleData);
@@ -906,13 +906,18 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                     }
                 }
             },
-            depthSearchEle:function(sourceEle,eleData){
+            /**
+             * 传入一个原始元素和一个目标元素
+             * 返回一个目标元素在原始元素上的拷贝
+             * 原始元素可以是一个组
+             */
+            depthSearchEleGroup:function(sourceEle,eleData){
                 if (sourceEle.ID === eleData.ID) {
                     return sourceEle;
                 }else if(sourceEle.type == 'group'){
                     var data = null;
                     for(var i=0;i<sourceEle.eleList.length;i++){
-                        data = handle.depthSearchEle(sourceEle.eleList[i],eleData);
+                        data = handle.depthSearchEleGroup(sourceEle.eleList[i],eleData);
                         if(data !==undefined && data !==null){
                             return data;
                         }
@@ -928,7 +933,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                         for (var j = 0; j < data[i].sessionList.length; j++) {
                             for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
 
-                                var dataHandle = handle.depthSearchEle(data[i].sessionList[j].eleList[k],eleData);
+                                var dataHandle = handle.depthSearchEleGroup(data[i].sessionList[j].eleList[k],eleData);
                                 if(dataHandle !== undefined && dataHandle !== null && _.isEqual(eleData, dataHandle) !== true){
                                     historyLog.pushHistoryLog(jQuery.extend(true, {}, dataHandle), type, 'updateEle');
                                     eleData = this.saveOtherInfo(dataHandle, eleData,eleData.type);
