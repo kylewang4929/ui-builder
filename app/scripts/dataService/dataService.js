@@ -891,15 +891,49 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                         for (var j = 0; j < data[i].sessionList.length; j++) {
                             for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
 
-                                if (data[i].sessionList[j].eleList[k].ID === eleData.ID) {
-                                    //找到元素 判断元素是否相同
-                                    if (_.isEqual(eleData, data[i].sessionList[j].eleList[k]) !== true) {
-                                        //加入历史记录 判断是否是从历史记录控制器发过来的更新命令
-                                        historyLog.pushHistoryLog(jQuery.extend(true, {}, data[i].sessionList[j].eleList[k]), type, 'updateEle');
-                                        eleData = this.retainPhoneStyle(data[i].sessionList[j].eleList[k], eleData);
-                                        eleData = this.saveOtherInfo(data[i].sessionList[j].eleList[k], eleData,eleData.type);
-                                        data[i].sessionList[j].eleList[k] = eleData;
-                                    }
+                                var dataHandle = handle.depthSearchEle(data[i].sessionList[j].eleList[k],eleData);
+                                if(dataHandle !== undefined && dataHandle !== null && _.isEqual(eleData, dataHandle) !== true){
+                                    historyLog.pushHistoryLog(jQuery.extend(true, {}, dataHandle), type, 'updateEle');
+                                    eleData = this.retainPhoneStyle(data[i].sessionList[j].eleList[k], eleData);
+                                    eleData = this.saveOtherInfo(dataHandle, eleData,eleData.type);
+                                    //交换数据
+                                    handle.coverData(dataHandle,eleData);
+                                    return;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            },
+            depthSearchEle:function(sourceEle,eleData){
+                if (sourceEle.ID === eleData.ID) {
+                    return sourceEle;
+                }else if(sourceEle.type == 'group'){
+                    var data = null;
+                    for(var i=0;i<sourceEle.eleList.length;i++){
+                        data = handle.depthSearchEle(sourceEle.eleList[i],eleData);
+                        if(data !==undefined && data !==null){
+                            return data;
+                        }
+                    }
+                }
+            },
+            coverUpdateEle: function (pageID, eleData, type) {
+                if (type === undefined) {
+                    type = 'default';
+                }
+                for (var i = 0; i < data.length; i++) {
+                    if (pageID === data[i].ID) {
+                        for (var j = 0; j < data[i].sessionList.length; j++) {
+                            for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
+
+                                var dataHandle = handle.depthSearchEle(data[i].sessionList[j].eleList[k],eleData);
+                                if(dataHandle !== undefined && dataHandle !== null && _.isEqual(eleData, dataHandle) !== true){
+                                    historyLog.pushHistoryLog(jQuery.extend(true, {}, dataHandle), type, 'updateEle');
+                                    eleData = this.saveOtherInfo(dataHandle, eleData,eleData.type);
+                                    //交换数据
+                                    handle.coverData(dataHandle,eleData);
                                     return;
                                 }
 
@@ -954,7 +988,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
             },
             conversionScaleForPhone:function(data){
 
-                function image(){
+                function image(data){
                     /**
                      * 需要转换的元素有
                      * border的宽高
@@ -995,14 +1029,14 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                     });
                     
                     data.phoneStyle.style.clip='rect(' + clip[0] + 'px ' + clip[1] + 'px ' + clip[2] + 'px ' + clip[3] + 'px ' + ')';
-                    
+                    return data;
                 }
 
+                var outputData = null;
                 switch(data.type){
-                    case "image":image();break;
+                    case "image":outputData = image(data);break;
                 }
-
-                return data;
+                return outputData;
             },
             saveOtherInfo:function(oldData, newData,type){
                 /*

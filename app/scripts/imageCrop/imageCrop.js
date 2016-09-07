@@ -687,16 +687,14 @@ angular.module('kyle.imageCrop',['dataService'])
 
                     var activePage = activePageService.getActivePage().value;
 
-                    websiteData.conversionScaleForPhone(activeEle);
+                    activeEle = websiteData.conversionScaleForPhone(activeEle);
+                    websiteData.coverUpdateEle(activePage, activeEle);
 
-                    websiteData.updateEle(activePage, activeEle);
-
-                    builderTool.updateEle(activeEle);                    
+                    builderTool.updateEle(activeEle);
                 };
 
                 $("body").on("mousemove", mousemove);
                 $("body").on("mouseup", mouseup);
-
 
                 var bodyMouseDown = function (e) {
                     if ($(e.target).parents('[image-crop]').get(0) !== undefined || e.target == element) {
