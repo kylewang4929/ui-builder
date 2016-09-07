@@ -1179,7 +1179,7 @@ angular.module('myBuilderApp')
             /**
              * 返回角度
              */
-            getDegFormatrix(a, b, c, d, e, f) {
+            getDegFormatrix : function(a, b, c, d, e, f) {
                 var aa = Math.round(180 * Math.asin(a) / Math.PI);
                 var bb = Math.round(180 * Math.acos(b) / Math.PI);
                 var cc = Math.round(180 * Math.asin(c) / Math.PI);
