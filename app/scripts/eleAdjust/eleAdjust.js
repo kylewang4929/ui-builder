@@ -231,7 +231,7 @@ angular.module('myBuilderApp')
                         //自动对齐初始化
                         $rootScope.$emit("eleDragStart");                        
                         autoAlignment.init($(element).parents('.ele-session-box'), $(element));
-                        if(!parameter.contenteditable === true){
+                        if(Boolean(parameter.contenteditable) === false){
                             //添加指示器
                             eleIndicator.add($(element), 0, -38, 'position');
                         }

@@ -178,7 +178,7 @@ angular.module('myBuilderApp')
                         '            </div>'].join("");
                 } else {
                     template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" full-text drag-ele="ele-web" rotate="ele-web" resize="ele-web" ng-dblclick=editEleText(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
-                        '                <div class="rotate text-rotate" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
+                        '                <div class="rotate no-top-resize" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line text-line" onmousedown="event.preventDefault()"></div>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize only-left" onmousedown="event.preventDefault()"></div>',
@@ -538,7 +538,7 @@ angular.module('myBuilderApp')
                         '            </div>'].join("");
                 } else {
                     template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" ng-class="{true:\'active\'}[activeEle.ID==\'' + data.ID + '\']" drag-ele="ele-phone" rotate="ele-phone" resize="ele-phone" ng-dblclick=editEle(\'' + data.ID + '\') ng-mousedown=selectEle($event,\'' + data.ID + '\')>',
-                        '                <div class="rotate text-rotate" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
+                        '                <div class="rotate no-top-resize" onmousedown="event.preventDefault();event.stopPropagation();"><i class="mdi mdi-refresh"></i></div>',
                         '                <div class="line text-line" onmousedown="event.preventDefault()"></div>',
                         '                <div class="center" onmousedown="event.preventDefault()"></div>',
                         '                <div class="resize only-left" onmousedown="event.preventDefault()"></div>',

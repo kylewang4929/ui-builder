@@ -109,7 +109,7 @@ angular.module('eleMenu', [])
                     //文字在编辑模式下是不应该显示菜单的
                     if(activeEle.type == 'text'){
                         var eleState = $('#'+activeEle.ID+'.position-box').find(".ele .ql-editor").attr("contenteditable");
-                        if(!eleState===true){
+                        if(Boolean(eleState)===false){
                             handle.showDom(activeEle.ID, activeEle.type);                            
                         }
                     }else{
