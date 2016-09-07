@@ -1,6 +1,9 @@
 "use strict";
 angular.module('creator', [])
-    .directive('creator', function (creatorServices, builderTool, websiteData, historyLog, textEditorService, colorPickService, shearPlate, multipleChoiceService, activeEleService, activeSessionService, rightClickMenuService, eleSettingService,sessionSettingService,shortcuts,activePageService,eleMenuServices,imageLibraryService) {
+    .directive('creator', function (creatorServices, builderTool, websiteData, historyLog,
+    textEditorService, colorPickService, shearPlate, multipleChoiceService, activeEleService,
+    activeSessionService, rightClickMenuService, eleSettingService,sessionSettingService,shortcuts,
+    activePageService,eleMenuServices,imageLibraryService,imageCropService) {
         return {
             restrict: 'A',
             scope: {
@@ -118,7 +121,9 @@ angular.module('creator', [])
                     editEleDom.addClass("editing");
                 };
                 scope.editEleImage= function(id){
-
+                    //调用打开编辑图片
+                    activeEleService.setEle(jQuery.extend(true, {}, scope.activeEle));
+                    imageCropService.openCrop(angular.copy(scope.activeEle));
                 };
                 /**
                  * 编辑图片的方法
