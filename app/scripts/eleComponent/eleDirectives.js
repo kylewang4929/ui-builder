@@ -73,6 +73,18 @@ angular.module('myBuilderApp')
 
                 return function (scope, element, attrs) {
                     var data = element.context.eleConfig;
+
+                    /**
+                     * 这个地方需要加入resize监听，
+                     * 如果改变了大小需要重新计算
+                     */
+                    $(document).on('resize',function(){
+                        if(data.background.type == 'video'){
+                            var videoDom = $(element).find('.video-background video');
+                            builderTool.fixVideoPosition($(element).find('.ele-session-box'),videoDom);                            
+                        }
+                    });
+
                 };
             }
         };
@@ -150,6 +162,17 @@ angular.module('myBuilderApp')
 
                 return function (scope, element, attrs) {
                     var data = element.context.eleConfig;
+
+                    /**
+                     * 这个地方需要加入resize监听，
+                     * 如果改变了大小需要重新计算
+                     */
+                    $(document).on('resize',function(){
+                        if(data.background.type == 'video'){
+                            var videoDom = $(element).find('.video-background video');
+                            builderTool.fixVideoPosition($(element).find('.ele-session-box'),videoDom);                            
+                        }
+                    });
                 };
             }
         };
@@ -439,6 +462,18 @@ angular.module('myBuilderApp')
 
                 return function (scope, element, attrs) {
 
+                    var data = element.context.eleConfig;
+                    /**
+                     * 这个地方需要加入resize监听，
+                     * 如果改变了大小需要重新计算
+                     */
+                    $(document).on('resize',function(){
+                        if(data.background.type == 'video'){
+                            var videoDom = $(element).find('.video-background video');
+                            builderTool.fixVideoPosition($(element).find('.ele-session-box'),videoDom);                            
+                        }
+                    });
+
                 };
             }
         };
@@ -512,6 +547,17 @@ angular.module('myBuilderApp')
 
                 return function (scope, element, attrs) {
 
+                    var data = element.context.eleConfig;
+                    /**
+                     * 这个地方需要加入resize监听，
+                     * 如果改变了大小需要重新计算
+                     */
+                    $(document).on('resize',function(){
+                        if(data.background.type == 'video'){
+                            var videoDom = $(element).find('.video-background video');
+                            builderTool.fixVideoPosition($(element).find('.ele-session-box'),videoDom);                            
+                        }
+                    });
                 };
             }
         };

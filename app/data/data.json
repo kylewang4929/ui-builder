@@ -196,18 +196,18 @@
                 "ID": "ele14730551649031",
                 "type": "image",
                 "position": {
-                    "left": "93px",
-                    "top": "243px"
+                    "left": "92px",
+                    "top": "252px"
                 },
                 "border": {
-                    "width": "160px",
-                    "min-height": "160px"
+                    "width": "134px",
+                    "min-height": "134px"
                 },
                 "style": {
                     "margin-top": "0px",
-                    "width": "160px",
-                    "height": "160px",
-                    "clip": "rect(0px 160px 160px 0px)",
+                    "width": "134px",
+                    "height": "134px",
+                    "clip": "rect(0px 134px 134px 0px)",
                     "top": "0px",
                     "left": "0px"
                 },
@@ -233,7 +233,8 @@
                     "width": "200px",
                     "height": "200px"
                 },
-                "showState": false
+                "showState": false,
+                "state": "select"
             }
         ],
         "eleTemplateType": "head-default",
@@ -337,7 +338,7 @@
                                 {
                                     "ID": "ele14721806839111",
                                     "type": "text",
-                                    "textValue": "<div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><b><span style=\"font-size: 35px;\">Super Duper &amp; such</span></b></span></span></div>",
+                                    "textValue": "<div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><b><span style=\"font-size: 35px;\">Super &amp; such</span></b></span></span></div>",
                                     "position": {
                                         "left": "5px",
                                         "top": "0px"

@@ -764,7 +764,6 @@ angular.module('kyle.imageCrop',['dataService'])
             resetImage: function (dom, ele,originalWidth, originalHeight, originalImageWidth, originalImageHeight, originalClip) {
                 // var activePage = activePageService.getActivePage().value;
                 // var ele = websiteData.getEle(activePage, $(dom).attr("id"));
-                console.log(arguments);
                 var position = $(dom);
                 var border = position.find("> .ele-box");
                 var style = border.find("> .ele");

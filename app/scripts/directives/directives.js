@@ -50,7 +50,7 @@ angular.module('myBuilderApp')
                         $(element).css('min-height', offsetY + 'px');
                         
                         if(videoDom.length !== 0){
-                            builderTool.fixVideoPosition($(element),videoDom,originalVideoData);        
+                            builderTool.fixVideoPosition($(element),videoDom,originalVideoData);
                         }
                     }
                 }
