@@ -287,6 +287,11 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                     this.updateEle(eleData.eleList[i]);
                 }
             },
+            /**
+             * 根据session的高度
+             * 调整video的位置和高度
+             * 达到全屏的效果
+             */
             fixVideoPosition:function(sessionDom,videoDom,originalVideoData){
                 if(originalVideoData === undefined){
                     originalVideoData = {
