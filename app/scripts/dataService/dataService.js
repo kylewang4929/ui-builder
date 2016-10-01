@@ -817,18 +817,18 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].ID == pageID) {
                         for (var j = 0; j < data[i].sessionList.length; j++) {
-                            
+                            //找到session
                             if(data[i].sessionList[j].ID == id){
                                 return data[i].sessionList[j];
                             }
-                            
+                            //继续查找元素
                             for (var k = 0; k < data[i].sessionList[j].eleList.length; k++) {
                                 if (data[i].sessionList[j].eleList[k].ID == id) {
                                     return data[i].sessionList[j].eleList[k];
                                 }
                                 if (data[i].sessionList[j].eleList[k].type == 'group') {
                                     var groupEleData = this.getEleForGroup(data[i].sessionList[j].eleList[k], id);
-                                    if (groupEleData !== undefined || groupEleData !== null) {
+                                    if (!!groupEleData) {
                                         return groupEleData;
                                     }
                                 }

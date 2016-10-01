@@ -160,7 +160,6 @@ angular.module('eleMenu', [])
             },
             showDom: function (eleID, type) {
                 this.setType(type);
-
                 //计算相对位置
                 activeEle.ID = eleID;
                 activeEle.type = type;

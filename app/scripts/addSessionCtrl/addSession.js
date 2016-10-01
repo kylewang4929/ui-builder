@@ -854,6 +854,7 @@ angular.module('addSession', [])
                     }
                 ];
                 scope.addSession = function (obj) {
+                    //这里需要重置session里的ID
                     var dom = websiteData.addSession(angular.copy(obj.sessionData), scope.targetSession, { isShow: false });
                     dom.addClass('base-session-show-transition');
                     //显示session
