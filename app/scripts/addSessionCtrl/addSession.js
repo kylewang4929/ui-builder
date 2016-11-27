@@ -112,7 +112,7 @@ angular.module('addSession', [])
                             "showState": false
                         }
                     ],
-                    "eleTemplateType": "head-default",
+                    "eleTemplateType": "session-default",
                     "$$hashKey": "object:137"
                 };
                 var session7 = {
