@@ -205,6 +205,8 @@ angular.module('creator', [])
                             textEditorService.hideDom();
                             colorPickService.hideBoxDom();
                             colorPickService.hideDom();
+                            //重置元素的状态
+                            scope.activeEle.state = '';
                             $("#" + scope.activeEle.ID + ".position-box").removeClass("editing");
                             //取消选择
                             if (window.getSelection()) {
