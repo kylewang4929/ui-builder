@@ -3,12 +3,10 @@ angular.module('kyle.imageCrop',['dataService'])
     .directive('imageCrop', function (imageCropService, $timeout,builderTool,websiteData,activePageService,elePosition) {
         return {
             restrict: 'A',
+            scope: {},
             template: 
             '<div class="menu z-depth-2" onmousedown="event.stopPropagation()">' +
-                '<div class="slide-box" ng-model="imageSlide.value" text-editor-slider slide-type="size" max-value="400">'+
-                    '<div class="slide-value">'+
-                        '{{textData.value.size}}'+
-                    '</div>'+
+                '<div class="slide-box" ng-model="imageSlide.value" text-editor-slider max-value="400">'+
                     '<div class="slide-line z-depth-1">'+
                         '<div class="slide-point z-depth-1">'+
                         '</div>'+
@@ -764,6 +762,7 @@ angular.module('kyle.imageCrop',['dataService'])
             resetImage: function (dom, ele,originalWidth, originalHeight, originalImageWidth, originalImageHeight, originalClip) {
                 // var activePage = activePageService.getActivePage().value;
                 // var ele = websiteData.getEle(activePage, $(dom).attr("id"));
+                
                 var position = $(dom);
                 var border = position.find("> .ele-box");
                 var style = border.find("> .ele");

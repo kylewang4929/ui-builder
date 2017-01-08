@@ -1,6 +1,6 @@
 "use strict";
 angular.module('addSession', [])
-    .directive('addSessionBox', function (websiteData, elePosition, levelScroll) {
+    .directive('addSessionBox', function (websiteData, elePosition, levelScroll, builderTool) {
         return {
             restrict: 'A',
             scope: {
@@ -23,8 +23,8 @@ angular.module('addSession', [])
                 /**
                  * 模拟数据暂时先放着
                  */
-                var session6 = {
-                    "ID": "session",
+                var session1 = {
+                    "ID": builderTool.createID(),
                     "type": "session",
                     "name": "导航",
                     "background": {
@@ -47,7 +47,7 @@ angular.module('addSession', [])
                     },
                     "eleList": [
                         {
-                            "ID": "ele14721747972601",
+                            "ID": builderTool.createID(),
                             "type": "text",
                             "textValue": "<div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><span style=\"font-size: 60px;\">Building bulletproof&nbsp;</span></span></span></div><div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><span style=\"font-size: 60px;\">fucghea apps</span></span></span></div>",
                             "position": {
@@ -79,7 +79,7 @@ angular.module('addSession', [])
                             "$$hashKey": "object:315"
                         },
                         {
-                            "ID": "ele14721748671441",
+                            "ID": builderTool.createID(),
                             "type": "text",
                             "textValue": "<div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 14px;\">Kickstarter umami Intelligentsia kogi. Try-hard flannel literally, chambray blog crucifix put a bird on it four dollar toast cardigan scenester aesthetic</span></span></div>",
                             "position": {
@@ -115,8 +115,8 @@ angular.module('addSession', [])
                     "eleTemplateType": "session-default",
                     "$$hashKey": "object:137"
                 };
-                var session7 = {
-                    "ID": "session1",
+                var session2 = {
+                    "ID": builderTool.createID(),
                     "type": "session",
                     "name": "Banner",
                     "background": {
@@ -138,7 +138,7 @@ angular.module('addSession', [])
                     },
                     "eleList": [
                         {
-                            "ID": "ele14721816087481",
+                            "ID": builderTool.createID(),
                             "type": "image",
                             "position": {
                                 "left": "522px",
@@ -185,7 +185,7 @@ angular.module('addSession', [])
                             "state": "select"
                         },
                         {
-                            "ID": "ele14721830250062",
+                            "ID": builderTool.createID(),
                             "type": "group",
                             "position": {
                                 "left": "-29px",
@@ -200,7 +200,7 @@ angular.module('addSession', [])
                             },
                             "eleList": [
                                 {
-                                    "ID": "ele14721806839111",
+                                    "ID": builderTool.createID(),
                                     "type": "text",
                                     "textValue": "<div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-family: Helvetica;\"><b><span style=\"font-size: 35px;\">Super Duper &amp; such</span></b></span></span></div>",
                                     "position": {
@@ -229,7 +229,7 @@ angular.module('addSession', [])
                                     }
                                 },
                                 {
-                                    "ID": "ele14721809259131",
+                                    "ID": builderTool.createID(),
                                     "type": "image",
                                     "position": {
                                         "left": "0px",
@@ -275,7 +275,7 @@ angular.module('addSession', [])
                                     "state": "select"
                                 },
                                 {
-                                    "ID": "ele14721830023911",
+                                    "ID": builderTool.createID(),
                                     "type": "text",
                                     "textValue": "<div><span style=\"color: rgb(255, 255, 255);\"><span style=\"font-size: 8px;\">Kickstarter umami Intelligentsia kogi. Try-hard flannel literally, chambray blog crucifix put a bird on it four dollar toast cardigan scenester aesthetic</span></span></div>",
                                     "position": {
@@ -324,8 +324,8 @@ angular.module('addSession', [])
                     "eleTemplateType": "session-default",
                     "$$hashKey": "object:138"
                 };
-                var session8 = {
-                    "ID": "session2",
+                var session3 = {
+                    "ID": builderTool.createID(),
                     "type": "session",
                     "name": "Banner",
                     "background": {
@@ -347,7 +347,7 @@ angular.module('addSession', [])
                     },
                     "eleList": [
                         {
-                            "ID": "ele14721838151311",
+                            "ID": builderTool.createID(),
                             "type": "group",
                             "position": {
                                 "left": "-77px",
@@ -362,7 +362,7 @@ angular.module('addSession', [])
                             },
                             "eleList": [
                                 {
-                                    "ID": "ele147218307819311",
+                                    "ID": builderTool.createID(),
                                     "type": "text",
                                     "textValue": "<div><span style=\"font-family: Helvetica;\"><span style=\"font-size: 24px;\">Design &amp; Features</span></span></div>",
                                     "position": {
@@ -392,7 +392,7 @@ angular.module('addSession', [])
                                     "state": "select"
                                 },
                                 {
-                                    "ID": "ele147218312611921",
+                                    "ID": builderTool.createID(),
                                     "type": "text",
                                     "textValue": "<div><span style=\"font-family: Candara;color:#7d7f84\">Flannel ennui narwhal, craft beer twee Vice plaid authentic synth.</span></div>",
                                     "position": {
@@ -423,7 +423,7 @@ angular.module('addSession', [])
                                     "state": "select"
                                 },
                                 {
-                                    "ID": "ele147218321112531",
+                                    "ID": builderTool.createID(),
                                     "type": "text",
                                     "textValue": "<div><span style=\"font-size: 9px;\">Kickstarter umami Intelligentsia Try-hard flannel literally, chambray blog crucifix put a bird on it four dollar toast cardigan  aesthetic sartorial chia messenger bag Pinterest.&nbsp;</span></div>",
                                     "position": {
@@ -454,7 +454,7 @@ angular.module('addSession', [])
                                     "state": "select"
                                 },
                                 {
-                                    "ID": "ele147218331687641",
+                                    "ID": builderTool.createID(),
                                     "type": "image",
                                     "position": {
                                         "left": "0px",
@@ -512,7 +512,7 @@ angular.module('addSession', [])
                             "state": "select"
                         },
                         {
-                            "ID": "a39037",
+                            "ID": builderTool.createID(),
                             "type": "group",
                             "position": {
                                 "left": "359px",
@@ -527,7 +527,7 @@ angular.module('addSession', [])
                             },
                             "eleList": [
                                 {
-                                    "ID": "ele147218307819312",
+                                    "ID": builderTool.createID(),
                                     "type": "text",
                                     "textValue": "<div><span style=\"font-family: Helvetica;\"><span style=\"font-size: 24px;\">Design &amp; Features</span></span></div>",
                                     "position": {
@@ -556,7 +556,7 @@ angular.module('addSession', [])
                                     }
                                 },
                                 {
-                                    "ID": "ele147218312611922",
+                                    "ID": builderTool.createID(),
                                     "type": "text",
                                     "textValue": "<div><span style=\"font-family: Candara;color:#7d7f84\">Flannel ennui narwhal, craft beer twee Vice plaid authentic synth.</span></div>",
                                     "position": {
@@ -586,7 +586,7 @@ angular.module('addSession', [])
                                     }
                                 },
                                 {
-                                    "ID": "ele147218321112532",
+                                    "ID": builderTool.createID(),
                                     "type": "text",
                                     "textValue": "<div><span style=\"font-size: 9px;\">Kickstarter umami Intelligentsia Try-hard flannel literally, chambray blog crucifix put a bird on it four dollar toast cardigan  aesthetic sartorial chia messenger bag Pinterest.&nbsp;</span></div>",
                                     "position": {
@@ -616,7 +616,7 @@ angular.module('addSession', [])
                                     }
                                 },
                                 {
-                                    "ID": "ele147218331687642",
+                                    "ID": builderTool.createID(),
                                     "type": "image",
                                     "position": {
                                         "left": "0px",
@@ -672,7 +672,7 @@ angular.module('addSession', [])
                             }
                         },
                         {
-                            "ID": "a78726",
+                            "ID": builderTool.createID(),
                             "type": "group",
                             "position": {
                                 "left": "785px",
@@ -687,7 +687,7 @@ angular.module('addSession', [])
                             },
                             "eleList": [
                                 {
-                                    "ID": "ele147218307819313",
+                                    "ID": builderTool.createID(),
                                     "type": "text",
                                     "textValue": "<div><span style=\"font-family: Helvetica;\"><span style=\"font-size: 24px;\">Design &amp; Features</span></span></div>",
                                     "position": {
@@ -716,7 +716,7 @@ angular.module('addSession', [])
                                     }
                                 },
                                 {
-                                    "ID": "ele147218312611923",
+                                    "ID": builderTool.createID(),
                                     "type": "text",
                                     "textValue": "<div><span style=\"font-family: Candara;color:#7d7f84\">Flannel ennui narwhal, craft beer twee Vice plaid authentic synth.</span></div>",
                                     "position": {
@@ -746,7 +746,7 @@ angular.module('addSession', [])
                                     }
                                 },
                                 {
-                                    "ID": "ele147218321112533",
+                                    "ID": builderTool.createID(),
                                     "type": "text",
                                     "textValue": "<div><span style=\"font-size: 9px;\">Kickstarter umami Intelligentsia Try-hard flannel literally, chambray blog crucifix put a bird on it four dollar toast cardigan  aesthetic sartorial chia messenger bag Pinterest.&nbsp;</span></div>",
                                     "position": {
@@ -776,7 +776,7 @@ angular.module('addSession', [])
                                     }
                                 },
                                 {
-                                    "ID": "ele147218331687643",
+                                    "ID": builderTool.createID(),
                                     "type": "image",
                                     "position": {
                                         "left": "0px",
@@ -842,15 +842,15 @@ angular.module('addSession', [])
                 scope.sessionList = [
                     {
                         preview: 'images/session/session6.png',
-                        sessionData: session6
+                        sessionData: session1
                     },
                     {
                         preview: 'images/session/session7.png',
-                        sessionData: session7
+                        sessionData: session2
                     },
                     {
                         preview: 'images/session/session8.png',
-                        sessionData: session8
+                        sessionData: session3
                     }
                 ];
                 scope.addSession = function (obj) {
