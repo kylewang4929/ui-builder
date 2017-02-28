@@ -32,12 +32,15 @@
     "grunt-contrib-less": "^1.0.0",
     "vinyl-fs": "2.2.1",
     "karma": "^1.2.0",
-    "jasmine-core":"2.5.0" 
+    "jasmine-core": "2.5.0"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
     "test": "grunt test"
+  },
+  "dependencies": {
+    "grunt-cli": "^1.2.0"
   }
 }
