@@ -1,4 +1,4 @@
-FROM daocloud.io/kylewang/my-builder
+FROM daocloud.io/nginx
 
 WORKDIR /app
 ADD package.json /app/
