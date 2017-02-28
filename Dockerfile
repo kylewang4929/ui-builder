@@ -11,5 +11,5 @@ RUN sudo grunt build && \
     cp -R /app/dist/*  /usr/share/nginx/html && \
     rm -rf /app
 
-CMD ["bower", "grunt"]
+CMD ["bower", "grunt", "sudo"]
 ENTRYPOINT ["nginx", "-g","daemon off;"]
