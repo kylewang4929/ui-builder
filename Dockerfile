@@ -1,5 +1,5 @@
 FROM daocloud.io/nginx
-FROM docker.com/nodejs-bower-grunt:latest
+FROM digitallyseamless/nodejs-bower-grunt:latest
 
 WORKDIR /app
 ADD package.json /app/
