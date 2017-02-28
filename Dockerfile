@@ -4,12 +4,13 @@ FROM daocloud.io/node
 WORKDIR /app
 ADD package.json /app/
 RUN npm install -g bower grunt-cli
-RUN sudo bower install
-RUN npm install
+RUN npm install cnpm -g
+RUN bower install
+RUN cnpm npm install
 ADD . /app/
-RUN sudo grunt build && \
+RUN grunt build && \
     cp -R /app/dist/*  /usr/share/nginx/html && \
     rm -rf /app
 
-CMD ["bower", "grunt", "sudo"]
+CMD ["bower", "grunt", "cnpm"]
 ENTRYPOINT ["nginx", "-g","daemon off;"]
