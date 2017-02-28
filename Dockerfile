@@ -5,6 +5,7 @@ WORKDIR /app
 ADD package.json /app/
 RUN npm install -g bower grunt-cli
 RUN npm install cnpm -g
+ADD bower.json /app/
 RUN bower install --allow-root
 RUN cnpm install --allow-root
 ADD . /app/
