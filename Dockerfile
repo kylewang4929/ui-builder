@@ -4,10 +4,10 @@ FROM daocloud.io/node
 WORKDIR /app
 ADD package.json /app/
 RUN npm install -g bower grunt-cli
-RUN bower install
+RUN sudo bower install
 RUN npm install
 ADD . /app/
-RUN grunt build && \
+RUN sudo grunt build && \
     cp -R /app/dist/*  /usr/share/nginx/html && \
     rm -rf /app
 
