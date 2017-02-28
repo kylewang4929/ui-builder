@@ -1,5 +1,5 @@
 FROM daocloud.io/nginx
-FROM daocloud.io/node:0.10-onbuild
+FROM daocloud.io/node
 
 WORKDIR /app
 ADD package.json /app/
