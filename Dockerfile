@@ -5,9 +5,9 @@ RUN npm install -g cnpm
 
 WORKDIR /app
 ADD . /app/
-ADD package.json
+ADD package.json ./
 RUN cnpm install --allow-root
-ADD bower.json
+ADD bower.json ./
 RUN bower install --allow-root
 RUN grunt build && \
     cp -R /app/dist/*  /usr/share/nginx/html && \
