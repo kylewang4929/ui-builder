@@ -1,11 +1,12 @@
 FROM daocloud.io/gizwits2015/g-node-with-nginx-image:latest
+FROM digitallyseamless/nodejs-bower-grunt:latest
 
-RUN npm install -g bower grunt-cli cnpm
+RUN npm install -g cnpm
 RUN mkdir /npm-cache
 WORKDIR /npm-cache
-ADD package.json
+ADD package.json ./
 RUN cnpm install --allow-root
-ADD bower.json
+ADD bower.json ./
 RUN bower install --allow-root
 
 WORKDIR /app
