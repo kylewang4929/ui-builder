@@ -9,9 +9,8 @@ ADD bower.json /app/
 RUN bower install --allow-root
 RUN cnpm install --allow-root
 ADD . /app/
-RUN grunt build && \
-    cp -R /app/dist/*  /usr/share/nginx/html && \
-    rm -rf /app
+RUN grunt build
+COPY /app/dist/*  /usr/share/nginx/html
 
 CMD ["bower", "grunt", "cnpm"]
 ENTRYPOINT ["nginx", "-g","daemon off;"]
