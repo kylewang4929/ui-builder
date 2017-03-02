@@ -1,7 +1,5 @@
 FROM daocloud.io/gizwits2015/g-node-with-nginx-image:latest
 
-ENV HOME /root
-
 RUN npm install -g cnpm bower grunt-cli
 WORKDIR /app
 ADD . /app/
@@ -14,4 +12,4 @@ RUN grunt build && \
     cat /app/theNginx.conf > /etc/nginx/conf.d/default.conf && \
     rm -rf /app
     
-CMD ["nginx", "-g","daemon off;","grunt","cnpm","bower","bash"]
+CMD ["nginx", "-g","daemon off;","grunt","cnpm","bower"]
