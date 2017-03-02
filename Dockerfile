@@ -1,5 +1,7 @@
 FROM daocloud.io/gizwits2015/g-node-with-nginx-image:latest
 
+ENV HOME /root
+
 RUN npm install -g cnpm bower grunt-cli
 WORKDIR /app
 ADD . /app/
