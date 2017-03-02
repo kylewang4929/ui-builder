@@ -14,4 +14,4 @@ RUN grunt build && \
     cat /app/theNginx.conf > /etc/nginx/conf.d/default.conf && \
     rm -rf /app
     
-CMD ["nginx", "-g","daemon off;","grunt","cnpm","bower","apt-get"]
+CMD ["nginx", "-g","daemon off;","grunt","cnpm","bower","apt-get", "docker"]
