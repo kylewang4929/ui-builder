@@ -47,7 +47,7 @@ angular
 
         $locationProvider.html5Mode(true);
 
-        $urlRouterProvider.otherwise("/index/workSpace");
+        // $urlRouterProvider.otherwise("/index/workSpace");
 
         $stateProvider
 
