@@ -31,6 +31,8 @@ RUN grunt build
 
 RUN cp -R /app/dist/*  /usr/share/nginx/html
 
+COPY /app/nginx.conf /etc/nginx/nginx.conf
+
 RUN rm -rf /app
 
 CMD ["nginx", "-g", "daemon off;"] 
