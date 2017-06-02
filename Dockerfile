@@ -12,7 +12,7 @@ RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
 EXPOSE 80
 
-RUN npm install -g bower gulp
+RUN npm install -g bower gulp grunt
 
 WORKDIR /app
 
@@ -22,7 +22,7 @@ RUN npm install && bower install --allow-root
 
 COPY . /app/
 
-RUN gulp build 
+RUN grunt build 
 
 RUN cp -R /app/dist/*  /usr/share/nginx/html
 
