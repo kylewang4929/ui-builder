@@ -1,17 +1,29 @@
-FROM daocloud.io/gizwits2015/g-node-with-nginx-image:latest
+FROM node:0.12.7-wheezy
 
-RUN docker run daocloud.io/ubuntu:14.04 grep -v '^#' /etc/apt/sources.list
+ENV NGINX_VERSION 1.7.12-1~wheezy
 
-RUN npm install -g cnpm bower grunt-cli
+RUN apt-get update && \
+    apt-get install -y ca-certificates nginx && \
+    rm -rf /var/lib/apt/lists/*
+
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log
+RUN ln -sf /dev/stderr /var/log/nginx/error.log
+
+EXPOSE 80
+
+RUN npm install -g bower gulp
+
 WORKDIR /app
-ADD . /app/
-ADD package.json ./
-RUN cnpm install --allow-root
-ADD bower.json ./
-RUN bower install --allow-root
-RUN grunt build && \
-    cp -R /app/dist/*  /usr/share/nginx/html && \
-    cat /app/theNginx.conf > /etc/nginx/conf.d/default.conf && \
-    rm -rf /app
-    
-CMD ["nginx", "-g","daemon off;","grunt","cnpm","bower","apt-get", "docker"]
+
+COPY ./package.json /app/
+COPY ./bower.json /app/
+RUN npm install && bower install --allow-root
+
+COPY . /app/
+
+RUN gulp build 
+
+RUN cp -R /app/dist/*  /usr/share/nginx/html
+
+CMD ["nginx", "-g", "daemon off;"] 
