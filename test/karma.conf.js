@@ -32,6 +32,8 @@ module.exports = function(config) {
       'bower_components/velocity/velocity.ui.js',
       'bower_components/moment/moment.js',
       'bower_components/lumx/dist/lumx.js',
+      'bower_components/slimScroll/jquery.slimscroll.js',
+      'bower_components/slimScroll/jquery.slimscroll.min.js',
       'bower_components/angular-slimscroll/angular-slimscroll.js',
       'bower_components/oclazyload/dist/ocLazyLoad.js',
       'bower_components/perfect-scrollbar/src/perfect-scrollbar.js',

@@ -8,7 +8,8 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
+                console.dir(element.get(0).eleConfig);
                 var template = "";
                 if (attrs.thumbnail) {
                     template = "<div class='ele-session-box' id=" + data.ID + " ele-type='session'>" +
@@ -39,7 +40,7 @@ angular.module('myBuilderApp')
             },
             replace: false,
             compile: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 //插入背景
                 var dom = $(element).find(".ele-session-box");
                 //渲染背景样式
@@ -72,7 +73,7 @@ angular.module('myBuilderApp')
                 }
 
                 return function (scope, element, attrs) {
-                    var data = element.context.eleConfig;
+                    var data = element.get(0).eleConfig;
 
                     /**
                      * 这个地方需要加入resize监听，
@@ -93,7 +94,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
                     template = "<div class='ele-session-box' id=" + data.ID + " ele-type='session'>" +
@@ -126,7 +127,7 @@ angular.module('myBuilderApp')
             },
             replace: false,
             compile: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 //插入背景
 
                 var dom = $(element).find(".ele-session-box");
@@ -161,7 +162,7 @@ angular.module('myBuilderApp')
                 }
 
                 return function (scope, element, attrs) {
-                    var data = element.context.eleConfig;
+                    var data = element.get(0).eleConfig;
 
                     /**
                      * 这个地方需要加入resize监听，
@@ -187,7 +188,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var template = "";
 
                 if (attrs.thumbnail) {
@@ -220,7 +221,7 @@ angular.module('myBuilderApp')
             replace: false,
             link: function (scope, element, attrs) {
 
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 eleApplyService.defaultApply($(element).find(">.position-box"), data);
 
                 $timeout(function () {
@@ -236,7 +237,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
                     template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" background-size="' + data.backgroundSize + '">',
@@ -268,7 +269,7 @@ angular.module('myBuilderApp')
             },
             replace: false,
             link: function (scope, element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 eleApplyService.defaultApply($(element).find(">.position-box"), data);
             }
         };
@@ -277,7 +278,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
                     template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box">',
@@ -313,7 +314,7 @@ angular.module('myBuilderApp')
             },
             replace: false,
             compile: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var dom = $(element).find("> .position-box");
                 var domStyle = dom.find(" >.ele-box >.ele");
                 for (var i = 0; i < data.eleList.length; i++) {
@@ -321,7 +322,7 @@ angular.module('myBuilderApp')
                 }
 
                 return function (scope, element, attrs) {
-                    var data = element.context.eleConfig;
+                    var data = element.get(0).eleConfig;
                     eleApplyService.defaultApply($(element).find(">.position-box"), data);
                 };
             }
@@ -331,7 +332,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
                     template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box">',
@@ -364,7 +365,7 @@ angular.module('myBuilderApp')
             },
             replace: false,
             link: function (scope, element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
 
                 //插入item
                 var dom = $(element).find("> .position-box");
@@ -397,7 +398,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
                     template = "<div class='ele-session-box' id=" + data.ID + " ele-type='session')>" +
@@ -419,7 +420,7 @@ angular.module('myBuilderApp')
             },
             replace: false,
             compile: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 //插入背景
                 var dom = $(element).find(".ele-session-box");
                 //渲染背景样式
@@ -462,7 +463,7 @@ angular.module('myBuilderApp')
 
                 return function (scope, element, attrs) {
 
-                    var data = element.context.eleConfig;
+                    var data = element.get(0).eleConfig;
                     /**
                      * 这个地方需要加入resize监听，
                      * 如果改变了大小需要重新计算
@@ -482,7 +483,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
                     template = "<div class='ele-session-box' id=" + data.ID + " ele-type='session')>" +
@@ -504,7 +505,7 @@ angular.module('myBuilderApp')
             },
             replace: false,
             compile: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 //插入背景
                 var dom = $(element).find(".ele-session-box");
                 //渲染背景样式
@@ -547,7 +548,7 @@ angular.module('myBuilderApp')
 
                 return function (scope, element, attrs) {
 
-                    var data = element.context.eleConfig;
+                    var data = element.get(0).eleConfig;
                     /**
                      * 这个地方需要加入resize监听，
                      * 如果改变了大小需要重新计算
@@ -571,7 +572,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
                     template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box">',
@@ -602,7 +603,7 @@ angular.module('myBuilderApp')
             },
             replace: false,
             link: function (scope, element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
 
                 eleApplyService.phoneDefaultApply($(element).find(">.position-box"), data);
 
@@ -638,7 +639,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
                     template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box" background-size="' + data.backgroundSize + '">',
@@ -671,7 +672,7 @@ angular.module('myBuilderApp')
             },
             replace: false,
             link: function (scope, element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 eleApplyService.phoneDefaultApply($(element).find(">.position-box"), data);
             }
         };
@@ -680,7 +681,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
                     template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box">',
@@ -717,14 +718,14 @@ angular.module('myBuilderApp')
             },
             replace: false,
             compile: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var dom = $(element).find(">.position-box");
                 var domStyle = dom.find(" >.ele-box >.ele");
                 for (var i = 0; i < data.eleList.length; i++) {
                     domStyle.append(phoneCreatorServices.createEle(data.eleList[i]));
                 }
                 return function (scope, element, attrs) {
-                    var data = element.context.eleConfig;
+                    var data = element.get(0).eleConfig;
                     eleApplyService.phoneDefaultApply($(element).find(">.position-box"), data);
 
                     $timeout(function () {
@@ -741,7 +742,7 @@ angular.module('myBuilderApp')
         return {
             restrict: 'AE',
             template: function (element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
                 var template = "";
                 if (attrs.thumbnail) {
                     template = ['<div id="' + data.ID + '" ele-type="' + data.type + '" class="position-box">',
@@ -772,7 +773,7 @@ angular.module('myBuilderApp')
             },
             replace: false,
             link: function (scope, element, attrs) {
-                var data = element.context.eleConfig;
+                var data = element.get(0).eleConfig;
 
                 var dom = $(element).find(">.position-box");
                 var domStyle = dom.find(" >.ele-box >.ele");

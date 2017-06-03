@@ -418,7 +418,6 @@ angular.module('myBuilderApp')
                     eleDom.css("margin-top", -height + "px");
 
                     $(eleDom).resize(function () {
-
                         //当元素被隐藏的时候不调整高度
                         if (eleDom.is(":hidden")) {
                             return;
@@ -464,7 +463,6 @@ angular.module('myBuilderApp')
                 $(element).find(" >.resize").on("mousedown", function (e) {
 
                     e.stopPropagation();
-
                     //通知拖动开始
                     $rootScope.$emit("eleDragStart");
 

@@ -36,20 +36,18 @@ angular
         "eleMenu",
         "addSession",
         "kyle.imageLibrary",
-        "kyle.imageCrop"   
+        "kyle.imageCrop", 
     ])
-    .config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider, $locationProvider, $qProvider) {
+    .config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider, $locationProvider) {
 
         $ocLazyLoadProvider.config({
             // Set to true if you want to see what and when is dynamically loaded
             debug: false
         });
 
-        $locationProvider.html5Mode(true);
+        // $locationProvider.html5Mode(true);
 
-        $qProvider.errorOnUnhandledRejections(false);
-
-        // $urlRouterProvider.otherwise("/index/workSpace");
+        $urlRouterProvider.otherwise("/index/workSpace");
 
         $stateProvider
 
