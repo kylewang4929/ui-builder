@@ -38,7 +38,7 @@ angular
         "kyle.imageLibrary",
         "kyle.imageCrop"   
     ])
-    .config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider, $locationProvider) {
+    .config(function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider, $locationProvider, $qProvider) {
 
         $ocLazyLoadProvider.config({
             // Set to true if you want to see what and when is dynamically loaded
@@ -46,6 +46,8 @@ angular
         });
 
         $locationProvider.html5Mode(true);
+
+        $qProvider.errorOnUnhandledRejections(false);
 
         // $urlRouterProvider.otherwise("/index/workSpace");
 
