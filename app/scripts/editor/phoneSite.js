@@ -18,8 +18,9 @@ angular.module('phoneSiteEditor', [])
                 $("#" + sessionID + ".ele-session-box").append(dom);
             },
             hideEle: function (ID, type) {
+                console.log(ID);
                 if (type === 'session') {
-                    $("#" + ID + ".ele-session-box").hide();
+                    $("#" + ID + ".ele-session-box").parent('.ele-session-box-container').hide();
                 }
                 if (type === 'ele') {
                     $("#" + ID + ".position-box").parent('.position-box-parent').hide();
@@ -27,7 +28,8 @@ angular.module('phoneSiteEditor', [])
             },
             showEle: function (ID, type) {
                 if (type == 'session') {
-                    $("#" + ID + ".ele-session-box").show();
+                    $("#" + ID + ".ele-session-box").parent('.ele-session-box-container').show();
+                    console.log($("#" + ID + ".ele-session-box"));
                 }
                 if (type == 'ele') {
                     $("#" + ID + ".position-box").parent('.position-box-parent').show();

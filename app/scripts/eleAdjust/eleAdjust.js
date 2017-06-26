@@ -1191,6 +1191,9 @@ angular.module('myBuilderApp')
                     deg = 360 - cc || 360 - dd;
                 }
                 return deg >= 360 ? 0 : deg;
+            },
+            getScaleFormatrix : function(a, b, c, d, e, f) {
+                return {x: a, y: d};
             }
         };
         return handle;

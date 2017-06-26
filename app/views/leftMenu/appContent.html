@@ -12,7 +12,7 @@
                     </div>
                     <div class="preview-menu">
                         <i class="mdi mdi-crosshairs-gps" ng-click="locateEleForPhone(session,'session')"></i>
-                        <i class="mdi mdi-eye" ng-class="{true:'active mdi-eye-off',false:'mdi-eye'}[session.showState==false]" ng-click="toggleSession(session.ID,session.showState)"></i>
+                        <i class="mdi mdi-eye" ng-class="{true:'active mdi-eye-off',false:'mdi-eye'}[session.showState==false]" ng-click="toggleSession(session.ID,session.showState, session)"></i>
                     </div>
                 </div>
             </perfect-scrollbar>

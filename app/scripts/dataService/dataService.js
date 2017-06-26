@@ -107,6 +107,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                         phoneHistoryLog.pushHistoryLog(obj, historyType, 'showSession');
 
                         //删除元素
+                        console.log(ID);
                         phoneBuilderTool.showEle(ID, 'session');
                     }
                 }
