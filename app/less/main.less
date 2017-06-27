@@ -599,26 +599,13 @@ html, body {
       height: 100%;
       background-size: 20px 20px;
 
-      & .edit-space {
-        &.phone {
-          padding-bottom: 50px;
-          padding-top: 0px;
-          overflow: hidden;
-        }
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2) inset;
-        width: 100%;
-        height: 100%;
-        padding-top: @barHeight;
-        overflow: hidden;
-
-        // & .ele-session-box-container{
-        //   &:hover{
-        //     & .ele-session-box{
-        //       pointer-events:auto!important;
-        //     }
+      .ele-session-box-container{
+        // &:hover{
+        //   & .ele-session-box{
+        //     pointer-events:auto!important;
         //   }
         // }
-        //sesstion的class
+
         & .ele-session-box {
           // pointer-events: none;
 
@@ -708,7 +695,7 @@ html, body {
             } 
             
             .close-user-select;
-             
+            
             cursor: pointer; 
             color: #fff;
             width: 26px;
@@ -742,7 +729,7 @@ html, body {
             width: 1024px;
             margin: auto; 
           } 
- 
+
           &:hover {
             & .session-resize {
               transform: scale(1, 1);
@@ -791,6 +778,21 @@ html, body {
           }
 
         }
+      }
+      //sesstion的class
+
+      & .edit-space {
+        &.phone {
+          padding-bottom: 50px;
+          padding-top: 0px;
+          overflow: hidden;
+        }
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2) inset;
+        width: 100%;
+        height: 100%;
+        padding-top: @barHeight;
+        overflow: hidden;
+        
 
       }
     }

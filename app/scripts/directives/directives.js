@@ -83,6 +83,29 @@ angular.module('myBuilderApp')
             scope: { createThumbnail: "=", type: "@", eleType: "@", layout: "@" ,previewHeight: '@'},
             link: function (scope, element, attrs) {
 
+                /**
+                 *获取比例
+                 */
+                function getRatio(borderDom, previewBox) {
+                    var percent = 1;
+                    var percentX = 1;
+                    var percentY = previewBox.height == 'auto'? 0: 1;
+                    var scaleFlag = false;
+                    if (borderDom.width() > previewBox.width) {
+                        percentX = previewBox.width / borderDom.width();
+                    }
+                    if (borderDom.height() > previewBox.height) {
+                        percentY = previewBox.height / parseInt(borderDom.css('min-height'));
+                    }
+                    console.log('x', percentX, 'y', percentY, 'preview', previewBox);
+                    
+                    if (percentX < percentY) {
+                        percent = percentY;
+                    } else {
+                        percent = percentX;
+                    }
+                    return percent;
+                }
                 var previewBox = {
                     width: $(element).width(),
                     height: 'auto'
@@ -146,39 +169,11 @@ angular.module('myBuilderApp')
                 //     var height = ele.height();
                 //     ele.css('margin-top', -height / 2);
                 // }
-
-                if (attrs.eleType === 'session' && attrs.type === 'phone') {
-                    element.css('top', '50%');
-                    element.css('margin-top', -(element.height() * 0.35) / 2);
-                }
-                if (attrs.eleType === 'session' && attrs.type === 'web') {
-                    element.css('top', '50%');
-                    element.css('margin-top', -(element.height() * 0.095) / 2);
-                }
-                if (attrs.eleType === 'session') {
-
-                }
+                var eleDom = $(element).find('> .position-box-parent > .position-box');
+                var borderDom = eleDom.find(' > .ele-box');
                 if (attrs.eleType === 'ele') {
-                    var eleDom = $(element).find('> .position-box-parent > .position-box');
-                    var borderDom = eleDom.find(' > .ele-box');
-
                     //先找出宽和高哪个比较大然后再对比
-                    var percent = 1;
-                    var percentX = 1;
-                    var percentY = 1;
-                    var scaleFlag = false;
-                    if (borderDom.width() > previewBox.width) {
-                        percentX = previewBox.width / borderDom.width();
-                    }
-                    if (borderDom.height() > previewBox.height) {
-                        percentY = previewBox.height / parseInt(borderDom.css('min-height'));
-                    }
-
-                    if (percentX < percentY) {
-                        percent = percentY;
-                    } else {
-                        percent = percentX;
-                    }
+                    var percent = getRatio(borderDom, previewBox);
 
                     if (scope.layout === "normal") {
                         eleDom.css('position', 'static');
@@ -191,6 +186,17 @@ angular.module('myBuilderApp')
                         //设置origin
                         borderDom.css({ "transform-origin": "50% 50%", "-ms-transform-origin": "50% 50%", "-moz-transform-origin": "50% 50%", "-webkit-transform-origin": "50% 50%", "-o-transform-origin": "50% 50%" });
                     }
+                }
+
+                if (attrs.eleType === 'session' && attrs.type === 'phone') {
+                    element.css('top', '50%');
+                    element.css('margin-top', -(element.height() * 0.35) / 2);
+                }
+                if (attrs.eleType === 'session' && attrs.type === 'web') {
+                    element.css('top', '50%');
+                    element.css('margin-top', -(element.height() * 0.095) / 2);
+                }
+                if (attrs.eleType === 'session') {
                 }
 
             }

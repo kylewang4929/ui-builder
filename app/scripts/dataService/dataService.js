@@ -1,4 +1,5 @@
 "use strict";
+
 angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
     .factory('websiteData', function (historyLog, phoneHistoryLog, phoneBuilderTool, builderTool, $http, $q, $timeout,activePageService,imageCropService) {
 
@@ -106,6 +107,7 @@ angular.module('dataService', ['historyLog','webSiteEditor','phoneSiteEditor'])
                         phoneHistoryLog.pushHistoryLog(obj, historyType, 'showSession');
 
                         //删除元素
+                        console.log(ID);
                         phoneBuilderTool.showEle(ID, 'session');
                     }
                 }

@@ -99,7 +99,8 @@ angular.module('myBuilderApp')
             }
         };
 
-        $scope.toggleSession=function(ID,state){
+        $scope.toggleSession=function(ID,state, ele){
+            console.log('hidden', JSON.parse(JSON.stringify(ele)));            
             if(state!==false){
                 websiteData.hideSession(ID);
             }else{

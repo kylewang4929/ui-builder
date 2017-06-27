@@ -8,7 +8,7 @@
         "type": "head",
         "name": "导航",
         "background": {
-            "url": "images/video/banner1.webm",
+            "url": "http://obo7gtx2x.bkt.clouddn.com/banner1.webm",
             "type": "video",
             "previewImage": "images/video/banner1.jpg",
             "color": ""

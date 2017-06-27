@@ -312,7 +312,7 @@ angular.module('webSiteEditor',['creator','kyle.imageCrop'])
                     //宽铺满
                     if(originalVideoData.height < sessionData.height){
                         //高填充
-                        videoDom.css({'height':sessionData.height+6,'left':'50%','width':'auto','margin-top':'0px','top':'0px'});
+                        videoDom.css({'min-height':sessionData.height+6,'left':'50%','width':'auto','margin-top':'0px','top':'0px'});
                         $timeout(function(){
                             videoDom.css({'margin-left':-videoDom.width()/2});
                         });
