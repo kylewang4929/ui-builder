@@ -11,5 +11,5 @@ Run `grunt` for building and `grunt serve` for preview.
 
 Running `grunt test` will run the unit tests with karma.
 
-![5655D006-C949-4774-9717-196223C597C8.png](https://bitbucket.org/repo/RkobXz/images/1953779442-5655D006-C949-4774-9717-196223C597C8.png)
-![2DE97F88-F682-46DA-94AA-445672EA8B62.png](https://bitbucket.org/repo/RkobXz/images/3969398308-2DE97F88-F682-46DA-94AA-445672EA8B62.png)
+![5655D006-C949-4774-9717-196223C597C8.png](http://obo7gtx2x.bkt.clouddn.com/1953779442-5655D006-C949-4774-9717-196223C597C8.png)
+![2DE97F88-F682-46DA-94AA-445672EA8B62.png](http://obo7gtx2x.bkt.clouddn.com/3969398308-2DE97F88-F682-46DA-94AA-445672EA8B62.png)
